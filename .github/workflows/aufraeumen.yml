@@ -4,10 +4,8 @@ name: Aufräumen
 # Läuft nach jeder Veröffentlichung und lässt sich zusätzlich von Hand starten.
 
 on:
-  # Erst wenn die Veröffentlichung durch ist, damit nie der laufende Stand erwischt wird.
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types: [completed]
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -29,6 +27,26 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const bericht = [];
+
+            // Erst warten, bis der Build zu diesem Commit durch ist: sonst wird der
+            // gerade ausliefernde Stand erwischt, bevor der neue fertig ist.
+            const kurz = context.sha.slice(0, 7);
+            for (let versuch = 0; versuch < 36; versuch++) {
+              try {
+                const { data } = await github.rest.repos.listPagesBuilds({ owner, repo, per_page: 10 });
+                const meins = data.filter((b) => (b.commit || '').startsWith(kurz));
+                if (meins.length === 0) {
+                  if (versuch >= 3) break;
+                } else if (meins.every((b) => b.status !== 'building')) {
+                  bericht.push(`Build ${kurz} fertig (${meins[0].status})`);
+                  break;
+                }
+              } catch (e) {
+                bericht.push(`Build-Stand nicht lesbar: ${e.status}`);
+                break;
+              }
+              await new Promise((r) => setTimeout(r, 5000));
+            }
 
             // 1) Veröffentlichungen — der jüngste Eintrag bleibt der aktive.
             try {
