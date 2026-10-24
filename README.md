@@ -5,12 +5,13 @@ Browser läuft — ohne Installation, ohne Konto, ohne Internetverbindung.
 
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
-| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 452 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
-| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,3 MB | Erklären, nachschlagen, Ablauf begleiten |
+| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 466 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
+| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,5 MB | Erklären, nachschlagen, Ablauf begleiten |
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
 Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
-(Deutsch/Englisch), hell, dunkel und creme.
+(Deutsch/Englisch), hell, dunkel und creme. Beide Programme gibt es auf Deutsch,
+Englisch und Spanisch.
 
 ---
 
@@ -86,7 +87,7 @@ Tabellen und begleitet den Ablauf Schritt für Schritt.
 |---|---|
 | Simple Tuning | Betaflight vorbereiten, Logs lesen, Profil abstimmen |
 | Advanced Tuning | Advanced Tune, Sbang oder einzelne Einstellungen |
-| Technik & Referenz | Filterbegriffe, Werte und Tabellen zum Nachschlagen |
+| Technik & Referenz | Filterbegriffe, Werte, ELRS- und Crossfire-Funkstrecken |
 | Build-Guide | mechanisch und elektrisch saubere Basis vor dem Erstflug |
 | Glossar | 95 Begriffe, aufrufbar direkt aus dem Text |
 | Quellen & Links | Originalanleitungen, Dokumentation, Werkzeuge |
@@ -99,6 +100,7 @@ bestimmt, welche Kapitel und Tabellen der Guide zeigt.
 
 ### Grenzen
 
+- Spanisch ist eine ungeprüfte Vorschau, nicht überprüfte Stellen erscheinen englisch.
 - Betaflight- und ESC-Werte bleiben firmware- und hardwareabhängig.
 - Eine große Datei: der erste Aufruf dauert einen Moment, danach liegt sie im Cache.
 - Sbang bleibt inhaltlich und im Ablauf unverändert.
@@ -147,13 +149,15 @@ Browser.
 |---|---|---|---|---|
 | **Deutsch** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) |
 | **English** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) |
-| **Español** | nicht geprüft | nein | — | — |
+| **Español** | Vorschau, nicht geprüft | nein | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) |
 
 Deutsch und Englisch sind in beiden Programmen vollständig: Oberfläche, Meldungen,
-Glossar und Kapitel. Spanisch ist nicht geprüft und deshalb ohne Freigabe verlinkt.
+Glossar und Kapitel. Spanisch ist übersetzt und auswählbar, aber in keinem Bereich
+geprüft — das Programm zeigt deshalb einen dauerhaften Hinweis, und nicht überprüfte
+Stellen fallen auf Englisch zurück.
 
-Die Sprache steht in der Adresse: `?lang=de` oder `?lang=en`. Ohne Angabe gilt die
-zuletzt gewählte Sprache im Browser, sonst Deutsch.
+Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
+erkennt das Programm die Browsersprache, sonst Deutsch.
 
 ---
 
@@ -161,11 +165,11 @@ zuletzt gewählte Sprache im Browser, sonst Deutsch.
 
 | | Tuner | Guide |
 |---|---|---|
-| Version | `v4.8-alpha.1` | `v1.0.1-beta.1` |
+| Version | `v4.8-alpha.1` | `v1.0.1-beta.4-es` |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
-| Größe | 451.847 B | 7.290.376 B |
-| SHA-256 | `9e7466ddb5f8a32c322f4b1567daa2b5e47a90cd4939b6c2aa504f67e706a586` | `ad50868cd8d472b073621d83e4e06ada2875582c3353b346a35a729c3d370474` |
+| Größe | 477.125 B | 7.643.939 B |
+| SHA-256 | `089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6` | `ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder.
 
@@ -181,6 +185,10 @@ Two single-file HTML programs for Betaflight tuning, running entirely in the bro
   neutral P/D, master, FF/I/D-Max, archive.
 - **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** — explains the workflow from the first build to fine
   tuning, with 95 glossary terms and reference tables.
+
+Both ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es. Spanish is
+translated but verified in no area — the program shows a permanent notice and falls
+back to English where text is unrevised.
 
 Neither needs an install, an account or an internet connection. The tuner requires
 Chrome or Edge on desktop for the flight-controller connection; everything else works

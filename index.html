@@ -252,7 +252,7 @@
       <div class="area-grid">
         <div class="area"><strong data-i18n="area.simple.t">Simple Tuning</strong><span data-i18n="area.simple.d">Betaflight vorbereiten, Logs lesen, Profil abstimmen.</span></div>
         <div class="area"><strong data-i18n="area.advanced.t">Advanced Tuning</strong><span data-i18n="area.advanced.d">Advanced Tune, Sbang oder einzelne Einstellungen.</span></div>
-        <div class="area"><strong data-i18n="area.ref.t">Technik &amp; Referenz</strong><span data-i18n="area.ref.d">Filterbegriffe, Werte und Tabellen zum Nachschlagen.</span></div>
+        <div class="area"><strong data-i18n="area.ref.t">Technik &amp; Referenz</strong><span data-i18n="area.ref.d">Filterbegriffe, Werte sowie ELRS- und Crossfire-Funkstrecken.</span></div>
         <div class="area"><strong data-i18n="area.build.t">Build-Guide</strong><span data-i18n="area.build.d">Mechanisch und elektrisch saubere Basis vor dem Erstflug.</span></div>
         <div class="area"><strong data-i18n="area.glossary.t">Glossar</strong><span data-i18n="area.glossary.d">95 Begriffe, direkt im Text aufrufbar.</span></div>
         <div class="area"><strong data-i18n="area.sources.t">Quellen &amp; Links</strong><span data-i18n="area.sources.d">Originalanleitungen, Dokumentation, Werkzeuge.</span></div>
@@ -282,10 +282,11 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="langs.eyebrow">Sprachen</p>
-      <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch nicht geprüft</h2>
+      <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch als Vorschau</h2>
       <p class="lede" data-i18n="langs.lede">
         Beide Programme liegen auf Deutsch und Englisch vollständig vor. Spanisch ist
-        begonnen und in keinem Bereich geprüft — es erscheint deshalb ohne Freigabe.
+        übersetzt und auswählbar, aber in keinem Bereich geprüft — im Programm steht
+        deshalb ein dauerhafter Hinweis, offene Stellen fallen auf Englisch zurück.
       </p>
     </div>
 
@@ -317,16 +318,16 @@
           </tr>
           <tr>
             <th scope="row"><strong>Español</strong><span class="lang-code">ES</span></th>
-            <td data-i18n="langs.status.unverified">nicht geprüft</td>
+            <td data-i18n="langs.status.preview">Vorschau, nicht geprüft</td>
             <td><span class="lang-flag lang-flag--open" data-i18n="langs.no">nein</span></td>
-            <td><span class="lang-missing" data-i18n="langs.none">kein Link</span></td>
-            <td><span class="lang-missing" data-i18n="langs.none">kein Link</span></td>
+            <td><a class="lang-link" href="tuner/?lang=es" data-i18n="langs.open">Tuner öffnen</a></td>
+            <td><a class="lang-link" href="guide/?lang=es" data-i18n="langs.openGuide">Guide öffnen</a></td>
           </tr>
         </tbody>
       </table>
       <p class="lang-note" data-i18n="langs.note">
-        Die Sprache steht in der Adresse: ?lang=de oder ?lang=en. Ohne Angabe gilt die
-        zuletzt gewählte Sprache im Browser, sonst Deutsch.
+        Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe
+        erkennt das Programm die Browsersprache, sonst Deutsch.
       </p>
     </div>
   </div>
