@@ -1,0 +1,98 @@
+name: Aufräumen
+
+# Hält den Verlauf kurz: von jedem neuen Stand bleibt nur der jüngste Eintrag stehen.
+# Läuft nach jeder Veröffentlichung und lässt sich zusätzlich von Hand starten.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+  actions: write
+
+concurrency:
+  group: aufraeumen
+  cancel-in-progress: false
+
+jobs:
+  aufraeumen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Alte Einträge entfernen
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const bericht = [];
+
+            // 1) Veröffentlichungen — der jüngste Eintrag bleibt der aktive.
+            try {
+              const alle = await github.paginate(github.rest.repos.listDeployments, {
+                owner, repo, per_page: 100,
+              });
+              alle.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+              let weg = 0;
+              for (const d of alle.slice(1)) {
+                try {
+                  await github.rest.repos.deleteDeployment({ owner, repo, deployment_id: d.id });
+                  weg++;
+                } catch (e) {
+                  bericht.push(`Veröffentlichung ${d.id} blieb stehen: ${e.status}`);
+                }
+              }
+              bericht.push(`Veröffentlichungen: ${alle.length} gefunden, ${weg} entfernt, 1 behalten`);
+            } catch (e) {
+              bericht.push(`Veröffentlichungen nicht lesbar: ${e.status}`);
+            }
+
+            // 2) Build-Artefakte — das jüngste wird zum Ausliefern gebraucht.
+            try {
+              const alle = await github.paginate(github.rest.actions.listArtifactsForRepo, {
+                owner, repo, per_page: 100,
+              });
+              alle.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+              let weg = 0, frei = 0;
+              for (const a of alle.slice(1)) {
+                try {
+                  await github.rest.actions.deleteArtifact({ owner, repo, artifact_id: a.id });
+                  weg++;
+                  frei += a.size_in_bytes || 0;
+                } catch (e) {
+                  bericht.push(`Artefakt ${a.id} blieb stehen: ${e.status}`);
+                }
+              }
+              bericht.push(`Artefakte: ${alle.length} gefunden, ${weg} entfernt, ${(frei / 1048576).toFixed(1)} MB frei, 1 behalten`);
+            } catch (e) {
+              bericht.push(`Artefakte nicht lesbar: ${e.status}`);
+            }
+
+            // 3) Läufe — die letzten fünf bleiben als Beleg stehen.
+            try {
+              const alle = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+                owner, repo, per_page: 100,
+              });
+              const fertig = alle
+                .filter((r) => r.status === 'completed' && r.id !== context.runId)
+                .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+              let weg = 0;
+              for (const r of fertig.slice(5)) {
+                try {
+                  await github.rest.actions.deleteWorkflowRun({ owner, repo, run_id: r.id });
+                  weg++;
+                } catch (e) {
+                  bericht.push(`Lauf ${r.id} blieb stehen: ${e.status}`);
+                }
+              }
+              bericht.push(`Läufe: ${fertig.length} abgeschlossen, ${weg} entfernt, 5 behalten`);
+            } catch (e) {
+              bericht.push(`Läufe nicht lesbar: ${e.status}`);
+            }
+
+            for (const zeile of bericht) core.info(zeile);
+            await core.summary
+              .addHeading('Aufgeräumt', 3)
+              .addList(bericht)
+              .write();
