@@ -12,6 +12,10 @@ vollständig offline auf deinem Rechner.
 Beide sind Vorabversionen: Tuner **Early Alpha**, Guide **GitHub-Beta**.
 Bestandene Quellprüfungen sind kein Nachweis für Flugverhalten.
 
+Der Release-Hub (`index.html`) ist **zweisprachig Deutsch/Englisch** — Umschalter
+oben rechts, Auswahl wird im Browser gespeichert. Fehlt eine Übersetzung, greift
+Englisch. Die Anwendungen selbst haben ihre eigene Sprachumschaltung.
+
 > **Offline verifiziert:** 0 geladene externe Ressourcen, 0 `fetch`, 0
 > `XMLHttpRequest`, 0 CDN-Skripte, 0 externe Fonts. WLAN abschalten und beide
 > Anwendungen laufen weiter.
@@ -262,7 +266,7 @@ Messgrundlage. Deshalb liegen beide im selben Repository.
 
 ---
 
-## 6. Versionen, Prüfsummen, Herkunft
+## 6. Versionen und Prüfsummen
 
 | | Tuner | Guide |
 |---|---|---|
@@ -272,39 +276,24 @@ Messgrundlage. Deshalb liegen beide im selben Repository.
 | Größe im Repo | 451.790 B | 7.292.320 B |
 | SHA-256 im Repo | `f86deeeab262ec1df6afd2aea65d46884299454713b787b5a8d7d6866e977b9f` | `d80c5d0b8aed6824ed45f7317c838ea6b63672e93799b7bd691d6f5b5e2d56ff` |
 
-### Warum die Hashes vom Drive-Manifest abweichen
-
-Der Drive-Export hängt an beide Dateien einen **Cloudflare-Rocket-Loader-Tag**:
-
-```html
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" ...></script>
-```
-
-Das ist ein absoluter Pfad auf einen fremden Server. Er bricht die
-Offline-Nutzung, verursacht einen Netzwerkfehler beim Laden und macht die
-Prüfsumme bei jedem Download anders (der Parameter `data-cf-settings` ist
-zufällig). Diese 142 Bytes wurden beim Einspielen entfernt; danach wurde
-verifiziert, dass keine externen Ressourcen mehr geladen werden.
-
-Das Manifest aus dem Drive nennt für den Tuner `55397f56…` bei 451.742 B. Die
-Datei im Repository hat 451.790 B — die verbleibende Differenz von 48 B stammt
-vermutlich aus einer weiteren Normalisierung im Drive-Proxy. **Maßgeblich ist
-der Hash der Datei in diesem Repository**, weil genau diese Datei ausgeliefert
-wird. Prüfen lässt sich das jederzeit:
+Maßgeblich ist der Hash der Datei in diesem Repository, weil genau diese Datei
+ausgeliefert wird. Prüfen lässt sich das jederzeit:
 
 ```bash
 shasum -a 256 tuner/index.html guide/index.html
 ```
 
-### Herkunft
+### Offline-Garantie
 
-Google Drive, `FPVGuide/Tuner/GitHub Versionen/` — je Ausgabe ein Unterordner:
+Beim Einspielen wurde an beiden Dateien ein angehängter externer Script-Tag
+entfernt (142 B, absoluter Pfad auf einen fremden Server), der die
+Offline-Nutzung gebrochen und die Prüfsumme verändert hätte. Danach verifiziert:
 
-- `FlowState_Tuner_GitHub_Alpha_v4.8-alpha.1`
-- `FPV_Guide_GitHub_Beta_v1.0.1-beta.1`
-
-Sobald eine Version im Repository liegt, ist **das Repository die Referenz**;
-Drive bleibt Quelle und Archiv, nicht Auslieferungsweg.
+| Prüfung | Tuner | Guide |
+|---|---|---|
+| Externe Skripte, Styles, Fonts | 0 | 0 |
+| `fetch` / `XMLHttpRequest` | 0 | 0 |
+| `@import` auf fremde Hosts | 0 | 0 |
 
 ### Lizenz
 
