@@ -34,8 +34,9 @@ jobs:
                 owner, repo, per_page: 100,
               });
               alle.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+              // Zwei bleiben stehen: der laufende Stand und der davor als Rückfall.
               let weg = 0;
-              for (const d of alle.slice(1)) {
+              for (const d of alle.slice(2)) {
                 // Eine Veröffentlichung lässt sich erst entfernen, wenn sie inaktiv ist.
                 try {
                   await github.rest.repos.createDeploymentStatus({
@@ -57,7 +58,7 @@ jobs:
                   core.warning(m);
                 }
               }
-              bericht.push(`Veröffentlichungen: ${alle.length} gefunden, ${weg} entfernt, 1 behalten`);
+              bericht.push(`Veröffentlichungen: ${alle.length} gefunden, ${weg} entfernt, höchstens 2 behalten`);
             } catch (e) {
               bericht.push(`Veröffentlichungen nicht lesbar: ${e.status}`);
             }
@@ -69,7 +70,7 @@ jobs:
               });
               alle.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
               let weg = 0, frei = 0;
-              for (const a of alle.slice(1)) {
+              for (const a of alle.slice(2)) {
                 try {
                   await github.rest.actions.deleteArtifact({ owner, repo, artifact_id: a.id });
                   weg++;
@@ -78,7 +79,7 @@ jobs:
                   bericht.push(`Artefakt ${a.id} blieb stehen: ${e.status}`);
                 }
               }
-              bericht.push(`Artefakte: ${alle.length} gefunden, ${weg} entfernt, ${(frei / 1048576).toFixed(1)} MB frei, 1 behalten`);
+              bericht.push(`Artefakte: ${alle.length} gefunden, ${weg} entfernt, ${(frei / 1048576).toFixed(1)} MB frei, höchstens 2 behalten`);
             } catch (e) {
               bericht.push(`Artefakte nicht lesbar: ${e.status}`);
             }
