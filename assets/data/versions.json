@@ -67,21 +67,34 @@
       "title": "Early Alpha – Quellprüfung bestanden, Hardware-Validierung offen",
       "summary": "Erste öffentliche Alpha des FlowState Tuner: gestufter Tuning-Ablauf mit sichtbarem CLI-Plan, Backup-Gate und vollständiger DE/EN-Oberfläche.",
       "file": "tuner/index.html",
-      "size_bytes": 451742,
-      "sha256": "55397f568c6de4f72bb10cf2df967dac680e0fbe22eadc6b5cac3ee5e21e15f8",
-      "available": false,
+      "size_bytes": 451790,
+      "sha256": "f86deeeab262ec1df6afd2aea65d46884299454713b787b5a8d7d6866e977b9f",
+      "available": true,
       "source": {
         "folder": "FPVGuide/Tuner/GitHub Versionen/FlowState_Tuner_GitHub_Alpha_v4.8-alpha.1",
         "folder_id": "17aG1qWc3bUhFX7Ut-ORtwPPadM1FjaNN",
         "folder_url": "https://drive.google.com/drive/folders/17aG1qWc3bUhFX7Ut-ORtwPPadM1FjaNN",
         "filename": "FlowState-Tuner-v4.8-alpha.1.html",
-        "file_id": "1zt10BeUIlISkPHISHAMiEVXKUVG53LVC"
+        "file_id": "1zt10BeUIlISkPHISHAMiEVXKUVG53LVC",
+        "note": "Cloudflare-Rocket-Loader-Injektion des Drive-Exports entfernt (142 B), danach offline-verifiziert."
       },
       "signals": [
-        { "label": "Quellprüfung", "state": "ok" },
-        { "label": "Browser / Web Serial", "state": "pending" },
-        { "label": "FC / Dataflash", "state": "pending" },
-        { "label": "Flugtest", "state": "pending" }
+        {
+          "label": "Quellprüfung",
+          "state": "ok"
+        },
+        {
+          "label": "Browser / Web Serial",
+          "state": "pending"
+        },
+        {
+          "label": "FC / Dataflash",
+          "state": "pending"
+        },
+        {
+          "label": "Flugtest",
+          "state": "pending"
+        }
       ],
       "notes": [
         "RPY ist die Standard-Yaw-Basis je Zielprofil; Preserve RP bleibt manueller Opt-out.",
@@ -106,21 +119,34 @@
       "title": "GitHub-Beta auf Basis der fachlich geprüften Vollversion 1.0.0",
       "summary": "Eigenständig auslieferbare Beta für Review und GitHub-Pages-Deployment. Inhaltlich identisch zur Vollversion – nur öffentliche Beta-Metadaten wurden angepasst.",
       "file": "guide/index.html",
-      "size_bytes": 7292272,
-      "sha256": null,
-      "available": false,
+      "size_bytes": 7292320,
+      "sha256": "d80c5d0b8aed6824ed45f7317c838ea6b63672e93799b7bd691d6f5b5e2d56ff",
+      "available": true,
       "source": {
         "folder": "FPVGuide/Tuner/GitHub Versionen/FPV_Guide_GitHub_Beta_v1.0.1-beta.1",
         "folder_id": "1JqwSLPI5QAoYhoIF6yVMLo4fKEA8fOIg",
         "folder_url": "https://drive.google.com/drive/folders/1JqwSLPI5QAoYhoIF6yVMLo4fKEA8fOIg",
         "filename": "index.html",
-        "file_id": "1YPflPGyc374nbdbdNSYqcIc0uG3lfqBN"
+        "file_id": "1YPflPGyc374nbdbdNSYqcIc0uG3lfqBN",
+        "note": "Cloudflare-Rocket-Loader-Injektion des Drive-Exports entfernt (142 B), danach offline-verifiziert."
       },
       "signals": [
-        { "label": "HTML-Validierung", "state": "ok" },
-        { "label": "JavaScript-Syntax", "state": "ok" },
-        { "label": "Renderpfad / Sbang", "state": "ok" },
-        { "label": "Beta-Review", "state": "pending" }
+        {
+          "label": "HTML-Validierung",
+          "state": "ok"
+        },
+        {
+          "label": "JavaScript-Syntax",
+          "state": "ok"
+        },
+        {
+          "label": "Renderpfad / Sbang",
+          "state": "ok"
+        },
+        {
+          "label": "Beta-Review",
+          "state": "pending"
+        }
       ],
       "notes": [
         "Alle 95 Glossarbegriffe und die abgeschlossene Wiki-Prüfung bleiben unverändert.",
