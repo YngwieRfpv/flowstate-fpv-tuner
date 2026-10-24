@@ -7,6 +7,16 @@ index.html, tuner/index.html, guide/index.html und alle Dateien unter assets/.
 Sie bestimmt, was mit den Programmen erlaubt ist. Sie ist keine Rechtsberatung.
 
 
+Zweck
+
+Die Lizenz erlaubt die unveränderte Weitergabe und untersagt Bearbeitungen. Der
+Grund ist der Schreibzugriff: Der Tuner schreibt über Web Serial direkt auf den
+Flight Controller. Durch ungeprüfte Forks oder eigenmächtige Änderungen sollen
+keine potenziell gefährlichen Fehler in Umlauf geraten und als fertige Fassung
+gelten, die niemand geprüft hat. Die Einschränkung dient der Sicherheit und der
+Integrität im Versionsverlauf.
+
+
 1. Nutzung
 
 Das Programm darf unverändert geöffnet, ausgeführt und genutzt werden — privat,
@@ -98,6 +108,15 @@ Rights holder: YngwierFPV · https://github.com/YngwieRfpv
 This license covers every file in this repository, in particular index.html,
 tuner/index.html, guide/index.html and all files under assets/. It states what is
 permitted with the programs. It is not legal advice.
+
+
+Purpose
+
+The license permits unmodified redistribution and prohibits modifications. The
+reason is the write path: the tuner talks to the flight controller over Web
+Serial. Unchecked forks or self-made changes should not carry potentially
+dangerous errors into circulation and pass as a finished release nobody has
+reviewed. The restriction serves safety and the integrity of the version history.
 
 
 1. Use
