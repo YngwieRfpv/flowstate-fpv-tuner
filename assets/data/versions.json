@@ -30,8 +30,8 @@
         ]
       },
       "meta": {
-        "de": ["1 Datei · 452 KB", "Betaflight 4.5+", "Chrome / Edge"],
-        "en": ["1 file · 452 KB", "Betaflight 4.5+", "Chrome / Edge"]
+        "de": ["1 Datei · 466 KB", "Betaflight 4.5+", "Chrome / Edge"],
+        "en": ["1 file · 466 KB", "Betaflight 4.5+", "Chrome / Edge"]
       }
     },
     {
@@ -62,8 +62,8 @@
         ]
       },
       "meta": {
-        "de": ["1 Datei · 7,3 MB", "Deutsch / English", "auch mobil"],
-        "en": ["1 file · 7.3 MB", "German / English", "mobile ready"]
+        "de": ["1 Datei · 7,5 MB", "DE / EN / ES", "auch mobil"],
+        "en": ["1 file · 7.5 MB", "DE / EN / ES", "mobile ready"]
       }
     }
   ],
@@ -79,12 +79,12 @@
         "en": "First public alpha."
       },
       "summary": {
-        "de": "Der vollständige Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Sicherheitsprüfungen. Hardware- und Flugvalidierung stehen noch aus.",
-        "en": "The full workflow with a visible CLI plan, backup gate and safety checks. Hardware and flight validation are still pending."
+        "de": "Der vollständige Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Sicherheitsprüfungen. Spanisch ist als ungeprüfte Vorschau dabei. Hardware- und Flugvalidierung stehen noch aus.",
+        "en": "The full workflow with a visible CLI plan, backup gate and safety checks. Spanish ships as an unverified preview. Hardware and flight validation are still pending."
       },
       "file": "tuner/index.html",
-      "size_bytes": 451847,
-      "sha256": "9e7466ddb5f8a32c322f4b1567daa2b5e47a90cd4939b6c2aa504f67e706a586",
+      "size_bytes": 477125,
+      "sha256": "089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6",
       "available": true,
       "signals": [
         { "label": { "de": "Log-Analyse", "en": "Log analysis" }, "state": "ok" },
@@ -122,22 +122,22 @@
       }
     },
     {
-      "id": "guide-1.0.1-beta.1",
+      "id": "guide-1.0.1-beta.4-es",
       "program": "guide",
-      "version": "v1.0.1-beta.1",
+      "version": "v1.0.1-beta.4-es",
       "channel": "beta",
       "released": "2026-10-24",
       "title": {
-        "de": "Inhaltlich vollständig, Review offen.",
-        "en": "Content complete, review pending."
+        "de": "Spanisch dabei, Dateiablage entfernt.",
+        "en": "Spanish added, file storage removed."
       },
       "summary": {
-        "de": "Alle Bereiche, alle 95 Glossarbegriffe und der Sbang-Ablauf sind enthalten. Offen ist nur die Durchsicht auf der veröffentlichten Adresse.",
-        "en": "All sections, all 95 glossary terms and the Sbang workflow are included. Only the review on the published address is pending."
+        "de": "Deutsch, Englisch und Spanisch (ungeprüft). Workspace, Log-Archiv und Dateidownloads sind entfernt; neu sind die ELRS-Referenz und ein eigener TBS-Crossfire-Bereich.",
+        "en": "German, English and Spanish (unverified). Workspace, log archive and file downloads are gone; new are the ELRS reference and a dedicated TBS Crossfire section."
       },
       "file": "guide/index.html",
-      "size_bytes": 7290376,
-      "sha256": "ad50868cd8d472b073621d83e4e06ada2875582c3353b346a35a729c3d370474",
+      "size_bytes": 7643939,
+      "sha256": "ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f",
       "available": true,
       "signals": [
         { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },
