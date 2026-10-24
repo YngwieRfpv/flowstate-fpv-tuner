@@ -122,39 +122,96 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="programs.eyebrow">Programme</p>
-      <h2 data-i18n="programs.title">Was die beiden können</h2>
+      <h2 data-i18n="programs.title">Zwei Programme, klar getrennt</h2>
       <p class="lede" data-i18n="programs.lede">
-        Der Guide beantwortet das Warum, der Tuner liefert das Was. Zusammen ergeben
-        sie einen vollständigen Tuning-Ablauf.
+        Beide sind eigenständig. Du öffnest immer nur eines davon — die Karte zeigt
+        dir, was dich dort erwartet.
       </p>
     </div>
-    <div class="project-grid" id="project-grid"></div>
+
+    <article class="program program--tuner reveal">
+      <figure class="program-figure">
+        <img src="assets/images/preview-tuner.svg" alt="Schematic of the FlowState Tuner: phase rail, gyro spectrum and CLI plan" width="1200" height="760" loading="lazy">
+      </figure>
+      <div class="program-body">
+        <span class="program-index">01</span>
+        <p class="program-kicker" data-i18n="row.tuner.kicker">Messen · Rechnen · Schreiben</p>
+        <h3 class="program-title">FlowState Tuner</h3>
+        <p class="program-text" data-i18n="row.tuner.text">
+          Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt
+          jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial — nur
+          nach Sicherung und Bestätigung.
+        </p>
+        <ul class="program-points">
+          <li data-i18n="row.tuner.p1">Sechs Phasen, jede mit eigenem Abschluss</li>
+          <li data-i18n="row.tuner.p2">Backup-, Firmware- und Profil-Gate vor jedem Schreiben</li>
+          <li data-i18n="row.tuner.p3">Chrome oder Edge am Desktop für die FC-Verbindung</li>
+        </ul>
+        <div class="program-actions">
+          <a class="btn btn--primary" href="tuner/">
+            <span data-i18n="row.tuner.cta">Tuner öffnen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--quiet" href="#tuner" data-i18n="row.more">Wie es arbeitet</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="program program--guide reveal">
+      <figure class="program-figure">
+        <img src="assets/images/preview-guide.svg" alt="Schematic of the FPV Guide: section sidebar, tuning page and glossary" width="1200" height="760" loading="lazy">
+      </figure>
+      <div class="program-body">
+        <span class="program-index">02</span>
+        <p class="program-kicker" data-i18n="row.guide.kicker">Verstehen · Nachschlagen · Nachbauen</p>
+        <h3 class="program-title">FPV Guide</h3>
+        <p class="program-text" data-i18n="row.guide.text">
+          Führt vom ersten Build bis zum Feintuning. Erklärt Begriffe, zeigt Tabellen
+          und begleitet den Ablauf Schritt für Schritt — mit Profilauswahl für Tiny
+          Whoop bis 10 Zoll.
+        </p>
+        <ul class="program-points">
+          <li data-i18n="row.guide.p1">Acht Bereiche von Simple Tuning bis zur Linkliste</li>
+          <li data-i18n="row.guide.p2">95 Glossarbegriffe, direkt im Text aufrufbar</li>
+          <li data-i18n="row.guide.p3">Läuft in jedem Browser, auch auf dem Handy</li>
+        </ul>
+        <div class="program-actions">
+          <a class="btn btn--primary" href="guide/">
+            <span data-i18n="row.guide.cta">Guide öffnen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--quiet" href="#guide" data-i18n="row.more">Wie es arbeitet</a>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
-<section class="section" id="tuner">
+<section class="section section--detail" id="tuner">
   <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="tuner.eyebrow">FlowState Tuner</p>
-      <h2 data-i18n="tuner.title">Messen, rechnen, schreiben</h2>
-      <p class="lede" data-i18n="tuner.lede">
-        Der Tuner liest Blackbox- und Dataflash-Logs, leitet daraus Filter- und
-        PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird
-        über Web Serial – nur nach Sicherung und Bestätigung.
-      </p>
+    <div class="detail-head reveal">
+      <span class="detail-index">01</span>
+      <div>
+        <p class="eyebrow" data-i18n="tuner.eyebrow">FlowState Tuner</p>
+        <h2 data-i18n="tuner.title">Messen, rechnen, schreiben</h2>
+        <p class="lede" data-i18n="tuner.lede">
+          Der Ablauf ist in sechs Phasen geteilt. Jede Phase sammelt ihre Belege, zeigt
+          ihren Plan und schaltet erst dann die nächste frei.
+        </p>
+      </div>
     </div>
 
     <div class="detail-grid">
       <div class="reveal">
-        <h3 style="font-size:15px;margin-bottom:12px" data-i18n="tuner.phases">Der Ablauf in sechs Phasen</h3>
+        <h3 class="sub-title" data-i18n="tuner.phases">Der Ablauf in sechs Phasen</h3>
         <table class="phase-table">
           <tbody id="phase-body"></tbody>
         </table>
       </div>
 
       <div class="reveal">
-        <h3 style="font-size:15px;margin-bottom:12px" data-i18n="tuner.gates">Sicherheits-Gates</h3>
-        <p style="color:var(--muted);font-size:13.6px;margin-bottom:12px" data-i18n="tuner.gates.lede">
+        <h3 class="sub-title" data-i18n="tuner.gates">Sicherheits-Gates</h3>
+        <p class="sub-text" data-i18n="tuner.gates.lede">
           Mehrere unabhängige Prüfungen blockieren Schreibvorgänge. Sie bleiben aktiv,
           auch wenn die optionale Checkliste aus ist.
         </p>
@@ -165,8 +222,8 @@
           <li><span><strong data-i18n="gate.filter.t">Filterlog</strong> — <span data-i18n="gate.filter.d">das aktive Log muss die Qualitätsprüfung bestehen; ein Override gilt nur für genau dieses Log.</span></span></li>
         </ul>
 
-        <h3 style="font-size:15px;margin:22px 0 8px" data-i18n="tuner.exports">Exporte</h3>
-        <p style="color:var(--muted);font-size:13.6px" data-i18n="tuner.exports.lede">
+        <h3 class="sub-title" style="margin-top:24px" data-i18n="tuner.exports">Exporte</h3>
+        <p class="sub-text" data-i18n="tuner.exports.lede">
           Plan als Text, Manifest als JSON, Roh-Logs als ZIP, Blackbox direkt aus dem
           FC. Alles bleibt lokal.
         </p>
@@ -175,20 +232,22 @@
   </div>
 </section>
 
-<section class="section" id="guide">
+<section class="section section--detail" id="guide">
   <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="guide.eyebrow">FPV Guide</p>
-      <h2 data-i18n="guide.title">Verstehen, nachschlagen, nachbauen</h2>
-      <p class="lede" data-i18n="guide.lede">
-        Der Guide führt vom ersten Build bis zum Feintuning. Er erklärt Begriffe,
-        zeigt Tabellen und begleitet den Ablauf Schritt für Schritt – mit Profilauswahl
-        für Tiny Whoop bis 10 Zoll.
-      </p>
+    <div class="detail-head reveal">
+      <span class="detail-index">02</span>
+      <div>
+        <p class="eyebrow" data-i18n="guide.eyebrow">FPV Guide</p>
+        <h2 data-i18n="guide.title">Verstehen, nachschlagen, nachbauen</h2>
+        <p class="lede" data-i18n="guide.lede">
+          Der Guide führt vom ersten Build bis zum Feintuning. Er erklärt Begriffe,
+          zeigt Tabellen und begleitet den Ablauf Schritt für Schritt.
+        </p>
+      </div>
     </div>
 
     <div class="reveal">
-      <h3 style="font-size:15px;margin-bottom:12px" data-i18n="guide.areas">Die Bereiche</h3>
+      <h3 class="sub-title" data-i18n="guide.areas">Die Bereiche</h3>
       <div class="area-grid">
         <div class="area"><strong data-i18n="area.simple.t">Simple Tuning</strong><span data-i18n="area.simple.d">Betaflight vorbereiten, Logs lesen, Profil abstimmen.</span></div>
         <div class="area"><strong data-i18n="area.advanced.t">Advanced Tuning</strong><span data-i18n="area.advanced.d">Advanced Tune, Sbang oder einzelne Einstellungen.</span></div>
@@ -201,15 +260,15 @@
 
     <div class="detail-grid" style="margin-top:26px">
       <div class="reveal">
-        <h3 style="font-size:15px;margin-bottom:8px" data-i18n="guide.profile">Dein Profil</h3>
-        <p style="color:var(--muted);font-size:13.6px" data-i18n="guide.profile.lede">
+        <h3 class="sub-title" data-i18n="guide.profile">Dein Profil</h3>
+        <p class="sub-text" data-i18n="guide.profile.lede">
           Coptergröße, Frame, Gyro-/PID-Taktrate, Betaflight-Version und ESC-Firmware.
           Der Guide filtert Werte und Tabellen danach.
         </p>
       </div>
       <div class="reveal">
-        <h3 style="font-size:15px;margin-bottom:8px" data-i18n="guide.workspace">Workspace</h3>
-        <p style="color:var(--muted);font-size:13.6px" data-i18n="guide.workspace.lede">
+        <h3 class="sub-title" data-i18n="guide.workspace">Workspace</h3>
+        <p class="sub-text" data-i18n="guide.workspace.lede">
           Setup als Datei speichern, später wieder laden. Logs zuordnen und benennen.
           Alles im Browser, nichts auf einem Server.
         </p>
