@@ -5,8 +5,10 @@ Browser läuft — ohne Installation, ohne Konto, ohne Internetverbindung.
 
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
-| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 466 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
-| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,5 MB | Erklären, nachschlagen, Ablauf begleiten |
+| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 477 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
+| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,6 MB | Erklären, nachschlagen, Ablauf begleiten |
+
+Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
 Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
@@ -20,6 +22,10 @@ Englisch und Spanisch.
 Der Tuner liest Blackbox- und Dataflash-Logs, leitet daraus Filter- und PID-Werte ab
 und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial —
 nur nach vollständiger Sicherung und deiner Bestätigung.
+
+**Alpha:** Der Schreibpfad ist an echter Hardware noch nicht erprobt. Der Plan lässt
+sich vollständig lesen und prüfen, ohne dass etwas geschrieben wird — das ist der
+sichere Weg für den ersten Durchlauf.
 
 ### Der Ablauf in sechs Phasen
 
@@ -67,8 +73,8 @@ geführt.
 
 ### Grenzen
 
-- Tuning ersetzt keine mechanische Kontrolle: keine verbogenen Wellen, Lager, Props,
-  Lötstellen oder ESC-Fehler reparieren.
+- Tuning ersetzt keine mechanische Kontrolle. Es repariert keine verbogenen Wellen,
+  Lager, Props, Lötstellen oder ESC-Fehler.
 - Props ab für alle Arbeiten am USB-verbundenen Copter.
 - Bei heißen Motoren, Desync, unklarer Vibration oder nach einem Crash nicht
   weiter automatisch tunen.
@@ -133,13 +139,17 @@ Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tu
 
 | | Guide | Tuner ohne FC | Tuner mit FC |
 |---|---|---|---|
-| Chrome, Edge (Desktop) | ✓ | ✓ | ✓ |
+| Chrome, Edge, Opera (Desktop) | ✓ | ✓ | ✓ |
 | Firefox, Safari | ✓ | ✓ | — |
 | Mobil | ✓ | ✓ | — |
 
-Der Tuner braucht für die Verbindung zum Flight Controller Chrome oder Edge auf dem
-Desktop, weil nur diese Web Serial unterstützen. Die Log-Analyse funktioniert in jedem
-Browser.
+Für die Verbindung zum Flight Controller braucht der Tuner Web Serial. Das bringen
+Chrome, Edge und Opera auf dem Desktop mit. Brave hat es abgeschaltet und braucht
+`brave://flags/#brave-web-serial-api`; Firefox und Safari haben es nicht.
+
+Chrome für Android kann Web Serial seit Version 148 für einen Teil der Geräte — als
+verlässlicher Weg ist das nicht erprobt, deshalb steht Mobil in der Tabelle auf „—".
+Die Log-Analyse funktioniert in jedem Browser, dafür braucht es kein Web Serial.
 
 ---
 
@@ -157,7 +167,12 @@ geprüft — das Programm zeigt deshalb einen dauerhaften Hinweis, und nicht üb
 Stellen fallen auf Englisch zurück.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
-erkennt das Programm die Browsersprache, sonst Deutsch.
+übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist — bei jeder
+anderen Sprache startet es auf Deutsch.
+
+Davon unabhängig gilt innerhalb einer Sprache: Fehlt ein einzelner Text, erscheint er
+auf Englisch. Kurz gesagt: Deutsch ist der Startwert für unbekannte Browsersprachen,
+Englisch füllt Lücken innerhalb einer vorhandenen Übersetzung.
 
 ---
 
@@ -168,10 +183,22 @@ erkennt das Programm die Browsersprache, sonst Deutsch.
 | Version | `v4.8-alpha.1` | `v1.0.1-beta.4-es` |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
-| Größe | 477.125 B | 7.643.939 B |
+| Größe (Bytes) | 477.125 | 7.643.939 |
 | SHA-256 | `089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6` | `ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f` |
 
-Beide Dateien laden keine externen Skripte, Schriften oder Bilder.
+Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
+führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
+selbst braucht sie nicht.
+
+Zum Nachrechnen: Befehl, darunter der erwartete Wert.
+
+```
+sha256sum tuner/index.html
+089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6
+
+sha256sum guide/index.html
+ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f
+```
 
 ---
 
@@ -190,10 +217,22 @@ Both ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es. Spanis
 translated but verified in no area — the program shows a permanent notice and falls
 back to English where text is unrevised.
 
-Neither needs an install, an account or an internet connection. The tuner requires
-Chrome or Edge on desktop for the flight-controller connection; everything else works
-in any modern browser. Tuning does not replace mechanical inspection — remove props
-for bench work and stop on hot motors, desyncs or unclear mechanics.
+Two separate mechanisms: an unknown browser language starts the program in German,
+while a missing individual string inside a translation appears in English.
+
+Neither needs an install, an account or an internet connection. Neither file loads
+external scripts, fonts or images; the guide's links point outward on purpose and only
+open with a connection.
+
+The tuner is an alpha: its write path has not been tried on real hardware yet. The plan
+can be read and checked in full without writing anything. For the flight-controller
+connection it needs Web Serial, which Chrome, Edge and Opera bring on desktop. Brave
+ships it disabled (`brave://flags/#brave-web-serial-api`); Firefox and Safari lack it.
+Chrome for Android has partial support since version 148, not verified here.
+
+Tuning does not replace mechanical inspection — remove props for bench work and stop on
+hot motors, desyncs or unclear mechanics. The licence is source-available, not
+open source: modifications are not permitted.
 
 ---
 
@@ -202,5 +241,10 @@ for bench work and stop on hot motors, desyncs or unclear mechanics.
 Die Programme dürfen unverändert weitergegeben werden: vollständig, mit Lizenz und
 mit Verweis auf die Originalquelle. Bearbeitungen, Kürzungen, Übersetzungen und
 eigene Fassungen sind nicht erlaubt.
+
+Der Quelltext ist öffentlich einsehbar, das macht die Lizenz aber nicht zu einer
+Open-Source-Lizenz: Die Open Source Definition verlangt, dass Bearbeitungen erlaubt
+sind, und das ist hier ausdrücklich nicht der Fall. Es handelt sich um eine
+„Source-available“-Lizenz ohne Bearbeitungsrecht.
 
 Der vollständige Text steht in [`LICENSE`](LICENSE), auf Deutsch und Englisch.

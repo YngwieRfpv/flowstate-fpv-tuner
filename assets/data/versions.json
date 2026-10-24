@@ -30,8 +30,8 @@
         ]
       },
       "meta": {
-        "de": ["1 Datei · 466 KB", "Betaflight 4.5+", "Chrome / Edge"],
-        "en": ["1 file · 466 KB", "Betaflight 4.5+", "Chrome / Edge"]
+        "de": ["1 Datei · 477 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"],
+        "en": ["1 file · 477 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"]
       }
     },
     {
@@ -62,8 +62,8 @@
         ]
       },
       "meta": {
-        "de": ["1 Datei · 7,5 MB", "DE / EN / ES", "auch mobil"],
-        "en": ["1 file · 7.5 MB", "DE / EN / ES", "mobile ready"]
+        "de": ["1 Datei · 7,6 MB", "DE / EN / ES", "auch mobil"],
+        "en": ["1 file · 7.6 MB", "DE / EN / ES", "mobile ready"]
       }
     }
   ],
