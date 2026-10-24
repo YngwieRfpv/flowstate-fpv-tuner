@@ -141,6 +141,22 @@ Browser.
 
 ---
 
+## Sprachen
+
+| Sprache | Stand | Geprüft | FlowState Tuner | FPV Guide |
+|---|---|---|---|---|
+| **Deutsch** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) |
+| **English** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) |
+| **Español** | nicht geprüft | nein | — | — |
+
+Deutsch und Englisch sind in beiden Programmen vollständig: Oberfläche, Meldungen,
+Glossar und Kapitel. Spanisch ist nicht geprüft und deshalb ohne Freigabe verlinkt.
+
+Die Sprache steht in der Adresse: `?lang=de` oder `?lang=en`. Ohne Angabe gilt die
+zuletzt gewählte Sprache im Browser, sonst Deutsch.
+
+---
+
 ## Versionen
 
 | | Tuner | Guide |
@@ -148,8 +164,8 @@ Browser.
 | Version | `v4.8-alpha.1` | `v1.0.1-beta.1` |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
-| Größe | 451.742 B | 7.292.272 B |
-| SHA-256 | `55397f568c6de4f72bb10cf2df967dac680e0fbe22eadc6b5cac3ee5e21e15f8` | `42a69de36552a6c9f5b90cc037f0437d5f9854becca401c88425d20df3377a6c` |
+| Größe | 451.847 B | 7.292.376 B |
+| SHA-256 | `9e7466ddb5f8a32c322f4b1567daa2b5e47a90cd4939b6c2aa504f67e706a586` | `c43fd580e55e7a13fb7617f9e4a43e7d78075bbe854152d75bf96cfeecb12b86` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder.
 
