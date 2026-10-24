@@ -62,8 +62,8 @@
         ]
       },
       "meta": {
-        "de": ["1 Datei · 7,6 MB", "DE / EN / ES", "auch mobil"],
-        "en": ["1 file · 7.6 MB", "DE / EN / ES", "mobile ready"]
+        "de": ["1 Datei · 7,7 MB", "DE / EN / ES", "auch mobil"],
+        "en": ["1 file · 7.7 MB", "DE / EN / ES", "mobile ready"]
       }
     }
   ],
@@ -123,22 +123,22 @@
       }
     },
     {
-      "id": "guide-1.0.1-beta.4-es",
+      "id": "guide-1.0.1-beta.7-es",
       "program": "guide",
-      "version": "v1.0.1-beta.4-es",
+      "version": "v1.0.1-beta.7-es",
       "channel": "beta",
       "released": "2026-10-24",
       "title": {
-        "de": "Spanisch dabei, Dateiablage entfernt.",
-        "en": "Spanish added, file storage removed."
+        "de": "Gelesen, geglättet, übersetzt.",
+        "en": "Reviewed, smoothed, translated."
       },
       "summary": {
-        "de": "Deutsch, Englisch und Spanisch (ungeprüft). Workspace, Log-Archiv und Dateidownloads sind entfernt; neu sind die ELRS-Referenz und ein eigener TBS-Crossfire-Bereich.",
-        "en": "German, English and Spanish (unverified). Workspace, log archive and file downloads are gone; new are the ELRS reference and a dedicated TBS Crossfire section."
+        "de": "Lesbarkeits- und Übersetzungsdurchgang: das Q-Glossar ist in kurze Sätze gegliedert, wiederholte Quellenhinweise sind durch spezifische ersetzt, die Filter- und Messkapitel in allen drei Sprachen überarbeitet. Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "Readability and translation pass: the Q glossary now splits into short sentences, repeated source notes are replaced by specific ones, and the filter and measurement chapters are reworked in all three languages. Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
-      "size_bytes": 7643939,
-      "sha256": "ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f",
+      "size_bytes": 7659210,
+      "sha256": "a820fa1acabc539734f36b1680b1a53755f9ec15f8116cd57dd2cd93afc66a47",
       "available": true,
       "signals": [
         { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },

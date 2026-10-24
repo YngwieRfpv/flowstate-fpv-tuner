@@ -6,7 +6,7 @@ Browser läuft — ohne Installation, ohne Konto, ohne Internetverbindung.
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 477 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
-| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,6 MB | Erklären, nachschlagen, Ablauf begleiten |
+| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,7 MB | Erklären, nachschlagen, Ablauf begleiten |
 
 Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
@@ -185,11 +185,11 @@ Englisch füllt Lücken innerhalb einer vorhandenen Übersetzung.
 
 | | Tuner | Guide |
 |---|---|---|
-| Version | `v4.8-alpha.1` | `v1.0.1-beta.4-es` |
+| Version | `v4.8-alpha.1` | `v1.0.1-beta.7-es` |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
-| Größe (Bytes) | 477.125 | 7.643.939 |
-| SHA-256 | `089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6` | `ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f` |
+| Größe (Bytes) | 477.125 | 7.659.210 |
+| SHA-256 | `089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6` | `a820fa1acabc539734f36b1680b1a53755f9ec15f8116cd57dd2cd93afc66a47` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
 führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
@@ -202,7 +202,7 @@ sha256sum tuner/index.html
 089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6
 
 sha256sum guide/index.html
-ebbc959c823695fc3584186a390e927570682bf892bf491db7a3e4ef17c3c84f
+a820fa1acabc539734f36b1680b1a53755f9ec15f8116cd57dd2cd93afc66a47
 ```
 
 ---
