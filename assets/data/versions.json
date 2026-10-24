@@ -1,192 +1,176 @@
 {
-  "schema_version": 2,
+  "schema": 3,
   "updated": "2026-10-24",
-  "projects": [
+  "programs": [
     {
       "id": "tuner",
       "name": "FlowState Tuner",
       "accent": "mint",
       "path": "tuner/",
       "kind": {
-        "de": "Betaflight · Blackbox · Web Serial",
-        "en": "Betaflight · Blackbox · Web Serial"
-      },
-      "tagline": {
-        "de": "Ein lokaler Browser-Begleiter für gestuftes Blackbox-Tuning.",
-        "en": "A local browser companion for staged Blackbox tuning."
+        "de": "Messen · Rechnen · Schreiben",
+        "en": "Measure · Calculate · Write"
       },
       "description": {
-        "de": "Liest Blackbox- und Dataflash-Logs, erzeugt einen sichtbaren CLI-Plan und schreibt ihn erst nach Backup-Gate und ausdrücklicher Bestätigung über Web Serial. Läuft vollständig lokal – kein Backend, kein Konto, keine Telemetrie.",
-        "en": "Reads Blackbox and Dataflash logs, builds a visible CLI plan and writes it over Web Serial only after the backup gate and explicit confirmation. Runs entirely local – no backend, no account, no telemetry."
+        "de": "Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial, nur nach Sicherung und Bestätigung. Alles läuft im Browser.",
+        "en": "Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial, only after a backup and confirmation. Everything runs in the browser."
       },
       "highlights": {
         "de": [
-          "Setup → Filter → P/D neutral → Master ζ → FF/I/D-Max → Archiv",
-          "Zielprofil-Grenzen, sichtbarer Plan, P0-Backup-Gate",
-          "DE/EN, Dark/Light, keine Server-Abhängigkeit"
+          "Sechs Phasen von Setup bis Archiv, jede mit eigenem Abschluss",
+          "Sichtbarer CLI-Plan vor jedem Schreibvorgang",
+          "Zielprofil-Schutz: nur das gewählte PID-Profil wird verändert",
+          "Deutsch und Englisch, hell, dunkel und creme"
         ],
         "en": [
-          "Setup → Filter → neutral P/D → Master ζ → FF/I/D-Max → Archive",
-          "Target-profile scope, visible plan, P0 backup gate",
-          "DE/EN, dark/light, no server dependency"
+          "Six phases from setup to archive, each with its own completion",
+          "Visible CLI plan before every write",
+          "Target-profile protection: only the selected PID profile changes",
+          "German and English, light, dark and cream"
         ]
       },
       "meta": {
-        "de": ["Einzeldatei · 452 KB", "Betaflight 4.5+", "Chrome / Edge"],
-        "en": ["Single file · 452 KB", "Betaflight 4.5+", "Chrome / Edge"]
-      },
-      "links": {
-        "app": "tuner/",
-        "docs": "docs/releases/tuner-v4.8-alpha.1.md"
+        "de": ["1 Datei · 452 KB", "Betaflight 4.5+", "Chrome / Edge"],
+        "en": ["1 file · 452 KB", "Betaflight 4.5+", "Chrome / Edge"]
       }
     },
     {
       "id": "guide",
-      "name": "FPV Guide DE",
+      "name": "FPV Guide",
       "accent": "sky",
       "path": "guide/",
       "kind": {
-        "de": "Referenz · Lernpfad · Glossar",
-        "en": "Reference · Learning path · Glossary"
-      },
-      "tagline": {
-        "de": "Der fachliche Leitfaden hinter dem Tuner.",
-        "en": "The technical guide behind the tuner."
+        "de": "Verstehen · Nachschlagen · Nachbauen",
+        "en": "Understand · Look up · Rebuild"
       },
       "description": {
-        "de": "Simple Tuning, Advanced Tuning, Build-Guide, 95 Glossarbegriffe mit Quellen, Workspace-Export und der vollständige Sbang-Ablauf – geprüft gegen das Betaflight-Wiki.",
-        "en": "Simple tuning, advanced tuning, build guide, 95 glossary terms with sources, workspace export and the full Sbang workflow – checked against the Betaflight wiki."
+        "de": "Führt vom ersten Build bis zum Feintuning: Simple Tuning, Advanced Tuning, Build-Guide, 95 Glossarbegriffe mit Quellen und der vollständige Sbang-Ablauf. Mit Profilauswahl für Coptergröße, Frame, Taktrate und Firmware.",
+        "en": "Leads from the first build to fine tuning: simple tuning, advanced tuning, build guide, 95 glossary terms with sources and the full Sbang workflow. With profile selection for quad size, frame, loop rate and firmware."
       },
       "highlights": {
         "de": [
-          "Vollständiger Lernpfad vom ersten Build bis zum Feintuning",
-          "95 Glossarbegriffe mit auflösbaren Quellenreferenzen",
-          "Workspace-Import/-Export, DE/EN, vollständig offline"
+          "Acht Bereiche von der Startseite bis zur Linkliste",
+          "95 Glossarbegriffe, direkt im Text aufrufbar",
+          "Werte und Tabellen folgen deinem Copterprofil",
+          "Workspace als Datei sichern und später wieder laden"
         ],
         "en": [
-          "Complete learning path from first build to fine tuning",
-          "95 glossary terms with resolvable source references",
-          "Workspace import/export, DE/EN, fully offline"
+          "Eight sections from the home page to the link list",
+          "95 glossary terms, openable straight from the text",
+          "Values and tables follow your quad profile",
+          "Save the workspace as a file and load it later"
         ]
       },
       "meta": {
-        "de": ["Einzeldatei · 7,3 MB", "HTML-Validierung: 0 Befunde", "DE / EN"],
-        "en": ["Single file · 7.3 MB", "HTML validation: 0 findings", "DE / EN"]
-      },
-      "links": {
-        "app": "guide/",
-        "docs": "docs/releases/guide-v1.0.1-beta.1.md"
+        "de": ["1 Datei · 7,3 MB", "Deutsch / English", "auch mobil"],
+        "en": ["1 file · 7.3 MB", "German / English", "mobile ready"]
       }
     }
   ],
   "releases": [
     {
       "id": "tuner-4.8-alpha.1",
-      "project": "tuner",
+      "program": "tuner",
       "version": "v4.8-alpha.1",
       "channel": "alpha",
       "released": "2026-10-24",
       "title": {
-        "de": "Early Alpha — Quellprüfung bestanden, Hardware-Validierung offen",
-        "en": "Early alpha — source checks passed, hardware validation pending"
+        "de": "Erste öffentliche Alpha.",
+        "en": "First public alpha."
       },
       "summary": {
-        "de": "Erste öffentliche Alpha: gestufter Tuning-Ablauf mit sichtbarem CLI-Plan, Backup-Gate und vollständiger DE/EN-Oberfläche.",
-        "en": "First public alpha: staged tuning workflow with a visible CLI plan, backup gate and full DE/EN interface."
+        "de": "Der vollständige Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Sicherheitsprüfungen. Hardware- und Flugvalidierung stehen noch aus.",
+        "en": "The full workflow with a visible CLI plan, backup gate and safety checks. Hardware and flight validation are still pending."
       },
       "file": "tuner/index.html",
-      "package": "FlowState-Tuner-v4.8-alpha.1.html",
       "size_bytes": 451790,
       "sha256": "f86deeeab262ec1df6afd2aea65d46884299454713b787b5a8d7d6866e977b9f",
       "available": true,
       "signals": [
-        { "label": { "de": "Quellprüfung", "en": "Source checks" }, "state": "ok" },
-        { "label": { "de": "Browser / Web Serial", "en": "Browser / Web Serial" }, "state": "pending" },
-        { "label": { "de": "FC / Dataflash", "en": "FC / Dataflash" }, "state": "pending" },
+        { "label": { "de": "Log-Analyse", "en": "Log analysis" }, "state": "ok" },
+        { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
+        { "label": { "de": "Verbindung zum FC", "en": "Connection to FC" }, "state": "pending" },
         { "label": { "de": "Flugtest", "en": "Flight test" }, "state": "pending" }
       ],
       "notes": {
         "de": [
-          "RPY ist die Standard-Yaw-Basis je Zielprofil; Preserve RP bleibt manueller Opt-out.",
-          "Yaw Shake Fix ist standardmäßig aus, bestätigungspflichtig und nur im finalen Plan.",
-          "Importierte Blackbox-Namen sind reine Evidenz – fehlende Werte bleiben UNBEKANNT.",
-          "Mehrflug-BBL-Importe behalten einzelne Segmente und beobachtete Wertebereiche.",
-          "Das P0-Backup-Gate verlangt ausreichend diff-all-Ausgabe mit finalem CLI-Prompt."
+          "Filter-, P/D-, Master- und Finish-Phase arbeiten auf demselben Log-Satz",
+          "Importierte Logs behalten ihre Herkunft; fehlende Werte bleiben UNBEKANNT",
+          "Mehrere Flüge in einem Log werden als getrennte Segmente geführt",
+          "Plan, Manifest und Roh-Logs lassen sich jederzeit exportieren"
         ],
         "en": [
-          "RPY is the default yaw basis per target profile; preserve RP remains a manual opt-out.",
-          "The yaw shake fix is off by default, confirmation-gated and applied in the final plan only.",
-          "Imported Blackbox names are evidence only – missing values stay UNKNOWN.",
-          "Multi-flight BBL imports keep individual segments and observed value ranges.",
-          "The P0 backup gate requires sufficient diff-all output ending in a final CLI prompt."
+          "Filter, P/D, master and finish phases work on the same log set",
+          "Imported logs keep their origin; missing values stay UNKNOWN",
+          "Multiple flights in one log are kept as separate segments",
+          "Plan, manifest and raw logs can be exported at any time"
         ]
       },
       "limits": {
         "de": [
-          "Echte Browser-, Web-Serial-, FC- und Flugvalidierung steht aus.",
-          "FC-Schreibvorgänge nur mit Betaflight 4.5+.",
-          "Ein späteres simplified_tuning apply kann die Yaw-Ausnahme überschreiben – finalen Plan prüfen.",
-          "Kein Ersatz für eigenes Backup und mechanische Kontrolle."
+          "Verbindungstest mit echtem Flight Controller steht aus",
+          "Schreiben nur mit Betaflight 4.5 oder neuer",
+          "Tuning ersetzt keine mechanische Kontrolle",
+          "Props ab für alle Arbeiten am USB-verbundenen Copter"
         ],
         "en": [
-          "Real browser, Web Serial, FC and flight validation is still pending.",
-          "FC writes require Betaflight 4.5+.",
-          "A later simplified_tuning apply can overwrite the yaw exception – inspect the final plan.",
-          "No substitute for your own backup and mechanical inspection."
+          "Connection test with a real flight controller is pending",
+          "Writing requires Betaflight 4.5 or newer",
+          "Tuning does not replace mechanical inspection",
+          "Remove props for all work on the USB-connected craft"
         ]
       }
     },
     {
       "id": "guide-1.0.1-beta.1",
-      "project": "guide",
+      "program": "guide",
       "version": "v1.0.1-beta.1",
       "channel": "beta",
       "released": "2026-10-24",
       "title": {
-        "de": "GitHub-Beta auf Basis der geprüften Vollversion 1.0.0",
-        "en": "GitHub beta based on the reviewed 1.0.0 release"
+        "de": "Inhaltlich vollständig, Review offen.",
+        "en": "Content complete, review pending."
       },
       "summary": {
-        "de": "Eigenständig auslieferbare Beta für Review und GitHub-Pages-Deployment. Inhaltlich identisch zur Vollversion – nur öffentliche Beta-Metadaten wurden angepasst.",
-        "en": "Standalone beta for review and GitHub Pages deployment. Identical in content to the full release – only public beta metadata changed."
+        "de": "Alle Bereiche, alle 95 Glossarbegriffe und der Sbang-Ablauf sind enthalten. Offen ist nur die Durchsicht auf der veröffentlichten Adresse.",
+        "en": "All sections, all 95 glossary terms and the Sbang workflow are included. Only the review on the published address is pending."
       },
       "file": "guide/index.html",
-      "package": "FPV_Guide_DE-v1.0.1-beta.1.html",
       "size_bytes": 7292320,
       "sha256": "d80c5d0b8aed6824ed45f7317c838ea6b63672e93799b7bd691d6f5b5e2d56ff",
       "available": true,
       "signals": [
-        { "label": { "de": "HTML-Validierung", "en": "HTML validation" }, "state": "ok" },
-        { "label": { "de": "JavaScript-Syntax", "en": "JavaScript syntax" }, "state": "ok" },
-        { "label": { "de": "Renderpfad / Sbang", "en": "Render path / Sbang" }, "state": "ok" },
-        { "label": { "de": "Beta-Review", "en": "Beta review" }, "state": "pending" }
+        { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },
+        { "label": { "de": "Glossar", "en": "Glossary" }, "state": "ok" },
+        { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
+        { "label": { "de": "Durchsicht", "en": "Review" }, "state": "pending" }
       ],
       "notes": {
         "de": [
-          "Alle 95 Glossarbegriffe und die abgeschlossene Wiki-Prüfung bleiben unverändert.",
-          "Sichtbare Kennzeichnung: GitHub Beta · v1.0.1-beta.1 · 24.10.2026.",
-          "Portables Manifest 1.0.1-beta.1; interne guide-data-Version 0.3 bleibt Migrationsschlüssel.",
-          "Sbang-Inhalt, -Ablauf und -Implementierung sind unverändert."
+          "Simple Tuning als gerader Einstieg, Advanced Tuning für Feinarbeit",
+          "Build-Guide prüft die Basis, bevor getunt wird",
+          "Copterprofil steuert Werte, Tabellen und Checklisten",
+          "Sbang ist ein geführter Ablauf in sechs Schritten"
         ],
         "en": [
-          "All 95 glossary terms and the completed wiki review stay unchanged.",
-          "Visible label: GitHub beta · v1.0.1-beta.1 · 24 Oct 2026.",
-          "Portable manifest 1.0.1-beta.1; internal guide-data version 0.3 remains a migration key.",
-          "Sbang content, sequence and implementation are unchanged."
+          "Simple tuning as a straight entry, advanced tuning for detail work",
+          "The build guide checks the foundation before tuning starts",
+          "The quad profile drives values, tables and checklists",
+          "Sbang is a guided workflow in six steps"
         ]
       },
       "limits": {
         "de": [
-          "Beta-Review auf der echten Pages-URL steht aus (nicht Dateivorschau).",
-          "Bewusst eine einzelne ~7-MB-Datei – nicht ohne neue Offline-Prüfung umbauen.",
-          "Quellen- und Lizenzangaben im Dokument dürfen nicht entfernt werden.",
-          "Sbang darf inhaltlich und im Ablauf nicht verändert werden."
+          "Betaflight- und ESC-Werte bleiben firmware- und hardwareabhängig",
+          "Eine große Datei: der erste Aufruf dauert einen Moment",
+          "Sbang inhaltlich und im Ablauf unverändert lassen",
+          "Quellen- und Lizenzangaben im Dokument nicht entfernen"
         ],
         "en": [
-          "Beta review on the real Pages URL is still pending (not the file preview).",
-          "Deliberately a single ~7 MB file – do not restructure without re-testing offline use.",
-          "Source and licence notices inside the document must not be removed.",
-          "Sbang must not be changed in content or sequence."
+          "Betaflight and ESC values remain firmware and hardware dependent",
+          "One large file: the first load takes a moment",
+          "Leave Sbang content and sequence unchanged",
+          "Do not remove source or licence notices inside the document"
         ]
       }
     }

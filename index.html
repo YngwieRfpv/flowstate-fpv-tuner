@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark" data-lang="de">
+<html lang="de" data-lang="de" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlowState FPV · Release Hub — Tuner &amp; Guide</title>
-<meta name="description" content="FlowState Tuner und FPV Guide: jede Version mit Kanal, Prüfsumme, Reifegrad und direktem Start im Browser. Deutsch und English.">
+<title>FlowState FPV · Tuner &amp; Guide</title>
+<meta name="description" content="Zwei HTML-Programme für Betaflight-Tuning: der FlowState Tuner für Messung und CLI-Plan, der FPV Guide zum Verstehen und Nachschlagen.">
 <meta name="theme-color" content="#06080a">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FlowState FPV · Release Hub">
-<meta property="og:description" content="Tuner und Guide, sauber versioniert: Kanal, Prüfsumme, Reifegrad und direkter Start im Browser.">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
@@ -16,59 +13,62 @@
     var d = document.documentElement;
     d.classList.add('js');
     try {
-      var t = localStorage.getItem('flowstate-theme');
-      if (t === 'light' || t === 'dark') d.dataset.theme = t;
-      var l = localStorage.getItem('flowstate-lang');
-      if (l !== 'de' && l !== 'en') {
-        l = (navigator.language || 'en').toLowerCase().indexOf('de') === 0 ? 'de' : 'en';
+      var theme = localStorage.getItem('flowstate-theme');
+      if (theme === 'dark' || theme === 'light' || theme === 'cream') {
+        d.setAttribute('data-theme', theme);
       }
-      d.dataset.lang = l;
-      d.setAttribute('lang', l);
+      var lang = localStorage.getItem('flowstate-lang');
+      if (lang !== 'de' && lang !== 'en') {
+        lang = (navigator.language || 'en').toLowerCase().indexOf('de') === 0 ? 'de' : 'en';
+      }
+      d.setAttribute('data-lang', lang);
+      d.setAttribute('lang', lang);
     } catch (e) {}
   })();
 </script>
 </head>
 <body>
 
-<a class="sr-only" href="#versionen">Skip to versions / Zu den Versionen</a>
+<a class="sr-only" href="#programme">Zum Inhalt</a>
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="./" aria-label="FlowState FPV Release Hub">
+    <a class="brand" href="./">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-        <circle cx="17" cy="17" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".55"/>
+        <circle cx="17" cy="17" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".5"/>
         <circle cx="47" cy="17" r="8.5" stroke="currentColor" stroke-width="2.6"/>
         <circle cx="17" cy="47" r="8.5" stroke="currentColor" stroke-width="2.6"/>
-        <circle cx="47" cy="47" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".55"/>
+        <circle cx="47" cy="47" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".5"/>
         <path d="M22.5 22.5 41.5 41.5M41.5 22.5 22.5 41.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
         <circle cx="32" cy="32" r="3.4" fill="currentColor"/>
       </svg>
       <span class="brand-text">
         <span class="brand-name">FlowState</span>
-        <span class="brand-sub">FPV Release Hub</span>
+        <span class="brand-sub">Tuner &amp; Guide</span>
       </span>
     </a>
 
-    <nav class="nav" aria-label="Hauptnavigation">
-      <a href="#projekte" data-i18n="nav.projects">Projekte</a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="#programme" data-i18n="nav.projects">Programme</a>
+      <a href="#tuner" data-i18n="nav.tuner">Tuner</a>
+      <a href="#guide" data-i18n="nav.guide">Guide</a>
       <a href="#versionen" data-i18n="nav.versions">Versionen</a>
-      <a href="#struktur" data-i18n="nav.structure">Struktur</a>
-      <a href="#deployment" data-i18n="nav.deployment">Deployment</a>
-      <a href="#dokumentation" data-i18n="nav.docs">Doku</a>
+      <a href="#fragen" data-i18n="nav.faq">Fragen</a>
     </nav>
 
     <div class="header-actions">
-      <div class="lang-switch" role="group" aria-label="Sprache / Language">
+      <div class="lang-switch" role="group" aria-label="Sprache">
         <button type="button" data-lang-btn="de" aria-pressed="true">DE</button>
         <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
       </div>
+      <button class="icon-btn theme-btn" id="theme-toggle" type="button" aria-label="Darstellung" title="Darstellung">
+        <svg data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        <svg data-theme-icon="cream" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15h16M6 19h12M8 15a4 4 0 0 1 8 0"/><path d="M12 4v3M5.5 7.5l1.8 1.8M18.5 7.5l-1.8 1.8"/></svg>
+      </button>
       <a class="icon-btn" href="https://github.com/YngwieRfpv/flowstate-fpv-tuner" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
       </a>
-      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Theme" title="Theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
-      </button>
     </div>
   </div>
 </header>
@@ -78,91 +78,141 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV · Versionierung</p>
+      <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV</p>
       <h1>
-        <span data-i18n="hero.title1">Zwei Projekte.</span><br>
-        <span data-i18n="hero.title2">Ein Ort für</span> <span class="accent" data-i18n="hero.accent">jede Version</span>.
+        <span data-i18n="hero.title1">Zwei Programme.</span><br>
+        <span data-i18n="hero.title2">Eine Werkstatt für</span>
+        <span class="accent" data-i18n="hero.accent">deinen Copter</span>.
       </h1>
       <p class="hero-lede" data-i18n="hero.lede">
-        FlowState Tuner und der FPV Guide an einem festen Platz: Kanal, Prüfsumme,
-        Reifegrad und ein direkter Start im Browser — ohne Download.
+        Der Tuner misst und schreibt. Der Guide erklärt und begleitet. Beide sind
+        einzelne HTML-Dateien: im Browser öffnen, offline nutzen, ohne Installation.
       </p>
       <div class="hero-cta">
-        <a class="btn btn--primary" href="#versionen">
-          <span data-i18n="hero.cta1">Versionen ansehen</span>
+        <a class="btn btn--primary" href="tuner/">
+          <span data-i18n="hero.cta1">Tuner starten</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
         </a>
-        <a class="btn btn--ghost" href="tuner/" data-i18n="hero.cta2">Tuner öffnen</a>
-        <a class="btn btn--ghost" href="guide/" data-i18n="hero.cta3">Guide öffnen</a>
-        <a class="btn btn--quiet" href="#struktur" data-i18n="hero.cta4">Struktur</a>
+        <a class="btn btn--ghost" href="guide/" data-i18n="hero.cta2">Guide öffnen</a>
+        <a class="btn btn--quiet" href="#versionen" data-i18n="hero.cta3">Versionen</a>
       </div>
       <div class="stat-strip">
-        <div class="stat"><span class="stat-value" data-stat="projects">2</span><span class="stat-label" data-i18n="stat.projects">Projekte</span></div>
-        <div class="stat"><span class="stat-value" data-stat="releases">2</span><span class="stat-label" data-i18n="stat.releases">Versionen</span></div>
-        <div class="stat"><span class="stat-value" data-stat="online">2</span><span class="stat-label" data-i18n="stat.online">online</span></div>
+        <div class="stat"><span class="stat-value" data-stat="programs">2</span><span class="stat-label" data-i18n="stat.programs">Programme</span></div>
+        <div class="stat"><span class="stat-value" data-stat="versions">2</span><span class="stat-label" data-i18n="stat.versions">Versionen</span></div>
+        <div class="stat"><span class="stat-value" data-stat="online">2</span><span class="stat-label" data-i18n="stat.online">bereit</span></div>
         <div class="stat"><span class="stat-value">100 %</span><span class="stat-label" data-i18n="stat.offline">offline</span></div>
       </div>
     </div>
 
-    <aside class="hero-card" aria-label="Release index">
+    <aside class="hero-card">
       <div class="hero-card-top">
         <span class="hero-card-title">versions.json</span>
         <span class="dot-row" aria-hidden="true"><span class="dot dot--live"></span><span class="dot"></span><span class="dot"></span></span>
       </div>
       <div id="hero-mini"></div>
       <div class="hero-card-foot">
-        <span data-i18n="hero.foot.left">Statisch · kein Backend</span>
+        <span data-i18n="hero.foot">Läuft im Browser · kein Konto</span>
         <span data-hero-date>—</span>
       </div>
     </aside>
   </div>
 </section>
 
-<section class="section" id="projekte">
+<section class="section" id="programme">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="projects.eyebrow">Projekte</p>
-      <h2 data-i18n="projects.title">Zwei Werkzeuge, ein Produktgedanke</h2>
-      <p class="lede" data-i18n="projects.lede">
-        Der Guide erklärt, warum eine Einstellung so aussieht. Der Tuner führt durch den
-        Ablauf, der dorthin führt. Beide sind eigenständige Einzeldateien und laufen
-        vollständig offline.
+      <p class="eyebrow" data-i18n="programs.eyebrow">Programme</p>
+      <h2 data-i18n="programs.title">Was die beiden können</h2>
+      <p class="lede" data-i18n="programs.lede">
+        Der Guide beantwortet das Warum, der Tuner liefert das Was. Zusammen ergeben
+        sie einen vollständigen Tuning-Ablauf.
       </p>
     </div>
     <div class="project-grid" id="project-grid"></div>
   </div>
 </section>
 
-<section class="section section--tight">
+<section class="section" id="tuner">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="flow.eyebrow">Ablauf</p>
-      <h2 data-i18n="flow.title">Wie eine Version ihren Platz findet</h2>
-      <p class="lede" data-i18n="flow.lede">
-        Von der Einzeldatei bis zur aufrufbaren URL sind es fünf Schritte.
-        Jeder Schritt hinterlässt eine Spur, die man später prüfen kann.
+      <p class="eyebrow" data-i18n="tuner.eyebrow">FlowState Tuner</p>
+      <h2 data-i18n="tuner.title">Messen, rechnen, schreiben</h2>
+      <p class="lede" data-i18n="tuner.lede">
+        Der Tuner liest Blackbox- und Dataflash-Logs, leitet daraus Filter- und
+        PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird
+        über Web Serial – nur nach Sicherung und Bestätigung.
       </p>
     </div>
-    <div class="flow reveal">
-      <div class="flow-step">
-        <h3 data-i18n="flow.s1.t">Quelle</h3>
-        <p data-i18n="flow.s1.d">Die Anwendung liegt als einzelne HTML-Datei vor.</p>
+
+    <div class="detail-grid">
+      <div class="reveal">
+        <h3 style="font-size:15px;margin-bottom:12px" data-i18n="tuner.phases">Der Ablauf in sechs Phasen</h3>
+        <table class="phase-table">
+          <tbody id="phase-body"></tbody>
+        </table>
       </div>
-      <div class="flow-step">
-        <h3 data-i18n="flow.s2.t">Einordnen</h3>
-        <p data-i18n="flow.s2.d">Projekt, Kanal, Datum, Größe und Prüfsumme landen in <code>versions.json</code>.</p>
+
+      <div class="reveal">
+        <h3 style="font-size:15px;margin-bottom:12px" data-i18n="tuner.gates">Sicherheits-Gates</h3>
+        <p style="color:var(--muted);font-size:13.6px;margin-bottom:12px" data-i18n="tuner.gates.lede">
+          Mehrere unabhängige Prüfungen blockieren Schreibvorgänge. Sie bleiben aktiv,
+          auch wenn die optionale Checkliste aus ist.
+        </p>
+        <ul class="notes-list">
+          <li><span><strong data-i18n="gate.backup.t">Backup</strong> — <span data-i18n="gate.backup.d">ein vollständiges diff all muss vorliegen, sonst springt der Ablauf zurück in Phase 1.</span></span></li>
+          <li><span><strong data-i18n="gate.firmware.t">Firmware</strong> — <span data-i18n="gate.firmware.d">Schreiben nur mit Betaflight 4.5 oder neuer.</span></span></li>
+          <li><span><strong data-i18n="gate.profile.t">Zielprofil</strong> — <span data-i18n="gate.profile.d">nur das gewählte PID-Profil wird verändert.</span></span></li>
+          <li><span><strong data-i18n="gate.filter.t">Filterlog</strong> — <span data-i18n="gate.filter.d">das aktive Log muss die Qualitätsprüfung bestehen; ein Override gilt nur für genau dieses Log.</span></span></li>
+        </ul>
+
+        <h3 style="font-size:15px;margin:22px 0 8px" data-i18n="tuner.exports">Exporte</h3>
+        <p style="color:var(--muted);font-size:13.6px" data-i18n="tuner.exports.lede">
+          Plan als Text, Manifest als JSON, Roh-Logs als ZIP, Blackbox direkt aus dem
+          FC. Alles bleibt lokal.
+        </p>
       </div>
-      <div class="flow-step">
-        <h3 data-i18n="flow.s3.t">Einspielen</h3>
-        <p data-i18n="flow.s3.d">Die Einzeldatei wird zu <code>tuner/index.html</code> bzw. <code>guide/index.html</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="guide">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" data-i18n="guide.eyebrow">FPV Guide</p>
+      <h2 data-i18n="guide.title">Verstehen, nachschlagen, nachbauen</h2>
+      <p class="lede" data-i18n="guide.lede">
+        Der Guide führt vom ersten Build bis zum Feintuning. Er erklärt Begriffe,
+        zeigt Tabellen und begleitet den Ablauf Schritt für Schritt – mit Profilauswahl
+        für Tiny Whoop bis 10 Zoll.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <h3 style="font-size:15px;margin-bottom:12px" data-i18n="guide.areas">Die Bereiche</h3>
+      <div class="area-grid">
+        <div class="area"><strong data-i18n="area.simple.t">Simple Tuning</strong><span data-i18n="area.simple.d">Betaflight vorbereiten, Logs lesen, Profil abstimmen.</span></div>
+        <div class="area"><strong data-i18n="area.advanced.t">Advanced Tuning</strong><span data-i18n="area.advanced.d">Advanced Tune, Sbang oder einzelne Einstellungen.</span></div>
+        <div class="area"><strong data-i18n="area.ref.t">Technik &amp; Referenz</strong><span data-i18n="area.ref.d">Filterbegriffe, Werte und Tabellen zum Nachschlagen.</span></div>
+        <div class="area"><strong data-i18n="area.build.t">Build-Guide</strong><span data-i18n="area.build.d">Mechanisch und elektrisch saubere Basis vor dem Erstflug.</span></div>
+        <div class="area"><strong data-i18n="area.glossary.t">Glossar</strong><span data-i18n="area.glossary.d">95 Begriffe, direkt im Text aufrufbar.</span></div>
+        <div class="area"><strong data-i18n="area.sources.t">Quellen &amp; Links</strong><span data-i18n="area.sources.d">Originalanleitungen, Dokumentation, Werkzeuge.</span></div>
       </div>
-      <div class="flow-step">
-        <h3 data-i18n="flow.s4.t">Prüfen</h3>
-        <p data-i18n="flow.s4.d"><code>validate.mjs</code> vergleicht Hash, Pfade und Links — lokal und in der CI.</p>
+    </div>
+
+    <div class="detail-grid" style="margin-top:26px">
+      <div class="reveal">
+        <h3 style="font-size:15px;margin-bottom:8px" data-i18n="guide.profile">Dein Profil</h3>
+        <p style="color:var(--muted);font-size:13.6px" data-i18n="guide.profile.lede">
+          Coptergröße, Frame, Gyro-/PID-Taktrate, Betaflight-Version und ESC-Firmware.
+          Der Guide filtert Werte und Tabellen danach.
+        </p>
       </div>
-      <div class="flow-step">
-        <h3 data-i18n="flow.s5.t">Ausliefern</h3>
-        <p data-i18n="flow.s5.d">GitHub Pages baut die Seite bei jedem Push auf <code>main</code> automatisch.</p>
+      <div class="reveal">
+        <h3 style="font-size:15px;margin-bottom:8px" data-i18n="guide.workspace">Workspace</h3>
+        <p style="color:var(--muted);font-size:13.6px" data-i18n="guide.workspace.lede">
+          Setup als Datei speichern, später wieder laden. Logs zuordnen und benennen.
+          Alles im Browser, nichts auf einem Server.
+        </p>
       </div>
     </div>
   </div>
@@ -172,21 +222,21 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="versions.eyebrow">Versionen</p>
-      <h2 data-i18n="versions.title">Der vollständige Index</h2>
+      <h2 data-i18n="versions.title">Jede Ausgabe, ehrlich beschriftet</h2>
       <p class="lede" data-i18n="versions.lede">
-        Eine Karte pro Ausgabe — mit Kanal, Prüfsumme und ehrlichem Reifegrad.
-        Die Liste entsteht aus <code>assets/data/versions.json</code>.
+        Kanal, Datum, Größe und Prüfsumme pro Version. Der Reifegrad steht direkt
+        daneben – nicht im Kleingedruckten.
       </p>
     </div>
 
-    <div class="toolbar reveal" role="search">
+    <div class="toolbar reveal">
       <label class="search">
         <span class="sr-only" data-i18n="search.label">Versionen durchsuchen</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="search" type="search" data-i18n-placeholder="search.placeholder" placeholder="Version, Projekt oder Stichwort …" autocomplete="off" spellcheck="false">
+        <input id="search" type="search" data-i18n-placeholder="search.placeholder" placeholder="Version, Programm oder Stichwort …" autocomplete="off" spellcheck="false">
       </label>
 
-      <div class="segmented" role="group" aria-label="Projekt">
+      <div class="segmented" role="group" aria-label="Programm">
         <button type="button" data-filter="project" data-value="all" aria-pressed="true" data-i18n="filter.all">Alle</button>
         <button type="button" data-filter="project" data-value="tuner" aria-pressed="false">Tuner</button>
         <button type="button" data-filter="project" data-value="guide" aria-pressed="false">Guide</button>
@@ -199,193 +249,46 @@
         <button type="button" data-filter="channel" data-value="stable" aria-pressed="false">Stable</button>
       </div>
 
-      <span class="toolbar-count" id="result-count" aria-live="polite">–</span>
+      <span class="toolbar-count" id="result-count" aria-live="polite">—</span>
     </div>
 
     <div class="release-list" id="release-list"></div>
   </div>
 </section>
 
-<section class="section" id="struktur">
+<section class="section" id="fragen">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="structure.eyebrow">Struktur</p>
-      <h2 data-i18n="structure.title">Ein Repository, zwei Anwendungen</h2>
-      <p class="lede" data-i18n="structure.lede">
-        Kein Build, keine Abhängigkeiten, keine Serverlogik. Alles, was GitHub Pages
-        braucht, ist die richtige Ordnerstruktur und eine <code>.nojekyll</code>-Datei.
-      </p>
+      <p class="eyebrow" data-i18n="faq.eyebrow">Fragen</p>
+      <h2 data-i18n="faq.title">Häufige Fragen</h2>
+      <p class="lede" data-i18n="faq.lede">Kurz beantwortet, ohne Umwege.</p>
     </div>
 
-    <div class="tree-wrap">
-      <pre class="tree reveal" aria-label="Repository structure"><code><span class="m">flowstate-fpv-tuner/</span>
-├── <span class="f">index.html</span>              <span class="c" data-i18n="tree.hub"># dieser Hub</span>
-├── <span class="f">README.md</span>               <span class="c" data-i18n="tree.readme"># Bedienungsanleitung</span>
-├── <span class="f">.nojekyll</span>               <span class="c" data-i18n="tree.nojekyll"># Jekyll aus</span>
-├── <span class="a">.github/workflows/</span>
-│   └── <span class="f">validate.yml</span>       <span class="c" data-i18n="tree.ci"># Index prüfen</span>
-├── <span class="a">tuner/</span>
-│   └── <span class="f">index.html</span>          <span class="c" data-i18n="tree.tuner"># FlowState Tuner</span>
-├── <span class="a">guide/</span>
-│   └── <span class="f">index.html</span>          <span class="c" data-i18n="tree.guide"># FPV Guide</span>
-├── <span class="a">assets/</span>
-│   ├── <span class="d">css/</span><span class="f">style.css</span>     <span class="c" data-i18n="tree.css"># Design-System</span>
-│   ├── <span class="d">js/</span><span class="f">hub.js</span>          <span class="c" data-i18n="tree.js"># Rendering, DE/EN</span>
-│   ├── <span class="d">data/</span><span class="f">versions.json</span> <span class="c" data-i18n="tree.data"># ← Quelle der Wahrheit</span>
-│   └── <span class="d">images/</span><span class="f">*.svg</span>
-├── <span class="a">docs/</span>
-│   ├── <span class="f">GITHUB_PAGES_SETUP.md</span>
-│   ├── <span class="f">RELEASE_PROCESS.md</span>
-│   └── <span class="d">releases/</span>           <span class="c" data-i18n="tree.releases"># Notes je Version</span>
-└── <span class="a">scripts/</span>
-    ├── <span class="f">install-versions.sh</span> <span class="c" data-i18n="tree.install"># Dateien einspielen</span>
-    ├── <span class="f">update-manifest.mjs</span> <span class="c" data-i18n="tree.update"># Hash &amp; Größe</span>
-    └── <span class="f">validate.mjs</span>        <span class="c" data-i18n="tree.validate"># Prüfung</span></code></pre>
-
-      <div class="tree-legend">
-        <div class="legend-item reveal">
-          <span class="k">index.html</span>
-          <p data-i18n="legend.hub">Der Hub bleibt schlank: Er beschreibt und verlinkt, er enthält die Anwendungen nicht.</p>
-        </div>
-        <div class="legend-item reveal">
-          <span class="k">versions.json</span>
-          <p data-i18n="legend.data">Einzige Quelle für Versionen, Kanäle, Hashes und Reifegrad — zweisprachig.</p>
-        </div>
-        <div class="legend-item reveal">
-          <span class="k">tuner/ · guide/</span>
-          <p data-i18n="legend.apps">Feste URLs pro Projekt. Eine neue Version ersetzt genau eine Datei.</p>
-        </div>
-        <div class="legend-item reveal">
-          <span class="k">.nojekyll</span>
-          <p data-i18n="legend.nojekyll">Verhindert, dass GitHub Pages Dateien mit Unterstrich oder bestimmten Namen wegfiltert.</p>
-        </div>
-        <div class="legend-item reveal">
-          <span class="k">docs/</span>
-          <p data-i18n="legend.docs">Release-Notes und Prozesswissen versioniert neben dem Code.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="deployment">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="deploy.eyebrow">Deployment</p>
-      <h2 data-i18n="deploy.title">In drei Schritten online</h2>
-      <p class="lede" data-i18n="deploy.lede">
-        Der Hub ist statisch. Nach dem Einspielen der Anwendungsdateien genügt ein
-        Push auf <code>main</code>, damit GitHub Pages die Seite neu baut.
-      </p>
-    </div>
-
-    <div class="steps">
-      <div class="step reveal">
-        <span class="step-num">1</span>
-        <div>
-          <h3 data-i18n="deploy.s1.t">Versionen einspielen</h3>
-          <p data-i18n="deploy.s1.d">Die Einzeldateien an ihren Platz kopieren — das Skript berechnet Hash und Größe und trägt beides in den Index ein.</p>
-          <pre class="code"><span class="prompt">$</span> ./scripts/install-versions.sh \
-    --tuner  ~/Downloads/FlowState-Tuner-v4.8-alpha.1.html \
-    --guide  ~/Downloads/FPV_Guide_DE.html</pre>
-        </div>
-      </div>
-
-      <div class="step reveal">
-        <span class="step-num">2</span>
-        <div>
-          <h3 data-i18n="deploy.s2.t">Prüfen</h3>
-          <p data-i18n="deploy.s2.d">Der Validator kontrolliert Index, Dateien, Hashes und interne Links.</p>
-          <pre class="code"><span class="prompt">$</span> node scripts/validate.mjs</pre>
-          <p data-i18n="deploy.s2.d2">Dieselbe Prüfung läuft bei jedem Push in GitHub Actions.</p>
-        </div>
-      </div>
-
-      <div class="step reveal">
-        <span class="step-num">3</span>
-        <div>
-          <h3 data-i18n="deploy.s3.t">Pushen</h3>
-          <p data-i18n="deploy.s3.d">Committen und pushen — GitHub Pages baut die Seite danach automatisch neu.</p>
-          <pre class="code"><span class="prompt">$</span> git add -A &amp;&amp; git commit -m "release: tuner v4.8-alpha.1" \
-    &amp;&amp; git push origin main</pre>
-          <p><code>https://yngwierfpv.github.io/flowstate-fpv-tuner/</code></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout callout--info reveal" style="margin-top:22px">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4m0-4h.01"/></svg>
-      <div>
-        <h3 data-i18n="deploy.note.t">Pages-Einstellung</h3>
-        <p data-i18n="deploy.note.d">
-          Unter Settings → Pages muss als Quelle der Branch stehen, der die Dateien enthält —
-          üblicherweise main, Ordner / (root). Zeigt die Einstellung auf einen anderen Branch,
-          wird die Seite nie aktualisiert.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="callout reveal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
-      <div>
-        <h3 data-i18n="status.title">Reifegrad — ehrlich benannt</h3>
-        <p data-i18n="status.text">
-          Beide Ausgaben sind vorab: der Tuner Early Alpha, der Guide GitHub-Beta.
-          Bestandene Quellprüfungen sind kein Nachweis für Browser-, Web-Serial-, FC-
-          oder Flugverhalten. Props ab für Bench-Arbeit, und bei heißen Motoren,
-          Desyncs oder unklarer Mechanik sofort aufhören.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="dokumentation">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="docs.eyebrow">Dokumentation</p>
-      <h2 data-i18n="docs.title">Was wo nachzulesen ist</h2>
-      <p class="lede" data-i18n="docs.lede">
-        Jede Version bringt ihre eigenen Notizen mit. Prozesswissen liegt daneben,
-        nicht in Chats oder Dateinamen.
-      </p>
-    </div>
-
-    <div class="doc-grid">
-      <a class="doc-card reveal" href="docs/GITHUB_PAGES_SETUP.md">
-        <span class="path">docs/</span>
-        <strong data-i18n="docs.pages.t">GitHub Pages einrichten</strong>
-        <span class="desc" data-i18n="docs.pages.d">Quelle, Branch, eigene Domain, Caching und die Stolperfallen bei großen Einzeldateien.</span>
-      </a>
-      <a class="doc-card reveal" href="docs/RELEASE_PROCESS.md">
-        <span class="path">docs/</span>
-        <strong data-i18n="docs.process.t">Release-Prozess</strong>
-        <span class="desc" data-i18n="docs.process.d">Kanal wählen, Datei einspielen, Hash prüfen, Tag und GitHub-Release setzen.</span>
-      </a>
-      <a class="doc-card reveal" href="docs/releases/tuner-v4.8-alpha.1.md">
-        <span class="path">docs/releases/</span>
-        <strong>Tuner v4.8-alpha.1</strong>
-        <span class="desc" data-i18n="docs.tuner.d">Highlights, Validierungsgrenze und Hinweise zum Alpha-Stand.</span>
-      </a>
-      <a class="doc-card reveal" href="docs/releases/guide-v1.0.1-beta.1.md">
-        <span class="path">docs/releases/</span>
-        <strong>Guide v1.0.1-beta.1</strong>
-        <span class="desc" data-i18n="docs.guide.d">Delta zur Vollversion, Prüfergebnis und Review-Fokus.</span>
-      </a>
-      <a class="doc-card reveal" href="README.md">
-        <span class="path">README.md</span>
-        <strong data-i18n="docs.readme.t">Bedienungsanleitung</strong>
-        <span class="desc" data-i18n="docs.readme.d">Beide Anwendungen im Detail: Start, Phasen, Gates, Exporte, Fehlerbehebung.</span>
-      </a>
-      <a class="doc-card reveal" href="https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases" target="_blank" rel="noopener">
-        <span class="path">github.com/…</span>
-        <strong data-i18n="docs.releases.t">Releases</strong>
-        <span class="desc" data-i18n="docs.releases.d">Tags, Release-Notes und Downloads je Version.</span>
-      </a>
+    <div class="faq reveal">
+      <details open>
+        <summary data-i18n="faq.install.q">Muss ich etwas installieren?</summary>
+        <p data-i18n="faq.install.a">Nein. Beide Programme sind je eine einzelne HTML-Datei. Du öffnest sie im Browser – fertig. Kein Installer, keine Erweiterung, kein Konto.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.pages.q">Warum gibt es überhaupt eine GitHub-Seite?</summary>
+        <p data-i18n="faq.pages.a">GitHub Pages ist reines Datei-Hosting. Es liefert die HTML-Dateien aus, die im Repository liegen – nichts wird gestartet oder gebaut. Damit eine Adresse wie /tuner/ funktioniert, muss in den Repository-Einstellungen unter Pages der Branch ausgewählt sein, in dem die Dateien liegen.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.offline.q">Funktioniert das auch ohne Internet?</summary>
+        <p data-i18n="faq.offline.a">Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.browser.q">Welcher Browser?</summary>
+        <p data-i18n="faq.browser.a">Der Guide läuft in jedem modernen Browser, auch mobil. Der Tuner braucht für die Verbindung zum Flight Controller Chrome oder Edge auf dem Desktop, weil nur diese Web Serial unterstützen. Log-Analyse funktioniert überall.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.data.q">Wohin gehen meine Daten?</summary>
+        <p data-i18n="faq.data.a">Nirgendwohin. Logs, Einstellungen und Workspace bleiben im Browser-Speicher deines Geräts oder in Dateien, die du selbst speicherst. Es gibt kein Backend und keine Telemetrie.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.safe.q">Ist das eine Flugfreigabe?</summary>
+        <p data-i18n="faq.safe.a">Nein. Tuning ersetzt keine mechanische Kontrolle. Props ab für Bench-Arbeiten, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -396,49 +299,48 @@
   <div class="wrap">
     <div class="footer-top">
       <div>
-        <a class="brand" href="./" style="margin-bottom:14px">
+        <a class="brand" href="./">
           <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <circle cx="17" cy="17" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".55"/>
+            <circle cx="17" cy="17" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".5"/>
             <circle cx="47" cy="17" r="8.5" stroke="currentColor" stroke-width="2.6"/>
             <circle cx="17" cy="47" r="8.5" stroke="currentColor" stroke-width="2.6"/>
-            <circle cx="47" cy="47" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".55"/>
+            <circle cx="47" cy="47" r="8.5" stroke="currentColor" stroke-width="2.6" opacity=".5"/>
             <path d="M22.5 22.5 41.5 41.5M41.5 22.5 22.5 41.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
             <circle cx="32" cy="32" r="3.4" fill="currentColor"/>
           </svg>
           <span class="brand-text">
             <span class="brand-name">FlowState</span>
-            <span class="brand-sub">FPV Release Hub</span>
+            <span class="brand-sub">Tuner &amp; Guide</span>
           </span>
         </a>
         <p class="footer-note" data-i18n="footer.note">
-          Statischer Release-Hub für FlowState Tuner und den FPV Guide.
-          Kein Backend, keine Tracker, keine externen Fonts.
+          Zwei HTML-Programme für Betaflight-Tuning. Kein Backend, keine Tracker,
+          keine externen Schriften.
         </p>
       </div>
 
       <div class="footer-links">
         <div class="footer-col">
-          <h4 data-i18n="footer.projects">Projekte</h4>
+          <h4 data-i18n="footer.programs">Programme</h4>
           <a href="tuner/">FlowState Tuner</a>
-          <a href="guide/">FPV Guide DE</a>
+          <a href="guide/">FPV Guide</a>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.repo">Repo</h4>
-          <a href="README.md">README</a>
-          <a href="docs/GITHUB_PAGES_SETUP.md" data-i18n="footer.pages">Pages-Setup</a>
-          <a href="docs/RELEASE_PROCESS.md" data-i18n="footer.process">Release-Prozess</a>
+          <h4 data-i18n="footer.more">Mehr</h4>
+          <a href="#versionen" data-i18n="nav.versions">Versionen</a>
+          <a href="#fragen" data-i18n="nav.faq">Fragen</a>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.ext">Extern</h4>
+          <h4 data-i18n="footer.repo">Repository</h4>
           <a href="https://github.com/YngwieRfpv/flowstate-fpv-tuner" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases" target="_blank" rel="noopener" data-i18n="footer.releases">Releases</a>
+          <a href="https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases" target="_blank" rel="noopener" data-i18n="footer.releases">Versionen</a>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> FlowState FPV · YngwierFPV</span>
-      <span id="build-meta">—</span>
+      <span data-hero-date>—</span>
     </div>
   </div>
 </footer>
