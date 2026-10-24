@@ -53,7 +53,7 @@
       'row.tuner.text': 'Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial — nur nach Sicherung und Bestätigung.',
       'row.tuner.p1': 'Sechs Phasen, jede mit eigenem Abschluss',
       'row.tuner.p2': 'Backup-, Firmware- und Profil-Gate vor jedem Schreiben',
-      'row.tuner.p3': 'Chrome oder Edge am Desktop für die FC-Verbindung',
+      'row.tuner.p3': 'Chrome, Edge oder Opera am Desktop für die FC-Verbindung',
       'row.tuner.cta': 'Tuner öffnen',
       'row.guide.kicker': 'Verstehen · Nachschlagen · Nachbauen',
       'row.guide.text': 'Führt vom ersten Build bis zum Feintuning. Erklärt Begriffe, zeigt Tabellen und begleitet den Ablauf Schritt für Schritt — mit Profilauswahl für Tiny Whoop bis 10 Zoll.',
@@ -113,7 +113,7 @@
       'faq.offline.q': 'Funktioniert das auch ohne Internet?',
       'faq.offline.a': 'Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben.',
       'faq.browser.q': 'Welcher Browser?',
-      'faq.browser.a': 'Der Guide läuft in jedem modernen Browser, auch mobil. Der Tuner braucht für die Verbindung zum Flight Controller Chrome oder Edge auf dem Desktop, weil nur diese Web Serial unterstützen. Log-Analyse funktioniert überall.',
+      'faq.browser.a': 'Der Guide läuft in jedem modernen Browser, auch mobil. Für die Verbindung zum Flight Controller braucht der Tuner Web Serial: Chrome, Edge und Opera am Desktop bringen es mit, Brave erst nach dem Einschalten in den Einstellungen. Firefox und Safari haben es nicht. Log-Analyse funktioniert überall.',
       'faq.data.q': 'Wohin gehen meine Daten?',
       'faq.data.a': 'Nirgendwohin. Einstellungen und Profil bleiben im Browser-Speicher deines Geräts. Es gibt kein Backend und keine Telemetrie.',
       'faq.safe.q': 'Ist das eine Flugfreigabe?',
@@ -189,7 +189,7 @@
       'row.tuner.text': 'Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial — only after a backup and confirmation.',
       'row.tuner.p1': 'Six phases, each with its own completion',
       'row.tuner.p2': 'Backup, firmware and profile gate before every write',
-      'row.tuner.p3': 'Chrome or Edge on desktop for the FC connection',
+      'row.tuner.p3': 'Chrome, Edge or Opera on desktop for the FC connection',
       'row.tuner.cta': 'Open tuner',
       'row.guide.kicker': 'Understand · Look up · Rebuild',
       'row.guide.text': 'Leads from the first build to fine tuning. Explains terms, shows tables and walks the workflow step by step — with profiles from tiny whoop to 10 inch.',
@@ -249,7 +249,7 @@
       'faq.offline.q': 'Does it work without internet?',
       'faq.offline.a': 'Yes. Both files load no external scripts, fonts or images. Download, double-click, done – the network can stay off.',
       'faq.browser.q': 'Which browser?',
-      'faq.browser.a': 'The guide runs in any modern browser, mobile included. For the connection to the flight controller the tuner needs Chrome or Edge on desktop, because only they support Web Serial. Log analysis works everywhere.',
+      'faq.browser.a': 'The guide runs in any modern browser, mobile included. For the flight-controller connection the tuner needs Web Serial: Chrome, Edge and Opera bring it on desktop, Brave only after enabling it in settings. Firefox and Safari lack it. Log analysis works everywhere.',
       'faq.data.q': 'Where does my data go?',
       'faq.data.a': 'Nowhere. Settings and profile stay in your browser storage. There is no backend and no telemetry.',
       'faq.safe.q': 'Is this a flight clearance?',
@@ -337,7 +337,7 @@
     if (typeof bytes !== 'number' || bytes <= 0) return '—';
     var kb = bytes / 1000;
     if (kb < 1000) return Math.round(kb).toLocaleString(locale()) + ' KB';
-    return (kb / 1000).toFixed(1) + ' MB';
+    return (kb / 1000).toLocaleString(locale(), { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' MB';
   }
 
   function formatDate(iso) {
