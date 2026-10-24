@@ -5,8 +5,8 @@ Browser läuft — ohne Installation, ohne Konto, ohne Internetverbindung.
 
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
-| **FlowState Tuner** | [`tuner/index.html`](tuner/index.html) | 452 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
-| **FPV Guide** | [`guide/index.html`](guide/index.html) | 7,3 MB | Erklären, nachschlagen, Ablauf begleiten |
+| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 452 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
+| **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,3 MB | Erklären, nachschlagen, Ablauf begleiten |
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
 Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
@@ -14,7 +14,7 @@ Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprach
 
 ---
 
-## FlowState Tuner
+## [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)
 
 Der Tuner liest Blackbox- und Dataflash-Logs, leitet daraus Filter- und PID-Werte ab
 und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial —
@@ -75,7 +75,7 @@ geführt.
 
 ---
 
-## FPV Guide
+## [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)
 
 Der Guide führt vom ersten Build bis zum Feintuning. Er erklärt Begriffe, zeigt
 Tabellen und begleitet den Ablauf Schritt für Schritt.
@@ -126,6 +126,9 @@ Guide, Technik & Referenz   Werte nachlesen und dokumentieren
 Beide Programme laufen direkt im Browser. Entweder über die veröffentlichte Adresse
 oder als heruntergeladene Datei per Doppelklick — beides zeigt dieselbe Anwendung.
 
+Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/) und
+[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/).
+
 | | Guide | Tuner ohne FC | Tuner mit FC |
 |---|---|---|---|
 | Chrome, Edge (Desktop) | ✓ | ✓ | ✓ |
@@ -145,8 +148,8 @@ Browser.
 | Version | `v4.8-alpha.1` | `v1.0.1-beta.1` |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
-| Größe | 451.790 B | 7.292.320 B |
-| SHA-256 | `f86deeeab262ec1df6afd2aea65d46884299454713b787b5a8d7d6866e977b9f` | `d80c5d0b8aed6824ed45f7317c838ea6b63672e93799b7bd691d6f5b5e2d56ff` |
+| Größe | 451.742 B | 7.292.272 B |
+| SHA-256 | `55397f568c6de4f72bb10cf2df967dac680e0fbe22eadc6b5cac3ee5e21e15f8` | `42a69de36552a6c9f5b90cc037f0437d5f9854becca401c88425d20df3377a6c` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder.
 
@@ -156,12 +159,13 @@ Beide Dateien laden keine externen Skripte, Schriften oder Bilder.
 
 Two single-file HTML programs for Betaflight tuning, running entirely in the browser.
 
-- **FlowState Tuner** — reads Blackbox and Dataflash logs, derives filter and PID
-  values, shows every step as a readable CLI plan and writes it over Web Serial after
-  a backup and explicit confirmation. Six phases: setup, filter, neutral P/D, master,
-  FF/I/D-Max, archive.
-- **FPV Guide** — explains the workflow from the first build to fine tuning, with 95
-  glossary terms, reference tables and a workspace you can save as a file.
+- **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** — reads Blackbox and Dataflash logs, derives
+  filter and PID values, shows every step as a readable CLI plan and writes it over
+  Web Serial after a backup and explicit confirmation. Six phases: setup, filter,
+  neutral P/D, master, FF/I/D-Max, archive.
+- **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** — explains the workflow from the first build to fine
+  tuning, with 95 glossary terms, reference tables and a workspace you can save as a
+  file.
 
 Neither needs an install, an account or an internet connection. The tuner requires
 Chrome or Edge on desktop for the flight-controller connection; everything else works
