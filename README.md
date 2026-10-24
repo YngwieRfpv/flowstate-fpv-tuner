@@ -172,6 +172,8 @@ for bench work and stop on hot motors, desyncs or unclear mechanics.
 
 ## Lizenz
 
-Für dieses Repository ist keine Lizenz gewählt. Bis dahin gilt die
-Standard-Copyright-Position von GitHub: Rechte zur Weiterverwendung sind nicht
-eingeräumt.
+Die Programme dürfen unverändert weitergegeben werden: vollständig, mit Lizenz und
+mit Verweis auf die Originalquelle. Bearbeitungen, Kürzungen, Übersetzungen und
+eigene Fassungen sind nicht erlaubt.
+
+Der vollständige Text steht in [`LICENSE`](LICENSE), auf Deutsch und Englisch.

@@ -1643,6 +1643,51 @@ details.notes > summary:hover {
   letter-spacing: -0.025em;
 }
 
+.program-title-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  border-radius: 6px;
+  transition: color 0.18s var(--ease);
+}
+
+.program-title-link svg {
+  width: 0.62em;
+  height: 0.62em;
+  flex: none;
+  align-self: center;
+  color: var(--mint);
+  transition: transform 0.18s var(--ease);
+}
+
+.program-title-link:hover,
+.program-title-link:focus-visible {
+  color: var(--mint);
+}
+
+.program-title-link:hover svg,
+.program-title-link:focus-visible svg {
+  transform: translate(2px, -2px);
+}
+
+.program-title-link:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 4px;
+}
+
+.footer-license {
+  color: var(--faint);
+}
+
+@media (max-width: 640px) {
+  .footer-license {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
 .program-text {
   color: var(--muted);
   font-size: 14.5px;
