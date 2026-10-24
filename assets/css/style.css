@@ -270,9 +270,34 @@ kbd {
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
-  color: var(--mint);
+  width: 34px;
+  height: auto;
+  flex: none;
+  display: block;
+}
+
+.tuner-logo {
+  display: block;
+  width: min(250px, 62vw);
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.tuner-logo--hell {
+  display: none;
+}
+
+[data-theme="dark"] .tuner-logo--hell {
+  display: block;
+}
+
+[data-theme="dark"] .tuner-logo--dunkel {
+  display: none;
+}
+
+/* Das Blau der Marke ist auf dunklem Grund zu tief — leicht anheben. */
+[data-theme="dark"] .brand-mark {
+  filter: brightness(1.32) saturate(1.08);
 }
 
 .brand-text {
