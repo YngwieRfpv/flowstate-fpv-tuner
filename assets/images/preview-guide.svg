@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-label="Schematische Darstellung des FPV Guide: Seitenleiste mit Bereichen, Textspalte und Glossar">
+  <defs>
+    <linearGradient id="gbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d141b"/>
+      <stop offset="1" stop-color="#090f15"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="760" fill="url(#gbg)"/>
+  <g stroke="#152029" stroke-width="1">
+    <path d="M0 140h1200M0 300h1200M0 460h1200M0 620h1200"/>
+  </g>
+
+  <g>
+    <rect x="48" y="48" width="1104" height="664" rx="18" fill="#0d151d" stroke="#1d2b36"/>
+    <path d="M48 100h1104" stroke="#1d2b36"/>
+    <circle cx="76" cy="74" r="5" fill="#6aa9ff"/>
+    <circle cx="94" cy="74" r="5" fill="#22313d"/>
+    <circle cx="112" cy="74" r="5" fill="#22313d"/>
+    <text x="140" y="79" fill="#5d7285" font-family="monospace" font-size="14">FPV Guide · v1.0.1-beta.1</text>
+    <rect x="968" y="62" width="162" height="26" rx="13" fill="#101c2a" stroke="#24425f"/>
+    <text x="1049" y="80" fill="#6aa9ff" font-family="monospace" font-size="12" text-anchor="middle">lokal &amp; offline</text>
+  </g>
+
+  <g>
+    <rect x="72" y="128" width="228" height="560" rx="12" fill="#0a1219" stroke="#1a2833"/>
+    <text x="92" y="158" fill="#64798a" font-family="monospace" font-size="12">BEREICHE</text>
+    <rect x="88" y="174" width="196" height="34" rx="7" fill="#101c2a" stroke="#24425f"/>
+    <text x="104" y="196" fill="#d6e6ee" font-family="sans-serif" font-size="12.5">Startseite</text>
+    <g font-family="sans-serif" font-size="12.5" fill="#7d8f9d">
+      <text x="104" y="238">Simple Tuning</text>
+      <text x="104" y="274">Advanced Tuning</text>
+      <text x="104" y="310">Technik &amp; Referenz</text>
+      <text x="104" y="346">Build-Guide</text>
+      <text x="104" y="382">Glossar</text>
+      <text x="104" y="418">Quellen</text>
+      <text x="104" y="454">Links</text>
+    </g>
+    <path d="M88 480h196" stroke="#1a2833"/>
+    <text x="92" y="508" fill="#64798a" font-family="monospace" font-size="11">DEIN PROFIL</text>
+    <rect x="88" y="520" width="196" height="32" rx="7" fill="#0f1a22" stroke="#22323d"/>
+    <text x="104" y="541" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">5 Zoll · 8/8 kHz</text>
+    <rect x="88" y="560" width="196" height="32" rx="7" fill="#0f1a22" stroke="#22323d"/>
+    <text x="104" y="581" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">Betaflight 4.5.x</text>
+    <rect x="88" y="600" width="196" height="32" rx="7" fill="#0f1a22" stroke="#22323d"/>
+    <text x="104" y="621" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">Bluejay</text>
+    <rect x="88" y="644" width="196" height="28" rx="14" fill="#10241f" stroke="#2b5a4b"/>
+    <text x="186" y="662" fill="#46e3bd" font-family="monospace" font-size="10.5" text-anchor="middle">Workspace gesichert</text>
+  </g>
+
+  <g>
+    <rect x="324" y="128" width="524" height="560" rx="12" fill="#0a1219" stroke="#1a2833"/>
+    <text x="348" y="164" fill="#6aa9ff" font-family="monospace" font-size="11" letter-spacing="1.5">SIMPLE TUNING</text>
+    <text x="348" y="200" fill="#e2edf4" font-family="sans-serif" font-size="24" font-weight="600">Copter einrichten</text>
+    <path d="M348 218h476" stroke="#1a2833"/>
+
+    <g font-family="sans-serif" font-size="12.5" fill="#8fa3b1">
+      <text x="348" y="250">Wähle deinen Copter. Der Guide richtet sich nach</text>
+      <text x="348" y="270">Größe, Bauform und Firmware.</text>
+    </g>
+
+    <g>
+      <rect x="348" y="292" width="150" height="34" rx="7" fill="#0f1a22" stroke="#22323d"/>
+      <text x="362" y="313" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">5 Zoll (4–6)</text>
+      <path d="M480 305l8 6 8-6" stroke="#5d7285" stroke-width="1.8" fill="none"/>
+      <rect x="510" y="292" width="150" height="34" rx="7" fill="#0f1a22" stroke="#22323d"/>
+      <text x="524" y="313" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">Offener Frame</text>
+      <path d="M642 305l8 6 8-6" stroke="#5d7285" stroke-width="1.8" fill="none"/>
+    </g>
+
+    <text x="348" y="364" fill="#7d8f9d" font-family="sans-serif" font-size="12">Taktrate · Gyro / PID</text>
+    <rect x="348" y="374" width="476" height="30" rx="6" fill="#0f1a22" stroke="#22323d"/>
+    <text x="362" y="394" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">8 / 8 kHz · DShot600</text>
+    <path d="M808 387l8 6 8-6" stroke="#5d7285" stroke-width="1.8" fill="none"/>
+
+    <text x="348" y="438" fill="#7d8f9d" font-family="sans-serif" font-size="12">Analyse-Software</text>
+    <rect x="348" y="448" width="476" height="30" rx="6" fill="#0f1a22" stroke="#22323d"/>
+    <text x="362" y="468" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">Kombiniert · Explorer + PIDtoolbox</text>
+    <path d="M808 461l8 6 8-6" stroke="#5d7285" stroke-width="1.8" fill="none"/>
+
+    <rect x="348" y="500" width="476" height="1" fill="#1a2833"/>
+
+    <text x="348" y="532" fill="#7d8f9d" font-family="sans-serif" font-size="12">Filter</text>
+    <rect x="348" y="542" width="300" height="8" rx="4" fill="#16222c"/>
+    <rect x="348" y="542" width="186" height="8" rx="4" fill="#6aa9ff"/>
+    <circle cx="534" cy="546" r="8" fill="#0d151d" stroke="#6aa9ff" stroke-width="2"/>
+    <text x="824" y="550" fill="#8ea3b1" font-family="monospace" font-size="11.5" text-anchor="end">300 Hz</text>
+
+    <text x="348" y="592" fill="#7d8f9d" font-family="sans-serif" font-size="12">D-Term</text>
+    <rect x="348" y="602" width="300" height="8" rx="4" fill="#16222c"/>
+    <rect x="348" y="602" width="120" height="8" rx="4" fill="#46e3bd"/>
+    <circle cx="468" cy="606" r="8" fill="#0d151d" stroke="#46e3bd" stroke-width="2"/>
+    <text x="824" y="610" fill="#8ea3b1" font-family="monospace" font-size="11.5" text-anchor="end">150 Hz</text>
+
+    <rect x="348" y="640" width="180" height="34" rx="8" fill="#6aa9ff"/>
+    <text x="438" y="662" fill="#07131f" font-family="sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">Guide öffnen</text>
+  </g>
+
+  <g>
+    <rect x="872" y="128" width="280" height="560" rx="12" fill="#0a1219" stroke="#1a2833"/>
+    <text x="892" y="156" fill="#64798a" font-family="monospace" font-size="12">GLOSSAR</text>
+
+    <rect x="892" y="174" width="240" height="72" rx="8" fill="#0f1a22" stroke="#22323d"/>
+    <text x="906" y="196" fill="#d6e6ee" font-family="sans-serif" font-size="12.5">D-Term</text>
+    <g font-family="sans-serif" font-size="10.5" fill="#7d8f9d">
+      <text x="906" y="214">Dämpfung gegen Überschwingen.</text>
+      <text x="906" y="230">Zu hoch: warme Motoren.</text>
+    </g>
+
+    <rect x="892" y="258" width="240" height="72" rx="8" fill="#0f1a22" stroke="#22323d"/>
+    <text x="906" y="280" fill="#d6e6ee" font-family="sans-serif" font-size="12.5">Propwash</text>
+    <g font-family="sans-serif" font-size="10.5" fill="#7d8f9d">
+      <text x="906" y="298">Verwirbelte Luft beim Sinken</text>
+      <text x="906" y="314">im eigenen Abwind.</text>
+    </g>
+
+    <rect x="892" y="342" width="240" height="72" rx="8" fill="#0f1a22" stroke="#22323d"/>
+    <text x="906" y="364" fill="#d6e6ee" font-family="sans-serif" font-size="12.5">RPM-Filter</text>
+    <g font-family="sans-serif" font-size="10.5" fill="#7d8f9d">
+      <text x="906" y="382">Filtert Motorresonanzen über</text>
+      <text x="906" y="398">DShot-Telemetrie.</text>
+    </g>
+
+    <text x="892" y="444" fill="#64798a" font-family="monospace" font-size="11">95 BEGRIFFE</text>
+    <g font-family="monospace" font-size="11" fill="#5d7285">
+      <text x="892" y="468">DE / EN</text>
+      <text x="892" y="490">mit Quellen</text>
+    </g>
+
+    <rect x="892" y="520" width="240" height="1" fill="#1a2833"/>
+    <text x="892" y="548" fill="#64798a" font-family="monospace" font-size="11">WORKSPACE</text>
+    <rect x="892" y="562" width="240" height="34" rx="7" fill="#0f1a22" stroke="#22323d"/>
+    <text x="906" y="584" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">Datei speichern</text>
+    <rect x="892" y="604" width="240" height="34" rx="7" fill="#0f1a22" stroke="#22323d"/>
+    <text x="906" y="626" fill="#8ea3b1" font-family="sans-serif" font-size="11.5">Datei laden</text>
+    <text x="892" y="664" fill="#46596a" font-family="monospace" font-size="10.5">nichts verlässt den Browser</text>
+  </g>
+</svg>
