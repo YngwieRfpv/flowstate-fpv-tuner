@@ -229,7 +229,7 @@ Neither needs an install, an account or an internet connection. Neither file loa
 external scripts, fonts or images; the guide's links point outward on purpose and only
 open with a connection.
 
-The tuner is an alpha: its write path has not been tried on real hardware yet. The plan
+The tuner is an alpha: its write path has not been tested on real hardware yet. The plan
 can be read and checked in full without writing anything. Writing is at your own risk —
 the disclaimer and limitation of liability in [`LICENSE`](LICENSE), section 6, apply.
 

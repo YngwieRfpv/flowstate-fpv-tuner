@@ -1606,6 +1606,12 @@ details.notes > summary:hover {
   color: var(--text);
 }
 
+.footer-sep {
+  color: var(--muted);
+  opacity: 0.55;
+  user-select: none;
+}
+
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
