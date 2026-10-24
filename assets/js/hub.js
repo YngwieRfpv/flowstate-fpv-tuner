@@ -1,608 +1,628 @@
-/* ==========================================================================
-   FlowState FPV — Release Hub
-   Rendert Projektkarten und Versionsindex aus assets/data/versions.json.
-   Zweisprachig: Deutsch und English, Rückfall auf English.
-   Kein Framework, keine Abhängigkeiten.
-   ========================================================================== */
-(() => {
+(function () {
   'use strict';
 
-  const DATA_URL = 'assets/data/versions.json';
-  const LANG_KEY = 'flowstate-lang';
-  const FALLBACK = 'en';
+  var DATA_URL = 'assets/data/versions.json';
+  var LANG_KEY = 'flowstate-lang';
+  var THEME_KEY = 'flowstate-theme';
+  var THEMES = ['dark', 'light', 'cream'];
+  var FALLBACK = 'en';
+  var CHANNELS = ['alpha', 'beta', 'rc', 'stable'];
 
-  /* ----------------------------- Wörterbuch ------------------------------ */
-
-  const UI = {
+  var UI = {
     de: {
-      'nav.projects': 'Projekte',
+      'nav.projects': 'Programme',
+      'nav.tuner': 'Tuner',
+      'nav.guide': 'Guide',
       'nav.versions': 'Versionen',
-      'nav.structure': 'Struktur',
-      'nav.deployment': 'Deployment',
-      'nav.docs': 'Doku',
-
-      'hero.eyebrow': 'FlowState FPV · Versionierung',
-      'hero.title1': 'Zwei Projekte.',
-      'hero.title2': 'Ein Ort für',
-      'hero.accent': 'jede Version',
-      'hero.lede': 'FlowState Tuner und der FPV Guide an einem festen Platz: Kanal, Prüfsumme, Reifegrad und ein direkter Start im Browser — ohne Download.',
-      'hero.cta1': 'Versionen ansehen',
-      'hero.cta2': 'Tuner öffnen',
-      'hero.cta3': 'Guide öffnen',
-      'hero.cta4': 'Struktur',
-      'hero.foot.left': 'Statisch · kein Backend',
-
-      'stat.projects': 'Projekte',
-      'stat.releases': 'Versionen',
-      'stat.online': 'online',
+      'nav.faq': 'Fragen',
+      'hero.eyebrow': 'FlowState FPV',
+      'hero.title1': 'Zwei Programme.',
+      'hero.title2': 'Eine Werkstatt für',
+      'hero.accent': 'deinen Copter',
+      'hero.lede': 'Der Tuner misst und schreibt. Der Guide erklärt und begleitet. Beide sind einzelne HTML-Dateien: im Browser öffnen, offline nutzen, ohne Installation.',
+      'hero.cta1': 'Tuner starten',
+      'hero.cta2': 'Guide öffnen',
+      'hero.cta3': 'Versionen',
+      'hero.foot': 'Läuft im Browser · kein Konto',
+      'stat.programs': 'Programme',
+      'stat.versions': 'Versionen',
+      'stat.online': 'bereit',
       'stat.offline': 'offline',
-
-      'projects.eyebrow': 'Projekte',
-      'projects.title': 'Zwei Werkzeuge, ein Produktgedanke',
-      'projects.lede': 'Der Guide erklärt, warum eine Einstellung so aussieht. Der Tuner führt durch den Ablauf, der dorthin führt. Beide sind eigenständige Einzeldateien und laufen vollständig offline.',
-      'projects.open': 'Öffnen',
-      'projects.notes': 'Release-Notes',
-
-      'flow.eyebrow': 'Ablauf',
-      'flow.title': 'Wie eine Version ihren Platz findet',
-      'flow.lede': 'Von der Einzeldatei bis zur aufrufbaren URL sind es fünf Schritte. Jeder Schritt hinterlässt eine Spur, die man später prüfen kann.',
-      'flow.s1.t': 'Quelle', 'flow.s1.d': 'Die Anwendung liegt als einzelne HTML-Datei vor.',
-      'flow.s2.t': 'Einordnen', 'flow.s2.d': 'Projekt, Kanal, Datum, Größe und Prüfsumme landen in versions.json.',
-      'flow.s3.t': 'Einspielen', 'flow.s3.d': 'Die Einzeldatei wird zu tuner/index.html bzw. guide/index.html.',
-      'flow.s4.t': 'Prüfen', 'flow.s4.d': 'validate.mjs vergleicht Hash, Pfade und Links — lokal und in der CI.',
-      'flow.s5.t': 'Ausliefern', 'flow.s5.d': 'GitHub Pages baut die Seite bei jedem Push auf main automatisch.',
-
+      'programs.eyebrow': 'Programme',
+      'programs.title': 'Was die beiden können',
+      'programs.lede': 'Der Guide beantwortet das Warum, der Tuner liefert das Was. Zusammen ergeben sie einen vollständigen Tuning-Ablauf.',
+      'programs.open': 'Starten',
+      'programs.details': 'Mehr erfahren',
+      'tuner.eyebrow': 'FlowState Tuner',
+      'tuner.title': 'Messen, rechnen, schreiben',
+      'tuner.lede': 'Der Tuner liest Blackbox- und Dataflash-Logs, leitet daraus Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial – nur nach Sicherung und Bestätigung.',
+      'tuner.phases': 'Der Ablauf in sechs Phasen',
+      'tuner.gates': 'Sicherheits-Gates',
+      'tuner.gates.lede': 'Mehrere unabhängige Prüfungen blockieren Schreibvorgänge. Sie bleiben aktiv, auch wenn die optionale Checkliste aus ist.',
+      'tuner.exports': 'Exporte',
+      'tuner.exports.lede': 'Plan als Text, Manifest als JSON, Roh-Logs als ZIP, Blackbox direkt aus dem FC. Alles bleibt lokal.',
+      'guide.eyebrow': 'FPV Guide',
+      'guide.title': 'Verstehen, nachschlagen, nachbauen',
+      'guide.lede': 'Der Guide führt vom ersten Build bis zum Feintuning. Er erklärt Begriffe, zeigt Tabellen und begleitet den Ablauf Schritt für Schritt – mit Profilauswahl für Tiny Whoop bis 10 Zoll.',
+      'guide.areas': 'Die Bereiche',
+      'guide.profile': 'Dein Profil',
+      'guide.profile.lede': 'Coptergröße, Frame, Gyro-/PID-Taktrate, Betaflight-Version und ESC-Firmware. Der Guide filtert Werte und Tabellen danach.',
+      'guide.workspace': 'Workspace',
+      'guide.workspace.lede': 'Setup als Datei speichern, später wieder laden. Logs zuordnen und benennen. Alles im Browser, nichts auf einem Server.',
       'versions.eyebrow': 'Versionen',
-      'versions.title': 'Der vollständige Index',
-      'versions.lede': 'Eine Karte pro Ausgabe — mit Kanal, Prüfsumme und ehrlichem Reifegrad. Die Liste entsteht aus assets/data/versions.json.',
+      'versions.title': 'Jede Ausgabe, ehrlich beschriftet',
+      'versions.lede': 'Kanal, Datum, Größe und Prüfsumme pro Version. Der Reifegrad steht direkt daneben – nicht im Kleingedruckten.',
       'search.label': 'Versionen durchsuchen',
-      'search.placeholder': 'Version, Projekt oder Stichwort …',
+      'search.placeholder': 'Version, Programm oder Stichwort …',
       'filter.all': 'Alle',
       'filter.anyChannel': 'Jeder Kanal',
       'filter.reset': 'Filter zurücksetzen',
       'empty': 'Keine Version passt zu dieser Auswahl.',
       'count': '{n} von {total}',
-
-      'structure.eyebrow': 'Struktur',
-      'structure.title': 'Ein Repository, zwei Anwendungen',
-      'structure.lede': 'Kein Build, keine Abhängigkeiten, keine Serverlogik. Alles, was GitHub Pages braucht, ist die richtige Ordnerstruktur und eine .nojekyll-Datei.',
-      'tree.hub': '# dieser Hub', 'tree.readme': '# Bedienungsanleitung',
-      'tree.nojekyll': '# Jekyll aus', 'tree.ci': '# Index prüfen',
-      'tree.tuner': '# FlowState Tuner', 'tree.guide': '# FPV Guide',
-      'tree.css': '# Design-System', 'tree.js': '# Rendering, DE/EN',
-      'tree.data': '# ← Quelle der Wahrheit', 'tree.releases': '# Notes je Version',
-      'tree.install': '# Dateien einspielen', 'tree.update': '# Hash & Größe',
-      'tree.validate': '# Prüfung',
-      'legend.hub': 'Der Hub bleibt schlank: Er beschreibt und verlinkt, er enthält die Anwendungen nicht.',
-      'legend.data': 'Einzige Quelle für Versionen, Kanäle, Hashes und Reifegrad — zweisprachig.',
-      'legend.apps': 'Feste URLs pro Projekt. Eine neue Version ersetzt genau eine Datei.',
-      'legend.nojekyll': 'Verhindert, dass GitHub Pages Dateien mit Unterstrich oder bestimmten Namen wegfiltert.',
-      'legend.docs': 'Release-Notes und Prozesswissen versioniert neben dem Code.',
-
-      'deploy.eyebrow': 'Deployment',
-      'deploy.title': 'In drei Schritten online',
-      'deploy.lede': 'Der Hub ist statisch. Nach dem Einspielen der Anwendungsdateien genügt ein Push auf main, damit GitHub Pages die Seite neu baut.',
-      'deploy.s1.t': 'Versionen einspielen', 'deploy.s1.d': 'Die Einzeldateien an ihren Platz kopieren — das Skript berechnet Hash und Größe und trägt beides in den Index ein.',
-      'deploy.s2.t': 'Prüfen', 'deploy.s2.d': 'Der Validator kontrolliert Index, Dateien, Hashes und interne Links.',
-      'deploy.s2.d2': 'Dieselbe Prüfung läuft bei jedem Push in GitHub Actions.',
-      'deploy.s3.t': 'Pushen', 'deploy.s3.d': 'Committen und pushen — GitHub Pages baut die Seite danach automatisch neu.',
-      'deploy.note.t': 'Pages-Einstellung',
-      'deploy.note.d': 'Unter Settings → Pages muss als Quelle der Branch stehen, der die Dateien enthält — üblicherweise main, Ordner / (root). Zeigt die Einstellung auf einen anderen Branch, wird die Seite nie aktualisiert.',
-
-      'status.title': 'Reifegrad — ehrlich benannt',
-      'status.text': 'Beide Ausgaben sind vorab: der Tuner Early Alpha, der Guide GitHub-Beta. Bestandene Quellprüfungen sind kein Nachweis für Browser-, Web-Serial-, FC- oder Flugverhalten. Props ab für Bench-Arbeit, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.',
-
-      'docs.eyebrow': 'Dokumentation',
-      'docs.title': 'Was wo nachzulesen ist',
-      'docs.lede': 'Jede Version bringt ihre eigenen Notizen mit. Prozesswissen liegt daneben, nicht in Chats oder Dateinamen.',
-      'docs.pages.t': 'GitHub Pages einrichten',
-      'docs.pages.d': 'Quelle, Branch, eigene Domain, Caching und die Stolperfallen bei großen Einzeldateien.',
-      'docs.process.t': 'Release-Prozess',
-      'docs.process.d': 'Kanal wählen, Datei einspielen, Hash prüfen, Tag und GitHub-Release setzen.',
-      'docs.tuner.d': 'Highlights, Validierungsgrenze und Hinweise zum Alpha-Stand.',
-      'docs.guide.d': 'Delta zur Vollversion, Prüfergebnis und Review-Fokus.',
-      'docs.readme.t': 'Bedienungsanleitung',
-      'docs.readme.d': 'Beide Anwendungen im Detail: Start, Phasen, Gates, Exporte, Fehlerbehebung.',
-      'docs.releases.t': 'Releases',
-      'docs.releases.d': 'Tags, Release-Notes und Downloads je Version.',
-
-      'footer.note': 'Statischer Release-Hub für FlowState Tuner und den FPV Guide. Kein Backend, keine Tracker, keine externen Fonts.',
-      'footer.projects': 'Projekte', 'footer.repo': 'Repo', 'footer.ext': 'Extern',
-      'footer.pages': 'Pages-Setup', 'footer.process': 'Release-Prozess', 'footer.releases': 'Releases',
-
-      'channel.alpha': 'Alpha', 'channel.beta': 'Beta',
-      'channel.rc': 'Release Candidate', 'channel.stable': 'Stable',
-
+      'channel.alpha': 'Alpha',
+      'channel.beta': 'Beta',
+      'channel.rc': 'Release Candidate',
+      'channel.stable': 'Stable',
       'release.open': 'Im Browser öffnen',
       'release.download': 'Herunterladen',
-      'release.notes': 'Release-Notes',
       'release.copy': 'kopieren',
       'release.copied': 'kopiert',
       'release.noCopy': 'nicht möglich',
-      'release.pending': 'pending',
-      'release.highlights': 'Highlights & Grenzen',
-      'release.pros': 'Highlights',
-      'release.cons': 'Grenzen & Vorbehalte',
+      'release.pending': 'offen',
+      'release.more': 'Details',
+      'release.pros': 'Leistet',
+      'release.cons': 'Grenzen',
       'release.hash': 'SHA-256',
-      'release.size': 'Größe',
-      'release.status': 'Prüfstatus',
-      'meta.index': 'Index {date} · {n}/{total} online',
-      'date.asOf': 'Stand {date}'
+      'release.ready': 'bereit',
+      'faq.eyebrow': 'Fragen',
+      'faq.title': 'Häufige Fragen',
+      'faq.lede': 'Kurz beantwortet, ohne Umwege.',
+      'faq.install.q': 'Muss ich etwas installieren?',
+      'faq.install.a': 'Nein. Beide Programme sind je eine einzelne HTML-Datei. Du öffnest sie im Browser – fertig. Kein Installer, keine Erweiterung, kein Konto.',
+      'faq.pages.q': 'Warum gibt es überhaupt eine GitHub-Seite?',
+      'faq.pages.a': 'GitHub Pages ist reines Datei-Hosting. Es liefert die HTML-Dateien aus, die im Repository liegen – nichts wird gestartet oder gebaut. Damit eine Adresse wie /tuner/ funktioniert, muss in den Repository-Einstellungen unter Pages der Branch ausgewählt sein, in dem die Dateien liegen.',
+      'faq.offline.q': 'Funktioniert das auch ohne Internet?',
+      'faq.offline.a': 'Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben.',
+      'faq.browser.q': 'Welcher Browser?',
+      'faq.browser.a': 'Der Guide läuft in jedem modernen Browser, auch mobil. Der Tuner braucht für die Verbindung zum Flight Controller Chrome oder Edge auf dem Desktop, weil nur diese Web Serial unterstützen. Log-Analyse funktioniert überall.',
+      'faq.data.q': 'Wohin gehen meine Daten?',
+      'faq.data.a': 'Nirgendwohin. Logs, Einstellungen und Workspace bleiben im Browser-Speicher deines Geräts oder in Dateien, die du selbst speicherst. Es gibt kein Backend und keine Telemetrie.',
+      'faq.safe.q': 'Ist das eine Flugfreigabe?',
+      'faq.safe.a': 'Nein. Tuning ersetzt keine mechanische Kontrolle. Props ab für Bench-Arbeiten, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.',
+      'footer.note': 'Zwei HTML-Programme für Betaflight-Tuning. Kein Backend, keine Tracker, keine externen Schriften.',
+      'footer.programs': 'Programme',
+      'footer.more': 'Mehr',
+      'footer.releases': 'Releases',
+      'footer.repo': 'Repository',
+      'date.asOf': 'Stand {date}',
+      'phase.setup': 'Setup', 'phase.setup.d': 'FC, Hardware, Profil',
+      'phase.pidname': 'P/D neutral', 'phase.mastername': 'Master',
+      'phase.ffname': 'FF / I / D-Max', 'phase.archivename': 'Archiv',
+      'phase.filter': 'Log, Spektrum, Auto',
+      'phase.pid': 'Tracking, Pitch:Roll',
+      'phase.master': 'Stufen, Thermik',
+      'phase.ff': 'Finish, CLI',
+      'phase.archive': 'Logs, Download, Reset',
+      'gate.backup.t': 'Backup', 'gate.backup.d': 'ein vollständiges diff all muss vorliegen, sonst springt der Ablauf zurück in Phase 1.',
+      'gate.firmware.t': 'Firmware', 'gate.firmware.d': 'Schreiben nur mit Betaflight 4.5 oder neuer.',
+      'gate.profile.t': 'Zielprofil', 'gate.profile.d': 'nur das gewählte PID-Profil wird verändert.',
+      'gate.filter.t': 'Filterlog', 'gate.filter.d': 'das aktive Log muss die Qualitätsprüfung bestehen; ein Override gilt nur für genau dieses Log.',
+      'area.simple.t': 'Simple Tuning', 'area.simple.d': 'Betaflight vorbereiten, Logs lesen, Profil abstimmen.',
+      'area.advanced.t': 'Advanced Tuning', 'area.advanced.d': 'Advanced Tune, Sbang oder einzelne Einstellungen.',
+      'area.ref.t': 'Technik & Referenz', 'area.ref.d': 'Filterbegriffe, Werte und Tabellen zum Nachschlagen.',
+      'area.build.t': 'Build-Guide', 'area.build.d': 'Mechanisch und elektrisch saubere Basis vor dem Erstflug.',
+      'area.glossary.t': 'Glossar', 'area.glossary.d': '95 Begriffe, direkt im Text aufrufbar.',
+      'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.'
     },
-
     en: {
-      'nav.projects': 'Projects',
+      'nav.projects': 'Programs',
+      'nav.tuner': 'Tuner',
+      'nav.guide': 'Guide',
       'nav.versions': 'Versions',
-      'nav.structure': 'Structure',
-      'nav.deployment': 'Deployment',
-      'nav.docs': 'Docs',
-
-      'hero.eyebrow': 'FlowState FPV · Versioning',
-      'hero.title1': 'Two projects.',
-      'hero.title2': 'One place for',
-      'hero.accent': 'every version',
-      'hero.lede': 'FlowState Tuner and the FPV Guide in one fixed place: channel, checksum, maturity and a direct start in the browser — no download.',
-      'hero.cta1': 'Browse versions',
-      'hero.cta2': 'Open tuner',
-      'hero.cta3': 'Open guide',
-      'hero.cta4': 'Structure',
-      'hero.foot.left': 'Static · no backend',
-
-      'stat.projects': 'Projects',
-      'stat.releases': 'Versions',
-      'stat.online': 'online',
+      'nav.faq': 'Questions',
+      'hero.eyebrow': 'FlowState FPV',
+      'hero.title1': 'Two programs.',
+      'hero.title2': 'One workshop for',
+      'hero.accent': 'your quad',
+      'hero.lede': 'The tuner measures and writes. The guide explains and accompanies. Both are single HTML files: open in the browser, use offline, no installation.',
+      'hero.cta1': 'Start tuner',
+      'hero.cta2': 'Open guide',
+      'hero.cta3': 'Versions',
+      'hero.foot': 'Runs in the browser · no account',
+      'stat.programs': 'Programs',
+      'stat.versions': 'Versions',
+      'stat.online': 'ready',
       'stat.offline': 'offline',
-
-      'projects.eyebrow': 'Projects',
-      'projects.title': 'Two tools, one idea',
-      'projects.lede': 'The guide explains why a setting looks the way it does. The tuner walks the workflow that gets you there. Both are standalone single files and run fully offline.',
-      'projects.open': 'Open',
-      'projects.notes': 'Release notes',
-
-      'flow.eyebrow': 'Workflow',
-      'flow.title': 'How a version finds its place',
-      'flow.lede': 'Five steps from a single file to a working URL. Every step leaves a trace you can verify later.',
-      'flow.s1.t': 'Source', 'flow.s1.d': 'The application exists as a single HTML file.',
-      'flow.s2.t': 'Record', 'flow.s2.d': 'Project, channel, date, size and checksum go into versions.json.',
-      'flow.s3.t': 'Install', 'flow.s3.d': 'The file becomes tuner/index.html or guide/index.html.',
-      'flow.s4.t': 'Verify', 'flow.s4.d': 'validate.mjs compares hash, paths and links — locally and in CI.',
-      'flow.s5.t': 'Ship', 'flow.s5.d': 'GitHub Pages rebuilds the site on every push to main.',
-
+      'programs.eyebrow': 'Programs',
+      'programs.title': 'What the two can do',
+      'programs.lede': 'The guide answers why, the tuner delivers what. Together they form a complete tuning workflow.',
+      'programs.open': 'Start',
+      'programs.details': 'Learn more',
+      'tuner.eyebrow': 'FlowState Tuner',
+      'tuner.title': 'Measure, calculate, write',
+      'tuner.lede': 'The tuner reads Blackbox and Dataflash logs, derives filter and PID values from them and shows every step as a readable CLI plan. Writes go over Web Serial – only after a backup and your confirmation.',
+      'tuner.phases': 'The workflow in six phases',
+      'tuner.gates': 'Safety gates',
+      'tuner.gates.lede': 'Several independent checks block writes. They stay active even when the optional checklist is disabled.',
+      'tuner.exports': 'Exports',
+      'tuner.exports.lede': 'Plan as text, manifest as JSON, raw logs as ZIP, Blackbox straight from the FC. Everything stays local.',
+      'guide.eyebrow': 'FPV Guide',
+      'guide.title': 'Understand, look up, rebuild',
+      'guide.lede': 'The guide leads from the first build to fine tuning. It explains terms, shows tables and walks the workflow step by step – with profiles from tiny whoop to 10 inch.',
+      'guide.areas': 'The sections',
+      'guide.profile': 'Your profile',
+      'guide.profile.lede': 'Quad size, frame, gyro/PID loop rate, Betaflight version and ESC firmware. The guide filters values and tables accordingly.',
+      'guide.workspace': 'Workspace',
+      'guide.workspace.lede': 'Save your setup as a file, load it later. Assign and name logs. Everything in the browser, nothing on a server.',
       'versions.eyebrow': 'Versions',
-      'versions.title': 'The complete index',
-      'versions.lede': 'One card per release — with channel, checksum and honest maturity. The list is generated from assets/data/versions.json.',
+      'versions.title': 'Every release, honestly labelled',
+      'versions.lede': 'Channel, date, size and checksum per version. Maturity sits right next to it – not in the small print.',
       'search.label': 'Search versions',
-      'search.placeholder': 'Version, project or keyword …',
+      'search.placeholder': 'Version, program or keyword …',
       'filter.all': 'All',
       'filter.anyChannel': 'Any channel',
       'filter.reset': 'Reset filters',
       'empty': 'No version matches this selection.',
       'count': '{n} of {total}',
-
-      'structure.eyebrow': 'Structure',
-      'structure.title': 'One repository, two applications',
-      'structure.lede': 'No build, no dependencies, no server logic. All GitHub Pages needs is the right folder layout and a .nojekyll file.',
-      'tree.hub': '# this hub', 'tree.readme': '# usage guide',
-      'tree.nojekyll': '# Jekyll off', 'tree.ci': '# validate index',
-      'tree.tuner': '# FlowState Tuner', 'tree.guide': '# FPV Guide',
-      'tree.css': '# design system', 'tree.js': '# rendering, DE/EN',
-      'tree.data': '# ← source of truth', 'tree.releases': '# notes per version',
-      'tree.install': '# install files', 'tree.update': '# hash & size',
-      'tree.validate': '# validation',
-      'legend.hub': 'The hub stays lean: it describes and links, it does not contain the applications.',
-      'legend.data': 'Single source for versions, channels, hashes and maturity — bilingual.',
-      'legend.apps': 'Fixed URLs per project. A new version replaces exactly one file.',
-      'legend.nojekyll': 'Stops GitHub Pages from filtering out files with underscores or particular names.',
-      'legend.docs': 'Release notes and process knowledge versioned next to the code.',
-
-      'deploy.eyebrow': 'Deployment',
-      'deploy.title': 'Online in three steps',
-      'deploy.lede': 'The hub is static. Once the application files are in place, a push to main is all GitHub Pages needs.',
-      'deploy.s1.t': 'Install versions', 'deploy.s1.d': 'Copy the single files into place — the script computes hash and size and writes both into the index.',
-      'deploy.s2.t': 'Verify', 'deploy.s2.d': 'The validator checks index, files, hashes and internal links.',
-      'deploy.s2.d2': 'The same check runs on every push in GitHub Actions.',
-      'deploy.s3.t': 'Push', 'deploy.s3.d': 'Commit and push — GitHub Pages rebuilds the site automatically.',
-      'deploy.note.t': 'Pages setting',
-      'deploy.note.d': 'Under Settings → Pages the source branch must be the one holding the files — usually main, folder / (root). If the setting points at another branch, the site will never update.',
-
-      'status.title': 'Maturity — stated honestly',
-      'status.text': 'Both releases are pre-release: the tuner is early alpha, the guide is GitHub beta. Passing source checks is not proof of browser, Web Serial, FC or flight behaviour. Remove props for bench work, and stop immediately on hot motors, desyncs or unclear mechanics.',
-
-      'docs.eyebrow': 'Documentation',
-      'docs.title': 'What to read where',
-      'docs.lede': 'Every version brings its own notes. Process knowledge lives next to them, not in chats or file names.',
-      'docs.pages.t': 'Set up GitHub Pages',
-      'docs.pages.d': 'Source, branch, custom domain, caching and the pitfalls of large single files.',
-      'docs.process.t': 'Release process',
-      'docs.process.d': 'Pick a channel, install the file, verify the hash, set tag and GitHub release.',
-      'docs.tuner.d': 'Highlights, validation boundary and notes on the alpha state.',
-      'docs.guide.d': 'Delta to the full release, review result and review focus.',
-      'docs.readme.t': 'Usage guide',
-      'docs.readme.d': 'Both applications in detail: start, phases, gates, exports, troubleshooting.',
-      'docs.releases.t': 'Releases',
-      'docs.releases.d': 'Tags, release notes and downloads per version.',
-
-      'footer.note': 'Static release hub for FlowState Tuner and the FPV Guide. No backend, no trackers, no external fonts.',
-      'footer.projects': 'Projects', 'footer.repo': 'Repo', 'footer.ext': 'External',
-      'footer.pages': 'Pages setup', 'footer.process': 'Release process', 'footer.releases': 'Releases',
-
-      'channel.alpha': 'Alpha', 'channel.beta': 'Beta',
-      'channel.rc': 'Release candidate', 'channel.stable': 'Stable',
-
+      'channel.alpha': 'Alpha',
+      'channel.beta': 'Beta',
+      'channel.rc': 'Release candidate',
+      'channel.stable': 'Stable',
       'release.open': 'Open in browser',
       'release.download': 'Download',
-      'release.notes': 'Release notes',
       'release.copy': 'copy',
       'release.copied': 'copied',
       'release.noCopy': 'not possible',
       'release.pending': 'pending',
-      'release.highlights': 'Highlights & limits',
-      'release.pros': 'Highlights',
-      'release.cons': 'Limits & caveats',
+      'release.more': 'Details',
+      'release.pros': 'Delivers',
+      'release.cons': 'Limits',
       'release.hash': 'SHA-256',
-      'release.size': 'Size',
-      'release.status': 'Check status',
-      'meta.index': 'Index {date} · {n}/{total} online',
-      'date.asOf': 'As of {date}'
+      'release.ready': 'ready',
+      'faq.eyebrow': 'Questions',
+      'faq.title': 'Frequently asked',
+      'faq.lede': 'Answered briefly, without detours.',
+      'faq.install.q': 'Do I need to install anything?',
+      'faq.install.a': 'No. Each program is a single HTML file. You open it in the browser – done. No installer, no extension, no account.',
+      'faq.pages.q': 'Why is there a GitHub page at all?',
+      'faq.pages.a': 'GitHub Pages is plain file hosting. It serves the HTML files stored in the repository – nothing is started or built. For an address such as /tuner/ to work, the repository settings under Pages must point at the branch that holds those files.',
+      'faq.offline.q': 'Does it work without internet?',
+      'faq.offline.a': 'Yes. Both files load no external scripts, fonts or images. Download, double-click, done – the network can stay off.',
+      'faq.browser.q': 'Which browser?',
+      'faq.browser.a': 'The guide runs in any modern browser, mobile included. For the connection to the flight controller the tuner needs Chrome or Edge on desktop, because only they support Web Serial. Log analysis works everywhere.',
+      'faq.data.q': 'Where does my data go?',
+      'faq.data.a': 'Nowhere. Logs, settings and workspace stay in your browser storage or in files you save yourself. There is no backend and no telemetry.',
+      'faq.safe.q': 'Is this a flight clearance?',
+      'faq.safe.a': 'No. Tuning does not replace mechanical inspection. Remove props for bench work, and stop immediately on hot motors, desyncs or unclear mechanics.',
+      'footer.note': 'Two HTML programs for Betaflight tuning. No backend, no trackers, no external fonts.',
+      'footer.programs': 'Programs',
+      'footer.more': 'More',
+      'footer.releases': 'Releases',
+      'footer.repo': 'Repository',
+      'date.asOf': 'As of {date}',
+      'phase.setup': 'Setup', 'phase.setup.d': 'FC, hardware, profile',
+      'phase.pidname': 'Neutral P/D', 'phase.mastername': 'Master',
+      'phase.ffname': 'FF / I / D-Max', 'phase.archivename': 'Archive',
+      'phase.filter': 'Log, spectrum, auto',
+      'phase.pid': 'Tracking, pitch:roll',
+      'phase.master': 'Levels, thermals',
+      'phase.ff': 'Finish, CLI',
+      'phase.archive': 'Logs, download, reset',
+      'gate.backup.t': 'Backup', 'gate.backup.d': 'a complete diff all must exist, otherwise the workflow returns to phase 1.',
+      'gate.firmware.t': 'Firmware', 'gate.firmware.d': 'writing requires Betaflight 4.5 or newer.',
+      'gate.profile.t': 'Target profile', 'gate.profile.d': 'only the selected PID profile is changed.',
+      'gate.filter.t': 'Filter log', 'gate.filter.d': 'the active log must pass the quality check; an override applies to that log only.',
+      'area.simple.t': 'Simple tuning', 'area.simple.d': 'Prepare Betaflight, read logs, tune the profile.',
+      'area.advanced.t': 'Advanced tuning', 'area.advanced.d': 'Advanced tune, Sbang or individual settings.',
+      'area.ref.t': 'Technique & reference', 'area.ref.d': 'Filter terms, values and tables for lookup.',
+      'area.build.t': 'Build guide', 'area.build.d': 'A mechanically and electrically sound base before the first flight.',
+      'area.glossary.t': 'Glossary', 'area.glossary.d': '95 terms, openable straight from the text.',
+      'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.'
     }
   };
 
-  const state = {
-    lang: 'de',
-    project: 'all',
-    channel: 'all',
-    query: '',
-    data: null
-  };
+  var state = { lang: 'de', project: 'all', channel: 'all', query: '', data: null };
 
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  function $(sel, root) {
+    return (root || document).querySelector(sel);
+  }
 
-  /* -------------------- Sprachauflösung mit Fallback --------------------- */
+  function $$(sel, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+  }
 
-  const t = (key, vars) => {
-    let value = UI[state.lang]?.[key];
-    if (value === undefined) value = UI[FALLBACK]?.[key];
+  function t(key, vars) {
+    var value = UI[state.lang] ? UI[state.lang][key] : undefined;
+    if (value === undefined && UI[FALLBACK]) value = UI[FALLBACK][key];
     if (value === undefined) return key;
     if (!vars) return value;
-    return String(value).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
-  };
+    return String(value).replace(/\{(\w+)\}/g, function (m, k) {
+      return Object.prototype.hasOwnProperty.call(vars, k) ? vars[k] : m;
+    });
+  }
 
-  // Text aus {de,en}-Objekten; fehlt die Sprache, greift Englisch.
-  const pick = (value) => {
-    if (value == null) return '';
+  function pick(value) {
+    if (value === null || value === undefined) return '';
     if (typeof value === 'string') return value;
     if (Array.isArray(value)) return value;
-    return value[state.lang] ?? value[FALLBACK] ?? Object.values(value)[0] ?? '';
-  };
+    var first = value[state.lang];
+    if (first !== undefined && first !== null) return first;
+    var second = value[FALLBACK];
+    if (second !== undefined && second !== null) return second;
+    var keys = Object.keys(value);
+    return keys.length ? value[keys[0]] : '';
+  }
 
-  const pickList = (value) => {
-    const v = pick(value);
-    return Array.isArray(v) ? v : [];
-  };
+  function list(value) {
+    var picked = pick(value);
+    return Array.isArray(picked) ? picked : [];
+  }
 
-  /* ----------------------------- Helpers -------------------------------- */
+  function esc(value) {
+    return String(value === null || value === undefined ? '' : value).replace(
+      /[&<>"']/g,
+      function (ch) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+      }
+    );
+  }
 
-  const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  })[ch]);
+  function locale() {
+    return state.lang === 'de' ? 'de-DE' : 'en-GB';
+  }
 
-  const locale = () => (state.lang === 'de' ? 'de-DE' : 'en-GB');
+  function formatBytes(bytes) {
+    if (typeof bytes !== 'number' || bytes <= 0) return '—';
+    var kb = bytes / 1000;
+    if (kb < 1000) return Math.round(kb).toLocaleString(locale()) + ' KB';
+    return (kb / 1000).toFixed(1) + ' MB';
+  }
 
-  const formatBytes = (bytes) => {
-    if (!Number.isFinite(bytes) || bytes <= 0) return '—';
-    const kb = bytes / 1000;
-    if (kb < 1000) return `${Math.round(kb).toLocaleString(locale())} KB`;
-    return `${(kb / 1000).toFixed(1)} MB`;
-  };
-
-  const formatDate = (iso) => {
+  function formatDate(iso) {
     if (!iso) return '—';
-    const [y, m, d] = String(iso).split('-');
-    if (!y || !m || !d) return iso;
-    const date = new Date(Date.UTC(+y, +m - 1, +d));
-    return date.toLocaleDateString(locale(), { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
-  };
+    var parts = String(iso).split('-');
+    if (parts.length !== 3) return iso;
+    var date = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
+    return date.toLocaleDateString(locale(), {
+      day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'
+    });
+  }
 
-  const projectOf = (id) => state.data?.projects.find((p) => p.id === id) || null;
-  const CHANNELS = ['alpha', 'beta', 'rc', 'stable'];
-  const channelClass = (c) => `badge badge--${CHANNELS.includes(c) ? c : 'pending'}`;
-  const channelLabel = (c) => t(`channel.${c}`) !== `channel.${c}` ? t(`channel.${c}`) : c;
+  function projectOf(id) {
+    if (!state.data) return null;
+    for (var i = 0; i < state.data.programs.length; i += 1) {
+      if (state.data.programs[i].id === id) return state.data.programs[i];
+    }
+    return null;
+  }
 
-  /* ------------------------------- Theme -------------------------------- */
+  function channelClass(c) {
+    return 'badge badge--' + (CHANNELS.indexOf(c) !== -1 ? c : 'alpha');
+  }
 
-  const initTheme = () => {
-    const button = $('#theme-toggle');
+  function channelLabel(c) {
+    var key = 'channel.' + c;
+    var label = t(key);
+    return label === key ? c : label;
+  }
+
+  function themeLabel(theme) {
+    var names = {
+      de: { dark: 'Dunkel', light: 'Hell', cream: 'Creme' },
+      en: { dark: 'Dark', light: 'Light', cream: 'Cream' }
+    };
+    return names[state.lang][theme];
+  }
+
+  function syncThemeLabel() {
+    var button = $('#theme-toggle');
     if (!button) return;
-    button.addEventListener('click', () => {
-      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem('flowstate-theme', next); } catch (e) {}
-    });
-  };
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    button.setAttribute('aria-label', themeLabel(current));
+    button.setAttribute('title', themeLabel(current));
+  }
 
-  /* ------------------------------ Sprache -------------------------------- */
+  function initTheme() {
+    var button = $('#theme-toggle');
+    if (!button) return;
+    syncThemeLabel();
+    button.addEventListener('click', function () {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+      document.documentElement.setAttribute('data-theme', next);
+      syncThemeLabel();
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    });
+  }
 
-  const applyStatic = () => {
-    $$('[data-i18n]').forEach((el) => {
-      el.textContent = t(el.dataset.i18n);
+  function applyStatic() {
+    $$('[data-i18n]').forEach(function (el) {
+      el.textContent = t(el.getAttribute('data-i18n'));
     });
-    $$('[data-i18n-placeholder]').forEach((el) => {
-      el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder));
+    $$('[data-i18n-placeholder]').forEach(function (el) {
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
     });
-    $$('[data-lang-btn]').forEach((btn) => {
-      btn.setAttribute('aria-pressed', String(btn.dataset.langBtn === state.lang));
+    $$('[data-lang-btn]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === state.lang));
     });
     document.documentElement.setAttribute('lang', state.lang);
-    document.documentElement.dataset.lang = state.lang;
-    document.title = state.lang === 'de'
-      ? 'FlowState FPV · Release Hub — Tuner & Guide'
-      : 'FlowState FPV · Release Hub — Tuner & Guide';
-  };
+    document.documentElement.setAttribute('data-lang', state.lang);
+  }
 
-  const setLang = (lang, persist = true) => {
+  function setLang(lang, persist) {
     state.lang = lang === 'de' ? 'de' : 'en';
-    if (persist) {
+    if (persist !== false) {
       try { localStorage.setItem(LANG_KEY, state.lang); } catch (e) {}
     }
     applyStatic();
     if (state.data) {
       renderProjects();
-      renderHeroMini();
+      renderHero();
       renderStats();
       render();
     }
-  };
+  }
 
-  /* ---------------------------- Rendering -------------------------------- */
+  function projectTemplate(program) {
+    var tone = program.accent === 'sky' ? 'guide' : 'tuner';
+    var icon = tone === 'tuner'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17V9m4 11V5m4 14v-7m4 10V7m4 10v-5"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 7h8M8 10.5h5"/></svg>';
 
-  const projectTemplate = (project) => {
-    const tone = project.accent === 'sky' ? 'guide' : 'tuner';
-    const highlights = pickList(project.highlights).map((h) => `<li>${esc(h)}</li>`).join('');
-    const meta = pickList(project.meta).map((m) => `<span class="chip">${esc(m)}</span>`).join('');
-
-    return `
-      <article class="card project project--${tone} reveal is-visible">
-        <div class="project-top">
-          <span class="project-icon" aria-hidden="true">
-            ${tone === 'tuner'
-              ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17V9m4 11V5m4 14v-7m4 10V7m4 10v-5"/></svg>'
-              : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 7h8M8 10.5h5"/></svg>'}
-          </span>
-          <div>
-            <h3 class="project-name">${esc(project.name)}</h3>
-            <p class="project-kind">${esc(pick(project.kind))}</p>
-          </div>
-        </div>
-        <p>${esc(pick(project.description))}</p>
-        <ul class="feature-list">${highlights}</ul>
-        <div class="meta-row">${meta}</div>
-        <div class="project-actions">
-          <a class="btn btn--sm btn--primary" href="${esc(project.links.app)}">${esc(t('projects.open'))}</a>
-          <a class="btn btn--sm btn--quiet" href="${esc(project.links.docs)}">${esc(t('projects.notes'))}</a>
-        </div>
-      </article>`;
-  };
-
-  const renderProjects = () => {
-    const grid = $('#project-grid');
-    if (!grid) return;
-    grid.innerHTML = (state.data.projects || []).map(projectTemplate).join('');
-  };
-
-  const renderHeroMini = () => {
-    const holder = $('#hero-mini');
-    if (!holder) return;
-
-    holder.innerHTML = (state.data.releases || []).map((release) => {
-      const project = projectOf(release.project);
-      const tone = project?.accent === 'sky' ? 'sky' : 'mint';
-      const initial = (project?.name || release.project).charAt(0).toUpperCase();
-      return `
-        <div class="mini-release">
-          <span class="mini-dot mini-dot--${tone}" aria-hidden="true">${esc(initial)}</span>
-          <span class="mini-body">
-            <span class="mini-name">${esc(project?.name || release.project)}</span>
-            <span class="mini-ver">${esc(release.version)}</span>
-          </span>
-          <span class="mini-state ${channelClass(release.channel)}">${esc(channelLabel(release.channel))}</span>
-        </div>`;
+    var features = list(program.highlights).map(function (item) {
+      return '<li>' + esc(item) + '</li>';
     }).join('');
-  };
 
-  const matches = (release) => {
-    if (state.project !== 'all' && release.project !== state.project) return false;
+    var meta = list(program.meta).map(function (item) {
+      return '<span class="chip">' + esc(item) + '</span>';
+    }).join('');
+
+    return '' +
+      '<article class="card project project--' + tone + '">' +
+        '<div class="project-top">' +
+          '<span class="project-icon" aria-hidden="true">' + icon + '</span>' +
+          '<div>' +
+            '<h3 class="project-name">' + esc(program.name) + '</h3>' +
+            '<p class="project-kind">' + esc(pick(program.kind)) + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<p>' + esc(pick(program.description)) + '</p>' +
+        '<ul class="feature-list">' + features + '</ul>' +
+        '<div class="meta-row">' + meta + '</div>' +
+        '<div class="project-actions">' +
+          '<a class="btn btn--sm btn--primary" href="' + esc(program.path) + '">' + esc(t('programs.open')) + '</a>' +
+          '<a class="btn btn--sm btn--quiet" href="#' + (tone === 'tuner' ? 'tuner' : 'guide') + '">' + esc(t('programs.details')) + '</a>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function renderProjects() {
+    var grid = $('#project-grid');
+    if (!grid || !state.data) return;
+    grid.innerHTML = state.data.programs.map(projectTemplate).join('');
+  }
+
+  function renderHero() {
+    var holder = $('#hero-mini');
+    if (!holder || !state.data) return;
+
+    holder.innerHTML = state.data.releases.map(function (release) {
+      var program = projectOf(release.program);
+      var tone = program && program.accent === 'sky' ? 'sky' : 'mint';
+      var initial = (program ? program.name : release.program).charAt(0).toUpperCase();
+      return '' +
+        '<div class="mini-release">' +
+          '<span class="mini-dot mini-dot--' + tone + '" aria-hidden="true">' + esc(initial) + '</span>' +
+          '<span class="mini-body">' +
+            '<span class="mini-name">' + esc(program ? program.name : release.program) + '</span>' +
+            '<span class="mini-ver">' + esc(release.version) + '</span>' +
+          '</span>' +
+          '<span class="mini-state ' + channelClass(release.channel) + '">' +
+            esc(channelLabel(release.channel)) +
+          '</span>' +
+        '</div>';
+    }).join('');
+  }
+
+  function matches(release) {
+    if (state.project !== 'all' && release.program !== state.project) return false;
     if (state.channel !== 'all' && release.channel !== state.channel) return false;
 
-    const q = state.query.trim().toLowerCase();
+    var q = state.query.trim().toLowerCase();
     if (!q) return true;
 
-    const project = projectOf(release.project);
-    const haystack = [
-      release.version, release.channel, channelLabel(release.channel),
-      project?.name,
-      pick(release.title), pick(release.summary),
-      pick(project?.description), pick(project?.kind),
-      ...pickList(release.notes), ...pickList(release.limits),
-      ...(release.signals || []).map((s) => pick(s.label)),
-      ...pickList(project?.highlights)
-    ].join(' ').toLowerCase();
+    var program = projectOf(release.program);
+    var haystack = [
+      release.version,
+      release.channel,
+      channelLabel(release.channel),
+      program ? program.name : '',
+      pick(release.title),
+      pick(release.summary),
+      program ? pick(program.description) : '',
+      program ? pick(program.kind) : ''
+    ]
+      .concat(list(release.notes))
+      .concat(list(release.limits))
+      .concat(list(program ? program.highlights : []))
+      .concat((release.signals || []).map(function (s) { return pick(s.label); }))
+      .join(' ')
+      .toLowerCase();
 
-    return q.split(/\s+/).every((token) => haystack.includes(token));
-  };
+    return q.split(/\s+/).every(function (token) {
+      return haystack.indexOf(token) !== -1;
+    });
+  }
 
-  const signalsTemplate = (signals = []) => {
-    if (!signals.length) return '';
-    return `
-      <div class="signals" aria-label="${esc(t('release.status'))}">
-        ${signals.map((s) => `
-          <span class="signal" data-state="${esc(s.state || 'na')}">
-            ${esc(pick(s.label))}${s.state === 'pending' ? ' · ' + esc(t('release.pending')) : ''}
-          </span>`).join('')}
-      </div>`;
-  };
+  function signalsTemplate(signals) {
+    if (!signals || !signals.length) return '';
+    return '<div class="signals">' + signals.map(function (s) {
+      var suffix = s.state === 'pending' ? ' · ' + t('release.pending') : '';
+      return '<span class="signal" data-state="' + esc(s.state || 'ok') + '">' +
+        esc(pick(s.label)) + esc(suffix) + '</span>';
+    }).join('') + '</div>';
+  }
 
-  const notesTemplate = (release) => {
-    const pros = pickList(release.notes);
-    const cons = pickList(release.limits);
+  function notesTemplate(release) {
+    var pros = list(release.notes);
+    var cons = list(release.limits);
     if (!pros.length && !cons.length) return '';
-    return `
-      <details class="notes">
-        <summary>${esc(t('release.highlights'))}</summary>
-        <div class="notes-body">
-          <div class="notes-block">
-            <h4>${esc(t('release.pros'))}</h4>
-            <ul>${pros.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
-          </div>
-          <div class="notes-block notes-block--limit">
-            <h4>${esc(t('release.cons'))}</h4>
-            <ul>${cons.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
-          </div>
-        </div>
-      </details>`;
-  };
 
-  const releaseTemplate = (release) => {
-    const project = projectOf(release.project);
-    const hash = release.sha256;
-    const appHref = project?.links?.app || '#';
-    const docsHref = project?.links?.docs || '#';
+    return '' +
+      '<details class="notes">' +
+        '<summary>' + esc(t('release.more')) + '</summary>' +
+        '<div class="notes-body">' +
+          '<div class="notes-block">' +
+            '<h4>' + esc(t('release.pros')) + '</h4>' +
+            '<ul>' + pros.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' +
+          '</div>' +
+          '<div class="notes-block notes-block--limit">' +
+            '<h4>' + esc(t('release.cons')) + '</h4>' +
+            '<ul>' + cons.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' +
+          '</div>' +
+        '</div>' +
+      '</details>';
+  }
 
-    const actions = [];
+  function releaseTemplate(release) {
+    var program = projectOf(release.program);
+    var actions = [];
+
     if (release.available) {
-      actions.push(`<a class="btn btn--sm btn--primary" href="${esc(appHref)}">
-        ${esc(t('release.open'))}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </a>`);
-      actions.push(`<a class="btn btn--sm btn--ghost" href="${esc(release.file)}" download>${esc(t('release.download'))}</a>`);
+      actions.push('<a class="btn btn--sm btn--primary" href="' + esc(program.path) + '">' +
+        esc(t('release.open')) +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
+        '</a>');
+      actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.file) + '" download>' +
+        esc(t('release.download')) + '</a>');
     }
-    actions.push(`<a class="btn btn--sm btn--quiet" href="${esc(docsHref)}">${esc(t('release.notes'))}</a>`);
 
-    return `
-      <article class="release release--${esc(release.project)}" data-release="${esc(release.id)}">
-        <div class="release-head">
-          <span class="release-project">${esc(project?.name || release.project)}</span>
-          <span class="release-version">${esc(release.version)}</span>
-          <span class="${channelClass(release.channel)}">${esc(channelLabel(release.channel))}</span>
-          <span class="release-date">${esc(formatDate(release.released))}</span>
-        </div>
+    return '' +
+      '<article class="release release--' + esc(release.program) + '">' +
+        '<div class="release-head">' +
+          '<span class="release-project">' + esc(program.name) + '</span>' +
+          '<span class="release-version">' + esc(release.version) + '</span>' +
+          '<span class="' + channelClass(release.channel) + '">' + esc(channelLabel(release.channel)) + '</span>' +
+          '<span class="release-date">' + esc(formatDate(release.released)) + '</span>' +
+        '</div>' +
+        '<p class="release-summary"><strong>' + esc(pick(release.title)) + '</strong> ' +
+          esc(pick(release.summary)) + '</p>' +
+        '<div class="release-meta">' +
+          '<span class="chip chip--mono">' + esc(release.file) + '</span>' +
+          '<span class="chip">' + esc(formatBytes(release.size_bytes)) + '</span>' +
+          '<span class="chip">' + esc(release.available ? t('release.ready') : t('release.pending')) + '</span>' +
+        '</div>' +
+        '<div class="hash-row">' +
+          '<span class="hash-label">' + esc(t('release.hash')) + '</span>' +
+          (release.sha256
+            ? '<code class="hash-value">' + esc(release.sha256.slice(0, 16)) + '…</code>' +
+              '<button class="copy-btn" type="button" data-copy="' + esc(release.sha256) + '">' +
+              esc(t('release.copy')) + '</button>'
+            : '<span class="hash-value">—</span>') +
+        '</div>' +
+        signalsTemplate(release.signals) +
+        '<div class="release-actions">' + actions.join('') + '</div>' +
+        notesTemplate(release) +
+      '</article>';
+  }
 
-        <p class="release-summary"><strong>${esc(pick(release.title))}</strong> ${esc(pick(release.summary))}</p>
+  function render() {
+    var target = $('#release-list');
+    var count = $('#result-count');
+    if (!target || !state.data) return;
 
-        <div class="release-meta">
-          <span class="chip chip--mono">${esc(release.file)}</span>
-          <span class="chip">${esc(formatBytes(release.size_bytes))}</span>
-          <span class="chip">${release.available ? esc(t('stat.online')) : esc(t('release.pending'))}</span>
-        </div>
-
-        <div class="hash-row">
-          <span class="hash-label">${esc(t('release.hash'))}</span>
-          ${hash
-            ? `<code class="hash-value">${esc(hash.slice(0, 16))}…</code>
-               <button class="copy-btn" type="button" data-copy="${esc(hash)}">${esc(t('release.copy'))}</button>`
-            : `<span class="hash-value hash-value--missing">—</span>`}
-        </div>
-
-        ${signalsTemplate(release.signals)}
-        <div class="release-actions">${actions.join('')}</div>
-        ${notesTemplate(release)}
-      </article>`;
-  };
-
-  const render = () => {
-    const list = $('#release-list');
-    const count = $('#result-count');
-    if (!list || !state.data) return;
-
-    const all = state.data.releases || [];
-    const releases = all.filter(matches)
-      .sort((a, b) => String(b.released).localeCompare(String(a.released)));
-
-    list.innerHTML = releases.length
-      ? releases.map(releaseTemplate).join('')
-      : `<div class="empty">
-           <p>${esc(t('empty'))}</p>
-           <button class="btn btn--sm btn--ghost" type="button" data-reset style="margin-top:14px">${esc(t('filter.reset'))}</button>
-         </div>`;
-
-    if (count) count.textContent = t('count', { n: releases.length, total: all.length });
-  };
-
-  const renderStats = () => {
-    const releases = state.data.releases || [];
-    const set = (key, value) => {
-      const el = $(`[data-stat="${key}"]`);
-      if (el) el.textContent = value;
-    };
-    set('projects', state.data.projects.length);
-    set('releases', releases.length);
-    set('online', releases.filter((r) => r.available).length);
-
-    const dateEl = $('[data-hero-date]');
-    if (dateEl) dateEl.textContent = t('date.asOf', { date: formatDate(state.data.updated) });
-
-    const meta = $('#build-meta');
-    if (meta) {
-      meta.textContent = t('meta.index', {
-        date: formatDate(state.data.updated),
-        n: releases.filter((r) => r.available).length,
-        total: releases.length
-      });
-    }
-  };
-
-  /* ----------------------------- Controls ------------------------------- */
-
-  const initControls = () => {
-    $$('[data-lang-btn]').forEach((btn) => {
-      btn.addEventListener('click', () => setLang(btn.dataset.langBtn));
+    var all = state.data.releases;
+    var visible = all.filter(matches).slice().sort(function (a, b) {
+      return String(b.released).localeCompare(String(a.released));
     });
 
-    $$('[data-filter]').forEach((button) => {
-      button.addEventListener('click', () => {
-        const group = button.dataset.filter;
-        state[group] = button.dataset.value;
-        $$(`[data-filter="${group}"]`).forEach((b) => {
+    target.innerHTML = visible.length
+      ? visible.map(releaseTemplate).join('')
+      : '<div class="empty"><p>' + esc(t('empty')) + '</p>' +
+        '<button class="btn btn--sm btn--ghost" type="button" data-reset style="margin-top:14px">' +
+        esc(t('filter.reset')) + '</button></div>';
+
+    if (count) count.textContent = t('count', { n: visible.length, total: all.length });
+  }
+
+  function renderStats() {
+    var releases = state.data.releases;
+    var ready = releases.filter(function (r) { return r.available; }).length;
+
+    var map = {
+      programs: state.data.programs.length,
+      versions: releases.length,
+      online: ready
+    };
+
+    Object.keys(map).forEach(function (key) {
+      var el = document.querySelector('[data-stat="' + key + '"]');
+      if (el) el.textContent = map[key];
+    });
+
+    var label = t('date.asOf', { date: formatDate(state.data.updated) });
+    $$('[data-hero-date]').forEach(function (el) { el.textContent = label; });
+  }
+
+  function initControls() {
+    $$('[data-lang-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setLang(btn.getAttribute('data-lang-btn'));
+      });
+    });
+
+    $$('[data-filter]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var group = button.getAttribute('data-filter');
+        state[group] = button.getAttribute('data-value');
+        $$('[data-filter="' + group + '"]').forEach(function (b) {
           b.setAttribute('aria-pressed', String(b === button));
         });
         render();
       });
     });
 
-    const search = $('#search');
+    var search = $('#search');
     if (search) {
-      let timer;
-      search.addEventListener('input', () => {
+      var timer;
+      search.addEventListener('input', function () {
         clearTimeout(timer);
-        timer = setTimeout(() => {
+        timer = setTimeout(function () {
           state.query = search.value;
           render();
         }, 90);
       });
     }
 
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('[data-reset]')) return;
-      state.project = 'all';
-      state.channel = 'all';
-      state.query = '';
-      const field = $('#search');
-      if (field) field.value = '';
-      $$('[data-filter]').forEach((b) => {
-        b.setAttribute('aria-pressed', String(b.dataset.value === 'all'));
-      });
-      render();
-    });
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('[data-reset]')) {
+        state.project = 'all';
+        state.channel = 'all';
+        state.query = '';
+        var field = $('#search');
+        if (field) field.value = '';
+        $$('[data-filter]').forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-value') === 'all'));
+        });
+        render();
+        return;
+      }
 
-    document.addEventListener('click', async (event) => {
-      const button = event.target.closest('[data-copy]');
-      if (!button) return;
-      const value = button.dataset.copy;
-      try {
-        if (navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(value);
-        } else {
-          const area = document.createElement('textarea');
+      var copy = event.target.closest('[data-copy]');
+      if (!copy) return;
+
+      var value = copy.getAttribute('data-copy');
+      var done = function () {
+        copy.textContent = t('release.copied');
+        setTimeout(function () { copy.textContent = t('release.copy'); }, 1600);
+      };
+      var failed = function () { copy.textContent = t('release.noCopy'); };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(done, failed);
+      } else {
+        try {
+          var area = document.createElement('textarea');
           area.value = value;
           area.setAttribute('readonly', '');
           area.style.position = 'fixed';
@@ -610,77 +630,100 @@
           document.body.appendChild(area);
           area.select();
           document.execCommand('copy');
-          area.remove();
+          document.body.removeChild(area);
+          done();
+        } catch (e) {
+          failed();
         }
-        button.textContent = t('release.copied');
-        setTimeout(() => { button.textContent = t('release.copy'); }, 1600);
-      } catch (e) {
-        button.textContent = t('release.noCopy');
       }
     });
-  };
+  }
 
-  const initReveal = () => {
-    const items = $$('.reveal');
+  function initReveal() {
+    var items = $$('.reveal');
     if (!items.length) return;
+
     if (!('IntersectionObserver' in window)) {
-      items.forEach((el) => el.classList.add('is-visible'));
+      items.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
         }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
-    items.forEach((el) => observer.observe(el));
-  };
 
-  /* ------------------------------- Boot --------------------------------- */
+    items.forEach(function (el) { observer.observe(el); });
+  }
 
-  const fail = (message) => {
-    const list = $('#release-list');
-    if (list) list.innerHTML = `<p class="empty">${esc(message)}</p>`;
-    const count = $('#result-count');
-    if (count) count.textContent = '—';
-  };
-
-  const boot = async () => {
+  function boot() {
     initTheme();
     initControls();
 
-    state.lang = document.documentElement.dataset.lang === 'de' ? 'de' : 'en';
+    state.lang = document.documentElement.getAttribute('data-lang') === 'de' ? 'de' : 'en';
     applyStatic();
+    syncThemeLabel();
 
-    const year = $('#year');
+    var year = $('#year');
     if (year) year.textContent = String(new Date().getFullYear());
 
-    if (location.protocol === 'file:') {
-      fail(state.lang === 'de'
-        ? 'Der Index wird per fetch() geladen. Bitte über einen lokalen Server öffnen: python3 -m http.server 8080'
-        : 'The index is loaded via fetch(). Please open through a local server: python3 -m http.server 8080');
-      initReveal();
-      return;
-    }
-
-    try {
-      const response = await fetch(DATA_URL, { cache: 'no-cache' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      state.data = await response.json();
-    } catch (error) {
-      fail(`versions.json: ${error.message}`);
-      initReveal();
-      return;
-    }
-
-    renderProjects();
-    renderHeroMini();
-    renderStats();
-    render();
     initReveal();
-  };
+
+    var summary = $('#phase-body');
+    var phases = [
+      ['1', t('phase.setup'), t('phase.setup.d')],
+      ['2', 'Filter', t('phase.filter')],
+      ['3', t('phase.pidname'), t('phase.pid')],
+      ['4', t('phase.mastername'), t('phase.master')],
+      ['5', t('phase.ffname'), t('phase.ff')],
+      ['6', t('phase.archivename'), t('phase.archive')]
+    ];
+    if (summary) {
+      summary.innerHTML = phases.map(function (p) {
+        return '<tr><td>' + p[0] + '</td><td><strong>' + esc(p[1]) + '</strong>' +
+          '<span>' + esc(p[2]) + '</span></td></tr>';
+      }).join('');
+    }
+
+    if (location.protocol === 'file:') {
+      var target = $('#release-list');
+      if (target) {
+        target.innerHTML = '<p class="empty">' +
+          esc(state.lang === 'de'
+            ? 'Die Versionsliste benötigt einen Server. Bitte über die GitHub-Pages-Adresse öffnen.'
+            : 'The version list needs a server. Please open through the GitHub Pages address.') +
+          '</p>';
+      }
+      return;
+    }
+
+    fetch(DATA_URL, { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        state.data = data;
+        renderProjects();
+        renderHero();
+        renderStats();
+        render();
+      })
+      .catch(function () {
+        var target = $('#release-list');
+        if (target) {
+          target.innerHTML = '<p class="empty">' +
+            esc(state.lang === 'de'
+              ? 'Die Versionsdaten konnten nicht geladen werden.'
+              : 'The version data could not be loaded.') +
+            '</p>';
+        }
+      });
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });
