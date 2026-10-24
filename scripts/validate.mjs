@@ -57,7 +57,7 @@ function checkStructure() {
     'assets/data/versions.json',
     'tuner/index.html',
     'guide/index.html',
-    '.github/workflows/pages.yml'
+    '.github/workflows/validate.yml'
   ];
 
   for (const file of required) {

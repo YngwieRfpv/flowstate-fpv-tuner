@@ -22,7 +22,9 @@ Bestandene Quellprüfungen sind kein Nachweis für Flugverhalten.
 
 ### Variante A — direkt im Browser (empfohlen)
 
-Nach dem Pages-Deploy:
+GitHub Pages ist aktiv (Modus *Deploy from a branch*, `main` / root). Jeder Push
+auf `main` baut die Seite automatisch neu — kein Workflow, kein Klick. Die
+Anwendungen liegen unter:
 
 ```
 https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/
