@@ -83,8 +83,8 @@
         "en": "The full workflow with a visible CLI plan, backup gate and safety checks. Hardware and flight validation are still pending."
       },
       "file": "tuner/index.html",
-      "size_bytes": 451790,
-      "sha256": "f86deeeab262ec1df6afd2aea65d46884299454713b787b5a8d7d6866e977b9f",
+      "size_bytes": 451742,
+      "sha256": "55397f568c6de4f72bb10cf2df967dac680e0fbe22eadc6b5cac3ee5e21e15f8",
       "available": true,
       "signals": [
         { "label": { "de": "Log-Analyse", "en": "Log analysis" }, "state": "ok" },
@@ -136,8 +136,8 @@
         "en": "All sections, all 95 glossary terms and the Sbang workflow are included. Only the review on the published address is pending."
       },
       "file": "guide/index.html",
-      "size_bytes": 7292320,
-      "sha256": "d80c5d0b8aed6824ed45f7317c838ea6b63672e93799b7bd691d6f5b5e2d56ff",
+      "size_bytes": 7292272,
+      "sha256": "42a69de36552a6c9f5b90cc037f0437d5f9854becca401c88425d20df3377a6c",
       "available": true,
       "signals": [
         { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },
