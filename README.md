@@ -144,8 +144,10 @@ Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tu
 | Mobil | ✓ | ✓ | — |
 
 Für die Verbindung zum Flight Controller braucht der Tuner Web Serial. Das bringen
-Chrome, Edge und Opera auf dem Desktop mit. Brave hat es abgeschaltet und braucht
-`brave://flags/#brave-web-serial-api`; Firefox und Safari haben es nicht.
+Chrome, Edge und Opera auf dem Desktop mit. Andere Chromium-Browser sind möglich, aber
+nicht erprobt: Brave hat es abgeschaltet und braucht
+`brave://flags/#brave-web-serial-api`, Vivaldi hatte Versionen ohne Unterstützung.
+Firefox und Safari haben es nicht.
 
 Chrome für Android kann Web Serial seit Version 148 für einen Teil der Geräte — als
 verlässlicher Weg ist das nicht erprobt, deshalb steht Mobil in der Tabelle auf „—".

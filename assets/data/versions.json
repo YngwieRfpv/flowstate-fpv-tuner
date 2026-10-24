@@ -89,6 +89,7 @@
       "signals": [
         { "label": { "de": "Log-Analyse", "en": "Log analysis" }, "state": "ok" },
         { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
+        { "label": { "de": "Spanisch", "en": "Spanish" }, "state": "pending" },
         { "label": { "de": "Verbindung zum FC", "en": "Connection to FC" }, "state": "pending" },
         { "label": { "de": "Flugtest", "en": "Flight test" }, "state": "pending" }
       ],
@@ -143,6 +144,7 @@
         { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },
         { "label": { "de": "Glossar", "en": "Glossary" }, "state": "ok" },
         { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
+        { "label": { "de": "Spanisch", "en": "Spanish" }, "state": "pending" },
         { "label": { "de": "Durchsicht", "en": "Review" }, "state": "pending" }
       ],
       "notes": {
