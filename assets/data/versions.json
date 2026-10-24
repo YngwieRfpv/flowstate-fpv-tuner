@@ -136,8 +136,8 @@
         "en": "All sections, all 95 glossary terms and the Sbang workflow are included. Only the review on the published address is pending."
       },
       "file": "guide/index.html",
-      "size_bytes": 7292376,
-      "sha256": "c43fd580e55e7a13fb7617f9e4a43e7d78075bbe854152d75bf96cfeecb12b86",
+      "size_bytes": 7290376,
+      "sha256": "ad50868cd8d472b073621d83e4e06ada2875582c3353b346a35a729c3d370474",
       "available": true,
       "signals": [
         { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },

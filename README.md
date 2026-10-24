@@ -91,11 +91,11 @@ Tabellen und begleitet den Ablauf Schritt für Schritt.
 | Glossar | 95 Begriffe, aufrufbar direkt aus dem Text |
 | Quellen & Links | Originalanleitungen, Dokumentation, Werkzeuge |
 
-### Profil und Workspace
+### Profil
 
 Coptergröße, Frame, Gyro-/PID-Taktrate, Betaflight-Version und ESC-Firmware steuern,
-welche Werte und Tabellen erscheinen. Das Setup lässt sich als Datei speichern und
-später wieder laden; Logs werden dem Profil zugeordnet und benannt.
+welche Werte und Tabellen erscheinen. Das Profil bleibt im Browser gespeichert und
+bestimmt, welche Kapitel und Tabellen der Guide zeigt.
 
 ### Grenzen
 
@@ -164,8 +164,8 @@ zuletzt gewählte Sprache im Browser, sonst Deutsch.
 | Version | `v4.8-alpha.1` | `v1.0.1-beta.1` |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
-| Größe | 451.847 B | 7.292.376 B |
-| SHA-256 | `9e7466ddb5f8a32c322f4b1567daa2b5e47a90cd4939b6c2aa504f67e706a586` | `c43fd580e55e7a13fb7617f9e4a43e7d78075bbe854152d75bf96cfeecb12b86` |
+| Größe | 451.847 B | 7.290.376 B |
+| SHA-256 | `9e7466ddb5f8a32c322f4b1567daa2b5e47a90cd4939b6c2aa504f67e706a586` | `ad50868cd8d472b073621d83e4e06ada2875582c3353b346a35a729c3d370474` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder.
 
@@ -180,8 +180,7 @@ Two single-file HTML programs for Betaflight tuning, running entirely in the bro
   Web Serial after a backup and explicit confirmation. Six phases: setup, filter,
   neutral P/D, master, FF/I/D-Max, archive.
 - **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** — explains the workflow from the first build to fine
-  tuning, with 95 glossary terms, reference tables and a workspace you can save as a
-  file.
+  tuning, with 95 glossary terms and reference tables.
 
 Neither needs an install, an account or an internet connection. The tuner requires
 Chrome or Edge on desktop for the flight-controller connection; everything else works
