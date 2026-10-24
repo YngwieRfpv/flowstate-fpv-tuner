@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  PLATZHALTER — dieser Ordner ist der feste Platz für den FPV Guide DE.
+  Beim Einspielen wird DIESE Datei durch das Original ersetzt:
+
+      ./scripts/install-versions.sh --guide <pfad>/index.html
+
+  Danach ist https://<user>.github.io/flowstate-fpv-tuner/guide/ die Anwendung
+  selbst. Diese Datei ist nur für den Fall gedacht, dass der Slot noch leer ist.
+  ============================================================================
+-->
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPV Guide DE v1.0.1-beta.1 — noch nicht eingespielt</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#06080a">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>
+  try {
+    var t = localStorage.getItem('flowstate-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+</head>
+<body>
+<main class="slot">
+  <div class="slot-card">
+    <span class="slot-badge">Datei ausstehend</span>
+    <h1>FPV Guide DE</h1>
+
+    <div class="slot-meta">
+      <span class="chip chip--mono">v1.0.1-beta.1</span>
+      <span class="badge badge--beta">GitHub Beta</span>
+      <span class="chip">7.292.272 B</span>
+      <span class="chip">guide/index.html</span>
+    </div>
+
+    <p>
+      Dieser Ordner ist der feste Platz für den Guide. Die Einzeldatei liegt bereits im
+      Drive-Ordner <em>FPVGuide/Tuner/GitHub Versionen/FPV_Guide_GitHub_Beta_v1.0.1-beta.1</em>
+      und muss nur noch hierher kopiert werden.
+    </p>
+
+    <h2>Einspielen — automatisch</h2>
+    <pre class="code"><span class="prompt">$</span> ./scripts/install-versions.sh \
+    --guide ~/Downloads/FPV_Guide_GitHub_Beta_index.html</pre>
+
+    <h2>Einspielen — manuell auf GitHub</h2>
+    <pre class="code"><span class="cmt"># Repository → guide/ → Add file → Upload files</span>
+<span class="cmt"># Datei in index.html umbenennen, committen, pushen</span></pre>
+
+    <h2>Wichtig für diese Datei</h2>
+    <p>
+      Der Guide ist bewusst <strong>eine einzelne, etwa 7 MB große HTML-Datei</strong>.
+      Nicht auf ein CDN, Remote-Skripte oder eine Build-Pipeline umstellen, ohne die
+      Offline-Nutzbarkeit ausdrücklich neu zu testen. Sbang-Inhalt, -Ablauf und
+      -Implementierung bleiben unverändert.
+    </p>
+
+    <h2>Danach prüfen</h2>
+    <pre class="code"><span class="prompt">$</span> shasum -a 256 guide/index.html   <span class="cmt"># Hash wird beim Einspielen eingetragen</span>
+<span class="prompt">$</span> node scripts/validate.mjs</pre>
+
+    <a class="btn btn--primary" href="../">
+      Zurück zum Release Hub
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6 6-6-6 6-6"/></svg>
+    </a>
+
+    <div class="slot-foot">
+      <span>Quelle: Google Drive</span>
+      <span>Status: nicht eingespielt</span>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Gebaute/deployte Artefakte
+_site/
+_site-*/
+dist/
+
+# Abhängigkeiten (der Hub braucht keine – bleibt der Ordner trotzdem sauber)
+node_modules/
+
+# Lokale Downloads aus dem Drive-Ordner (werden bewusst eingespielt, nicht mitgeschleppt)
+tmp/
+*.download
+
+# Betriebssystem & Editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Logs und lokale Umgebung
+*.log
+.env
+.env.*
