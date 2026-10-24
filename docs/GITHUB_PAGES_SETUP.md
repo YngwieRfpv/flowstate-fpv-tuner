@@ -16,27 +16,32 @@ guide/index.html    ← Anwendung 2 (feste URL)
 `.nojekyll` ist wichtig: Ohne die Datei filtert Jekyll bestimmte Ordner und
 Dateinamen weg und bricht so unter anderem die Ordner-URLs.
 
-## 2. Variante A — Deploy über GitHub Actions (empfohlen)
+## 2. Aktueller Modus: Deploy aus dem Branch (aktiv)
 
-Der Workflow `.github/workflows/pages.yml` ist enthalten.
-
-1. **Settings → Pages → Build and deployment → Source: GitHub Actions**
-2. Push auf `main` (oder *Run workflow* im Actions-Tab).
-3. Der Job `Validate & stage` prüft zuerst `versions.json` und die Hashes.
-   Schlägt die Prüfung fehl, wird **nicht** deployt.
-4. Danach steht die Seite unter
-   `https://<user>.github.io/<repo>/` bereit.
-
-Vorteil gegenüber Branch-Deploy: Die Validierung ist ein Gate. Eine kaputte
-Version erreicht die Live-Seite nicht.
-
-## 3. Variante B — Deploy aus dem Branch
+So ist das Repository eingestellt — und so funktioniert es ohne weiteres Zutun:
 
 1. **Settings → Pages → Source: Deploy from a branch**
 2. Branch `main`, Ordner `/ (root)`
-3. Speichern, ein bis zwei Minuten warten.
 
-Beide Varianten vertragen sich nicht gleichzeitig — es gilt immer die zuletzt
+Jeder Push auf `main` baut die Seite automatisch neu. Kein Workflow nötig, weil
+`index.html` im Root liegt und `.nojekyll` Jekyll abschaltet. Der Build dauert
+etwa eine Minute; der Status steht unter **Actions → pages build and deployment**.
+
+Nach dem Deploy erreichbar:
+
+```
+https://<user>.github.io/<repo>/         → Hub
+https://<user>.github.io/<repo>/tuner/   → FlowState Tuner
+https://<user>.github.io/<repo>/guide/   → FPV Guide DE
+```
+
+## 3. Optional: Umstieg auf GitHub Actions
+
+Nur nötig, wenn du die Validierung als Deploy-Gate willst. Dann
+**Settings → Pages → Source: GitHub Actions** umstellen und einen Workflow für
+`actions/upload-pages-artifact` + `actions/deploy-pages` ergänzen.
+
+Beide Modi vertragen sich nicht gleichzeitig — es gilt immer die zuletzt
 gewählte Quelle.
 
 ## 4. Eigene Domain (optional)

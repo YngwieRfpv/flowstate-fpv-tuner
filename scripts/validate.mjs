@@ -57,7 +57,7 @@ function checkStructure() {
     'assets/data/versions.json',
     'tuner/index.html',
     'guide/index.html',
-    '.github/workflows/pages.yml'
+    '.github/workflows/validate.yml'
   ];
 
   for (const file of required) {
@@ -199,12 +199,18 @@ function checkProjectLinks(data) {
 
 /* --------------------------- Interne Links ------------------------------ */
 
+// Die beiden Anwendungen sind eigenständige Single-File-Apps. Ihre Verweise
+// stehen teils in JavaScript-Template-Strings und werden zur Laufzeit gebaut –
+// statisch prüfbar sind sie nicht. Sie werden daher ausgenommen.
+const APP_FILES = new Set(['tuner/index.html', 'guide/index.html']);
+const IGNORED_DIRS = new Set(['.git', 'node_modules', '_site', 'google_drive']);
+
 function collectHtmlFiles(dir, acc = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === '_site') continue;
+    if (IGNORED_DIRS.has(entry.name)) continue;
     const full = join(dir, entry.name);
     if (entry.isDirectory()) collectHtmlFiles(full, acc);
-    else if (extname(entry.name) === '.html') acc.push(full);
+    else if (extname(entry.name) === '.html' && !APP_FILES.has(rel(full))) acc.push(full);
   }
   return acc;
 }
@@ -221,6 +227,8 @@ function checkInternalLinks() {
       if (!ref) continue;
       if (/^(https?:|mailto:|tel:|data:|javascript:|#)/.test(ref)) continue;
       if (ref.startsWith('//')) continue;
+      if (ref.includes('${')) continue;        // JS-Template-Ausdruck
+      if (ref.startsWith('/')) continue;       // absolute Serverpfade sind zur Build-Zeit unbekannt
 
       const clean = ref.split('#')[0].split('?')[0];
       if (!clean) continue;
