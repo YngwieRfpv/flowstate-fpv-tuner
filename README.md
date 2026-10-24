@@ -25,7 +25,8 @@ nur nach vollständiger Sicherung und deiner Bestätigung.
 
 **Alpha:** Der Schreibpfad ist an echter Hardware noch nicht erprobt. Der Plan lässt
 sich vollständig lesen und prüfen, ohne dass etwas geschrieben wird — das ist der
-sichere Weg für den ersten Durchlauf.
+sichere Weg für den ersten Durchlauf. Schreiben geschieht auf eigene Gefahr; es gilt
+der Haftungsausschluss in [`LICENSE`](LICENSE), Abschnitt 6.
 
 ### Der Ablauf in sechs Phasen
 
@@ -79,6 +80,8 @@ geführt.
 - Bei heißen Motoren, Desync, unklarer Vibration oder nach einem Crash nicht
   weiter automatisch tunen.
 - Verbindungstest mit echtem Flight Controller und Flugtest stehen aus.
+- Nutzung auf eigene Gefahr: keine Gewähr für Funktion oder Ergebnis, Haftung
+  ausgeschlossen soweit gesetzlich zulässig (siehe [`LICENSE`](LICENSE), Abschnitt 6).
 
 ---
 
@@ -227,9 +230,12 @@ external scripts, fonts or images; the guide's links point outward on purpose an
 open with a connection.
 
 The tuner is an alpha: its write path has not been tried on real hardware yet. The plan
-can be read and checked in full without writing anything. For the flight-controller
-connection it needs Web Serial, which Chrome, Edge and Opera bring on desktop. Brave
-ships it disabled (`brave://flags/#brave-web-serial-api`); Firefox and Safari lack it.
+can be read and checked in full without writing anything. Writing is at your own risk —
+the disclaimer and limitation of liability in [`LICENSE`](LICENSE), section 6, apply.
+
+For the flight-controller connection it needs Web Serial, which Chrome, Edge and Opera
+bring on desktop. Brave ships it disabled (`brave://flags/#brave-web-serial-api`);
+Firefox and Safari lack it.
 Chrome for Android has partial support since version 148, not verified here.
 
 Tuning does not replace mechanical inspection — remove props for bench work and stop on
