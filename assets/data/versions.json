@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-24",
+  "source_of_truth": {
+    "provider": "google-drive",
+    "root_folder": "FPVGuide/Tuner/GitHub Versionen",
+    "root_folder_id": "15qu6ahYAw9J9xmyJ3QjQqqazMMLr7MuV",
+    "root_folder_url": "https://drive.google.com/drive/folders/15qu6ahYAw9J9xmyJ3QjQqqazMMLr7MuV"
+  },
+  "projects": [
+    {
+      "id": "tuner",
+      "name": "FlowState Tuner",
+      "kind": "Betaflight-Tuning-Werkzeug",
+      "accent": "mint",
+      "path": "tuner/",
+      "tagline": "Lokaler Browser-Begleiter für einen gestuften Blackbox-Tuning-Ablauf.",
+      "description": "Analysiert unterstützte Blackbox-Logs, zeigt einen sichtbaren CLI-Plan und schreibt nur nach ausdrücklicher Sicherheitsprüfung und Bestätigung über Web Serial. Läuft vollständig lokal – kein Backend, kein Konto, keine Telemetrie.",
+      "highlights": [
+        "Gestufter Ablauf Setup → Filter → P/D → Master → FF/I/D-Max → Archiv",
+        "Sichtbarer CLI-Plan, Zielprofil-Grenzen und Backup-/Schreib-Gates",
+        "Optionaler Filter-Preflight auf HF-Motornoise im Gasfenster",
+        "Vollständige DE/EN-Oberfläche, Dark/Light/Cream"
+      ],
+      "links": {
+        "app": "tuner/",
+        "docs": "docs/releases/tuner-v4.8-alpha.1.md"
+      },
+      "target": {
+        "firmware": "Betaflight 4.5+",
+        "runtime": "Chrome / Edge mit Web Serial",
+        "dependency": "keine – eine einzelne HTML-Datei"
+      }
+    },
+    {
+      "id": "guide",
+      "name": "FPV Guide DE",
+      "kind": "Referenz & Lernpfad",
+      "accent": "sky",
+      "path": "guide/",
+      "tagline": "Der fachliche Leitfaden hinter dem Tuner – von Simple Tuning bis Sbang.",
+      "description": "Deutschsprachiger FPV- und Betaflight-Leitfaden mit Simple Tuning, Advanced Tuning, Build Guide, 95 Glossarbegriffen samt Quellen, Workspace-Export und dem Sbang-Ablauf.",
+      "highlights": [
+        "Simple Tuning, Advanced Tuning, Build Guide und Glossar",
+        "95/95 Glossarbegriffe mit auflösbaren Quellenreferenzen",
+        "Geprüfter Betaflight-Wiki-Abgleich (Version 0.96.6 → 1.0.0)",
+        "Workspace-Import/-Export, DE/EN, offline nutzbar"
+      ],
+      "links": {
+        "app": "guide/",
+        "docs": "docs/releases/guide-v1.0.1-beta.1.md"
+      },
+      "target": {
+        "firmware": "Betaflight (versionsabhängig dokumentiert)",
+        "runtime": "jeder moderne Browser",
+        "dependency": "keine – eine einzelne HTML-Datei"
+      }
+    }
+  ],
+  "releases": [
+    {
+      "id": "tuner-4.8-alpha.1",
+      "project": "tuner",
+      "version": "v4.8-alpha.1",
+      "channel": "alpha",
+      "released": "2026-10-24",
+      "title": "Early Alpha – Quellprüfung bestanden, Hardware-Validierung offen",
+      "summary": "Erste öffentliche Alpha des FlowState Tuner: gestufter Tuning-Ablauf mit sichtbarem CLI-Plan, Backup-Gate und vollständiger DE/EN-Oberfläche.",
+      "file": "tuner/index.html",
+      "size_bytes": 451742,
+      "sha256": "55397f568c6de4f72bb10cf2df967dac680e0fbe22eadc6b5cac3ee5e21e15f8",
+      "available": false,
+      "source": {
+        "folder": "FPVGuide/Tuner/GitHub Versionen/FlowState_Tuner_GitHub_Alpha_v4.8-alpha.1",
+        "folder_id": "17aG1qWc3bUhFX7Ut-ORtwPPadM1FjaNN",
+        "folder_url": "https://drive.google.com/drive/folders/17aG1qWc3bUhFX7Ut-ORtwPPadM1FjaNN",
+        "filename": "FlowState-Tuner-v4.8-alpha.1.html",
+        "file_id": "1zt10BeUIlISkPHISHAMiEVXKUVG53LVC"
+      },
+      "signals": [
+        { "label": "Quellprüfung", "state": "ok" },
+        { "label": "Browser / Web Serial", "state": "pending" },
+        { "label": "FC / Dataflash", "state": "pending" },
+        { "label": "Flugtest", "state": "pending" }
+      ],
+      "notes": [
+        "RPY ist die Standard-Yaw-Basis je Zielprofil; Preserve RP bleibt manueller Opt-out.",
+        "Yaw Shake Fix ist standardmäßig aus, bestätigungspflichtig und nur im finalen Plan.",
+        "Importierte Blackbox-Namen sind reine Evidenz – fehlende Werte bleiben UNBEKANNT.",
+        "Mehrflug-BBL-Importe behalten einzelne Segmente und beobachtete Wertebereiche.",
+        "Das P0-Backup-Gate verlangt ausreichend diff-all-Ausgabe mit finalem CLI-Prompt."
+      ],
+      "limits": [
+        "Echte Browser-, Web-Serial-, FC- und Flugvalidierung steht aus.",
+        "FC-Schreibvorgänge nur mit Betaflight 4.5+.",
+        "Ein späteres simplified_tuning apply kann die Yaw-Ausnahme überschreiben – finalen Plan prüfen.",
+        "Kein Ersatz für eigenes Backup und mechanische Kontrolle."
+      ]
+    },
+    {
+      "id": "guide-1.0.1-beta.1",
+      "project": "guide",
+      "version": "v1.0.1-beta.1",
+      "channel": "beta",
+      "released": "2026-10-24",
+      "title": "GitHub-Beta auf Basis der fachlich geprüften Vollversion 1.0.0",
+      "summary": "Eigenständig auslieferbare Beta für Review und GitHub-Pages-Deployment. Inhaltlich identisch zur Vollversion – nur öffentliche Beta-Metadaten wurden angepasst.",
+      "file": "guide/index.html",
+      "size_bytes": 7292272,
+      "sha256": null,
+      "available": false,
+      "source": {
+        "folder": "FPVGuide/Tuner/GitHub Versionen/FPV_Guide_GitHub_Beta_v1.0.1-beta.1",
+        "folder_id": "1JqwSLPI5QAoYhoIF6yVMLo4fKEA8fOIg",
+        "folder_url": "https://drive.google.com/drive/folders/1JqwSLPI5QAoYhoIF6yVMLo4fKEA8fOIg",
+        "filename": "index.html",
+        "file_id": "1YPflPGyc374nbdbdNSYqcIc0uG3lfqBN"
+      },
+      "signals": [
+        { "label": "HTML-Validierung", "state": "ok" },
+        { "label": "JavaScript-Syntax", "state": "ok" },
+        { "label": "Renderpfad / Sbang", "state": "ok" },
+        { "label": "Beta-Review", "state": "pending" }
+      ],
+      "notes": [
+        "Alle 95 Glossarbegriffe und die abgeschlossene Wiki-Prüfung bleiben unverändert.",
+        "Sichtbare Kennzeichnung: GitHub Beta · v1.0.1-beta.1 · 24.10.2026.",
+        "Portables Manifest: 1.0.1-beta.1; interne guide-data-Version 0.3 bleibt Migrationsschlüssel.",
+        "Sbang-Inhalt, -Ablauf und -Implementierung sind unverändert (Fingerprint 9cc9db84…)."
+      ],
+      "limits": [
+        "Beta-Review auf der echten Pages-URL steht aus (nicht Dateivorschau).",
+        "Bewusst eine einzelne ~7-MB-Datei – nicht ohne neue Offline-Prüfung umbauen.",
+        "Quellen- und Lizenzangaben im Dokument dürfen nicht entfernt werden.",
+        "Sbang darf inhaltlich und im Ablauf nicht verändert werden."
+      ]
+    }
+  ]
+}
