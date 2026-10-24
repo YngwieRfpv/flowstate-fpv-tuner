@@ -303,6 +303,7 @@ function save(){try{localStorage.setItem('flowstate-v48-beta1',JSON.stringify(st
 function load(){try{const d=JSON.parse(localStorage.getItem('flowstate-v48-beta1')||'null');if(!d)return;state=merge(fresh(),d);state.auto={filter:null,pid:null,master:null,finish:null};ensurePreflight();}catch{}}
 function merge(a,b){for(const k of Object.keys(b||{})){if(b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])&&a[k]&&typeof a[k]==='object')a[k]=merge(a[k],b[k]);else a[k]=b[k];}return a;}
 load();
+try{const q=new URLSearchParams(location.search).get('lang');if(q==='de'||q==='en')state.lang=q;}catch{}
 function tx(de,en){i18nRemember(de,en);return state?.lang==='en'?en:de;}
 let serialPort=null, serialReader=null, serialRx='', logs=[], activeLog=null, pidRows=[], masterRows=[], backupSavedForConnection=false;
 const LOG_PHASES=['filter','pid','master','ff'];let phaseLogIds={filter:null,pid:null,master:null,ff:null},mspReconnectQueue=null,filterQualityOverrideLogId=null;

@@ -52,6 +52,7 @@
       <a href="#programme" data-i18n="nav.projects">Programme</a>
       <a href="#tuner" data-i18n="nav.tuner">Tuner</a>
       <a href="#guide" data-i18n="nav.guide">Guide</a>
+      <a href="#sprachen" data-i18n="nav.langs">Sprachen</a>
       <a href="#versionen" data-i18n="nav.versions">Versionen</a>
       <a href="#fragen" data-i18n="nav.faq">Fragen</a>
     </nav>
@@ -273,6 +274,60 @@
           Alles im Browser, nichts auf einem Server.
         </p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sprachen">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" data-i18n="langs.eyebrow">Sprachen</p>
+      <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch nicht geprüft</h2>
+      <p class="lede" data-i18n="langs.lede">
+        Beide Programme liegen auf Deutsch und Englisch vollständig vor. Spanisch ist
+        begonnen und in keinem Bereich geprüft — es erscheint deshalb ohne Freigabe.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <table class="lang-table">
+        <thead>
+          <tr>
+            <th scope="col" data-i18n="langs.h.language">Sprache</th>
+            <th scope="col" data-i18n="langs.h.status">Stand</th>
+            <th scope="col" data-i18n="langs.h.checked">Geprüft</th>
+            <th scope="col">FlowState Tuner</th>
+            <th scope="col">FPV Guide</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><strong>Deutsch</strong><span class="lang-code">DE</span></th>
+            <td data-i18n="langs.status.full">vollständig integriert</td>
+            <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
+            <td><a class="lang-link" href="tuner/?lang=de" data-i18n="langs.open">Tuner öffnen</a></td>
+            <td><a class="lang-link" href="guide/?lang=de" data-i18n="langs.openGuide">Guide öffnen</a></td>
+          </tr>
+          <tr>
+            <th scope="row"><strong>English</strong><span class="lang-code">EN</span></th>
+            <td data-i18n="langs.status.full">vollständig integriert</td>
+            <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
+            <td><a class="lang-link" href="tuner/?lang=en" data-i18n="langs.open">Tuner öffnen</a></td>
+            <td><a class="lang-link" href="guide/?lang=en" data-i18n="langs.openGuide">Guide öffnen</a></td>
+          </tr>
+          <tr>
+            <th scope="row"><strong>Español</strong><span class="lang-code">ES</span></th>
+            <td data-i18n="langs.status.unverified">nicht geprüft</td>
+            <td><span class="lang-flag lang-flag--open" data-i18n="langs.no">nein</span></td>
+            <td><span class="lang-missing" data-i18n="langs.none">kein Link</span></td>
+            <td><span class="lang-missing" data-i18n="langs.none">kein Link</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="lang-note" data-i18n="langs.note">
+        Die Sprache steht in der Adresse: ?lang=de oder ?lang=en. Ohne Angabe gilt die
+        zuletzt gewählte Sprache im Browser, sonst Deutsch.
+      </p>
     </div>
   </div>
 </section>

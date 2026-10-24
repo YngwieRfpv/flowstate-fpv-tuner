@@ -949,7 +949,7 @@ const KEY=PORTABLE_ID?'bf-tuning-guide-'+PORTABLE_ID:'bf-tuning-guide-alpha-de-v
 const defaults=()=>({schema:1,workspaceName:'Workspace 1',section:'home',lang:'de',theme:'dark',chapter:'configure',view:'ez',learning:'advanced',method:'general',setup:{bf:'4.3–4.4',esc:'Bluejay',quad:'5 Zoll',airframe:'normal',tool:'Blackbox Explorer'},checks:{},notes:{}});
 let state=PORTABLE_ID&&PORTABLE_SEED.state?{...defaults(),...PORTABLE_SEED.state}:defaults(),canStore=true;
 try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s?.schema===1)state={...state,...s,setup:{...state.setup,...s.setup},checks:s.checks||{},notes:s.notes||{}}}catch{canStore=false}
-if(!['de','en'].includes(state.lang))state.lang='de';if(!['light','dark','sand'].includes(state.theme))state.theme='dark';
+if(!['de','en'].includes(state.lang))state.lang='de';try{const q=new URLSearchParams(location.search).get('lang');if(q==='de'||q==='en')state.lang=q;}catch{}if(!['light','dark','sand'].includes(state.theme))state.theme='dark';
 state.workspaceName=typeof state.workspaceName==='string'&&state.workspaceName.trim()?state.workspaceName.trim().slice(0,80):'Workspace 1';
 if(state.appVersion!=='0.3'){state.chapter='esc5';state.view='ez';state.appVersion='0.3'}
 migrateProfiles();migrateTune49();if(state.chapter==='credits'){state.section='sources';state.chapter='configure'}if(state.section==='configure'){state.section='tuning';state.chapter='configure'}if(!state.setupReady)state.chapter='configure';state.view='ez';state.method='general';
