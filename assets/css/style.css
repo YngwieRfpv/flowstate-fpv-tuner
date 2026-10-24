@@ -1,29 +1,29 @@
 :root {
-  --bg: #06080a;
-  --bg-soft: #090c0f;
-  --panel: #0d1216;
-  --panel-2: #111821;
-  --panel-hover: #131c25;
-  --line: #1c262e;
-  --line-strong: #2a3843;
-  --text: #e8eef3;
-  --text-soft: #c3ced7;
-  --muted: #8d9daa;
-  --faint: #63727e;
+  --bg: #07111f;
+  --bg-soft: #0b1728;
+  --panel: #0e1b2e;
+  --panel-2: #111f34;
+  --panel-hover: #152642;
+  --line: #223653;
+  --line-strong: #2d4a70;
+  --text: #ecf6ff;
+  --text-soft: #d3e6f7;
+  --muted: #8aa2bd;
+  --faint: #7891ab;
 
-  --mint: #46e3bd;
-  --mint-soft: rgba(70, 227, 189, 0.12);
-  --mint-line: rgba(70, 227, 189, 0.32);
-  --sky: #6aa9ff;
-  --sky-soft: rgba(106, 169, 255, 0.12);
-  --sky-line: rgba(106, 169, 255, 0.32);
-  --amber: #f5b954;
-  --amber-soft: rgba(245, 185, 84, 0.12);
-  --amber-line: rgba(245, 185, 84, 0.34);
-  --violet: #b08cff;
-  --violet-soft: rgba(176, 140, 255, 0.12);
+  --mint: #37bdf8;
+  --mint-soft: rgba(55, 189, 248, 0.12);
+  --mint-line: rgba(55, 189, 248, 0.32);
+  --sky: #23d3d3;
+  --sky-soft: rgba(35, 211, 211, 0.12);
+  --sky-line: rgba(35, 211, 211, 0.32);
+  --amber: #f7b955;
+  --amber-soft: rgba(247, 185, 85, 0.12);
+  --amber-line: rgba(247, 185, 85, 0.34);
+  --violet: #b38cff;
+  --violet-soft: rgba(179, 140, 255, 0.12);
 
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -24px rgba(2, 9, 20, 0.9);
   --radius: 16px;
   --maxw: 1120px;
 
@@ -35,59 +35,59 @@
 }
 
 [data-theme="light"] {
-  --bg: #f6f8f8;
-  --bg-soft: #eef2f2;
+  --bg: #edf3f9;
+  --bg-soft: #e5eef7;
   --panel: #ffffff;
-  --panel-2: #f2f6f6;
-  --panel-hover: #f7fbfb;
-  --line: #dfe7e7;
-  --line-strong: #c8d4d4;
-  --text: #0c1618;
-  --text-soft: #24363a;
-  --muted: #526a70;
-  --faint: #74898e;
+  --panel-2: #f4f8fc;
+  --panel-hover: #f9fcff;
+  --line: #cbd9e6;
+  --line-strong: #9db5cd;
+  --text: #16283b;
+  --text-soft: #294058;
+  --muted: #526d88;
+  --faint: #566d8a;
 
-  --mint: #0f9e82;
-  --mint-soft: rgba(15, 158, 130, 0.09);
-  --mint-line: rgba(15, 158, 130, 0.28);
-  --sky: #2b6fd6;
-  --sky-soft: rgba(43, 111, 214, 0.09);
-  --sky-line: rgba(43, 111, 214, 0.26);
-  --amber: #a97214;
-  --amber-soft: rgba(169, 114, 20, 0.1);
-  --amber-line: rgba(169, 114, 20, 0.28);
-  --violet: #7451c9;
-  --violet-soft: rgba(116, 81, 201, 0.1);
+  --mint: #076ea6;
+  --mint-soft: rgba(8, 123, 185, 0.09);
+  --mint-line: rgba(8, 123, 185, 0.28);
+  --sky: #076d7c;
+  --sky-soft: rgba(8, 127, 143, 0.09);
+  --sky-line: rgba(8, 127, 143, 0.26);
+  --amber: #965900;
+  --amber-soft: rgba(169, 101, 0, 0.1);
+  --amber-line: rgba(169, 101, 0, 0.28);
+  --violet: #7046b3;
+  --violet-soft: rgba(112, 70, 179, 0.1);
 
-  --shadow: 0 1px 2px rgba(12, 22, 24, 0.06), 0 16px 32px -26px rgba(12, 22, 24, 0.55);
+  --shadow: 0 1px 2px rgba(22, 40, 59, 0.06), 0 16px 32px -26px rgba(22, 40, 59, 0.55);
 }
 
 [data-theme="cream"] {
-  --bg: #f7f1e4;
-  --bg-soft: #f1e9d8;
-  --panel: #fffaf0;
-  --panel-2: #f8f0e0;
+  --bg: #f4ecdf;
+  --bg-soft: #efe4d3;
+  --panel: #fffaf1;
+  --panel-2: #f9f0e3;
   --panel-hover: #fffdf7;
-  --line: #e6dbc4;
-  --line-strong: #d6c8ab;
-  --text: #241d12;
-  --text-soft: #3d3324;
-  --muted: #6b5c44;
-  --faint: #8b7a5e;
+  --line: #d8c3aa;
+  --line-strong: #bca17f;
+  --text: #37251c;
+  --text-soft: #4a352a;
+  --muted: #725d4a;
+  --faint: #77624c;
 
-  --mint: #0d7f68;
-  --mint-soft: rgba(13, 127, 104, 0.1);
-  --mint-line: rgba(13, 127, 104, 0.3);
-  --sky: #2a5fa8;
-  --sky-soft: rgba(42, 95, 168, 0.1);
-  --sky-line: rgba(42, 95, 168, 0.28);
-  --amber: #96601a;
-  --amber-soft: rgba(150, 96, 26, 0.11);
-  --amber-line: rgba(150, 96, 26, 0.3);
-  --violet: #6b4a9c;
-  --violet-soft: rgba(107, 74, 156, 0.1);
+  --mint: #075f8c;
+  --mint-soft: rgba(7, 95, 140, 0.1);
+  --mint-line: rgba(7, 95, 140, 0.3);
+  --sky: #086f70;
+  --sky-soft: rgba(8, 111, 112, 0.1);
+  --sky-line: rgba(8, 111, 112, 0.28);
+  --amber: #865500;
+  --amber-soft: rgba(134, 85, 0, 0.11);
+  --amber-line: rgba(134, 85, 0, 0.3);
+  --violet: #63439a;
+  --violet-soft: rgba(99, 67, 154, 0.1);
 
-  --shadow: 0 1px 2px rgba(64, 48, 24, 0.07), 0 16px 32px -26px rgba(64, 48, 24, 0.5);
+  --shadow: 0 1px 2px rgba(79, 52, 30, 0.07), 0 16px 32px -26px rgba(79, 52, 30, 0.5);
 }
 
 *,
@@ -609,7 +609,7 @@ kbd {
 
 .btn--primary {
   background: var(--mint);
-  color: #04231c;
+  color: #04121f;
 }
 
 .btn--primary:hover {
