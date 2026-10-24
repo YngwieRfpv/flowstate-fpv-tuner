@@ -233,20 +233,31 @@ ships it disabled (`brave://flags/#brave-web-serial-api`); Firefox and Safari la
 Chrome for Android has partial support since version 148, not verified here.
 
 Tuning does not replace mechanical inspection — remove props for bench work and stop on
-hot motors, desyncs or unclear mechanics. The licence is source-available, not
-open source: modifications are not permitted.
+hot motors, desyncs or unclear mechanics.
+
+The licence is source-available, not open source: unmodified redistribution with the
+licence and a link to the source is allowed, modifications are not. The reason is the
+write path — the tuner talks to the flight controller over Web Serial, so the
+restriction protects the version history from unchecked forks carrying potentially
+dangerous changes.
 
 ---
 
 ## Lizenz
 
-Die Programme dürfen unverändert weitergegeben werden: vollständig, mit Lizenz und
-mit Verweis auf die Originalquelle. Bearbeitungen, Kürzungen, Übersetzungen und
-eigene Fassungen sind nicht erlaubt.
+Die Programme dürfen unverändert weitergegeben werden — vollständig, inklusive Lizenz
+und unter Verweis auf die Originalquelle. Bearbeitungen, Kürzungen, Übersetzungen und
+eigene Fassungen sind nicht gestattet.
 
-Der Quelltext ist öffentlich einsehbar, das macht die Lizenz aber nicht zu einer
+Der Quelltext ist öffentlich einsehbar. Das macht die Lizenz aber nicht zu einer
 Open-Source-Lizenz: Die Open Source Definition verlangt, dass Bearbeitungen erlaubt
-sind, und das ist hier ausdrücklich nicht der Fall. Es handelt sich um eine
-„Source-available“-Lizenz ohne Bearbeitungsrecht.
+sind — hier sind sie es ausdrücklich nicht.
+
+Der Grund liegt im Schreibzugriff: Der Tuner greift über Web Serial direkt auf den
+Flight Controller zu. Die Einschränkung dient der Sicherheit und der Integrität im
+Versionsverlauf — damit durch ungeprüfte Forks oder eigenmächtige Änderungen keine
+potenziell gefährlichen Fehler in Umlauf geraten und als fertige Fassung gelten, wo
+niemand sie geprüft hat. Es handelt sich um eine „Source-available“-Lizenz ohne
+Bearbeitungsrecht.
 
 Der vollständige Text steht in [`LICENSE`](LICENSE), auf Deutsch und Englisch.
