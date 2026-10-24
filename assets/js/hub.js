@@ -53,6 +53,7 @@
       'row.tuner.text': 'Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial — nur nach Sicherung und Bestätigung.',
       'row.tuner.p1': 'Sechs Phasen, jede mit eigenem Abschluss',
       'row.tuner.p2': 'Backup-, Firmware- und Profil-Gate vor jedem Schreiben',
+      'row.tuner.warning': 'Alpha: Schreiben auf eigene Gefahr. Der Schreibpfad ist an echter Hardware und im Flug nicht erprobt — der Plan lässt sich vorher vollständig lesen und prüfen.',
       'row.tuner.p3': 'Chrome, Edge oder Opera am Desktop für die FC-Verbindung',
       'row.tuner.cta': 'Tuner öffnen',
       'row.guide.kicker': 'Verstehen · Nachschlagen · Nachbauen',
@@ -111,13 +112,15 @@
       'faq.pages.q': 'Warum gibt es überhaupt eine GitHub-Seite?',
       'faq.pages.a': 'GitHub Pages ist reines Datei-Hosting. Es liefert die HTML-Dateien aus, die im Repository liegen – nichts wird gestartet oder gebaut. Damit eine Adresse wie /tuner/ funktioniert, muss in den Repository-Einstellungen unter Pages der Branch ausgewählt sein, in dem die Dateien liegen.',
       'faq.offline.q': 'Funktioniert das auch ohne Internet?',
-      'faq.offline.a': 'Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben.',
+      'faq.offline.a': 'Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.',
       'faq.browser.q': 'Welcher Browser?',
-      'faq.browser.a': 'Der Guide läuft in jedem modernen Browser, auch mobil. Für die Verbindung zum Flight Controller braucht der Tuner Web Serial: Chrome, Edge und Opera am Desktop bringen es mit, Brave erst nach dem Einschalten in den Einstellungen. Firefox und Safari haben es nicht. Log-Analyse funktioniert überall.',
+      'faq.browser.a': 'Der Guide läuft in jedem modernen Browser, auch mobil. Für die Verbindung zum Flight Controller braucht der Tuner Web Serial: Chrome, Edge und Opera am Desktop bringen es mit. Andere Chromium-Browser sind möglich, aber nicht erprobt – Brave hat Web Serial abgeschaltet (einschaltbar in den Einstellungen), Vivaldi hatte Versionen ohne Unterstützung. Firefox und Safari haben es nicht. Log-Analyse funktioniert überall.',
       'faq.data.q': 'Wohin gehen meine Daten?',
       'faq.data.a': 'Nirgendwohin. Einstellungen und Profil bleiben im Browser-Speicher deines Geräts. Es gibt kein Backend und keine Telemetrie.',
       'faq.safe.q': 'Ist das eine Flugfreigabe?',
-      'faq.safe.a': 'Nein. Tuning ersetzt keine mechanische Kontrolle. Props ab für Bench-Arbeiten, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.',
+      'faq.safe.a': 'Nein. Der Tuner ist Alpha: Der Schreibpfad ist an echter Hardware und im Flug nicht erprobt, Schreiben geschieht auf eigene Verantwortung. Vorher sichern, Props ab für Bench-Arbeiten, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.',
+      'faq.license.q': 'Ist das Open Source?',
+      'faq.license.a': 'Nein. Der Quelltext ist einsehbar, Bearbeitungen sind aber nicht erlaubt – damit erfüllt die Lizenz die Open-Source-Definition nicht. Erlaubt ist die unveränderte Weitergabe mit Lizenz und Quellenverweis.',
       'footer.note': 'Zwei HTML-Programme für Betaflight-Tuning. Kein Backend, keine Tracker, keine externen Schriften.',
       'footer.programs': 'Programme',
       'footer.more': 'Mehr',
@@ -189,6 +192,7 @@
       'row.tuner.text': 'Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial — only after a backup and confirmation.',
       'row.tuner.p1': 'Six phases, each with its own completion',
       'row.tuner.p2': 'Backup, firmware and profile gate before every write',
+      'row.tuner.warning': 'Alpha: write at your own risk. The write path has not been tried on real hardware or in flight — read and check the plan in full first.',
       'row.tuner.p3': 'Chrome, Edge or Opera on desktop for the FC connection',
       'row.tuner.cta': 'Open tuner',
       'row.guide.kicker': 'Understand · Look up · Rebuild',
@@ -247,13 +251,15 @@
       'faq.pages.q': 'Why is there a GitHub page at all?',
       'faq.pages.a': 'GitHub Pages is plain file hosting. It serves the HTML files stored in the repository – nothing is started or built. For an address such as /tuner/ to work, the repository settings under Pages must point at the branch that holds those files.',
       'faq.offline.q': 'Does it work without internet?',
-      'faq.offline.a': 'Yes. Both files load no external scripts, fonts or images. Download, double-click, done – the network can stay off.',
+      'faq.offline.a': 'Yes. Both files load no external scripts, fonts or images. Download, double-click, done – the network can stay off. Only the guide’s links point outward: they need a connection, the content does not.',
       'faq.browser.q': 'Which browser?',
-      'faq.browser.a': 'The guide runs in any modern browser, mobile included. For the flight-controller connection the tuner needs Web Serial: Chrome, Edge and Opera bring it on desktop, Brave only after enabling it in settings. Firefox and Safari lack it. Log analysis works everywhere.',
+      'faq.browser.a': 'The guide runs in any modern browser, mobile included. For the flight-controller connection the tuner needs Web Serial: Chrome, Edge and Opera bring it on desktop. Other Chromium browsers may work but are untested – Brave ships it disabled (enable it in settings), and some Vivaldi versions lacked support. Firefox and Safari lack it. Log analysis works everywhere.',
       'faq.data.q': 'Where does my data go?',
       'faq.data.a': 'Nowhere. Settings and profile stay in your browser storage. There is no backend and no telemetry.',
       'faq.safe.q': 'Is this a flight clearance?',
-      'faq.safe.a': 'No. Tuning does not replace mechanical inspection. Remove props for bench work, and stop immediately on hot motors, desyncs or unclear mechanics.',
+      'faq.safe.a': 'No. The tuner is an alpha: its write path has not been tried on real hardware or in flight, so writing is at your own risk. Back up first, remove props for bench work, and stop immediately on hot motors, desyncs or unclear mechanics.',
+      'faq.license.q': 'Is this open source?',
+      'faq.license.a': 'No. The source is readable, but modifications are not permitted – so the licence does not meet the open source definition. Unmodified redistribution with the licence and a link to the source is allowed.',
       'footer.note': 'Two HTML programs for Betaflight tuning. No backend, no trackers, no external fonts.',
       'footer.programs': 'Programs',
       'footer.more': 'More',
@@ -577,7 +583,7 @@
         '<div class="hash-row">' +
           '<span class="hash-label">' + esc(t('release.hash')) + '</span>' +
           (release.sha256
-            ? '<code class="hash-value">' + esc(release.sha256.slice(0, 16)) + '…</code>' +
+            ? '<code class="hash-value">' + esc(release.sha256) + '</code>' +
               '<button class="copy-btn" type="button" data-copy="' + esc(release.sha256) + '">' +
               esc(t('release.copy')) + '</button>'
             : '<span class="hash-value">—</span>') +

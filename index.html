@@ -148,6 +148,7 @@
           <li data-i18n="row.tuner.p2">Backup-, Firmware- und Profil-Gate vor jedem Schreiben</li>
           <li data-i18n="row.tuner.p3">Chrome, Edge oder Opera am Desktop für die FC-Verbindung</li>
         </ul>
+        <p class="program-warning" data-i18n="row.tuner.warning"><strong>Alpha:</strong> Schreiben auf eigene Gefahr. Der Schreibpfad ist an echter Hardware und im Flug nicht erprobt — der Plan lässt sich vorher vollständig lesen und prüfen.</p>
         <div class="program-actions">
           <a class="btn btn--primary" href="tuner/">
             <span data-i18n="row.tuner.cta">Tuner öffnen</span>
@@ -390,19 +391,23 @@
       </details>
       <details>
         <summary data-i18n="faq.offline.q">Funktioniert das auch ohne Internet?</summary>
-        <p data-i18n="faq.offline.a">Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben.</p>
+        <p data-i18n="faq.offline.a">Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.</p>
       </details>
       <details>
         <summary data-i18n="faq.browser.q">Welcher Browser?</summary>
-        <p data-i18n="faq.browser.a">Der Guide läuft in jedem modernen Browser, auch mobil. Für die Verbindung zum Flight Controller braucht der Tuner Web Serial: Chrome, Edge und Opera am Desktop bringen es mit, Brave erst nach dem Einschalten in den Einstellungen. Firefox und Safari haben es nicht. Log-Analyse funktioniert überall.</p>
+        <p data-i18n="faq.browser.a">Der Guide läuft in jedem modernen Browser, auch mobil. Für die Verbindung zum Flight Controller braucht der Tuner Web Serial: Chrome, Edge und Opera am Desktop bringen es mit. Andere Chromium-Browser sind möglich, aber nicht erprobt – Brave hat Web Serial abgeschaltet (einschaltbar in den Einstellungen), Vivaldi hatte Versionen ohne Unterstützung. Firefox und Safari haben es nicht. Log-Analyse funktioniert überall.</p>
       </details>
       <details>
         <summary data-i18n="faq.data.q">Wohin gehen meine Daten?</summary>
-        <p data-i18n="faq.data.a">Nirgendwohin. Logs, Einstellungen und Workspace bleiben im Browser-Speicher deines Geräts oder in Dateien, die du selbst speicherst. Es gibt kein Backend und keine Telemetrie.</p>
+        <p data-i18n="faq.data.a">Nirgendwohin. Einstellungen und Profil bleiben im Browser-Speicher deines Geräts. Es gibt kein Backend und keine Telemetrie.</p>
       </details>
       <details>
         <summary data-i18n="faq.safe.q">Ist das eine Flugfreigabe?</summary>
-        <p data-i18n="faq.safe.a">Nein. Tuning ersetzt keine mechanische Kontrolle. Props ab für Bench-Arbeiten, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.</p>
+        <p data-i18n="faq.safe.a">Nein. Der Tuner ist Alpha: Der Schreibpfad ist an echter Hardware und im Flug nicht erprobt, Schreiben geschieht auf eigene Verantwortung. Vorher sichern, Props ab für Bench-Arbeiten, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq.license.q">Ist das Open Source?</summary>
+        <p data-i18n="faq.license.a">Nein. Der Quelltext ist einsehbar, Bearbeitungen sind aber nicht erlaubt – damit erfüllt die Lizenz die Open-Source-Definition nicht. Erlaubt ist die unveränderte Weitergabe mit Lizenz und Quellenverweis.</p>
       </details>
     </div>
   </div>

@@ -1059,6 +1059,21 @@ kbd {
   flex-shrink: 0;
 }
 
+.program-warning {
+  margin-top: 14px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--amber-line);
+  background: var(--amber-soft);
+  font-size: 12.8px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.program-warning strong {
+  color: var(--text);
+}
+
 .callout {
   display: flex;
   gap: 14px;
