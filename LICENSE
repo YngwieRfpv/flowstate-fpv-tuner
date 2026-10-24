@@ -1,0 +1,178 @@
+FlowState FPV — Lizenz für Nutzung und Weitergabe
+Version 1.0 · 24. Oktober 2026
+Rechteinhaber: YngwierFPV · https://github.com/YngwieRfpv
+
+Diese Lizenz gilt für alle Dateien dieses Repositories, insbesondere für
+index.html, tuner/index.html, guide/index.html und alle Dateien unter assets/.
+Sie bestimmt, was mit den Programmen erlaubt ist. Sie ist keine Rechtsberatung.
+
+
+1. Nutzung
+
+Das Programm darf unverändert geöffnet, ausgeführt und genutzt werden — privat,
+im Verein und im gewerblichen Betrieb. Die Nutzung ist kostenlos.
+
+
+2. Weitergabe
+
+Unveränderte und vollständige Kopien dürfen in jedem Medium und auf jedem Weg
+weitergegeben werden, auch öffentlich und unentgeltlich. Mit jeder Weitergabe
+werden diese Lizenz, der Copyright-Hinweis und der Verweis auf die Originalquelle
+mitgegeben:
+
+    https://github.com/YngwieRfpv/flowstate-fpv-tuner
+
+Ein Verweis genügt auch als Link auf diese Datei, solange er die Originalquelle
+eindeutig benennt.
+
+
+3. Keine Bearbeitung
+
+Untersagt sind jede Veränderung und jede Bearbeitung, insbesondere:
+
+    a) Änderungen am Quelltext, an Texten, Bildern, Layout oder Bezeichnungen,
+    b) Kürzungen, Auszüge, Teilkopien oder das Zusammenführen mit anderen Werken,
+    c) Übersetzungen, Umbenennungen und andere Abwandlungen,
+    d) das Entfernen oder Verändern von Copyright-, Lizenz- oder Quellenhinweisen,
+    e) die Weitergabe von Ergebnissen, die auf einer Bearbeitung beruhen.
+
+Wer eine bearbeitete Fassung erstellt, darf diese nicht weitergeben. Das Recht
+zur Weitergabe aus Abschnitt 2 gilt ausschließlich für unveränderte Kopien.
+
+Die Sprachumschaltung, die Themenumschaltung und die Bedienung der Programme
+sind keine Bearbeitung: sie laufen innerhalb der unveränderten Dateien ab.
+
+
+4. Name und Zeichen
+
+Die Bezeichnungen FlowState, FlowState FPV, FlowState Tuner und FPV Guide sowie
+das zugehörige Zeichen bleiben beim Rechteinhaber. Unveränderte Kopien dürfen sie
+enthalten. Für eigene Angebote, eigene Fassungen oder als Absender dürfen sie
+nicht verwendet werden.
+
+
+5. Inhalte Dritter
+
+Der FPV Guide enthält Inhalte, Zitate, Quellenangaben und Marken Dritter,
+insbesondere zu Betaflight. Für diese Inhalte gelten die Rechte der jeweiligen
+Inhaber unabhängig von dieser Lizenz. Die Quellen- und Lizenzangaben im Dokument
+bleiben unverändert erhalten.
+
+
+6. Keine Gewährleistung
+
+Das Programm wird „wie besehen“ bereitgestellt. Es wird keine Gewähr für
+Funktion, Richtigkeit, Vollständigkeit oder Eignung für einen bestimmten Zweck
+übernommen. Tuning und CLI-Schreibvorgänge verändern Flugcontroller; Fehler
+können Hardware beschädigen oder zu Abstürzen führen. Prüfe jeden Plan selbst,
+sichere vorher dein Setup und fliege nur an einem sicheren Ort.
+
+Soweit gesetzlich zulässig, haftet der Rechteinhaber nicht für Schäden, die aus
+der Nutzung oder der Weitergabe des Programms entstehen.
+
+
+7. Ende der Rechte
+
+Verstöße gegen diese Lizenz beenden das Recht zur Weitergabe aus Abschnitt 2 mit
+sofortiger Wirkung. Wer die Lizenz erneut einhält, darf wieder weitergeben.
+
+
+8. Sonstiges
+
+Sollte eine Bestimmung dieser Lizenz unwirksam sein, bleibt die übrige Lizenz
+wirksam; an die Stelle der unwirksamen Bestimmung tritt die zulässige Regelung,
+die dem Zweck am nächsten kommt. Es gilt das Recht der Bundesrepublik Deutschland.
+
+Änderungen dieser Lizenz erscheinen nur durch den Rechteinhaber und nur für
+künftige Fassungen. Für bereits weitergegebene Kopien gilt die Lizenz, unter der
+sie weitergegeben wurden.
+
+
+================================================================================
+
+
+FlowState FPV — License for Use and Redistribution
+Version 1.0 · 24 October 2026
+Rights holder: YngwierFPV · https://github.com/YngwieRfpv
+
+This license covers every file in this repository, in particular index.html,
+tuner/index.html, guide/index.html and all files under assets/. It states what is
+permitted with the programs. It is not legal advice.
+
+
+1. Use
+
+The program may be opened, run and used unmodified — privately, at a club and in
+commercial settings. Use is free of charge.
+
+
+2. Redistribution
+
+Unmodified and complete copies may be redistributed in any medium and by any
+means, publicly and free of charge. Every redistribution must include this
+license, the copyright notice and a reference to the original source:
+
+    https://github.com/YngwieRfpv/flowstate-fpv-tuner
+
+A link to this file is sufficient if it clearly names the original source.
+
+
+3. No modification
+
+Any change and any modification is prohibited, in particular:
+
+    a) changes to source code, texts, images, layout or names,
+    b) cuts, excerpts, partial copies or merging with other works,
+    c) translations, renamings and other alterations,
+    d) removing or altering copyright, license or source notices,
+    e) redistributing results that are based on a modification.
+
+Anyone who creates a modified version may not redistribute it. The right to
+redistribute under section 2 applies to unmodified copies only.
+
+Switching the language, switching the theme and operating the programs are not
+modifications: they run inside the unmodified files.
+
+
+4. Name and marks
+
+The names FlowState, FlowState FPV, FlowState Tuner and FPV Guide and the
+associated mark remain with the rights holder. Unmodified copies may contain
+them. They may not be used for your own offerings, your own versions or as a
+sender.
+
+
+5. Third-party content
+
+The FPV Guide contains third-party content, quotations, source references and
+marks, in particular relating to Betaflight. Those contents remain under the
+rights of their respective owners, independently of this license. The source and
+license notices inside the document stay unchanged.
+
+
+6. No warranty
+
+The program is provided “as is”. No warranty is given for function, accuracy,
+completeness or fitness for a particular purpose. Tuning and CLI writes change
+flight controllers; mistakes can damage hardware or cause crashes. Check every
+plan yourself, back up your setup first and fly only in a safe place.
+
+To the extent permitted by law, the rights holder is not liable for damages
+arising from the use or redistribution of the program.
+
+
+7. Termination
+
+Violations of this license terminate the right to redistribute under section 2
+with immediate effect. Anyone who complies again may redistribute again.
+
+
+8. Miscellaneous
+
+If one provision of this license is invalid, the remaining license stays valid;
+the invalid provision is replaced by the permitted rule closest to its purpose.
+The law of the Federal Republic of Germany applies.
+
+Only the rights holder may change this license, and only for future versions.
+Copies already redistributed remain under the license they were distributed
+under.
