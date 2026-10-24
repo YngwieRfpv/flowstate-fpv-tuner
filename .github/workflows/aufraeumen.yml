@@ -1,11 +1,13 @@
 name: Aufräumen
 
-# Hält den Verlauf kurz: von jedem neuen Stand bleibt nur der jüngste Eintrag stehen.
+# Hält den Verlauf kurz: von jedem neuen Stand bleiben nur die zwei jüngsten Einträge.
 # Läuft nach jeder Veröffentlichung und lässt sich zusätzlich von Hand starten.
 
 on:
-  push:
-    branches: [main]
+  # Erst wenn die Veröffentlichung durch ist, damit nie der laufende Stand erwischt wird.
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
