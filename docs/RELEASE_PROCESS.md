@@ -17,13 +17,7 @@ angezeigt. Er ist eine Aussage über Reife — nicht über Aktualität.
 
 ## Ablauf
 
-### 1. Version im Drive ablegen
-
-Im Ordner `FPVGuide/Tuner/GitHub Versionen` einen Unterordner pro Ausgabe
-anlegen, z. B. `FlowState_Tuner_GitHub_Alpha_v4.8-alpha.1`. Enthalten:
-Anwendungsdatei, `README.md`, `RELEASE_NOTES.md`, `.nojekyll`.
-
-### 2. Eintrag im Index ergänzen
+### 1. Eintrag im Index ergänzen
 
 In `assets/data/versions.json` unter `releases` einen Block hinzufügen:
 
@@ -40,7 +34,6 @@ In `assets/data/versions.json` unter `releases` einen Block hinzufügen:
   "size_bytes": 0,
   "sha256": null,
   "available": false,
-  "source": { "folder": "…", "folder_url": "https://drive.google.com/…" },
   "signals": [{ "label": "Quellprüfung", "state": "ok" }],
   "notes": ["…"],
   "limits": ["…"]
@@ -50,7 +43,7 @@ In `assets/data/versions.json` unter `releases` einen Block hinzufügen:
 `available: false` und `sha256: null` sind korrekt, solange die Datei noch
 nicht im Repository liegt — der Hub zeigt dann „Datei noch nicht eingespielt“.
 
-### 3. Datei einspielen
+### 2. Datei einspielen
 
 ```bash
 ./scripts/install-versions.sh --tuner ~/Downloads/FlowState-Tuner-v4.9-alpha.1.html
@@ -59,7 +52,7 @@ nicht im Repository liegt — der Hub zeigt dann „Datei noch nicht eingespielt
 Das Skript kopiert nach `tuner/index.html`, berechnet SHA-256 und Größe und
 setzt `available: true`. Es lehnt Platzhalter ab.
 
-### 4. Prüfen
+### 3. Prüfen
 
 ```bash
 node scripts/validate.mjs
@@ -69,7 +62,7 @@ Der Validator prüft Pflichtdateien, Schema, IDs, Kanäle, Existenz der
 Zielpfade, Hashes, Größen und alle internen Links. Exit-Code ≠ 0 bedeutet:
 nicht committen.
 
-### 5. Committen, taggen, veröffentlichen
+### 4. Committen, taggen, veröffentlichen
 
 ```bash
 git add -A
@@ -86,7 +79,7 @@ Danach auf GitHub:
 4. Bei Alpha/Beta: **Set as a pre-release** aktivieren
 5. Die Anwendungsdatei als Asset anhängen
 
-### 6. Live prüfen
+### 5. Live prüfen
 
 - `https://<user>.github.io/<repo>/` — Hub, Version erscheint mit Badge
 - `https://<user>.github.io/<repo>/tuner/` — Anwendung lädt

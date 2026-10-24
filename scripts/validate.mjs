@@ -68,8 +68,8 @@ function checkStructure() {
 /* ------------------------------- Schema --------------------------------- */
 
 function checkManifest(data) {
-  if (data.schema_version !== 1) {
-    error(`schema_version muss 1 sein, gefunden: ${JSON.stringify(data.schema_version)}`);
+  if (![1, 2].includes(data.schema_version)) {
+    error(`schema_version muss 1 oder 2 sein, gefunden: ${JSON.stringify(data.schema_version)}`);
   }
 
   if (!data.updated || !/^\d{4}-\d{2}-\d{2}$/.test(data.updated)) {
@@ -135,7 +135,7 @@ function checkManifest(data) {
     }
 
     checkReleaseFile(release, label);
-    checkReleaseLinks(release, label);
+    checkBilingual(release, label);
   }
 
   checkProjectLinks(data);
@@ -175,13 +175,27 @@ function checkReleaseFile(release, label) {
   }
 }
 
-function checkReleaseLinks(release, label) {
-  const source = release.source || {};
-  const urls = [source.folder_url, source.file_url].filter(Boolean);
-  for (const url of urls) {
-    if (!/^https:\/\//.test(url)) error(`Release ${label}: Quelle ist keine HTTPS-URL: ${url}`);
+function checkBilingual(release, label) {
+  // Textfelder dürfen String oder {de,en} sein — bei Objekten müssen beide
+  // Sprachen vorhanden sein, sonst fällt der Hub auf Englisch zurück.
+  const pairs = [
+    ['title', release.title],
+    ['summary', release.summary],
+    ['notes', release.notes],
+    ['limits', release.limits]
+  ];
+  for (const [name, value] of pairs) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      if (!value.de || !value.en) {
+        warn(`Release ${label}: "${name}" hat nicht beide Sprachen (de/en).`);
+      }
+    }
   }
-  if (!release.source?.folder) warn(`Release ${label}: "source.folder" fehlt (Herkunft nicht nachvollziehbar).`);
+  for (const signal of release.signals || []) {
+    if (signal.label && typeof signal.label === 'object' && (!signal.label.de || !signal.label.en)) {
+      warn(`Release ${label}: Signal-Label ohne beide Sprachen.`);
+    }
+  }
 }
 
 function checkProjectLinks(data) {

@@ -10,7 +10,6 @@
 | Paketname (Quelle) | `FlowState-Tuner-v4.8-alpha.1.html` |
 | Größe | 451.742 B |
 | SHA-256 | `55397f568c6de4f72bb10cf2df967dac680e0fbe22eadc6b5cac3ee5e21e15f8` |
-| Herkunft | Google Drive · `FPVGuide/Tuner/GitHub Versionen/FlowState_Tuner_GitHub_Alpha_v4.8-alpha.1` |
 
 **Status:** Early Alpha — echte Browser-, Web-Serial-, FC-, Dataflash- und Flugvalidierung steht aus.
 
@@ -39,4 +38,3 @@ Quellcode und Paket haben die mitgelieferten automatisierten Source-Level-Regres
 
 Single-File-Alpha für den lokalen Browser. Das ausgewählte FlowState-Produktzeichen sitzt im Header mit versionsnahen Metadaten; das YngwierFPV-Bild bleibt in der unteren Credit-Zeile. Dark-/Light-/Cream-Themes, neutrale Master-Labels, BMI270-3.2-kHz-/DSHOT300-Erzwingung, zielprofilgebundenes Yaw, optionaler Filter-Preflight auf HF-Motornoise (Blockade bei unvollständiger Evidenz oder > 55 % Anteil im schlechtesten Fenster), wählbare Web-Serial-Baudrate (115200/230400/460800/921600 nur beim Verbinden), zwei lokale Backup-Importe zum Vergleich ohne Schreibvorgang, diagnostische Cross-Checks ohne Automatik sowie vollständiges bidirektionales DE/EN für statische und generierte UI, Logs, Fehler, Dialoge und Accessibility-Text.
 
-> Quelle: `RELEASE_NOTES.md` und `RELEASE_MANIFEST.json` aus dem Drive-Paket.

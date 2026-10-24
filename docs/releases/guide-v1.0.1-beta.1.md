@@ -11,7 +11,6 @@
 | Größe | 7.292.272 B |
 | SHA-256 | wird beim Einspielen berechnet |
 | Basis | FPV Guide DE v1.0.0 (fachlich geprüfte Vollversion) |
-| Herkunft | Google Drive · `FPVGuide/Tuner/GitHub Versionen/FPV_Guide_GitHub_Beta_v1.0.1-beta.1` |
 
 ## Zweck
 
@@ -62,4 +61,3 @@ Direkter Sbang-Fingerprint:
 - Das HTML ist absichtlich eine einzelne, etwa 7 MB große Datei. Nicht auf ein externes CDN, ungesicherte Remote-Skripte oder eine Build-Pipeline umstellen, ohne die Offline-Nutzbarkeit ausdrücklich neu zu testen.
 - Quellen- und Lizenzangaben im Dokument nicht entfernen.
 
-> Quelle: `RELEASE_NOTES.md` und `README.md` aus dem Drive-Paket.
