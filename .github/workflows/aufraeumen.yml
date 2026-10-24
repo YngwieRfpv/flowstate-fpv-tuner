@@ -36,11 +36,25 @@ jobs:
               alle.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
               let weg = 0;
               for (const d of alle.slice(1)) {
+                // Eine Veröffentlichung lässt sich erst entfernen, wenn sie inaktiv ist.
+                try {
+                  await github.rest.repos.createDeploymentStatus({
+                    owner, repo, deployment_id: d.id,
+                    state: 'inactive',
+                    description: 'Alter Stand, aufgeräumt',
+                  });
+                } catch (e) {
+                  const m = `Status für ${d.id} nicht setzbar: ${e.status}`;
+                  bericht.push(m);
+                  core.warning(m);
+                }
                 try {
                   await github.rest.repos.deleteDeployment({ owner, repo, deployment_id: d.id });
                   weg++;
                 } catch (e) {
-                  bericht.push(`Veröffentlichung ${d.id} blieb stehen: ${e.status}`);
+                  const m = `Veröffentlichung ${d.id} blieb stehen: ${e.status} ${e.response?.data?.message || ''}`.trim();
+                  bericht.push(m);
+                  core.warning(m);
                 }
               }
               bericht.push(`Veröffentlichungen: ${alle.length} gefunden, ${weg} entfernt, 1 behalten`);
