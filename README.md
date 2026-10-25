@@ -140,6 +140,25 @@ oder als heruntergeladene Datei per Doppelklick — beides zeigt dieselbe Anwend
 Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/) und
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/).
 
+### Warum beide Dateien `index.html` heißen
+
+Die Adressen `/tuner/` und `/guide/` funktionieren nur, weil im jeweiligen Ordner eine
+`index.html` liegt — das ist die Datei, die ein Webserver für ein Verzeichnis ausliefert.
+Ein Name mit Versionsnummer würde die Adresse brechen: `/tuner/` wäre leer, erreichbar
+wäre nur noch ein langer Pfad wie `/tuner/FlowState-Tuner-v4.8-alpha.1.html`.
+
+Damit beim Speichern trotzdem ein sprechender Name entsteht, vergibt die Übersichtsseite
+ihn beim Herunterladen:
+
+| Programm | Datei im Repository | Gespeichert als |
+|---|---|---|
+| FlowState Tuner | `tuner/index.html` | `FlowState-Tuner-v4.8-alpha.1.html` |
+| FPV Guide | `guide/index.html` | `FPV-Guide-v1.0.1-beta.7-es.html` |
+
+Wer direkt über die Rohadresse des Repositories lädt, bekommt weiterhin `index.html` und
+benennt die Datei beim Speichern selbst um — der Inhalt ist identisch, die Prüfsumme
+bleibt dieselbe.
+
 | | Guide | Tuner ohne FC | Tuner mit FC |
 |---|---|---|---|
 | Chrome, Edge, Opera (Desktop) | ✓ | ✓ | ✓ |
