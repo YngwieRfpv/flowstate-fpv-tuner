@@ -554,6 +554,14 @@
       '</details>';
   }
 
+  // Beim Speichern einen sprechenden Namen vergeben: Programm + Version.
+  // Die Datei im Repo heißt technisch index.html, damit die Adresse /tuner/ funktioniert.
+  function downloadName(release) {
+    var program = projectOf(release.program);
+    var name = (program ? program.name : release.program) || 'FlowState';
+    return String(name).replace(/\s+/g, '-') + '-' + String(release.version) + '.html';
+  }
+
   function releaseTemplate(release) {
     var program = projectOf(release.program);
     var actions = [];
@@ -563,7 +571,7 @@
         esc(t('release.open')) +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
         '</a>');
-      actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.file) + '" download>' +
+      actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.file) + '" download="' + esc(downloadName(release)) + '">' +
         esc(t('release.download')) + '</a>');
       if (release.release_url) {
         actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.release_url) + '" target="_blank" rel="noopener">' +
