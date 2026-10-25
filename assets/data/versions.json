@@ -79,8 +79,8 @@
         "en": "First public alpha."
       },
       "summary": {
-        "de": "Der vollständige Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Sicherheitsprüfungen. Spanisch ist als ungeprüfte Vorschau dabei. Hardware- und Flugvalidierung stehen noch aus.",
-        "en": "The full workflow with a visible CLI plan, backup gate and safety checks. Spanish ships as an unverified preview. Hardware and flight validation are still pending."
+        "de": "Der komplette Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Prüfungen vor jedem Schreiben. Spanisch ist als ungeprüfte Vorschau dabei. An echter Hardware und im Flug ist er noch nicht getestet.",
+        "en": "The whole workflow with a visible CLI plan, backup gate and checks before every write. Spanish ships as an unverified preview. It has not been tested on real hardware or in flight."
       },
       "file": "tuner/index.html",
       "size_bytes": 477125,
@@ -130,12 +130,12 @@
       "channel": "beta",
       "released": "2026-10-24",
       "title": {
-        "de": "Gelesen, geglättet, übersetzt.",
-        "en": "Reviewed, smoothed, translated."
+        "de": "Q-Glossar und Quellen überarbeitet.",
+        "en": "Q glossary and sources revised."
       },
       "summary": {
-        "de": "Lesbarkeits- und Übersetzungsdurchgang: das Q-Glossar ist in kurze Sätze gegliedert, wiederholte Quellenhinweise sind durch spezifische ersetzt, die Filter- und Messkapitel in allen drei Sprachen überarbeitet. Spanisch bleibt ungeprüfte Vorschau.",
-        "en": "Readability and translation pass: the Q glossary now splits into short sentences, repeated source notes are replaced by specific ones, and the filter and measurement chapters are reworked in all three languages. Spanish remains an unverified preview."
+        "de": "Das Q-Glossar ist in kurze Sätze gegliedert und vom Dynamic-Notch-Q getrennt. Acht gleichlautende Quellenhinweise wurden durch spezifische ersetzt, die Filter- und Messkapitel in allen drei Sprachen überarbeitet. Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "The Q glossary now uses short sentences and is separated from the dynamic notch Q. Eight identical source notes were replaced by specific ones, and the filter and measurement chapters were reworked in all three languages. Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
       "size_bytes": 7659228,

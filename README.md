@@ -24,7 +24,7 @@ und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial
 nur nach vollständiger Sicherung und deiner Bestätigung.
 
 **Alpha:** Der Schreibpfad ist an echter Hardware noch nicht erprobt. Der Plan lässt
-sich vollständig lesen und prüfen, ohne dass etwas geschrieben wird — das ist der
+sich vollständig lesen und prüfen, ohne dass etwas geschrieben wird. Das ist der
 sichere Weg für den ersten Durchlauf. Schreiben geschieht auf eigene Gefahr; es gilt
 der Haftungsausschluss in [`LICENSE`](LICENSE), Abschnitt 6.
 
@@ -119,7 +119,7 @@ bestimmt, welche Kapitel und Tabellen der Guide zeigt.
 
 ## Zusammen
 
-Der Guide beantwortet das Warum, der Tuner liefert das Was.
+Der Guide erklärt das Tuning, der Tuner rechnet die Werte dafür aus.
 
 ```
 Guide, Profil wählen        welches Setup, welche Erwartung
@@ -135,7 +135,7 @@ Guide, Technik & Referenz   Werte nachlesen und dokumentieren
 ## Öffnen
 
 Beide Programme laufen direkt im Browser. Entweder über die veröffentlichte Adresse
-oder als heruntergeladene Datei per Doppelklick — beides zeigt dieselbe Anwendung.
+oder als heruntergeladene Datei per Doppelklick. Beides zeigt dieselbe Anwendung.
 
 Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/) und
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/).
@@ -191,19 +191,19 @@ geprüft — das Programm zeigt deshalb einen dauerhaften Hinweis, und nicht üb
 Stellen fallen auf Englisch zurück.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
-übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist — bei jeder
+übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist. Bei jeder
 anderen Sprache startet es auf Deutsch.
 
-Davon unabhängig gilt innerhalb einer Sprache: Fehlt ein einzelner Text, erscheint er
-auf Englisch. Kurz gesagt: Deutsch ist der Startwert für unbekannte Browsersprachen,
-Englisch füllt Lücken innerhalb einer vorhandenen Übersetzung.
+Unabhängig davon gilt innerhalb einer Sprache: Fehlt ein einzelner Text, erscheint er
+auf Englisch. Deutsch ist also der Startwert für unbekannte Browsersprachen, Englisch
+füllt die Lücken in einer vorhandenen Übersetzung.
 
 ---
 
 ## Versionen
 
 **Zwei Programme, zwei Versionsreihen.** Tuner und Guide werden getrennt nummeriert und
-getrennt veröffentlicht — jede Reihe hat ihr eigenes Release. Die Zahlen sagen nichts
+getrennt veröffentlicht. Jede Reihe hat ihr eigenes Release. Die Zahlen sagen nichts
 übereinander aus: Der Tuner steht bei `4.8`, der Guide bei `1.0.1`, weil sie
 verschieden weit sind, nicht weil eines neuer wäre. Ein neuer Guide-Stand lässt den
 Tuner unberührt, und umgekehrt.
