@@ -153,7 +153,7 @@ ihn beim Herunterladen:
 | Programm | Datei im Repository | Gespeichert als |
 |---|---|---|
 | FlowState Tuner | `tuner/index.html` | `FlowState-Tuner-v4.8-alpha.1.html` |
-| FPV Guide | `guide/index.html` | `FPV-Guide-v1.0.1-beta.7-es.html` |
+| FPV Guide | `guide/index.html` | `FPV-Guide-v1.0.1-beta.9-es.html` |
 
 Wer direkt über die Rohadresse des Repositories lädt, bekommt weiterhin `index.html` und
 benennt die Datei beim Speichern selbst um. Der Inhalt ist identisch, die Prüfsumme
@@ -208,13 +208,13 @@ getrennt veröffentlicht. Jede Reihe hat ihr eigenes Release. Die Zahlen sagen n
 verschieden weit sind, nicht weil eines neuer wäre. Ein neuer Guide-Stand lässt den
 Tuner unberührt, und umgekehrt.
 
-| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es) |
+| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) |
 |---|---|---|
-| Version | [`v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [`v1.0.1-beta.7-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es) |
+| Version | [`v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [`v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) |
 | Kanal | Alpha | Beta |
-| Datum | 24.10.2026 | 24.10.2026 |
-| Größe (Bytes) | 477.125 | 7.659.228 |
-| SHA-256 | `089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6` | `478a85ba3cccecb1d042ec721023d19e7b60f6201053cce2d6f09078440b3d12` |
+| Datum | 25.10.2026 | 25.10.2026 |
+| Größe (Bytes) | 477.784 | 7.663.650 |
+| SHA-256 | `97d99f32e81c6cc35e0d57665cca371c07bc49d6d5485f68e097deaab7e920e7` | `bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
 führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
@@ -224,15 +224,15 @@ Zum Nachrechnen: Befehl, darunter der erwartete Wert.
 
 ```
 sha256sum tuner/index.html
-089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6
+97d99f32e81c6cc35e0d57665cca371c07bc49d6d5485f68e097deaab7e920e7
 
 sha256sum guide/index.html
-478a85ba3cccecb1d042ec721023d19e7b60f6201053cce2d6f09078440b3d12
+bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459
 ```
 
 Eigene Release-Seite je Programm:
 [Tuner `v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) ·
-[Guide `v1.0.1-beta.7-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es)
+[Guide `v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es)
 
 ---
 
