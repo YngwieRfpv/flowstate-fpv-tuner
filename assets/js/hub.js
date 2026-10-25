@@ -96,6 +96,7 @@
       'release.open': 'Im Browser öffnen',
       'release.download': 'Herunterladen',
       'release.copy': 'kopieren',
+      'release.page': 'Eigenes Release',
       'release.copied': 'kopiert',
       'release.noCopy': 'nicht möglich',
       'release.pending': 'offen',
@@ -235,6 +236,7 @@
       'release.open': 'Open in browser',
       'release.download': 'Download',
       'release.copy': 'copy',
+      'release.page': 'Own release',
       'release.copied': 'copied',
       'release.noCopy': 'not possible',
       'release.pending': 'pending',
@@ -563,6 +565,10 @@
         '</a>');
       actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.file) + '" download>' +
         esc(t('release.download')) + '</a>');
+      if (release.release_url) {
+        actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.release_url) + '" target="_blank" rel="noopener">' +
+          esc(t('release.page')) + '</a>');
+      }
     }
 
     return '' +

@@ -183,9 +183,15 @@ Englisch füllt Lücken innerhalb einer vorhandenen Übersetzung.
 
 ## Versionen
 
-| | Tuner | Guide |
+**Zwei Programme, zwei Versionsreihen.** Tuner und Guide werden getrennt nummeriert und
+getrennt veröffentlicht — jede Reihe hat ihr eigenes Release. Die Zahlen sagen nichts
+übereinander aus: Der Tuner steht bei `4.8`, der Guide bei `1.0.1`, weil sie
+verschieden weit sind, nicht weil eines neuer wäre. Ein neuer Guide-Stand lässt den
+Tuner unberührt, und umgekehrt.
+
+| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es) |
 |---|---|---|
-| Version | `v4.8-alpha.1` | `v1.0.1-beta.7-es` |
+| Version | [`v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [`v1.0.1-beta.7-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es) |
 | Kanal | Alpha | Beta |
 | Datum | 24.10.2026 | 24.10.2026 |
 | Größe (Bytes) | 477.125 | 7.659.210 |
@@ -204,6 +210,10 @@ sha256sum tuner/index.html
 sha256sum guide/index.html
 a820fa1acabc539734f36b1680b1a53755f9ec15f8116cd57dd2cd93afc66a47
 ```
+
+Eigene Release-Seite je Programm:
+[Tuner `v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) ·
+[Guide `v1.0.1-beta.7-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es)
 
 ---
 
