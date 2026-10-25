@@ -138,8 +138,8 @@
         "en": "Readability and translation pass: the Q glossary now splits into short sentences, repeated source notes are replaced by specific ones, and the filter and measurement chapters are reworked in all three languages. Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
-      "size_bytes": 7659210,
-      "sha256": "a820fa1acabc539734f36b1680b1a53755f9ec15f8116cd57dd2cd93afc66a47",
+      "size_bytes": 7659228,
+      "sha256": "478a85ba3cccecb1d042ec721023d19e7b60f6201053cce2d6f09078440b3d12",
       "available": true,
       "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es",
       "signals": [
