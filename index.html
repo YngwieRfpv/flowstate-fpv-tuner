@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FlowState FPV · Tuner &amp; Guide</title>
-<meta name="description" content="Zwei HTML-Programme für Betaflight-Tuning: der FlowState Tuner für Messung und CLI-Plan, der FPV Guide zum Verstehen und Nachschlagen.">
+<meta name="description" content="Zwei HTML-Programme für Betaflight-Tuning. Der FlowState Tuner wertet Blackbox-Logs aus und schreibt einen CLI-Plan, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
 <meta name="theme-color" content="#07111f">
 <link rel="icon" href="assets/images/favicon.png" type="image/png">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -78,7 +78,7 @@
         <span data-i18n="hero.title2">für Betaflight,</span>
         <span class="accent" data-i18n="hero.accent">die offline laufen</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. Beide bestehen aus einer einzigen HTML-Datei: öffnen, fertig, auch ohne Internet.</p>
+      <p class="hero-lede" data-i18n="hero.lede">Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. Beide bestehen aus einer einzigen HTML-Datei und brauchen keine Internetverbindung.</p>
       <div class="hero-cta">
         <a class="btn btn--primary" href="tuner/">
           <span data-i18n="hero.cta1">Tuner starten</span>
@@ -102,7 +102,7 @@
       </div>
       <div id="hero-mini"></div>
       <div class="hero-card-foot">
-        <span data-i18n="hero.foot">Läuft im Browser · kein Konto</span>
+        <span data-i18n="hero.foot">Läuft im Browser, auch ohne Internet</span>
         <span data-hero-date>—</span>
       </div>
     </aside>
@@ -114,7 +114,7 @@
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="programs.eyebrow">Programme</p>
       <h2 data-i18n="programs.title">Was die beiden Programme machen</h2>
-      <p class="lede" data-i18n="programs.lede">Sie haben nichts miteinander zu tun: kein gemeinsamer Code, keine gemeinsamen Daten. Du öffnest immer nur eines, und die Karte sagt dir vorher, wofür es gut ist.</p>
+      <p class="lede" data-i18n="programs.lede">Beide sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines von beiden. Die Abschnitte darunter zeigen, was jeweils drin ist.</p>
     </div>
 
     <article class="program program--tuner reveal">
@@ -175,7 +175,7 @@
       <div>
         <img class="tuner-logo tuner-logo--dunkel" src="assets/images/logo-tuner.png" alt="FlowState Tuner" width="560" height="118" decoding="async">
         <img class="tuner-logo tuner-logo--hell" src="assets/images/logo-tuner-hell.png" alt="FlowState Tuner" width="560" height="118" decoding="async">
-        <h2 data-i18n="tuner.title">Aus dem Log wird ein Plan</h2>
+        <h2 data-i18n="tuner.title">Sechs Phasen bis zum CLI-Plan</h2>
         <p class="lede" data-i18n="tuner.lede">Der Ablauf hat sechs Phasen. Jede sammelt ihre Messwerte und zeigt ihren Plan. Weiter geht es erst, wenn du die Phase abschließt.</p>
       </div>
     </div>
@@ -195,7 +195,7 @@
           <li><span><strong data-i18n="gate.backup.t">Backup</strong> — <span data-i18n="gate.backup.d">ein vollständiges diff all muss vorliegen, sonst springt der Ablauf zurück in Phase 1.</span></span></li>
           <li><span><strong data-i18n="gate.firmware.t">Firmware</strong> — <span data-i18n="gate.firmware.d">Schreiben nur mit Betaflight 4.5 oder neuer.</span></span></li>
           <li><span><strong data-i18n="gate.profile.t">Zielprofil</strong> — <span data-i18n="gate.profile.d">nur das gewählte PID-Profil wird verändert.</span></span></li>
-          <li><span><strong data-i18n="gate.filter.t">Filterlog</strong> — <span data-i18n="gate.filter.d">das aktive Log muss die Qualitätsprüfung bestehen; ein Override gilt nur für genau dieses Log.</span></span></li>
+          <li><span><strong data-i18n="gate.filter.t">Filterlog</strong> — <span data-i18n="gate.filter.d">das aktive Log muss die Qualitätsprüfung bestehen. Ein Override gilt nur für genau dieses Log.</span></span></li>
         </ul>
 
         <h3 class="sub-title" style="margin-top:24px" data-i18n="tuner.exports">Exporte</h3>
@@ -211,7 +211,7 @@
       <span class="detail-index">02</span>
       <div>
         <p class="eyebrow" data-i18n="guide.eyebrow">FPV Guide</p>
-        <h2 data-i18n="guide.title">Der Guide zum Nachlesen</h2>
+        <h2 data-i18n="guide.title">Was im Guide steht</h2>
         <p class="lede" data-i18n="guide.lede">Führt vom ersten Build bis zum Feintuning: Begriffe, Tabellen und der Ablauf Schritt für Schritt.</p>
       </div>
     </div>
@@ -335,7 +335,7 @@
     <div class="faq reveal">
       <details open>
         <summary data-i18n="faq.install.q">Muss ich etwas installieren?</summary>
-        <p data-i18n="faq.install.a">Nein. Beide Programme sind je eine einzelne HTML-Datei. Du öffnest sie im Browser – fertig. Kein Installer, keine Erweiterung, kein Konto.</p>
+        <p data-i18n="faq.install.a">Nein. Beide Programme bestehen aus je einer HTML-Datei, die du im Browser öffnest. Es gibt nichts zu installieren und kein Konto.</p>
       </details>
       <details>
         <summary data-i18n="faq.pages.q">Warum gibt es überhaupt eine GitHub-Seite?</summary>
@@ -343,7 +343,7 @@
       </details>
       <details>
         <summary data-i18n="faq.offline.q">Funktioniert das auch ohne Internet?</summary>
-        <p data-i18n="faq.offline.a">Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Herunterladen, Doppelklick, fertig – WLAN kann aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.</p>
+        <p data-i18n="faq.offline.a">Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Du kannst die Datei herunterladen oder direkt öffnen, das WLAN kann dabei aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.</p>
       </details>
       <details>
         <summary data-i18n="faq.browser.q">Welcher Browser?</summary>
@@ -351,7 +351,7 @@
       </details>
       <details>
         <summary data-i18n="faq.data.q">Wohin gehen meine Daten?</summary>
-        <p data-i18n="faq.data.a">Nirgendwohin. Einstellungen und Profil bleiben im Browser-Speicher deines Geräts. Es gibt kein Backend und keine Telemetrie.</p>
+        <p data-i18n="faq.data.a">Die Daten bleiben auf deinem Gerät. Einstellungen und Profil liegen im Browser-Speicher, es gibt kein Backend und keine Telemetrie.</p>
       </details>
       <details>
         <summary data-i18n="faq.safe.q">Ist das eine Flugfreigabe?</summary>
@@ -378,7 +378,7 @@
             <span class="brand-sub">Tuner &amp; Guide</span>
           </span>
         </a>
-        <p class="footer-note" data-i18n="footer.note">Zwei HTML-Programme für Betaflight-Tuning. Kein Backend, keine Tracker, keine externen Schriften.</p>
+        <p class="footer-note" data-i18n="footer.note">Zwei HTML-Programme für Betaflight-Tuning. Sie laden keine externen Skripte, Schriften oder Bilder.</p>
       </div>
 
       <div class="footer-links">
@@ -404,7 +404,7 @@
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> FlowState FPV · YngwierFPV</span>
       <span class="footer-sep" aria-hidden="true">·</span>
-      <span class="footer-license" data-i18n="footer.licenseNote">Weitergabe unverändert erlaubt · Bearbeitung nicht</span>
+      <span class="footer-license" data-i18n="footer.licenseNote">Weitergabe nur unverändert erlaubt</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span data-hero-date>—</span>
     </div>
