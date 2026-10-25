@@ -86,6 +86,7 @@
       "size_bytes": 477125,
       "sha256": "089c6a6c0e90dd90a65608386c4a4da33587d77921a97b44a7152ea6973620d6",
       "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1",
       "signals": [
         { "label": { "de": "Log-Analyse", "en": "Log analysis" }, "state": "ok" },
         { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
@@ -140,6 +141,7 @@
       "size_bytes": 7659210,
       "sha256": "a820fa1acabc539734f36b1680b1a53755f9ec15f8116cd57dd2cd93afc66a47",
       "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.7-es",
       "signals": [
         { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },
         { "label": { "de": "Glossar", "en": "Glossary" }, "state": "ok" },
