@@ -8,8 +8,8 @@
       "accent": "mint",
       "path": "tuner/",
       "kind": {
-        "de": "Messen · Rechnen · Schreiben",
-        "en": "Measure · Calculate · Write"
+        "de": "Tuning aus Blackbox-Logs",
+        "en": "Tuning from blackbox logs"
       },
       "description": {
         "de": "Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial, nur nach Sicherung und Bestätigung. Alles läuft im Browser.",
@@ -40,8 +40,8 @@
       "accent": "sky",
       "path": "guide/",
       "kind": {
-        "de": "Verstehen · Nachschlagen · Nachbauen",
-        "en": "Understand · Look up · Rebuild"
+        "de": "Nachschlagen und Schritt für Schritt nachbauen",
+        "en": "Look things up and rebuild step by step"
       },
       "description": {
         "de": "Führt vom ersten Build bis zum Feintuning: Simple Tuning, Advanced Tuning, Build-Guide, 95 Glossarbegriffe mit Quellen und der vollständige Sbang-Ablauf. Mit Profilauswahl für Coptergröße, Frame, Taktrate und Firmware.",

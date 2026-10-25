@@ -1,7 +1,7 @@
 # [FlowState FPV](https://yngwierfpv.github.io/flowstate-fpv-tuner/)
 
 Zwei HTML-Programme für Betaflight-Tuning. Jedes ist **eine einzelne Datei**, die im
-Browser läuft — ohne Installation, ohne Konto, ohne Internetverbindung.
+Browser läuft und weder Installation noch Konto noch Internetverbindung braucht.
 
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
@@ -20,8 +20,8 @@ Englisch und Spanisch.
 ## [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)
 
 Der Tuner liest Blackbox- und Dataflash-Logs, leitet daraus Filter- und PID-Werte ab
-und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial —
-nur nach vollständiger Sicherung und deiner Bestätigung.
+und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial, und
+zwar erst nach einer vollständigen Sicherung und deiner Bestätigung.
 
 **Alpha:** Der Schreibpfad ist an echter Hardware noch nicht erprobt. Der Plan lässt
 sich vollständig lesen und prüfen, ohne dass etwas geschrieben wird. Das ist der
@@ -143,7 +143,7 @@ Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tu
 ### Warum beide Dateien `index.html` heißen
 
 Die Adressen `/tuner/` und `/guide/` funktionieren nur, weil im jeweiligen Ordner eine
-`index.html` liegt — das ist die Datei, die ein Webserver für ein Verzeichnis ausliefert.
+`index.html` liegt. Genau diese Datei liefert ein Webserver für ein Verzeichnis aus.
 Ein Name mit Versionsnummer würde die Adresse brechen: `/tuner/` wäre leer, erreichbar
 wäre nur noch ein langer Pfad wie `/tuner/FlowState-Tuner-v4.8-alpha.1.html`.
 
@@ -156,7 +156,7 @@ ihn beim Herunterladen:
 | FPV Guide | `guide/index.html` | `FPV-Guide-v1.0.1-beta.7-es.html` |
 
 Wer direkt über die Rohadresse des Repositories lädt, bekommt weiterhin `index.html` und
-benennt die Datei beim Speichern selbst um — der Inhalt ist identisch, die Prüfsumme
+benennt die Datei beim Speichern selbst um. Der Inhalt ist identisch, die Prüfsumme
 bleibt dieselbe.
 
 | | Guide | Tuner ohne FC | Tuner mit FC |
@@ -171,7 +171,7 @@ nicht erprobt: Brave hat es abgeschaltet und braucht
 `brave://flags/#brave-web-serial-api`, Vivaldi hatte Versionen ohne Unterstützung.
 Firefox und Safari haben es nicht.
 
-Chrome für Android kann Web Serial seit Version 148 für einen Teil der Geräte — als
+Chrome für Android kann Web Serial seit Version 148 für einen Teil der Geräte. Als
 verlässlicher Weg ist das nicht erprobt, deshalb steht Mobil in der Tabelle auf „—".
 Die Log-Analyse funktioniert in jedem Browser, dafür braucht es kein Web Serial.
 
@@ -187,8 +187,8 @@ Die Log-Analyse funktioniert in jedem Browser, dafür braucht es kein Web Serial
 
 Deutsch und Englisch sind in beiden Programmen vollständig: Oberfläche, Meldungen,
 Glossar und Kapitel. Spanisch ist übersetzt und auswählbar, aber in keinem Bereich
-geprüft — das Programm zeigt deshalb einen dauerhaften Hinweis, und nicht überprüfte
-Stellen fallen auf Englisch zurück.
+geprüft. Das Programm zeigt deshalb einen dauerhaften Hinweis; nicht überprüfte Stellen
+fallen auf Englisch zurück.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist. Bei jeder
@@ -248,8 +248,8 @@ Two single-file HTML programs for Betaflight tuning, running entirely in the bro
   tuning, with 95 glossary terms and reference tables.
 
 Both ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es. Spanish is
-translated but verified in no area — the program shows a permanent notice and falls
-back to English where text is unrevised.
+translated but verified in no area. The program shows a permanent notice and falls back
+to English where text is unrevised.
 
 Two separate mechanisms: an unknown browser language starts the program in German,
 while a missing individual string inside a translation appears in English.
@@ -259,7 +259,7 @@ external scripts, fonts or images; the guide's links point outward on purpose an
 open with a connection.
 
 The tuner is an alpha: its write path has not been tested on real hardware yet. The plan
-can be read and checked in full without writing anything. Writing is at your own risk —
+can be read and checked in full without writing anything. Writing is at your own risk;
 the disclaimer and limitation of liability in [`LICENSE`](LICENSE), section 6, apply.
 
 For the flight-controller connection it needs Web Serial, which Chrome, Edge and Opera
@@ -267,12 +267,12 @@ bring on desktop. Brave ships it disabled (`brave://flags/#brave-web-serial-api`
 Firefox and Safari lack it.
 Chrome for Android has partial support since version 148, not verified here.
 
-Tuning does not replace mechanical inspection — remove props for bench work and stop on
+Tuning does not replace mechanical inspection: remove props for bench work and stop on
 hot motors, desyncs or unclear mechanics.
 
 The licence is source-available, not open source: unmodified redistribution with the
 licence and a link to the source is allowed, modifications are not. The reason is the
-write path — the tuner talks to the flight controller over Web Serial, so the
+write path: the tuner talks to the flight controller over Web Serial, so the
 restriction protects the version history from unchecked forks carrying potentially
 dangerous changes.
 
@@ -280,19 +280,18 @@ dangerous changes.
 
 ## Lizenz
 
-Die Programme dürfen unverändert weitergegeben werden — vollständig, inklusive Lizenz
-und unter Verweis auf die Originalquelle. Bearbeitungen, Kürzungen, Übersetzungen und
+Die Programme dürfen unverändert weitergegeben werden: vollständig, inklusive Lizenz und
+unter Verweis auf die Originalquelle. Bearbeitungen, Kürzungen, Übersetzungen und
 eigene Fassungen sind nicht gestattet.
 
 Der Quelltext ist öffentlich einsehbar. Das macht die Lizenz aber nicht zu einer
 Open-Source-Lizenz: Die Open Source Definition verlangt, dass Bearbeitungen erlaubt
-sind — hier sind sie es ausdrücklich nicht.
+sind; hier sind sie es ausdrücklich nicht.
 
 Der Grund liegt im Schreibzugriff: Der Tuner greift über Web Serial direkt auf den
-Flight Controller zu. Die Einschränkung dient der Sicherheit und der Integrität im
-Versionsverlauf — damit durch ungeprüfte Forks oder eigenmächtige Änderungen keine
-potenziell gefährlichen Fehler in Umlauf geraten und als fertige Fassung gelten, wo
-niemand sie geprüft hat. Es handelt sich um eine „Source-available“-Lizenz ohne
+Flight Controller zu. Die Einschränkung schützt den Versionsverlauf: Ungeprüfte Forks
+oder eigenmächtige Änderungen sollen nicht als fertige Fassung gelten, die niemand
+getestet hat. Es handelt sich um eine „Source-available“-Lizenz ohne
 Bearbeitungsrecht.
 
 Der vollständige Text steht in [`LICENSE`](LICENSE), auf Deutsch und Englisch.
