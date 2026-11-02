@@ -1,0 +1,383 @@
+// Gleicher Inhalt wie versions.json, für den Betrieb ohne Server (file://) und für das ZIP-Paket.
+// Nach jeder Änderung an versions.json neu erzeugen.
+window.FLOWSTATE_DATA = {
+  "schema": 3,
+  "updated": "2026-11-02",
+  "programs": [
+    {
+      "id": "tuner",
+      "name": "FlowState Tuner",
+      "accent": "mint",
+      "path": "tuner/",
+      "kind": {
+        "de": "Tuning aus Blackbox-Logs",
+        "en": "Tuning from blackbox logs"
+      },
+      "description": {
+        "de": "Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial, nur nach Sicherung und Bestätigung. Alles läuft im Browser.",
+        "en": "Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial, only after a backup and confirmation. Everything runs in the browser."
+      },
+      "highlights": {
+        "de": [
+          "Sechs Phasen von Setup bis Archiv, jede mit eigenem Abschluss",
+          "Sichtbarer CLI-Plan vor jedem Schreibvorgang",
+          "Zielprofil-Schutz: nur das gewählte PID-Profil wird verändert",
+          "Deutsch und Englisch, hell, dunkel und creme"
+        ],
+        "en": [
+          "Six phases from setup to archive, each with its own completion",
+          "Visible CLI plan before every write",
+          "Target-profile protection: only the selected PID profile changes",
+          "German and English, light, dark and cream"
+        ]
+      },
+      "meta": {
+        "de": [
+          "1 Datei · 496 KB",
+          "Betaflight 4.5+",
+          "Chrome / Edge / Opera"
+        ],
+        "en": [
+          "1 file · 496 KB",
+          "Betaflight 4.5+",
+          "Chrome / Edge / Opera"
+        ]
+      }
+    },
+    {
+      "id": "guide",
+      "name": "FPV Guide",
+      "accent": "sky",
+      "path": "guide/",
+      "kind": {
+        "de": "Nachschlagen und Schritt für Schritt nachbauen",
+        "en": "Look things up and rebuild step by step"
+      },
+      "description": {
+        "de": "Führt vom ersten Build bis zum Feintuning: Simple Tuning, Advanced Tuning, Build-Guide, 95 Glossarbegriffe mit Quellen und der vollständige Sbang-Ablauf. Mit Profilauswahl für Coptergröße, Frame, Taktrate und Firmware.",
+        "en": "Leads from the first build to fine tuning: simple tuning, advanced tuning, build guide, 95 glossary terms with sources and the full Sbang workflow. With profile selection for quad size, frame, loop rate and firmware."
+      },
+      "highlights": {
+        "de": [
+          "Acht Bereiche von der Startseite bis zur Linkliste",
+          "95 Glossarbegriffe, direkt im Text aufrufbar",
+          "Werte und Tabellen folgen deinem Copterprofil",
+          "Workspace als Datei sichern und später wieder laden"
+        ],
+        "en": [
+          "Eight sections from the home page to the link list",
+          "95 glossary terms, openable straight from the text",
+          "Values and tables follow your quad profile",
+          "Save the workspace as a file and load it later"
+        ]
+      },
+      "meta": {
+        "de": [
+          "1 Datei · 7,7 MB",
+          "DE / EN / ES",
+          "auch mobil"
+        ],
+        "en": [
+          "1 file · 7.7 MB",
+          "DE / EN / ES",
+          "mobile ready"
+        ]
+      }
+    },
+    {
+      "id": "hangar",
+      "name": "HangarDeck",
+      "accent": "mint",
+      "path": "hangar/",
+      "kind": {
+        "de": "Copter und Flight Controller verwalten",
+        "en": "Manage quads and flight controllers"
+      },
+      "description": {
+        "de": "Führt die Flotte und die FC-Bibliothek, liest Betaflight- oder INAV-Controller über Web Serial aus oder importiert CLI-Dumps. Daten liegen als JSON im Browser und lassen sich jederzeit exportieren.",
+        "en": "Keeps the fleet and the FC library, reads Betaflight or INAV controllers over Web Serial or imports CLI dumps. Data stays in the browser as JSON and can be exported at any time."
+      },
+      "highlights": {
+        "de": [
+          "Flotte mit Filter, Suche und Bestandsliste",
+          "FC auslesen per MSP oder CLI-Dump einlesen",
+          "Prüfregeln zu Klasse, KV, Props und Wartung",
+          "Export als JSON, CSV und Markdown-Bericht"
+        ],
+        "en": [
+          "Fleet with filters, search and a table view",
+          "Read a controller over MSP or import a CLI dump",
+          "Checks on class, KV, props and maintenance",
+          "Export as JSON, CSV and a Markdown report"
+        ]
+      },
+      "meta": {
+        "de": [
+          "1 Datei · 109 KB",
+          "Betaflight, INAV",
+          "Web Serial in Chrome / Edge / Opera"
+        ],
+        "en": [
+          "1 file · 109 KB",
+          "Betaflight, INAV",
+          "Web Serial in Chrome / Edge / Opera"
+        ]
+      }
+    }
+  ],
+  "releases": [
+    {
+      "id": "hangar-0.1.0-beta.1",
+      "program": "hangar",
+      "version": "v0.1.0-beta.1",
+      "channel": "beta",
+      "released": "2026-11-02",
+      "title": {
+        "de": "Erste Beta.",
+        "en": "First beta."
+      },
+      "summary": {
+        "de": "Flotte, FC-Bibliothek, Auslese über Web Serial, CLI-Import und Datenexport in einer Datei. Die Daten bleiben im Browser und lassen sich als JSON sichern.",
+        "en": "Fleet, FC library, reading over Web Serial, CLI import and data export in one file. Data stays in the browser and can be saved as JSON."
+      },
+      "file": "hangar/index.html",
+      "size_bytes": 111542,
+      "sha256": "049a60829e827cb06c2b0c487a0cf70b918e45b06d99c42bf7c152bfb5eb1344",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.1",
+      "signals": [
+        {
+          "label": {
+            "de": "Flotte",
+            "en": "Fleet"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "CLI-Import",
+            "en": "CLI import"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Auslese am FC",
+            "en": "Reading a controller"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Datenexport",
+            "en": "Data export"
+          },
+          "state": "ok"
+        }
+      ],
+      "notes": {
+        "de": [
+          "MSP v1 liefert Identität, Sensormaske und Motorkonfiguration, aber keinen Gyro-Chip",
+          "Import liest diff all, status und version",
+          "Ohne angeschlossenen FC lässt sich der Ablauf mit Beispieldaten prüfen",
+          "JSON-Export vor Browserwechsel oder Reinigung"
+        ],
+        "en": [
+          "MSP v1 returns identity, sensor mask and motor configuration but no gyro chip",
+          "Import reads diff all, status and version",
+          "Without a controller the workflow can be tried with sample data",
+          "Export JSON before changing browsers or clearing data"
+        ]
+      },
+      "limits": {
+        "de": [
+          "Oberfläche derzeit nur auf Deutsch",
+          "Auslese an echter Hardware steht aus",
+          "Daten liegen nur im localStorage dieses Browsers"
+        ],
+        "en": [
+          "Interface currently German only",
+          "Reading from real hardware is pending",
+          "Data lives only in this browser's localStorage"
+        ]
+      }
+    },
+    {
+      "id": "tuner-4.8-alpha.1",
+      "program": "tuner",
+      "version": "v4.8-alpha.1",
+      "channel": "alpha",
+      "released": "2026-11-02",
+      "title": {
+        "de": "Erste öffentliche Alpha.",
+        "en": "First public alpha."
+      },
+      "summary": {
+        "de": "Der komplette Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Prüfungen vor jedem Schreiben. Neu im Kopf: Sprache und Farbwahl als aufklappbare Auswahl. An echter Hardware und im Flug ist er noch nicht getestet.",
+        "en": "The whole workflow with a visible CLI plan, backup gate and checks before every write. New in the header: language and colour as collapsible selectors. It has not been tested on real hardware or in flight."
+      },
+      "file": "tuner/index.html",
+      "size_bytes": 496467,
+      "sha256": "68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1",
+      "signals": [
+        {
+          "label": {
+            "de": "Log-Analyse",
+            "en": "Log analysis"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Spanisch",
+            "en": "Spanish"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Verbindung zum FC",
+            "en": "Connection to FC"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Flugtest",
+            "en": "Flight test"
+          },
+          "state": "pending"
+        }
+      ],
+      "notes": {
+        "de": [
+          "Filter-, P/D-, Master- und Finish-Phase arbeiten auf demselben Log-Satz",
+          "Importierte Logs behalten ihre Herkunft; fehlende Werte bleiben UNBEKANNT",
+          "Mehrere Flüge in einem Log werden als getrennte Segmente geführt",
+          "Plan, Manifest und Roh-Logs lassen sich jederzeit exportieren"
+        ],
+        "en": [
+          "Filter, P/D, master and finish phases work on the same log set",
+          "Imported logs keep their origin; missing values stay UNKNOWN",
+          "Multiple flights in one log are kept as separate segments",
+          "Plan, manifest and raw logs can be exported at any time"
+        ]
+      },
+      "limits": {
+        "de": [
+          "Verbindungstest mit echtem Flight Controller steht aus",
+          "Schreiben nur mit Betaflight 4.5 oder neuer",
+          "Tuning ersetzt keine mechanische Kontrolle",
+          "Props ab für alle Arbeiten am USB-verbundenen Copter"
+        ],
+        "en": [
+          "Connection test with a real flight controller is pending",
+          "Writing requires Betaflight 4.5 or newer",
+          "Tuning does not replace mechanical inspection",
+          "Remove props for all work on the USB-connected craft"
+        ]
+      }
+    },
+    {
+      "id": "guide-1.0.1-beta.9-es",
+      "program": "guide",
+      "version": "v1.0.1-beta.9-es",
+      "channel": "beta",
+      "released": "2026-10-25",
+      "title": {
+        "de": "Kapitel und Einleitungen sachlich überarbeitet.",
+        "en": "Chapters and introductions rewritten in plain language."
+      },
+      "summary": {
+        "de": "Kapitelüberschriften nennen wieder direkt, was der Abschnitt behandelt, und die Einleitungen erklären den Zweck ohne Werbeton. Technische Werte, Quellen, Bilder und der Sbang-Ablauf sind unverändert. Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "Chapter headings again state directly what a section covers, and the introductions explain their purpose without marketing language. Technical values, sources, images and the Sbang workflow are unchanged. Spanish remains an unverified preview."
+      },
+      "file": "guide/index.html",
+      "size_bytes": 7663650,
+      "sha256": "bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es",
+      "signals": [
+        {
+          "label": {
+            "de": "Aufbau der Seite",
+            "en": "Page structure"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Glossar",
+            "en": "Glossary"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Spanisch",
+            "en": "Spanish"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Durchsicht",
+            "en": "Review"
+          },
+          "state": "pending"
+        }
+      ],
+      "notes": {
+        "de": [
+          "Simple Tuning als gerader Einstieg, Advanced Tuning für Feinarbeit",
+          "Build-Guide prüft die Basis, bevor getunt wird",
+          "Copterprofil steuert Werte, Tabellen und Checklisten",
+          "Sbang ist ein geführter Ablauf in sechs Schritten"
+        ],
+        "en": [
+          "Simple tuning as a straight entry, advanced tuning for detail work",
+          "The build guide checks the foundation before tuning starts",
+          "The quad profile drives values, tables and checklists",
+          "Sbang is a guided workflow in six steps"
+        ]
+      },
+      "limits": {
+        "de": [
+          "Betaflight- und ESC-Werte bleiben firmware- und hardwareabhängig",
+          "Eine große Datei: der erste Aufruf dauert einen Moment",
+          "Sbang inhaltlich und im Ablauf unverändert lassen",
+          "Quellen- und Lizenzangaben im Dokument nicht entfernen"
+        ],
+        "en": [
+          "Betaflight and ESC values remain firmware and hardware dependent",
+          "One large file: the first load takes a moment",
+          "Leave Sbang content and sequence unchanged",
+          "Do not remove source or licence notices inside the document"
+        ]
+      }
+    }
+  ]
+};

@@ -611,21 +611,8 @@ body.app-open .site-header {
   text-decoration: none;
 }
 
-.app-switch__item--soon,
-.app-switch__item--soon:hover {
-  color: var(--faint);
-  cursor: default;
-}
-
-.app-switch__soon {
-  font-style: normal;
-  font-size: 9.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 1px 5px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--panel-2);
+.bundle-btn.is-busy {
+  cursor: progress;
   color: var(--faint);
 }
 
@@ -638,10 +625,6 @@ body.app-open .site-header {
 
 @media (max-width: 620px) {
   .app-switch__item svg {
-    display: none;
-  }
-
-  .app-switch__soon {
     display: none;
   }
 }
@@ -2208,6 +2191,10 @@ details.notes > summary:hover {
   color: var(--sky);
 }
 
+.program--hangar .program-kicker {
+  color: var(--amber);
+}
+
 .program-title {
   font-size: clamp(23px, 2.6vw, 30px);
   letter-spacing: -0.025em;
@@ -2291,6 +2278,10 @@ details.notes > summary:hover {
 
 .program--guide .program-points li::before {
   background: var(--sky);
+}
+
+.program--hangar .program-points li::before {
+  background: var(--amber);
 }
 
 .program-actions {
