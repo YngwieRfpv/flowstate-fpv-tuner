@@ -12,15 +12,15 @@ läuft und weder Installation noch Konto noch Internetverbindung braucht.
 Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
-Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
-(Deutsch/Englisch), und im Kopf der Seite schaltet ein Streifen zwischen HangarDeck, Tuner
+Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite gibt es auf Deutsch,
+Englisch und Spanisch, Spanisch ungeprüft; im Kopf schaltet ein Streifen zwischen HangarDeck, Tuner
 und Guide um, in dieser Reihenfolge. Die gewählte App öffnet sich direkt darunter im
 Rahmen, ohne Seitenwechsel; darüber liegen zwei Schaltflächen für die Rückkehr zur
 Übersicht und für ein eigenes Browserfenster. Die Adressen `#/hangar`, `#/tuner` und
 `#/guide` lassen sich direkt aufrufen und weitergeben.
 
 Im Kopf stehen Sprache und Farben als Felder nebeneinander, ohne aufklappende Liste:
-DE und EN, daneben die drei Paletten Ozean, Leinen und Dunkelrot als Farbstreifen. Beide
+DE, EN und ES, daneben die drei Paletten Ozean, Leinen und Dunkelrot als Farbstreifen. Beide
 Wahlen gelten auch für das Programm, das du danach öffnest. Sprache und Farbe stehen in
 der Adresse (`?lang=`, `?theme=`), die Farbe zusätzlich in `flowstate-theme`. Das trägt
 auch dann, wenn ein Browser den Speicher zwischen zwei Dateien nicht teilt, etwa bei
@@ -42,13 +42,13 @@ zweites Fenster desselben Browsers, zieht die Farbe auch dort nach.
 | Leinen | `#c9e0f0` `#f4f6f5` `#c4b69c` `#f0e6cb` `#ecbda9` |
 | Dunkelrot | `#140a25` `#390c2b` `#5a152a` `#8e1e2c` `#d82828` |
 
-Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck Lite auf Deutsch
-und Englisch. Spanisch ist im Tuner und im Guide als ungeprüfte Vorschau gekennzeichnet.
+Übersicht, Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck Lite auf
+Deutsch und Englisch. Spanisch ist überall ungeprüft und als solches gekennzeichnet.
 
-Wer in der Versionsliste auf *Mit Hub herunterladen* klickt, bekommt die Übersichtsseite als
-Paket: Hub, Styles, Skripte und alle drei Programme in einem ZIP. Entpackt und per
-Doppelklick auf `index.html` geöffnet, arbeitet der Umschalter wie auf der
-veröffentlichten Seite.
+In der Versionsliste stehen zwei Arten zu laden: *Alles herunterladen* über der Liste packt
+das Gesamtpaket, *Mit Hub herunterladen* in einer Zeile packt denselben Inhalt und nennt im
+Dateinamen das Programm, für das geklickt wurde. Entpackt und per Doppelklick auf
+`index.html` geöffnet, arbeitet der Umschalter wie auf der veröffentlichten Seite.
 
 ---
 
@@ -227,12 +227,16 @@ Veröffentlicht: [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tu
 [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/) und
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/index.html).
 
-### Herunterladen: Programm plus Hub
+### Herunterladen: alles in einem Paket
 
-Der Knopf *Mit Hub herunterladen* in der Versionsliste packt im Browser ein ZIP mit der
-Übersichtsseite, ihren Styles und Skripten sowie allen drei Programmen. Der Dateiname
-nennt das Programm, für das geklickt wurde, und seine Version, zum Beispiel
-`FlowState-Tuner-v4.8-alpha.4-mit-Hub.zip`. Der Inhalt ist in jedem Fall derselbe.
+*Alles herunterladen* über der Versionsliste packt im Browser ein ZIP mit allem, was das
+Projekt ausmacht: die Übersichtsseite mit Styles, Skripten und Vorschaubildern, die drei
+Programme, den Startbestand für den Abgleich, dazu `README.md`, `LICENSE`, ein `LIESMICH.txt`
+und `README.html`, dieselbe Beschreibung als lesbare Seite. Der Dateiname lautet
+`FlowState-FPV-mit-Hub.zip`.
+
+*Mit Hub herunterladen* in einer Versionszeile packt denselben Inhalt, nennt im Dateinamen
+aber das Programm und seine Version, zum Beispiel `FlowState-Tuner-v4.8-alpha.4-mit-Hub.zip`.
 
 Entpackt liegt der Hub als `index.html` daneben, die Programme in `guide/`, `tuner/` und
 `hangar/`. Ein Doppelklick auf die `index.html` öffnet die Übersicht mit Umschalter. Über
@@ -240,7 +244,8 @@ Entpackt liegt der Hub als `index.html` daneben, die Programme in `guide/`, `tun
 blockieren; über einen lokalen Server oder GitHub Pages erscheinen sie im Rahmen.
 
 Das ZIP wird bei jedem Klick neu gebaut, damit im Repository keine zweite Kopie derselben
-Bytes liegt. Es ist rund 8,6 MB groß, der größte Teil davon ist der Guide.
+Bytes liegt. Es ist rund 8,6 MB groß, der größte Teil davon ist der Guide. `README.html`
+entsteht dabei aus `README.md`, kann also nicht veralten.
 
 ### Warum die Dateien `index.html` heißen
 
@@ -275,21 +280,21 @@ Die Log-Analyse funktioniert in jedem Browser, dafür braucht es kein Web Serial
 
 ## Sprachen
 
-| Sprache | Stand | Geprüft | HangarDeck Lite | FlowState Tuner | FPV Guide |
-|---|---|---|---|---|---|
-| **Deutsch** | vollständig integriert | ja | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/) | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) |
-| **English** | vollständig integriert | ja | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/?lang=en) | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) |
-| **Español** | Vorschau, nicht geprüft | nein | nicht angelegt | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) |
+| Sprache | Stand | Geprüft | HangarDeck Lite | FlowState Tuner | FPV Guide | Übersicht |
+|---|---|---|---|---|---|---|
+| **Deutsch** | vollständig integriert | ja | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/?lang=de) | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) | [Übersicht öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/?lang=de) |
+| **English** | vollständig integriert | ja | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/?lang=en) | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) | [Übersicht öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/?lang=en) |
+| **Español** | Vorschau, nicht geprüft | nein | nicht angelegt | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) | [Übersicht öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/?lang=es) |
 
-Deutsch und Englisch sind in Tuner und Guide vollständig: Oberfläche, Meldungen, Glossar
-und Kapitel. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft.
-Das Programm zeigt deshalb einen dauerhaften Hinweis; nicht überprüfte Stellen fallen auf
-Englisch zurück. HangarDeck Lite liegt auf Deutsch und Englisch vor; Spanisch ist dort
-nicht angelegt.
+Deutsch und Englisch sind in allen drei Programmen vollständig: Oberfläche, Meldungen,
+Glossar und Kapitel. Spanisch ist in Übersicht, Tuner und Guide übersetzt und auswählbar,
+aber in keinem Bereich geprüft. Die Seite und die Programme zeigen deshalb einen Hinweis;
+nicht überprüfte Stellen fallen auf Englisch zurück. HangarDeck Lite liegt auf Deutsch und
+Englisch vor; Spanisch ist dort nicht angelegt.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
-übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist. Bei jeder
-anderen Sprache startet es auf Deutsch.
+übernimmt die Seite die Browsersprache, wenn sie eine dieser drei ist. Bei jeder
+anderen Sprache startet sie auf Deutsch.
 
 Unabhängig davon gilt innerhalb einer Sprache: Fehlt ein einzelner Text, erscheint er
 auf Englisch. Deutsch ist also der Startwert für unbekannte Browsersprachen, Englisch
@@ -372,11 +377,11 @@ Three single-file HTML programs for Betaflight, running entirely in the browser.
   tuning, with 95 glossary terms and reference tables.
 
 Tuner and guide ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es.
-Spanish is translated but verified in no area. The program shows a permanent notice and
-falls back to English where text is unrevised. HangarDeck Lite ships in German and
-English; Spanish is not built there.
+Spanish is selectable on the overview page, in the tuner and in the guide, and verified in
+no area. The page and the programs show a notice and fall back to English where text is
+unrevised. HangarDeck Lite ships in German and English; Spanish is not built there.
 
-Two separate mechanisms: an unknown browser language starts the program in German,
+Two separate mechanisms: an unknown browser language starts the page in German,
 while a missing individual string inside a translation appears in English.
 
 None needs an install, an account or an internet connection. No file loads external
@@ -384,11 +389,13 @@ scripts, fonts or images; the guide's links point outward on purpose and only op
 a connection.
 
 The overview page embeds the programs below its header and keeps the address in the form
-of `#/hangar`, `#/tuner` or `#/guide`, in that order. *Download with hub* builds a ZIP in
-the browser that contains the overview page plus all three programs; unzip it and open
+of `#/hangar`, `#/tuner` or `#/guide`, in that order. *Download everything* builds a ZIP in
+the browser with the overview page, all three programs, `README.md`, `LICENSE`, `LIESMICH.txt`
+and `README.html`, the same description as a readable page. *Download with hub* in a release
+row packs the same content and names the program in the file name. Unzip it and open
 `index.html`.
 
-Language and colour sit side by side in the header, without a drop-down: DE and EN plus
+Language and colour sit side by side in the header, without a drop-down: DE, EN and ES plus
 three palette strips. Both choices carry into the program you open next. The language
 rides in the address (`?lang=`) and the colour in `?theme=`, the colour is also stored in
 `flowstate-theme`; older values `dark`, `light` and `cream` are still read. Passing the

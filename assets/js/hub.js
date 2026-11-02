@@ -9,6 +9,7 @@
   // Ältere Stände haben dark, light und cream gespeichert; die werden übersetzt.
   var THEME_ALIAS = { dark: 'ocean', light: 'sand', cream: 'drakn' };
   var THEME_BG = { ocean: '#06232a', sand: '#eef1f2', drakn: '#140a25' };
+  var LANGS = ['de', 'en', 'es'];
   var FALLBACK = 'en';
   var CHANNELS = ['alpha', 'beta', 'rc', 'stable'];
 
@@ -28,13 +29,14 @@
       'nav.versions': 'Versionen',
       'nav.langs': 'Sprachen',
       'langs.eyebrow': 'Sprachen',
-      'langs.title': 'Deutsch und Englisch vollständig, Spanisch als Vorschau',
-      'langs.lede': 'Tuner und Guide liegen auf Deutsch und Englisch vollständig vor. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch. HangarDeck liegt auf Deutsch und Englisch vor, Spanisch ist dort nicht angelegt.',
+      'langs.title': 'Deutsch und Englisch vollständig, Spanisch übersetzt und ungeprüft',
+      'langs.lede': 'Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist hier, im Tuner und im Guide auswählbar, in keinem Bereich aber geprüft; offene Stellen erscheinen auf Englisch. HangarDeck Lite kennt nur Deutsch und Englisch.',
       'langs.notYet': 'noch nicht',
       'langs.notPlanned': 'nicht angelegt',
       'langs.h.language': 'Sprache',
       'langs.h.status': 'Stand',
       'langs.h.checked': 'Geprüft',
+      'langs.h.overview': 'Übersicht',
       'langs.status.full': 'vollständig integriert',
       'langs.status.unverified': 'nicht geprüft',
       'langs.status.preview': 'Vorschau, nicht geprüft',
@@ -43,8 +45,9 @@
       'langs.open': 'Tuner öffnen',
       'langs.openGuide': 'Guide öffnen',
       'langs.openHangar': 'HangarDeck öffnen',
+      'langs.openHub': 'Übersicht öffnen',
       'langs.none': 'kein Link',
-      'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe erkennt das Programm die Browsersprache, sonst Deutsch.',
+      'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
       'hero.title1': 'Drei Programme',
@@ -116,7 +119,7 @@
       'guide.workspace.lede': 'Fünf Schritte: ESC, Betaflight-Basis, Filterflug, PID und Feedforward, Abschlussprüfung. Jeden Schritt kannst du später nachlesen.',
       'versions.eyebrow': 'Versionen',
       'versions.title': 'Was gerade veröffentlicht ist',
-      'versions.lede': 'Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Der Knopf zum Herunterladen packt die Übersichtsseite mit allen drei Programmen in ein ZIP.',
+      'versions.lede': 'Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Oben lässt sich alles auf einmal laden, in der Zeile dasselbe Paket mit dem Programmnamen im Dateinamen.',
       'search.label': 'Versionen durchsuchen',
       'search.placeholder': 'Version, Programm oder Stichwort …',
       'filter.all': 'Alle',
@@ -160,7 +163,7 @@
       'faq.safe.a': 'Nein. Der Tuner ist eine Alpha: Der Schreibpfad ist an echter Hardware und im Flug nicht getestet. Schreiben geht auf eigene Verantwortung, es gilt der Haftungsausschluss der Lizenz. Vorher sichern, Props ab, solange der Copter am USB hängt, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.',
       'faq.license.q': 'Ist das Open Source?',
       'faq.license.a': 'Nein. Der Quelltext ist einsehbar, Bearbeitungen sind aber nicht erlaubt. Damit erfüllt die Lizenz die Open-Source-Definition nicht. Erlaubt ist die unveränderte Weitergabe mit Lizenz und Quellenverweis. Der Grund ist der Schreibzugriff auf den Flight Controller: Ungeprüfte Abwandlungen sollen nicht als fertige Fassung im Umlauf sein.',
-      'footer.note': 'Zwei HTML-Programme für Betaflight-Tuning. Sie laden keine externen Skripte, Schriften oder Bilder.',
+      'footer.note': 'Drei HTML-Programme für Betaflight. Sie laden keine externen Skripte, Schriften oder Bilder.',
       'footer.programs': 'Programme',
       'footer.more': 'Mehr',
       'footer.releases': 'Releases',
@@ -185,7 +188,206 @@
       'area.ref.t': 'Technik & Referenz', 'area.ref.d': 'Filterbegriffe, Werte sowie ELRS- und Crossfire-Funkstrecken.',
       'area.build.t': 'Build-Guide', 'area.build.d': 'Mechanisch und elektrisch saubere Basis vor dem Erstflug.',
       'area.glossary.t': 'Glossar', 'area.glossary.d': '95 Begriffe, direkt im Text aufrufbar.',
-      'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.'
+      'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.',
+      'bundle.all': 'Alles herunterladen',
+      'bundle.allNote': 'Übersicht, alle drei Programme, README, Lizenz und LIESMICH in einem ZIP.'
+    },
+    es: {
+      'theme.label': 'Colores',
+      'apps.guide': 'Guía',
+      'apps.tuner': 'Autotuner',
+      'apps.hangar': 'Hangar',
+      'stage.back': 'Volver a la vista general',
+      'stage.newTab': 'En una pestaña nueva',
+      'stage.loading': 'Cargando',
+      'stage.slow': 'No carga en el marco, ábrelo directamente aquí',
+      'nav.projects': 'Programas',
+      'nav.tuner': 'Tuner',
+      'nav.guide': 'Guía',
+      'nav.versions': 'Versiones',
+      'nav.langs': 'Idiomas',
+      'langs.eyebrow': 'Idiomas',
+      'langs.title': 'Alemán e inglés completos, español traducido y sin revisar',
+      'langs.lede': 'El alemán y el inglés están completos en los tres programas y en esta vista general. El español se puede elegir aquí, en el Tuner y en la Guía, pero no está revisado en ninguna parte; los pasajes sin revisar aparecen en inglés. HangarDeck Lite solo tiene alemán e inglés.',
+      'langs.notYet': 'todavía no',
+      'langs.notPlanned': 'no disponible',
+      'langs.h.language': 'Idioma',
+      'langs.h.status': 'Estado',
+      'langs.h.checked': 'Revisado',
+      'langs.h.overview': 'Vista general',
+      'langs.status.full': 'integrado por completo',
+      'langs.status.unverified': 'sin revisar',
+      'langs.status.preview': 'vista previa, sin revisar',
+      'langs.yes': 'sí',
+      'langs.no': 'no',
+      'langs.open': 'Abrir el Tuner',
+      'langs.openGuide': 'Abrir la Guía',
+      'langs.openHangar': 'Abrir HangarDeck',
+      'langs.openHub': 'Abrir la vista general',
+      'langs.none': 'sin enlace',
+      'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
+      'nav.faq': 'Preguntas',
+      'hero.eyebrow': 'FlowState FPV',
+      'hero.title1': 'Tres programas',
+      'hero.title2': 'para Betaflight',
+      'hero.accent': 'que funcionan sin conexión',
+      'hero.lede': 'El Tuner calcula con tus registros nuevos valores de filtro y PID. La Guía explica qué hay detrás y cuándo encaja cada valor. HangarDeck lleva la lista de copter. Cada programa es un único archivo HTML y no necesita conexión a internet.',
+      'hero.cta1': 'Iniciar el Tuner',
+      'hero.cta2': 'Abrir la Guía',
+      'hero.cta3': 'Versiones',
+      'hero.foot': 'Funciona en el navegador, incluso sin internet',
+      'stat.programs': 'Programas',
+      'stat.versions': 'Versiones',
+      'stat.online': 'listos',
+      'stat.offline': 'sin conexión',
+      'programs.eyebrow': 'Programas',
+      'programs.title': 'Qué hacen los tres programas',
+      'programs.lede': 'Los tres son independientes. No comparten código ni datos y siempre abres solo uno. Los apartados siguientes muestran qué contiene cada uno.',
+      'programs.open': 'Abrir',
+      'row.more': 'Cómo trabaja',
+      'row.tuner.kicker': 'Análisis de registros y plan CLI',
+      'row.tuner.text': 'Lee registros Blackbox y Dataflash, calcula con ellos valores de filtro y PID y muestra el resultado como un plan CLI para leer. La escritura va por Web Serial y solo cuando hay una copia de seguridad y tú das tu conformidad.',
+      'row.tuner.p1': 'Seis fases que se apoyan unas en otras',
+      'row.tuner.p2': 'Control de copia, firmware y perfil antes de cada escritura',
+      'row.tuner.warning': 'Alpha: escribir es responsabilidad tuya. En hardware real y en vuelo la escritura todavía no está probada. Puedes leer el plan completo antes.',
+      'row.tuner.p3': 'Chrome, Edge u Opera en escritorio para la conexión con la FC',
+      'row.tuner.cta': 'Abrir el Tuner',
+      'row.guide.kicker': 'Obra de consulta y procedimiento',
+      'row.guide.text': 'Acompaña desde el primer montaje hasta el ajuste fino, con términos, tablas y el procedimiento paso a paso. Los valores que aparecen dependen del perfil, de un tiny whoop a 10 pulgadas.',
+      'row.guide.p1': 'Ocho apartados, del Simple Tuning a la lista de enlaces',
+      'row.guide.p2': '95 términos de glosario, que se abren directamente en el texto',
+      'row.guide.p3': 'Funciona en cualquier navegador, también en el móvil',
+      'row.guide.cta': 'Abrir la Guía',
+      'row.hangar.kicker': 'Lista de copter, sin conexión',
+      'row.hangar.text': 'Una lista por copter: tamaño, celdas, KV, ESC, hélices y estado. Los campos restantes están en Más detalles y se quedan vacíos si no los necesitas.',
+      'row.hangar.p1': 'Crear, buscar y filtrar copter',
+      'row.hangar.p2': 'Exportar como PDF, CSV, impresión o JSON',
+      'row.hangar.p3': 'Sincronización con tu propio repositorio',
+      'row.hangar.cta': 'Abrir HangarDeck',
+      'hangar.eyebrow': 'HangarDeck',
+      'hangar.title': 'La lista de copter',
+      'hangar.lede': 'Una cabecera, una lista, un diálogo. Los datos se quedan en el navegador, la sincronización con GitHub es opcional.',
+      'hangar.areas': 'Qué incluye',
+      'hangar.check': 'Crear',
+      'hangar.check.lede': 'Con el nombre y el tamaño ya se puede guardar. Lo demás queda vacío hasta que lo necesites.',
+      'hangar.data': 'Dónde están los datos',
+      'hangar.data.lede': 'En el localStorage de este navegador y, con la sincronización configurada, también en tu propio repositorio. Sin cuenta y sin telemetría.',
+      'area.list.t': 'Lista',
+      'area.list.d': 'Nombre, tamaño, tensión, KV, ESC, hélices y estado en una tabla.',
+      'area.detail.t': 'Más detalles',
+      'area.detail.d': 'Controladora de vuelo, batería, peso al despegue y nota, solo si quieres.',
+      'area.export.t': 'Exportar',
+      'area.export.d': 'Tabla PDF para el archivo, CSV para Excel, impresión y JSON como copia.',
+      'area.sync.t': 'Sincronización con GitHub',
+      'area.sync.d': 'Leer sin token, escribir con token, unir por la marca de tiempo.',
+      'area.lang.t': 'Idioma y color',
+      'area.lang.d': 'Alemán e inglés, además Océano, Lino y Rojo oscuro.',
+      'area.offline.t': 'Sin conexión',
+      'area.offline.d': 'Un archivo HTML, sin compilación y sin recursos ajenos.',
+      'programs.details': 'Detalles',
+      'tuner.eyebrow': 'FlowState Tuner',
+      'tuner.title': 'Seis fases hasta el plan CLI',
+      'tuner.lede': 'El procedimiento tiene seis fases. Cada una reúne sus mediciones y muestra su plan. Solo se sigue cuando cierras la fase.',
+      'tuner.phases': 'El procedimiento en seis fases',
+      'tuner.gates': 'Controles de seguridad',
+      'tuner.gates.lede': 'Varias comprobaciones bloquean la escritura. Actúan también cuando has desactivado la lista de control opcional.',
+      'tuner.exports': 'Exportaciones',
+      'tuner.exports.lede': 'Plan como texto, manifiesto como JSON, registros en bruto como ZIP y Blackbox directamente desde la controladora. Todo se queda en tu equipo.',
+      'guide.eyebrow': 'Guía FPV',
+      'guide.title': 'Qué contiene la Guía',
+      'guide.lede': 'Acompaña desde el primer montaje hasta el ajuste fino: términos, tablas y el procedimiento paso a paso.',
+      'guide.areas': 'Los apartados',
+      'guide.profile': 'Tu perfil',
+      'guide.profile.lede': 'Tamaño del copter, chasis, frecuencia de giroscopio y de PID, versión de Betaflight, firmware del ESC. De eso depende qué valores y tablas muestra la Guía.',
+      'guide.workspace': 'El procedimiento',
+      'guide.workspace.lede': 'Cinco pasos: ESC, base de Betaflight, vuelo de filtros, PID y feedforward, comprobación final. Cada paso puedes releerlo después.',
+      'versions.eyebrow': 'Versiones',
+      'versions.title': 'Qué está publicado ahora',
+      'versions.lede': 'Para cada versión: canal, fecha, tamaño y suma de comprobación, además del estado en la tarjeta. Arriba se descarga todo de una vez; en la fila es el mismo paquete con el nombre del programa en el archivo.',
+      'search.label': 'Buscar versiones',
+      'search.placeholder': 'Versión, programa o palabra …',
+      'filter.all': 'Todos',
+      'filter.anyChannel': 'Cualquier canal',
+      'filter.reset': 'Quitar los filtros',
+      'empty': 'Ninguna versión encaja con esta selección.',
+      'count': '{n} de {total}',
+      'channel.alpha': 'Alpha',
+      'channel.beta': 'Beta',
+      'channel.rc': 'Release Candidate',
+      'channel.stable': 'Stable',
+      'release.open': 'Abrir en el navegador',
+      'release.bundle': 'Descargar con la vista general',
+      'release.packing': 'Empaquetando …',
+      'release.packed': 'Guardado',
+      'release.failed': 'No es posible',
+      'release.copy': 'copiar',
+      'release.page': 'Versión propia',
+      'release.copied': 'copiado',
+      'release.noCopy': 'no es posible',
+      'release.pending': 'pendiente',
+      'release.more': 'Detalles',
+      'release.pros': 'Qué puede hacer',
+      'release.cons': 'Límites',
+      'release.hash': 'SHA-256',
+      'release.ready': 'listo',
+      'faq.eyebrow': 'Preguntas',
+      'faq.title': 'Preguntas frecuentes',
+      'faq.lede': 'Las preguntas que más se repiten.',
+      'faq.install.q': '¿Hay que instalar algo?',
+      'faq.install.a': 'No. Cada programa es un archivo HTML que abres en el navegador. No hay nada que instalar y no hace falta cuenta.',
+      'faq.pages.q': '¿Por qué hay una página de GitHub?',
+      'faq.pages.a': 'GitHub Pages solo entrega archivos que están en el repositorio. No inicia nada y no compila nada. Para que una dirección como /tuner/ funcione, en los ajustes del repositorio, en Pages, tiene que estar elegida la rama en la que están los archivos.',
+      'faq.offline.q': '¿Funciona también sin internet?',
+      'faq.offline.a': 'Sí. Los archivos no cargan scripts, fuentes ni imágenes externas. Puedes descargarlos o abrirlos directamente, el wifi puede estar apagado. Solo los enlaces de la Guía llevan a la red: se abren con conexión, el contenido no la necesita.',
+      'faq.browser.q': '¿Qué navegador?',
+      'faq.browser.a': 'La Guía funciona en cualquier navegador moderno, también en el móvil. Para la conexión con la controladora, el Tuner necesita Web Serial. Chrome, Edge y Opera lo traen en escritorio. En otros navegadores Chromium puede funcionar, pero no está probado. Brave lo entrega desactivado y hay que activarlo antes en los ajustes. En algunas versiones de Vivaldi faltaba. Firefox y Safari no lo tienen. El análisis de registros funciona en cualquier navegador.',
+      'faq.data.q': '¿Adónde van mis datos?',
+      'faq.data.a': 'Los datos se quedan en tu equipo. Los ajustes y el perfil están en el almacenamiento del navegador, no hay servidor ni telemetría.',
+      'faq.safe.q': '¿Es una autorización de vuelo?',
+      'faq.safe.a': 'No. El Tuner es un alfa: la escritura no está probada en hardware real ni en vuelo. Escribir es responsabilidad tuya y se aplica la exención de responsabilidad de la licencia. Haz copia antes, quita las hélices mientras el copter está en USB y detente en cuanto haya motores calientes, desyncs o mecánica poco clara.',
+      'faq.license.q': '¿Es código abierto?',
+      'faq.license.a': 'No. El código se puede leer, pero no se permite modificarlo. Por eso la licencia no cumple la definición de código abierto. Sí se permite redistribuirlo sin cambios, con la licencia y la referencia al origen. El motivo es el acceso de escritura a la controladora: las variantes sin probar no deben circular como versión acabada.',
+      'footer.note': 'Tres programas HTML para el ajuste de Betaflight. No cargan scripts, fuentes ni imágenes externas.',
+      'footer.programs': 'Programas',
+      'footer.more': 'Más',
+      'footer.releases': 'Versiones',
+      'footer.repo': 'Repositorio',
+      'footer.license': 'Licencia',
+      'footer.licenseNote': 'Solo se permite redistribuir sin cambios',
+      'date.asOf': 'Estado {date}',
+      'phase.setup': 'Preparación',
+      'phase.setup.d': 'FC, hardware, perfil',
+      'phase.pidname': 'P/D neutro',
+      'phase.mastername': 'Master',
+      'phase.ffname': 'FF / I / D-Max',
+      'phase.archivename': 'Archivo',
+      'phase.filter': 'Registro, espectro, auto',
+      'phase.pid': 'Seguimiento, pitch:roll',
+      'phase.master': 'Escalones, térmica',
+      'phase.ff': 'Acabado, CLI',
+      'phase.archive': 'Registros, descarga, reinicio',
+      'gate.backup.t': 'Copia de seguridad',
+      'gate.backup.d': 'tiene que haber un diff all completo, si no el procedimiento vuelve a la fase 1.',
+      'gate.firmware.t': 'Firmware',
+      'gate.firmware.d': 'escribir solo con Betaflight 4.5 o posterior.',
+      'gate.profile.t': 'Perfil de destino',
+      'gate.profile.d': 'solo cambia el perfil de PID elegido.',
+      'gate.filter.t': 'Registro de filtros',
+      'gate.filter.d': 'el registro activo tiene que pasar la comprobación de calidad. Un override vale solo para ese registro.',
+      'area.simple.t': 'Simple Tuning',
+      'area.simple.d': 'Preparar Betaflight, leer registros, ajustar el perfil.',
+      'area.advanced.t': 'Advanced Tuning',
+      'area.advanced.d': 'Advanced Tune, Sbang o ajustes sueltos.',
+      'area.ref.t': 'Técnica y referencia',
+      'area.ref.d': 'Términos de filtro, valores y radioenlaces ELRS y Crossfire.',
+      'area.build.t': 'Guía de montaje',
+      'area.build.d': 'Base mecánica y eléctrica limpia antes del primer vuelo.',
+      'area.glossary.t': 'Glosario',
+      'area.glossary.d': '95 términos, que se abren directamente en el texto.',
+      'area.sources.t': 'Fuentes y enlaces',
+      'area.sources.d': 'Manuales originales, documentación, herramientas.',
+      'bundle.all': 'Descargar todo',
+      'bundle.allNote': 'Vista general, los tres programas, README, licencia y archivo léeme en un ZIP.'
     },
     en: {
       'theme.label': 'Colours',
@@ -202,13 +404,14 @@
       'nav.versions': 'Versions',
       'nav.langs': 'Languages',
       'langs.eyebrow': 'Languages',
-      'langs.title': 'German and English complete, Spanish as a preview',
-      'langs.lede': 'Tuner and guide are complete in German and English. Spanish is translated and selectable there, but verified in no area, and unrevised passages fall back to English. HangarDeck ships in German and English, Spanish is not built there.',
+      'langs.title': 'German and English complete, Spanish translated and unverified',
+      'langs.lede': 'German and English are complete in all three programs and on this page. Spanish is selectable here, in the tuner and in the guide, but verified in no area; unrevised passages fall back to English. HangarDeck Lite ships in German and English only.',
       'langs.notYet': 'not yet',
       'langs.notPlanned': 'not built',
       'langs.h.language': 'Language',
       'langs.h.status': 'State',
       'langs.h.checked': 'Verified',
+      'langs.h.overview': 'Overview',
       'langs.status.full': 'fully integrated',
       'langs.status.unverified': 'not verified',
       'langs.status.preview': 'preview, not verified',
@@ -217,8 +420,9 @@
       'langs.open': 'Open tuner',
       'langs.openGuide': 'Open guide',
       'langs.openHangar': 'Open HangarDeck',
+      'langs.openHub': 'Open the overview',
       'langs.none': 'no link',
-      'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the program reads the browser language, otherwise German.',
+      'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
       'hero.title1': 'Three programs',
@@ -290,7 +494,7 @@
       'guide.workspace.lede': 'Five steps: ESC, Betaflight basics, filter flight, PID and feedforward, final check. You can read up on each one later.',
       'versions.eyebrow': 'Versions',
       'versions.title': 'What is published right now',
-      'versions.lede': 'For each version: channel, date, size and checksum, plus the state right on the card. The download button packs the overview page with all three programs into a ZIP.',
+      'versions.lede': 'For each version: channel, date, size and checksum, plus the state right on the card. Above the list the whole package is one click away, in a row it is the same ZIP named after the program.',
       'search.label': 'Search versions',
       'search.placeholder': 'Version, program or keyword …',
       'filter.all': 'All',
@@ -334,7 +538,7 @@
       'faq.safe.a': 'No. The tuner is an alpha: the write path has not been tested on real hardware or in flight, writing is at your own risk, and the liability disclaimer of the licence applies. Back up first, remove props while the quad is on USB, and stop right away on hot motors, desyncs or unclear mechanics.',
       'faq.license.q': 'Is this open source?',
       'faq.license.a': 'No. The source is readable, but modifications are not permitted, so the licence does not meet the open source definition. Unmodified redistribution with the licence and a link to the source is allowed. The reason is the write path to the flight controller: unchecked variants should not go around posing as a finished release.',
-      'footer.note': 'Two HTML programs for Betaflight tuning. They load no external scripts, fonts or images.',
+      'footer.note': 'Three HTML programs for Betaflight. They load no external scripts, fonts or images.',
       'footer.programs': 'Programs',
       'footer.more': 'More',
       'footer.releases': 'Releases',
@@ -359,7 +563,9 @@
       'area.ref.t': 'Technique & reference', 'area.ref.d': 'Filter terms, values plus ELRS and Crossfire radio links.',
       'area.build.t': 'Build guide', 'area.build.d': 'A mechanically and electrically sound base before the first flight.',
       'area.glossary.t': 'Glossary', 'area.glossary.d': '95 terms, openable straight from the text.',
-      'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.'
+      'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.',
+      'bundle.all': 'Download everything',
+      'bundle.allNote': 'Overview, all three programs, README, licence and readme file in one ZIP.'
     }
   };
 
@@ -410,7 +616,9 @@
   }
 
   function locale() {
-    return state.lang === 'de' ? 'de-DE' : 'en-GB';
+    if (state.lang === 'de') return 'de-DE';
+    if (state.lang === 'es') return 'es-ES';
+    return 'en-GB';
   }
 
   function formatBytes(bytes) {
@@ -723,7 +931,7 @@
   }
 
   function setLang(lang, persist) {
-    state.lang = lang === 'de' ? 'de' : 'en';
+    state.lang = LANGS.indexOf(lang) === -1 ? FALLBACK : lang;
     if (persist !== false) {
       try { localStorage.setItem(LANG_KEY, state.lang); } catch (e) {}
     }
@@ -865,6 +1073,7 @@
     { path: 'index.html', name: 'index.html' },
     { path: 'assets/css/style.css', name: 'assets/css/style.css' },
     { path: 'assets/js/hub.js', name: 'assets/js/hub.js' },
+    { path: 'assets/js/markdown.js', name: 'assets/js/markdown.js' },
     { path: 'assets/data/versions.json', name: 'assets/data/versions.json' },
     { path: 'assets/data/versions.js', name: 'assets/data/versions.js' },
     { path: 'assets/images/favicon.png', name: 'assets/images/favicon.png' },
@@ -963,6 +1172,67 @@
     return new Blob(chunks.concat(central, [end]), { type: 'application/zip' });
   }
 
+  // README.md als lesbare Seite: gleiche Angaben wie auf GitHub, nur ohne Netz.
+  function readmePage(markdown) {
+    var body = window.FLOWSTATE_MD ? window.FLOWSTATE_MD.toHtml(markdown) : '<pre>' +
+      String(markdown).replace(/[&<>]/g, function (ch) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch];
+      }) + '</pre>';
+
+    return [
+      '<!DOCTYPE html>',
+      '<html lang="de">',
+      '<head>',
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<title>FlowState FPV · README</title>',
+      '<style>',
+      ':root { color-scheme: light; }',
+      'body { margin: 0; padding: 32px 20px 64px; background: #f4f6f5; color: #22302e;',
+      '  font: 16px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }',
+      'main { max-width: 46rem; margin: 0 auto; }',
+      'h1, h2, h3, h4 { line-height: 1.25; margin: 1.8em 0 0.5em; }',
+      'h1 { font-size: 1.9rem; margin-top: 0; }',
+      'h2 { font-size: 1.35rem; padding-bottom: 0.3em; border-bottom: 1px solid #d6dcd9; }',
+      'h3 { font-size: 1.1rem; }',
+      'p, ul, ol, pre, table { margin: 0 0 1em; }',
+      'a { color: #1e746b; }',
+      'code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em;',
+      '  background: #eef1f2; border: 1px solid #d6dcd9; border-radius: 3px; padding: 0.1em 0.35em; }',
+      'pre { background: #eef1f2; border: 1px solid #d6dcd9; border-radius: 2px; padding: 14px 16px;',
+      '  overflow-x: auto; }',
+      'pre code { background: none; border: 0; padding: 0; }',
+      'table { border-collapse: collapse; width: 100%; font-size: 0.94em; }',
+      'th, td { border: 1px solid #d6dcd9; padding: 7px 10px; text-align: left; vertical-align: top; }',
+      'th { background: #e9efef; }',
+      'hr { border: 0; border-top: 1px solid #d6dcd9; margin: 2em 0; }',
+      'footer { max-width: 46rem; margin: 3rem auto 0; color: #5b6a66; font-size: 0.85rem; }',
+      '@media (prefers-color-scheme: dark) {',
+      '  body { background: #06232a; color: #e7f6f2; }',
+      '  h2, hr, th, td, pre, code { border-color: #1c5f63; }',
+      '  code, pre, th { background: #0a2e36; }',
+      '  a { color: #2ca387; }',
+      '  footer { color: #94c4b9; }',
+      '}',
+      '</style>',
+      '</head>',
+      '<body>',
+      '<main>',
+      body,
+      '</main>',
+      '<footer>FlowState FPV · README.md als Seite, erzeugt beim Packen des ZIP.</footer>',
+      '</body>',
+      '</html>',
+      ''
+    ].join('\n');
+  }
+
+  // README.md und LICENSE kommen mit ins Paket, wenn sie sich holen lassen.
+  var BUNDLE_EXTRA = [
+    { path: 'README.md', name: 'README.md' },
+    { path: 'LICENSE', name: 'LICENSE' }
+  ];
+
   function bundleEntries(programId) {
     var files = BUNDLE_BASE.slice();
     Object.keys(APPS).forEach(function (id) {
@@ -970,7 +1240,26 @@
     });
     files.push({ path: 'hangar/data/hangardeck.json', name: 'hangar/data/hangardeck.json' });
 
-    var readme = {
+    var releases = (state.data && state.data.releases) || [];
+
+    function versionOf(id) {
+      var found = '';
+      releases.forEach(function (release) {
+        if (release.program === id) found = release.version;
+      });
+      return found;
+    }
+
+    var programLines = ['hangar', 'tuner', 'guide'].map(function (id) {
+      var program = projectOf(id);
+      var label = program ? program.name : id;
+      var version = versionOf(id);
+      var path = '  ' + id + '/index.html';
+      while (path.length < 24) path += ' ';
+      return path + label + (version ? ' ' + version : '');
+    });
+
+    var notice = {
       name: 'LIESMICH.txt',
       text: [
         'FlowState FPV, Übersichtsseite mit den Programmen',
@@ -983,28 +1272,46 @@
         'file:// geöffnet, öffnen sich die Programme in einem eigenen Tab;',
         'über einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
         '',
-        'Programme in diesem Paket:',
-        '  hangar/index.html     HangarDeck Lite (Beta), Deutsch und Englisch',
-        '  tuner/index.html      FlowState Tuner (Alpha)',
-        '  guide/index.html      FPV Guide',
-        '  hangar/data/hangardeck.json  Startbestand für den Abgleich',
+        'Programme in diesem Paket:'
+      ].concat(programLines).concat([
+        '  hangar/data/hangardeck.json   Startbestand für den Abgleich',
         '',
-        'Hinweis: Der FPV Guide ist 7,6 MB groß, der erste Aufruf dauert kurz.',
+        'Dazu:',
+        '  README.md      Beschreibung des Projekts, wie auf GitHub',
+        '  README.html    dieselbe Beschreibung als lesbare Seite',
+        '  LICENSE        Lizenz auf Deutsch und Englisch',
+        '',
+        'Hinweis: Der FPV Guide ist rund 7,6 MB groß, der erste Aufruf dauert kurz.',
         ''
-      ].join('\n')
+      ]).join('\n')
     };
 
-    var tasks = files.map(function (file) {
+    function grab(file) {
       return fetch(file.path, { cache: 'no-cache' }).then(function (response) {
         if (!response.ok) throw new Error(file.path + ': HTTP ' + response.status);
         return response.arrayBuffer();
       }).then(function (buffer) {
         return { name: file.name, data: new Uint8Array(buffer) };
       });
+    }
+
+    var tasks = files.map(grab);
+    var extras = BUNDLE_EXTRA.map(function (file) {
+      return grab(file).catch(function () { return null; });
     });
 
-    return Promise.all(tasks).then(function (entries) {
-      entries.push({ name: readme.name, data: new TextEncoder().encode(readme.text) });
+    return Promise.all(tasks.concat(extras)).then(function (all) {
+      var entries = all.slice(0, files.length);
+      var extra = all.slice(files.length);
+      var readmeBytes = extra[0] ? extra[0].data : null;
+
+      entries.push({ name: notice.name, data: new TextEncoder().encode(notice.text) });
+      extra.forEach(function (entry) { if (entry) entries.push(entry); });
+
+      if (readmeBytes) {
+        var markdown = new TextDecoder().decode(readmeBytes);
+        entries.push({ name: 'README.html', data: new TextEncoder().encode(readmePage(markdown)) });
+      }
       return entries;
     });
   }
@@ -1021,32 +1328,36 @@
   }
 
   function downloadBundle(programId, button) {
-    var program = projectOf(programId);
+    var complete = programId === 'all';
+    var program = complete ? null : projectOf(programId);
     var release = null;
     var all = state.data && state.data.releases ? state.data.releases : [];
     all.forEach(function (r) { if (r.program === programId) release = r; });
 
-    var zipName = (program ? program.name.replace(/\s+/g, '-') : programId) +
-      (release ? '-' + release.version : '') + '-mit-Hub.zip';
+    var zipName = complete
+      ? 'FlowState-FPV-mit-Hub.zip'
+      : (program ? program.name.replace(/\s+/g, '-') : programId) +
+        (release ? '-' + release.version : '') + '-mit-Hub.zip';
 
-    var original = button.getAttribute('data-label') || button.textContent;
+    var label = button.querySelector('[data-i18n]') || button;
+    var original = button.getAttribute('data-label') || label.textContent;
     button.setAttribute('data-label', original);
     button.classList.add('is-busy');
     button.setAttribute('aria-busy', 'true');
-    button.textContent = t('release.packing');
+    label.textContent = t('release.packing');
 
     bundleEntries(programId)
       .then(function (entries) {
         saveBlob(zipStore(entries), zipName);
-        button.textContent = t('release.packed');
+        label.textContent = t('release.packed');
         button.removeAttribute('aria-busy');
-        window.setTimeout(function () { button.textContent = original; button.classList.remove('is-busy'); }, 2600);
+        window.setTimeout(function () { label.textContent = original; button.classList.remove('is-busy'); }, 2600);
       })
       .catch(function (error) {
-        button.textContent = t('release.failed');
+        label.textContent = t('release.failed');
         button.removeAttribute('aria-busy');
         button.setAttribute('title', String(error && error.message ? error.message : error));
-        window.setTimeout(function () { button.textContent = original; button.classList.remove('is-busy'); }, 3200);
+        window.setTimeout(function () { label.textContent = original; button.classList.remove('is-busy'); }, 3200);
       });
   }
 
@@ -1246,7 +1557,8 @@
     initAppSwitch();
     initControls();
 
-    state.lang = document.documentElement.getAttribute('data-lang') === 'de' ? 'de' : 'en';
+    var start = document.documentElement.getAttribute('data-lang');
+    state.lang = LANGS.indexOf(start) === -1 ? 'de' : start;
     applyStatic();
     syncThemeState();
     initAppStage();

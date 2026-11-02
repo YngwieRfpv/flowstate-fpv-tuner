@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlowState FPV · Tuner &amp; Guide</title>
-<meta name="description" content="Zwei HTML-Programme für Betaflight-Tuning. Der FlowState Tuner wertet Blackbox-Logs aus und schreibt einen CLI-Plan, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
+<title>FlowState FPV · Tuner, Guide &amp; HangarDeck</title>
+<meta name="description" content="Drei HTML-Programme für Betaflight. HangarDeck Lite führt die Copter-Liste, der FlowState Tuner wertet Blackbox-Logs aus und schreibt einen CLI-Plan, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
 <meta name="theme-color" content="#06232a">
 <link rel="icon" href="assets/images/favicon.png" type="image/png">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -21,9 +21,11 @@
       if (theme === 'ocean' || theme === 'sand' || theme === 'drakn') {
         d.setAttribute('data-theme', theme);
       }
-      var lang = localStorage.getItem('flowstate-lang');
-      if (lang !== 'de' && lang !== 'en') {
-        lang = (navigator.language || 'en').toLowerCase().indexOf('de') === 0 ? 'de' : 'en';
+      var query = new URLSearchParams(location.search).get('lang');
+      var lang = query || localStorage.getItem('flowstate-lang');
+      if (lang !== 'de' && lang !== 'en' && lang !== 'es') {
+        var browser = (navigator.language || 'en').toLowerCase();
+        lang = browser.indexOf('de') === 0 ? 'de' : browser.indexOf('es') === 0 ? 'es' : 'en';
       }
       d.setAttribute('data-lang', lang);
       d.setAttribute('lang', lang);
@@ -72,6 +74,7 @@
       <div class="lang-switch" role="group" aria-label="Sprache">
         <button type="button" data-lang-btn="de" aria-pressed="true">DE</button>
         <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang-btn="es" aria-pressed="false">ES</button>
       </div>
       <div class="theme-switch" id="theme-switch" role="group" aria-label="Farben">
         <button class="theme-option" type="button" data-theme-set="ocean" aria-label="Ocean" aria-pressed="true">
@@ -353,8 +356,8 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="langs.eyebrow">Sprachen</p>
-      <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch als Vorschau</h2>
-      <p class="lede" data-i18n="langs.lede">Tuner und Guide liegen auf Deutsch und Englisch vollständig vor. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch. HangarDeck liegt auf Deutsch und Englisch vor, Spanisch ist dort nicht angelegt.</p>
+      <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch übersetzt und ungeprüft</h2>
+      <p class="lede" data-i18n="langs.lede">Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist hier, im Tuner und im Guide auswählbar, in keinem Bereich aber geprüft; offene Stellen erscheinen auf Englisch. HangarDeck Lite kennt nur Deutsch und Englisch.</p>
     </div>
 
     <div class="reveal">
@@ -366,7 +369,8 @@
             <th scope="col" data-i18n="langs.h.checked">Geprüft</th>
             <th scope="col">FlowState Tuner</th>
             <th scope="col">FPV Guide</th>
-            <th scope="col">HangarDeck</th>
+            <th scope="col">HangarDeck Lite</th>
+            <th scope="col" data-i18n="langs.h.overview">Übersicht</th>
           </tr>
         </thead>
         <tbody>
@@ -376,7 +380,8 @@
             <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
             <td><a class="lang-link" href="tuner/?lang=de" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=de" data-i18n="langs.openGuide">Guide öffnen</a></td>
-            <td><a class="lang-link" href="hangar/">HangarDeck öffnen</a></td>
+            <td><a class="lang-link" href="hangar/?lang=de" data-i18n="langs.openHangar">HangarDeck öffnen</a></td>
+            <td><a class="lang-link" href="?lang=de" data-i18n="langs.openHub">Übersicht öffnen</a></td>
           </tr>
           <tr>
             <th scope="row"><strong>English</strong><span class="lang-code">EN</span></th>
@@ -384,7 +389,8 @@
             <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
             <td><a class="lang-link" href="tuner/?lang=en" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=en" data-i18n="langs.openGuide">Guide öffnen</a></td>
-            <td><a class="lang-link" href="hangar/?lang=en">HangarDeck öffnen</a></td>
+            <td><a class="lang-link" href="hangar/?lang=en" data-i18n="langs.openHangar">HangarDeck öffnen</a></td>
+            <td><a class="lang-link" href="?lang=en" data-i18n="langs.openHub">Übersicht öffnen</a></td>
           </tr>
           <tr>
             <th scope="row"><strong>Español</strong><span class="lang-code">ES</span></th>
@@ -393,10 +399,11 @@
             <td><a class="lang-link" href="tuner/?lang=es" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=es" data-i18n="langs.openGuide">Guide öffnen</a></td>
             <td><span class="lang-flag lang-flag--open" data-i18n="langs.notPlanned">nicht angelegt</span></td>
+            <td><a class="lang-link" href="?lang=es" data-i18n="langs.openHub">Übersicht öffnen</a></td>
           </tr>
         </tbody>
       </table>
-      <p class="lang-note" data-i18n="langs.note">Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe erkennt das Programm die Browsersprache, sonst Deutsch.</p>
+      <p class="lang-note" data-i18n="langs.note">Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.</p>
     </div>
   </div>
 </section>
@@ -406,7 +413,15 @@
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="versions.eyebrow">Versionen</p>
       <h2 data-i18n="versions.title">Was gerade veröffentlicht ist</h2>
-      <p class="lede" data-i18n="versions.lede">Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Der Knopf zum Herunterladen packt die Übersichtsseite mit allen drei Programmen in ein ZIP.</p>
+      <p class="lede" data-i18n="versions.lede">Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Oben lässt sich alles auf einmal laden, in der Zeile dasselbe Paket mit dem Programmnamen im Dateinamen.</p>
+    </div>
+
+    <div class="bundle-all reveal">
+      <button class="btn btn--primary bundle-all__btn" type="button" data-bundle="all">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5"/></svg>
+        <span data-i18n="bundle.all">Alles herunterladen</span>
+      </button>
+      <p class="bundle-all__note" data-i18n="bundle.allNote">Übersicht, alle drei Programme, README, Lizenz und LIESMICH in einem ZIP.</p>
     </div>
 
     <div class="toolbar reveal">
@@ -487,10 +502,10 @@
           <img class="brand-mark" src="assets/images/mark.png" alt="" width="34" height="27" decoding="async">
           <span class="brand-text">
             <span class="brand-name">FlowState</span>
-            <span class="brand-sub">Tuner &amp; Guide</span>
+            <span class="brand-sub">Tuner · Guide · Hangar</span>
           </span>
         </a>
-        <p class="footer-note" data-i18n="footer.note">Zwei HTML-Programme für Betaflight-Tuning. Sie laden keine externen Skripte, Schriften oder Bilder.</p>
+        <p class="footer-note" data-i18n="footer.note">Drei HTML-Programme für Betaflight. Sie laden keine externen Skripte, Schriften oder Bilder.</p>
       </div>
 
       <div class="footer-links">
@@ -524,6 +539,7 @@
 </footer>
 
 <script src="assets/data/versions.js"></script>
+<script src="assets/js/markdown.js"></script>
 <script src="assets/js/hub.js"></script>
 </body>
 </html>
