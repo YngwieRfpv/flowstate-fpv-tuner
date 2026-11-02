@@ -189,7 +189,15 @@
       'bundle.item.programs': 'Die drei Programme als je eine HTML-Datei, mit Vorschau und dem Startbestand für den HangarDeck-Abgleich',
       'bundle.item.readme': 'README.md als Text und dieselbe Beschreibung als lesbare Seite README.html',
       'bundle.item.legal': 'LICENSE und LIESMICH.txt mit den ersten Schritten',
-      'bundle.optional': 'Herunterladen ist freiwillig. Alle drei Programme laufen auch hier auf der Seite, im Rahmen unter der Kopfzeile, und brauchen dabei weder Server noch Internet.'
+      'bundle.optional': 'Herunterladen ist freiwillig. Alle drei Programme laufen auch hier auf der Seite, im Rahmen unter der Kopfzeile, und brauchen dabei weder Server noch Internet.',
+      'update.title': 'Stand prüfen',
+      'update.checking': 'Wird geprüft …',
+      'update.current': 'Alles auf dem neuesten Stand. Geprüft gegen die veröffentlichte Fassung.',
+      'update.newer': 'Neuere Fassungen verfügbar:',
+      'update.offline': 'Keine Verbindung. Die Prüfung braucht Internet, die Programme nicht.',
+      'update.keep': 'Deine Daten liegen im Browser, nicht in den Dateien. Ersetzt du die Dateien am selben Ort, bleiben Copter-Liste und Tuner-Stand erhalten. Vorher sichern: HangarDeck als JSON, im Tuner Plan und Manifest exportieren.',
+      'update.download': 'Zum Download',
+      'update.close': 'Schließen'
     },
     es: {
       'theme.label': 'Colores',
@@ -385,7 +393,15 @@
       'bundle.item.programs': 'Los tres programas, cada uno en un archivo HTML, con la vista previa y el contenido inicial para la sincronización de HangarDeck',
       'bundle.item.readme': 'README.md como texto y la misma descripción como página legible README.html',
       'bundle.item.legal': 'LICENSE y LIESMICH.txt con los primeros pasos',
-      'bundle.optional': 'Descargar es opcional. Los tres programas también funcionan aquí en la página, en el marco bajo la cabecera, y no necesitan servidor ni internet.'
+      'bundle.optional': 'Descargar es opcional. Los tres programas también funcionan aquí en la página, en el marco bajo la cabecera, y no necesitan servidor ni internet.',
+      'update.title': 'Comprobar el estado',
+      'update.checking': 'Comprobando …',
+      'update.current': 'Todo está al día. Comprobado con la versión publicada.',
+      'update.newer': 'Hay versiones más recientes:',
+      'update.offline': 'Sin conexión. La comprobación necesita internet, los programas no.',
+      'update.keep': 'Tus datos están en el navegador, no en los archivos. Si sustituyes los archivos en el mismo sitio, la lista de copter y el estado del tuner se mantienen. Antes conviene guardar: en HangarDeck la exportación JSON, en el tuner el plan y el manifiesto.',
+      'update.download': 'Ir a las descargas',
+      'update.close': 'Cerrar'
     },
     en: {
       'theme.label': 'Colours',
@@ -562,7 +578,15 @@
       'bundle.item.programs': 'The three programs, each one HTML file, with the previews and the starting set for the HangarDeck sync',
       'bundle.item.readme': 'README.md as text and the same description as a readable page, README.html',
       'bundle.item.legal': 'LICENSE and LIESMICH.txt with the first steps',
-      'bundle.optional': 'Downloading is optional. All three programs also run right here on this page, in the frame below the header, and need neither server nor internet.'
+      'bundle.optional': 'Downloading is optional. All three programs also run right here on this page, in the frame below the header, and need neither server nor internet.',
+      'update.title': 'Check for updates',
+      'update.checking': 'Checking …',
+      'update.current': 'Everything is up to date. Checked against the published version.',
+      'update.newer': 'Newer releases available:',
+      'update.offline': 'No connection. The check needs internet, the programs do not.',
+      'update.keep': 'Your data sits in the browser, not in the files. Replacing the files in the same place keeps the quad list and the tuner state. Back up first: HangarDeck as JSON, plan and manifest in the tuner.',
+      'update.download': 'Go to downloads',
+      'update.close': 'Close'
     }
   };
 
@@ -919,6 +943,9 @@
     });
     $$('[data-i18n-title]').forEach(function (el) {
       el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
+    });
+    $$('[data-i18n-aria]').forEach(function (el) {
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
     });
     $$('[data-lang-btn]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === state.lang));
@@ -1387,6 +1414,116 @@
       });
   }
 
+  // ---- Stand prüfen ----
+  // Die Programme brauchen kein Netz. Wer wissen will, ob es etwas Neueres gibt,
+  // stößt die Prüfung von Hand an. Sie liest nur die Versionsdaten, nichts weiter.
+
+  var UPDATE_URLS = [
+    'https://yngwierfpv.github.io/flowstate-fpv-tuner/assets/data/versions.json',
+    'https://raw.githubusercontent.com/YngwieRfpv/flowstate-fpv-tuner/main/assets/data/versions.json'
+  ];
+  var RELEASES_URL = 'https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases';
+  var updateBusy = false;
+
+  function localVersions() {
+    var data = (state && state.data) || window.FLOWSTATE_DATA || { releases: [], programs: [] };
+    var map = {};
+    (data.releases || []).forEach(function (release) { map[release.program] = release.version || ''; });
+    return map;
+  }
+
+  function showUpdate(body) {
+    var dialog = $('#update-dialog');
+    var target = $('#update-body');
+    if (target) target.innerHTML = body;
+    if (!dialog) return;
+    if (dialog.showModal) {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      dialog.setAttribute('open', 'open');
+    }
+  }
+
+  function fetchVersions(index) {
+    if (typeof fetch !== 'function') return Promise.reject(new Error('kein fetch'));
+    var url = UPDATE_URLS[index];
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = controller ? window.setTimeout(function () { controller.abort(); }, 7000) : null;
+
+    return fetch(url + (url.indexOf('?') === -1 ? '?' : '&') + 't=' + Date.now(), {
+      cache: 'no-store',
+      signal: controller ? controller.signal : undefined
+    })
+      .then(function (response) {
+        if (timer) window.clearTimeout(timer);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .catch(function (error) {
+        if (timer) window.clearTimeout(timer);
+        if (index + 1 < UPDATE_URLS.length) return fetchVersions(index + 1);
+        throw error;
+      });
+  }
+
+  function checkUpdate() {
+    if (updateBusy) return;
+    updateBusy = true;
+    showUpdate('<p class="update-line">' + esc(t('update.checking')) + '</p>');
+
+    fetchVersions(0)
+      .then(function (remote) {
+        updateBusy = false;
+        var here = localVersions();
+        var rows = [];
+
+        (remote.programs || []).forEach(function (program) {
+          var there = '';
+          (remote.releases || []).forEach(function (release) {
+            if (release.program === program.id) there = release.version || '';
+          });
+          var mine = here[program.id];
+          if (!there || !mine || there === mine) return;
+          rows.push('<li><span class="update-name">' + esc(program.name) + '</span>' +
+            '<span class="update-ver">' + esc(mine) + '</span>' +
+            '<span class="update-arrow" aria-hidden="true">→</span>' +
+            '<strong>' + esc(there) + '</strong></li>');
+        });
+
+        if (!rows.length) {
+          showUpdate('<p class="update-line">' + esc(t('update.current')) + '</p>');
+          return;
+        }
+
+        showUpdate('<p class="update-line">' + esc(t('update.newer')) + '</p>' +
+          '<ul class="update-list">' + rows.join('') + '</ul>' +
+          '<p class="update-actions"><a class="btn btn--sm btn--primary" href="' + esc(RELEASES_URL) +
+          '" target="_blank" rel="noopener">' + esc(t('update.download')) + '</a></p>');
+      })
+      .catch(function () {
+        updateBusy = false;
+        showUpdate('<p class="update-line">' + esc(t('update.offline')) + '</p>');
+      });
+  }
+
+  function initUpdate() {
+    var button = $('#update-check');
+    var dialog = $('#update-dialog');
+    if (button) button.addEventListener('click', checkUpdate);
+    if (!dialog) return;
+
+    function close() {
+      if (dialog.close) dialog.close();
+      else dialog.removeAttribute('open');
+    }
+
+    var closeButton = $('#update-close');
+    if (closeButton) closeButton.addEventListener('click', close);
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) close();
+    });
+  }
+
   function initDownloads() {
     document.addEventListener('click', function (event) {
       var button = event.target && event.target.closest ? event.target.closest('[data-bundle]') : null;
@@ -1635,6 +1772,7 @@
   }
 
   initDownloads();
+  initUpdate();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });

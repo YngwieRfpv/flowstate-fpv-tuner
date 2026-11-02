@@ -69,6 +69,20 @@ Entpackt die `index.html` öffnen. Über `file://` starten die Programme in eine
 Tab, weil Browser dort den Rahmen blockieren. Über einen lokalen Server oder GitHub Pages
 erscheinen sie im Rahmen unter der Kopfzeile.
 
+## Aktualisieren
+
+Die Programme brauchen kein Internet, eine Prüfung auf neuere Fassungen schon. Der Knopf mit
+dem Pfeilkreis im Kopf der Übersichtsseite holt die veröffentlichte
+`assets/data/versions.json` und nennt jede Programmreihe, die weiter ist. Ohne Verbindung
+antwortet er mit einem Hinweis und sonst nichts. Die Prüfung läuft nur auf Klick, im
+Hintergrund fragt die Seite nichts ab.
+
+Die eigenen Daten bleiben dabei: Copter-Liste und Tuner-Stand liegen im localStorage des
+Browsers, nicht in den HTML-Dateien. Wer die neue Fassung im selben Ordner über die alte
+legt, behält beides. Vorher sichern schadet trotzdem nicht: in HangarDeck als JSON
+exportieren, im Tuner Plan und Manifest. Über GitHub Pages ist ohnehin immer der letzte
+Stand zu sehen, dort gibt es nichts zu ersetzen.
+
 ## Sprachen
 
 | Sprache | Übersicht | HangarDeck Lite | FlowState Tuner | FPV Guide |
@@ -135,6 +149,16 @@ Language lives in the address: `?lang=de`, `?lang=en` or `?lang=es`. Without it 
 language decides, otherwise German. A missing string falls back to English. Spanish is
 selectable on the overview page, in the tuner and in the guide, but verified nowhere;
 HangarDeck Lite ships in German and English only.
+
+To check for a newer release, use the arrow button in the header of the overview page. It
+reads the published `assets/data/versions.json` and lists every program row that is ahead.
+Without a connection it says so and nothing else. The check runs on click only, nothing is
+requested in the background.
+
+Your own data stays: the quad list and the tuner state live in the browser's localStorage,
+not in the HTML files. Dropping a new version over the old one in the same folder keeps
+both. A backup still helps: export JSON in HangarDeck, plan and manifest in the tuner. Over
+GitHub Pages you always get the latest state, so there is nothing to replace.
 
 The tuner is an alpha: writing over Web Serial is untested on real hardware and in flight,
 and Web Serial exists in Chrome, Edge and Opera on desktop. Read the plan before writing.
