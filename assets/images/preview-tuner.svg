@@ -40,7 +40,7 @@
     </g>
     <circle cx="44" cy="34" r="2.2" fill="url(#tmark)"/>
     <text x="70" y="40" fill="#ecf6ff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">FlowState Tuner</text>
-    <text x="258" y="40" fill="#8aa2bd" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5">v4.8-alpha.1</text>
+    <text x="258" y="40" fill="#8aa2bd" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5">v4.8-alpha.2</text>
 
     <rect x="698" y="17" width="82" height="30" rx="9" fill="#0e1b2e" stroke="#223653"/>
     <text x="710" y="37" fill="#8aa2bd" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5">kein Log</text>
@@ -53,7 +53,7 @@
     <text x="1119" y="37" fill="#04121f" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Verbinden</text>
 
     <text x="24" y="88" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5">FC: BMI270 · 8 kHz Loop · DSHOT600</text>
-    <text x="1176" y="88" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" text-anchor="end">lokal · offline · Alpha Build 24.10.2026</text>
+    <text x="1176" y="88" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9.5" text-anchor="end">lokal · offline · Alpha Build 02.11.2026</text>
   </g>
 
   <!-- Phasenleiste -->
@@ -204,6 +204,6 @@
     </g>
   </g>
 
-  <text x="24" y="742" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9">FlowState Tuner · v4.8-alpha.1 · Alpha Build</text>
+  <text x="24" y="742" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9">FlowState Tuner · v4.8-alpha.2 · Alpha Build</text>
   <text x="1176" y="742" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" text-anchor="end">Ein Projekt von YngwierFPV</text>
 </svg>
