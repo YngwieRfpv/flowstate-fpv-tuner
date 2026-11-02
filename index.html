@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="de" data-lang="de" data-theme="dark">
+<html lang="de" data-lang="de" data-theme="ocean">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FlowState FPV · Tuner &amp; Guide</title>
 <meta name="description" content="Zwei HTML-Programme für Betaflight-Tuning. Der FlowState Tuner wertet Blackbox-Logs aus und schreibt einen CLI-Plan, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
-<meta name="theme-color" content="#07111f">
+<meta name="theme-color" content="#06232a">
 <link rel="icon" href="assets/images/favicon.png" type="image/png">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
@@ -14,7 +14,12 @@
     d.classList.add('js');
     try {
       var theme = localStorage.getItem('flowstate-theme');
-      if (theme === 'dark' || theme === 'light' || theme === 'cream') {
+      var alt = { dark: 'ocean', light: 'sand', cream: 'drakn' };
+      if (alt[theme]) {
+        theme = alt[theme];
+        try { localStorage.setItem('flowstate-theme', theme); } catch (e) {}
+      }
+      if (theme === 'ocean' || theme === 'sand' || theme === 'drakn') {
         d.setAttribute('data-theme', theme);
       }
       var lang = localStorage.getItem('flowstate-lang');
@@ -55,11 +60,30 @@
         <button type="button" data-lang-btn="de" aria-pressed="true">DE</button>
         <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
       </div>
-      <button class="icon-btn theme-btn" id="theme-toggle" type="button" aria-label="Darstellung" title="Darstellung">
-        <svg data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-        <svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
-        <svg data-theme-icon="cream" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15h16M6 19h12M8 15a4 4 0 0 1 8 0"/><path d="M12 4v3M5.5 7.5l1.8 1.8M18.5 7.5l-1.8 1.8"/></svg>
-      </button>
+      <details class="theme-menu" id="theme-menu">
+        <summary aria-label="Farbschema" title="Farbschema">
+          <span class="theme-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="theme-menu__label" data-i18n="theme.label">Farbschema</span>
+          <svg class="theme-menu__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="theme-menu__list" role="group" aria-label="Farbschema">
+          <button class="theme-option" type="button" data-theme-set="ocean" aria-pressed="true">
+            <span class="theme-dots" aria-hidden="true" style="--sw-1:#0b383e;--sw-2:#155b5b;--sw-3:#1e746b;--sw-4:#258c71;--sw-5:#2ca387"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="theme-option__name" data-i18n="theme.ocean">Ocean</span>
+            <svg class="theme-option__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+          </button>
+          <button class="theme-option" type="button" data-theme-set="sand" aria-pressed="false">
+            <span class="theme-dots" aria-hidden="true" style="--sw-1:#c9e0f0;--sw-2:#f4f6f5;--sw-3:#c4b69c;--sw-4:#f0e6cb;--sw-5:#ecbda9"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="theme-option__name" data-i18n="theme.sand">Sand</span>
+            <svg class="theme-option__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+          </button>
+          <button class="theme-option" type="button" data-theme-set="drakn" aria-pressed="false">
+            <span class="theme-dots" aria-hidden="true" style="--sw-1:#dd2328;--sw-2:#8e1e2c;--sw-3:#5a152a;--sw-4:#3f092b;--sw-5:#140a25"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="theme-option__name" data-i18n="theme.drakn">Drakn</span>
+            <svg class="theme-option__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+          </button>
+        </div>
+      </details>
       <a class="icon-btn" href="https://github.com/YngwieRfpv/flowstate-fpv-tuner" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
       </a>
