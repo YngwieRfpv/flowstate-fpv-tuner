@@ -50,18 +50,21 @@
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
-      'hero.title1': 'Drei Programme',
-      'hero.title2': 'für Betaflight,',
-      'hero.accent': 'die offline laufen',
-      'hero.lede': 'Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. HangarDeck führt die Copter-Liste. Jedes Programm besteht aus einer einzigen HTML-Datei und braucht keine Internetverbindung.',
-      'hero.cta1': 'Tuner starten',
-      'hero.cta2': 'Guide öffnen',
-      'hero.cta3': 'Versionen',
-      'hero.foot': 'Läuft im Browser, auch ohne Internet',
-      'stat.programs': 'Programme',
-      'stat.versions': 'Versionen',
-      'stat.online': 'bereit',
-      'stat.offline': 'offline',
+      'hero.title1': 'Drei Programme,',
+      'hero.title2': 'je eine HTML-Datei,',
+      'hero.accent': 'kein Server',
+      'hero.lede': 'HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Öffnen genügt: Installation, Konto und Internet braucht keines der drei.',
+      'hero.cta1': 'HangarDeck Lite öffnen',
+      'hero.cta2': 'FlowState Tuner',
+      'hero.cta3': 'FPV Guide',
+      'hero.cta4': 'Versionen',
+      'hero.card': 'Aktuelle Stände',
+      'hero.foot': 'Stand der Dateien',
+      'hero.fact.size.t': 'Eine Datei je Programm',
+      'hero.fact.lang.t': 'Sprachen',
+      'hero.fact.lang.d': 'Deutsch und Englisch vollständig, Spanisch ungeprüft',
+      'hero.fact.colors.t': 'Farben',
+      'hero.fact.colors.d': 'Ozean, Leinen und Dunkelrot, in allen drei Programmen',
       'programs.eyebrow': 'Programme',
       'programs.title': 'Was die drei Programme machen',
       'programs.lede': 'Die drei sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.',
@@ -228,18 +231,21 @@
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
       'hero.eyebrow': 'FlowState FPV',
-      'hero.title1': 'Tres programas',
-      'hero.title2': 'para Betaflight',
-      'hero.accent': 'que funcionan sin conexión',
-      'hero.lede': 'El Tuner calcula con tus registros nuevos valores de filtro y PID. La Guía explica qué hay detrás y cuándo encaja cada valor. HangarDeck lleva la lista de copter. Cada programa es un único archivo HTML y no necesita conexión a internet.',
-      'hero.cta1': 'Iniciar el Tuner',
-      'hero.cta2': 'Abrir la Guía',
-      'hero.cta3': 'Versiones',
-      'hero.foot': 'Funciona en el navegador, incluso sin internet',
-      'stat.programs': 'Programas',
-      'stat.versions': 'Versiones',
-      'stat.online': 'listos',
-      'stat.offline': 'sin conexión',
+      'hero.title1': 'Tres programas,',
+      'hero.title2': 'cada uno un archivo HTML,',
+      'hero.accent': 'sin servidor',
+      'hero.lede': 'HangarDeck Lite lleva la lista de copter y la imprime como tabla. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Basta con abrir el archivo: ninguno necesita instalación, cuenta ni conexión.',
+      'hero.cta1': 'Abrir HangarDeck Lite',
+      'hero.cta2': 'FlowState Tuner',
+      'hero.cta3': 'Guía FPV',
+      'hero.cta4': 'Versiones',
+      'hero.card': 'Versiones actuales',
+      'hero.foot': 'Estado de los archivos',
+      'hero.fact.size.t': 'Un archivo por programa',
+      'hero.fact.lang.t': 'Idiomas',
+      'hero.fact.lang.d': 'Alemán e inglés completos, español sin revisar',
+      'hero.fact.colors.t': 'Colores',
+      'hero.fact.colors.d': 'Océano, Lino y Rojo oscuro en los tres programas',
       'programs.eyebrow': 'Programas',
       'programs.title': 'Qué hacen los tres programas',
       'programs.lede': 'Los tres son independientes. No comparten código ni datos y siempre abres solo uno. Los apartados siguientes muestran qué contiene cada uno.',
@@ -425,18 +431,21 @@
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
-      'hero.title1': 'Three programs',
-      'hero.title2': 'for Betaflight',
-      'hero.accent': 'that run offline',
-      'hero.lede': 'The tuner turns your logs into new filter and PID values. The guide explains what sits behind them and when a value fits. HangarDeck keeps the quad list. Each program is a single HTML file and needs no internet connection.',
-      'hero.cta1': 'Start tuner',
-      'hero.cta2': 'Open guide',
-      'hero.cta3': 'Versions',
-      'hero.foot': 'Runs in the browser, even without internet',
-      'stat.programs': 'Programs',
-      'stat.versions': 'Versions',
-      'stat.online': 'ready',
-      'stat.offline': 'offline',
+      'hero.title1': 'Three programs,',
+      'hero.title2': 'each a single HTML file,',
+      'hero.accent': 'no server',
+      'hero.lede': 'HangarDeck Lite keeps the quad list and prints it as a table. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV Guide explains workflow, filters and terms. Opening the file is enough: none of them needs an install, an account or an internet connection.',
+      'hero.cta1': 'Open HangarDeck Lite',
+      'hero.cta2': 'FlowState Tuner',
+      'hero.cta3': 'FPV Guide',
+      'hero.cta4': 'Versions',
+      'hero.card': 'Current builds',
+      'hero.foot': 'State of the files',
+      'hero.fact.size.t': 'One file per program',
+      'hero.fact.lang.t': 'Languages',
+      'hero.fact.lang.d': 'German and English complete, Spanish unverified',
+      'hero.fact.colors.t': 'Colours',
+      'hero.fact.colors.d': 'Ocean, Sand and Drakn in all three programs',
       'programs.eyebrow': 'Programs',
       'programs.title': 'What the three programs do',
       'programs.lede': 'All three are self-contained. They share no code and no data, and you only ever open one of them. The sections below show what each one contains.',
@@ -1437,18 +1446,16 @@
 
   function renderStats() {
     var releases = state.data.releases;
-    var ready = releases.filter(function (r) { return r.available; }).length;
 
-    var map = {
-      programs: state.data.programs.length,
-      versions: releases.length,
-      online: ready
-    };
-
-    Object.keys(map).forEach(function (key) {
-      var el = document.querySelector('[data-stat="' + key + '"]');
-      if (el) el.textContent = map[key];
+    // Die Startseite nennt die Dateigrößen in der Reihenfolge der Programme.
+    var sizes = state.data.programs.map(function (program) {
+      var release = null;
+      releases.forEach(function (r) { if (r.program === program.id) release = r; });
+      return release && release.size_bytes ? formatBytes(release.size_bytes) : '—';
     });
+
+    var sizesEl = document.querySelector('[data-stat="sizes"]');
+    if (sizesEl) sizesEl.textContent = sizes.join(' · ');
 
     var label = t('date.asOf', { date: formatDate(state.data.updated) });
     $$('[data-hero-date]').forEach(function (el) { el.textContent = label; });

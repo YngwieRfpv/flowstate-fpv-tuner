@@ -12,7 +12,9 @@ läuft und weder Installation noch Konto noch Internetverbindung braucht.
 Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
-Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite gibt es auf Deutsch,
+Prüfsummen und Antworten auf die häufigsten Fragen. Ganz oben stehen drei Knöpfe in der
+Reihenfolge HangarDeck, Tuner, Guide, daneben eine Spalte mit den laufenden Ständen und
+darunter drei Angaben: Dateigröße je Programm, Sprachen und Farben. Diese Seite gibt es auf Deutsch,
 Englisch und Spanisch, Spanisch ungeprüft; im Kopf schaltet ein Streifen zwischen HangarDeck, Tuner
 und Guide um, in dieser Reihenfolge. Die gewählte App öffnet sich direkt darunter im
 Rahmen, ohne Seitenwechsel; darüber liegen zwei Schaltflächen für die Rückkehr zur
@@ -387,6 +389,10 @@ while a missing individual string inside a translation appears in English.
 None needs an install, an account or an internet connection. No file loads external
 scripts, fonts or images; the guide's links point outward on purpose and only open with
 a connection.
+
+At the top of the overview page three buttons lead into the programs, in the order
+HangarDeck, tuner, guide, next to a column with the current builds and three facts below:
+file size per program, languages and colours.
 
 The overview page embeds the programs below its header and keeps the address in the form
 of `#/hangar`, `#/tuner` or `#/guide`, in that order. *Download everything* builds a ZIP in

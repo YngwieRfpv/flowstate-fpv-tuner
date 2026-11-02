@@ -125,35 +125,44 @@
     <div>
       <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV</p>
       <h1>
-        <span data-i18n="hero.title1">Drei Programme</span><br>
-        <span data-i18n="hero.title2">für Betaflight,</span>
-        <span class="accent" data-i18n="hero.accent">die offline laufen</span>.
+        <span data-i18n="hero.title1">Drei Programme,</span><br>
+        <span data-i18n="hero.title2">je eine HTML-Datei,</span>
+        <span class="accent" data-i18n="hero.accent">kein Server</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">HangarDeck führt die Copter-Liste. Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. Jedes Programm besteht aus einer einzigen HTML-Datei und braucht keine Internetverbindung.</p>
+      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Öffnen genügt: Installation, Konto und Internet braucht keines der drei.</p>
       <div class="hero-cta">
-        <a class="btn btn--primary" href="tuner/">
-          <span data-i18n="hero.cta1">Tuner starten</span>
+        <a class="btn btn--primary" href="hangar/">
+          <span data-i18n="hero.cta1">HangarDeck Lite öffnen</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
         </a>
-        <a class="btn btn--ghost" href="guide/" data-i18n="hero.cta2">Guide öffnen</a>
-        <a class="btn btn--quiet" href="#versionen" data-i18n="hero.cta3">Versionen</a>
+        <a class="btn btn--ghost" href="tuner/" data-i18n="hero.cta2">FlowState Tuner</a>
+        <a class="btn btn--ghost" href="guide/" data-i18n="hero.cta3">FPV Guide</a>
+        <a class="btn btn--quiet" href="#versionen" data-i18n="hero.cta4">Versionen</a>
       </div>
-      <div class="stat-strip">
-        <div class="stat"><span class="stat-value" data-stat="programs">3</span><span class="stat-label" data-i18n="stat.programs">Programme</span></div>
-        <div class="stat"><span class="stat-value" data-stat="versions">3</span><span class="stat-label" data-i18n="stat.versions">Versionen</span></div>
-        <div class="stat"><span class="stat-value" data-stat="online">3</span><span class="stat-label" data-i18n="stat.online">bereit</span></div>
-        <div class="stat"><span class="stat-value">100 %</span><span class="stat-label" data-i18n="stat.offline">offline</span></div>
-      </div>
+      <dl class="hero-facts">
+        <div class="hero-fact">
+          <dt data-i18n="hero.fact.size.t">Eine Datei je Programm</dt>
+          <dd data-stat="sizes">65 KB · 497 KB · 7,7 MB</dd>
+        </div>
+        <div class="hero-fact">
+          <dt data-i18n="hero.fact.lang.t">Sprachen</dt>
+          <dd data-i18n="hero.fact.lang.d">Deutsch und Englisch vollständig, Spanisch ungeprüft</dd>
+        </div>
+        <div class="hero-fact">
+          <dt data-i18n="hero.fact.colors.t">Farben</dt>
+          <dd data-i18n="hero.fact.colors.d">Ozean, Leinen und Dunkelrot, in allen drei Programmen</dd>
+        </div>
+      </dl>
     </div>
 
     <aside class="hero-card">
       <div class="hero-card-top">
-        <span class="hero-card-title">versions.json</span>
+        <span class="hero-card-title" data-i18n="hero.card">Aktuelle Stände</span>
         <span class="dot-row" aria-hidden="true"><span class="dot dot--live"></span><span class="dot"></span><span class="dot"></span></span>
       </div>
       <div id="hero-mini"></div>
       <div class="hero-card-foot">
-        <span data-i18n="hero.foot">Läuft im Browser, auch ohne Internet</span>
+        <span data-i18n="hero.foot">Stand der Dateien</span>
         <span data-hero-date>—</span>
       </div>
     </aside>
