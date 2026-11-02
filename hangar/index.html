@@ -3,2086 +3,1452 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07131d">
-<meta name="description" content="HangarDeck - lokale Copter- und Flight-Controller-Verwaltung. Liest Betaflight/INAV FCs per Web-Serial (MSP) aus oder importiert CLI-Dumps. Offline, einzelne HTML-Datei.">
-<title>HangarDeck v0.1.0-beta.2 — Copter- &amp; FC-Verwaltung</title>
+<meta name="theme-color" content="#06232a">
+<meta name="description" content="HangarDeck Lite - einfache Copter-Verwaltung. Größe in Zoll, Zellen, KV, ESC. Offline, eine HTML-Datei.">
+<title>HangarDeck Lite — Copter-Verwaltung</title>
 <style>
-:root{
-  --bg:#07131d;--bg2:#0a1a26;--panel:#0d1f2c;--panel2:#102735;
-  --line:#1e3a4d;--line2:#2b5470;--text:#e9f5fb;--muted:#87a3b5;--dim:#5e7d90;
-  --blue:#37bdf8;--cyan:#23d3d3;--green:#3ddc97;--green-d:#1f9e6c;--amber:#f7b955;--orange:#fb8b4b;--red:#ff6978;--purple:#b38cff;
-  --accent:#3ddc97;--accent-d:#1f9e6c;--accent-soft:rgba(61,220,151,.13);
-  --shadow:0 18px 60px rgba(0,0,0,.28);
+/* ===== Farbschemata (aus deinen Adobe-Color-Paletten) ===== */
+:root,html[data-theme="ocean"]{
+  /* Ocean: #093840 #155b5b #1e746b #258c71 #2ca387 */
+  --bg:#06232a;--glow1:#0b3d45;--glow2:#0f4a4a;
+  --panel:#093840;--panel2:#0c4048;--field:#072d34;
+  --line:#155b5b;--line2:#1e746b;
+  --text:#e7f6f2;--muted:#94c4b9;--dim:#62968b;--strong:#cdebe3;
+  --accent:#2ca387;--accent-d:#1e746b;--accent-text:#4fd0ae;--on-accent:#03201b;
+  --accent-soft:rgba(44,163,135,.16);--accent-ring:rgba(44,163,135,.38);
+  --ok:#3fd0a4;--warn:#f2c46b;--bad:#ff7a7a;
+  --shadow:rgba(0,0,0,.45);--backdrop:rgba(2,16,19,.72);
+  color-scheme:dark;
 }
-html[data-accent="cyan"]{--accent:#37bdf8;--accent-d:#1a7fb0;--accent-soft:rgba(55,189,248,.13)}
-html[data-accent="amber"]{--accent:#f7b955;--accent-d:#b07d1d;--accent-soft:rgba(247,185,85,.13)}
-html[data-accent="purple"]{--accent:#b38cff;--accent-d:#7a55c9;--accent-soft:rgba(179,140,255,.13)}
+html[data-theme="sand"]{
+  /* Sand (hell): #c9e0f0 #f4f6f5 #c4b69c #f0e6cb #ecbda9 */
+  --bg:#f4f6f5;--glow1:#e3eef6;--glow2:#f6eedb;
+  --panel:#ffffff;--panel2:#fbf8f0;--field:#ffffff;
+  --line:#e6dfcf;--line2:#c4b69c;
+  --text:#2f2b24;--muted:#6e6553;--dim:#9b9079;--strong:#3d382f;
+  --accent:#ecbda9;--accent-d:#dea38a;--accent-text:#a85a3c;--on-accent:#3f2216;
+  --accent-soft:#c9e0f0;--accent-ring:rgba(201,224,240,.9);
+  --ok:#4c9a73;--warn:#c98a1c;--bad:#c84a3c;
+  --shadow:rgba(80,64,40,.18);--backdrop:rgba(60,52,40,.35);
+  color-scheme:light;
+}
+html[data-theme="drakn"]{
+  /* Drakn: #d82828 #8e1e2c #5a152a #390c2b #140a25 */
+  --bg:#140a25;--glow1:#390c2b;--glow2:#2a0b2c;
+  --panel:#1f0c29;--panel2:#2a0e2c;--field:#170923;
+  --line:#3f132f;--line2:#5a152a;
+  --text:#f8eaee;--muted:#c79fae;--dim:#8d6879;--strong:#f0d3dc;
+  --accent:#d82828;--accent-d:#8e1e2c;--accent-text:#ff5c5c;--on-accent:#ffffff;
+  --accent-soft:rgba(216,40,40,.16);--accent-ring:rgba(216,40,40,.4);
+  --ok:#46d39a;--warn:#f5b84f;--bad:#ff6b6b;
+  --shadow:rgba(0,0,0,.55);--backdrop:rgba(10,4,20,.75);
+  color-scheme:dark;
+}
 *{box-sizing:border-box}
-html{background:var(--bg);scroll-behavior:smooth}
-body{margin:0;color:var(--text);min-height:100vh;
-  font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:radial-gradient(1100px 520px at 12% -12%,#10354a 0%,transparent 62%),radial-gradient(900px 560px at 100% 0%,#0f3340 0%,transparent 58%),var(--bg)}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.1;background-image:linear-gradient(rgba(109,173,232,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(109,173,232,.09) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(#000,transparent 82%)}
-button,input,select,textarea{font:inherit}
-button{border:0;cursor:pointer;color:var(--text)}
-button:disabled{cursor:not-allowed;opacity:.45}
-a{color:var(--blue)}
-.app{max-width:1500px;margin:auto;padding:18px 20px 46px;position:relative;z-index:1}
-
-/* ---------- Kopfzeile ---------- */
-.top{display:flex;align-items:center;gap:14px;padding:12px 15px;border:1px solid rgba(48,96,124,.6);border-radius:16px;
-  background:linear-gradient(125deg,rgba(15,42,58,.92),rgba(8,25,36,.94));box-shadow:var(--shadow);position:sticky;top:8px;z-index:20;backdrop-filter:blur(16px)}
-.brand{display:flex;align-items:center;gap:11px;min-width:290px}
-.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;flex:none;
-  background:linear-gradient(145deg,#2ee69c,#1a7fb0);box-shadow:0 0 26px rgba(61,220,151,.32)}
-.brand b{display:block;font-size:15px;letter-spacing:.2px}
-.brand small{display:block;color:var(--muted);font-size:11px}
-.brand .release{display:block;color:var(--accent);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
-.statusbar{display:flex;gap:7px;align-items:center;flex:1;flex-wrap:wrap}
-.actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-.pill{white-space:nowrap;border:1px solid var(--line2);background:#081a26;border-radius:999px;padding:5px 9px;font-size:11px;color:var(--muted)}
-.pill b{color:var(--text)}
-.pill.ok{border-color:rgba(61,220,151,.45);color:#9df5c6;background:rgba(19,92,64,.2)}
-.pill.warn{border-color:rgba(247,185,85,.45);color:#ffd487;background:rgba(128,83,21,.18)}
-.pill.bad{border-color:rgba(255,105,120,.45);color:#ff9ca6;background:rgba(122,30,45,.2)}
-.pill.accent{border-color:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent);background:var(--accent-soft)}
-
-/* ---------- Buttons ---------- */
-.btn{border:1px solid var(--line2);background:#11293a;border-radius:9px;padding:8px 11px;font-size:12px;transition:.16s transform,.16s background,.16s border-color}
-.btn:hover{background:#173c53;border-color:#4e8fae;transform:translateY(-1px)}
-.btn.primary{background:linear-gradient(135deg,var(--accent-d),var(--accent));border-color:var(--accent);color:#04170f;font-weight:750}
-.btn.primary:hover{filter:brightness(1.07)}
-.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
-.btn.ghost:hover{background:#102636;border-color:var(--line2)}
-.btn.danger{background:#3a1822;border-color:#7d3242;color:#ffb2ba}
-.btn.mini{font-size:11px;padding:5px 8px;border-radius:7px}
-.btn.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
-.btn.block{width:100%}
-
-/* ---------- Navigation ---------- */
-.nav{display:flex;gap:7px;margin:18px 0 12px;border-bottom:1px solid var(--line);padding-bottom:12px;overflow:auto}
-.tab{min-width:150px;display:flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted);text-align:left;white-space:nowrap}
-.tab .n{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:11px;background:#16303f;color:#9fb5ce;flex:none}
-.tab small{display:block;font-size:10px;color:var(--dim)}
-.tab:hover{background:#0d2231;color:var(--text)}
-.tab.active{color:var(--text);background:#0f2b3a;border-color:#2c5c75}
-.tab.active .n{background:var(--accent);color:#04170f;font-weight:800}
-.tab.active small{color:#9bb8c9}
-
-/* ---------- Grundbausteine ---------- */
-.view{display:none;animation:fade .22s ease}
-.view.active{display:block}
-@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
-.grid{display:grid;gap:12px}
-.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.card{background:linear-gradient(145deg,rgba(14,35,48,.95),rgba(9,25,36,.96));border:1px solid rgba(44,84,110,.8);border-radius:14px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.14)}
-.card.tight{padding:11px}
-.card h2,.card h3{margin:0;font-size:14px;letter-spacing:.1px}
-.card h2{font-size:16px}
-.card h3{color:#dbeeff}
-.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
-.kicker{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#6fa9d2;font-weight:800;margin-bottom:4px}
-.sub{margin:3px 0 0;color:var(--muted);font-size:12px}
-.sep{height:1px;background:var(--line);margin:12px 0}
-.hidden{display:none!important}
-.empty{color:var(--muted);font-size:12px;text-align:center;padding:22px}
-.notice{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:7px;padding:9px 10px;color:#b9e6d3;font-size:12px}
-.notice.warn{border-left-color:var(--amber);background:rgba(155,104,29,.14);color:#ffe0a3}
-.notice.bad{border-left-color:var(--red);background:rgba(148,43,60,.13);color:#ffc2c9}
-.notice.info{border-left-color:var(--blue);background:rgba(31,102,151,.13);color:#b9d8ec}
-.notice b{color:#fff}
-.tag{font-size:10px;border-radius:999px;padding:3px 7px;background:#183547;color:#b6d8f4;white-space:nowrap}
-.tag.good{background:#153e30;color:#9af1c4}
-.tag.warn{background:#45351b;color:#ffdb91}
-.tag.bad{background:#4b1e28;color:#ffb3bd}
-.tag.grey{background:#1b2f3d;color:#8fa9bb}
-
-/* ---------- Kennzahlen ---------- */
-.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.metric{border:1px solid #1d3c50;border-radius:10px;padding:10px;background:#081a26;min-height:74px}
-.metric .m-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.metric .m-val{display:block;font-size:19px;font-weight:760;margin:3px 0 1px;color:#ecf8ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.metric .m-val.good{color:var(--green)}
-.metric .m-val.warn{color:var(--amber)}
-.metric .m-sub{font-size:10px;color:#7890aa}
-.bar{height:6px;background:#162f3f;border-radius:999px;overflow:hidden;margin-top:7px}
-.bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--cyan));transition:.35s}
-
-/* ---------- Filter & Suche ---------- */
-.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.chip-row{display:flex;gap:6px;flex-wrap:wrap}
-.chip{border:1px solid var(--line2);background:#0a1c28;color:var(--muted);border-radius:999px;padding:5px 10px;font-size:11px}
-.chip:hover{border-color:#4e8fae;color:var(--text)}
-.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}
-.search{flex:1;min-width:180px;max-width:360px}
-input[type=text],input[type=number],input[type=date],input[type=search],select,textarea{width:100%;color:var(--text);border:1px solid var(--line2);border-radius:8px;background:#081a26;padding:8px 9px;outline:none}
-textarea{resize:vertical;min-height:74px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-select:focus,input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-
-/* ---------- Flottenkarten ---------- */
-.fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:12px}
-.copter{border:1px solid rgba(44,84,110,.85);border-radius:14px;background:linear-gradient(150deg,rgba(14,37,51,.96),rgba(8,23,33,.97));padding:13px;display:flex;flex-direction:column;gap:10px;transition:.18s border-color,.18s transform}
-.copter:hover{border-color:#3f7a99;transform:translateY(-2px)}
-.copter.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent-soft)}
-.copter-top{display:flex;align-items:flex-start;gap:10px}
-.size-badge{display:grid;place-items:center;min-width:46px;height:46px;padding:0 7px;border-radius:12px;flex:none;
-  background:linear-gradient(150deg,rgba(61,220,151,.18),rgba(55,189,248,.12));border:1px solid rgba(61,220,151,.35);
-  font-size:13px;font-weight:800;color:#c8ffe6;line-height:1}
-.size-badge small{display:block;font-size:8px;font-weight:600;color:#7fd6ac;letter-spacing:.06em}
-.copter-title{min-width:0;flex:1}
-.copter-title b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.copter-title span{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 9px;font-size:11px}
-.kv dt{color:var(--dim)}
-.kv dd{margin:0;color:#cfe4f0;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.copter-foot{display:flex;gap:6px;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(44,84,110,.5);padding-top:9px;margin-top:auto}
-.copter-foot .spacer{flex:1}
-.rule-list{display:flex;flex-direction:column;gap:5px}
-.rule{font-size:11px;border-radius:7px;padding:5px 8px;border-left:3px solid var(--line2);background:#0a1e2b;color:#a9c3d3}
-.rule.warn{border-left-color:var(--amber);background:rgba(120,80,20,.16);color:#ffdfa4}
-.rule.bad{border-left-color:var(--red);background:rgba(120,35,48,.16);color:#ffb8c0}
-.rule.ok{border-left-color:var(--green);background:rgba(20,90,62,.14);color:#a4f0c8}
-
-/* ---------- Tabellen ---------- */
-.table-wrap{overflow:auto;border:1px solid #1d3a4d;border-radius:10px}
-table.tbl{border-collapse:collapse;width:100%;font-size:11.5px;min-width:640px}
-table.tbl th{background:#0e2636;color:#9dc1df;text-align:left;padding:8px;font-weight:650;white-space:nowrap;position:sticky;top:0}
-table.tbl td{border-top:1px solid #1b3546;color:#cfe0ef}
-table.tbl tbody tr:hover{background:rgba(55,189,248,.06)}
-table.tbl td.nowrap{white-space:nowrap}
-
-/* ---------- Formular ---------- */
-.form-section{border:1px solid #1d3a4d;border-radius:11px;padding:12px;margin-bottom:11px;background:rgba(9,26,37,.7)}
-.form-section>h4{margin:0 0 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#84b0c9}
-.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.field-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.field-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
-.field{min-width:0}
-.field>label{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);margin:0 0 4px}
-.field .hint{font-size:10px;color:var(--dim);margin-top:3px}
-.field.wide{grid-column:1/-1}
-
-/* ---------- Modal ---------- */
-.modal{position:fixed;z-index:60;inset:0;background:rgba(1,7,13,.78);display:grid;place-items:center;padding:16px;backdrop-filter:blur(5px)}
-.modal-card{max-width:900px;width:100%;max-height:92vh;overflow:auto;border:1px solid #35617f;border-radius:15px;background:linear-gradient(145deg,#0f2739,#081a26);box-shadow:0 25px 80px #000;padding:16px}
-.modal-card h2{margin:0 0 4px;font-size:16px}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap;position:sticky;bottom:-16px;z-index:2;background:linear-gradient(#081a26f2,#081a26);border-top:1px solid #1d3a4d;padding:12px 0 3px;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
-.x{background:transparent;color:var(--muted);font-size:18px;line-height:1;padding:4px 8px;border-radius:8px}
-.x:hover{background:#12303f;color:#fff}
-
-/* ---------- Konsole / Auslesen ---------- */
-.console{background:#040e16;border:1px solid #1d3849;border-radius:10px;padding:11px;min-height:180px;max-height:330px;overflow:auto;white-space:pre-wrap;font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#b7cce0}
-.console .ok{color:#95f1c3}
-.console .err{color:#ff9ca5}
-.console .dim{color:#5e819e}
-.serial-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#4a6274;margin-right:6px;vertical-align:middle}
-.serial-dot.on{background:var(--green);box-shadow:0 0 10px var(--green)}
-.serial-dot.busy{background:var(--amber);animation:pulse 1s infinite}
-@keyframes pulse{50%{opacity:.35}}
-.read-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
-.read-item{border:1px solid #1d3c50;border-radius:9px;padding:8px 9px;background:#081a26}
-.read-item .k{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.read-item .v{font-size:12.5px;color:#eaf7ff;font-weight:650;word-break:break-word}
-.read-item .v small{font-weight:400;color:var(--dim);font-size:10px}
-.steps{display:flex;flex-direction:column;gap:6px}
-.step{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;color:#b9cfe2;border-top:1px solid rgba(45,74,100,.45);padding-top:6px}
-.step:first-child{border-top:0;padding-top:0}
-.step .num{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#17384a;color:#bde5ff;font-size:10px;font-weight:800;flex:none}
-.step b{color:#eaf7ff}
-
-/* ---------- Sonstiges ---------- */
-.footer{color:#5b7689;text-align:center;font-size:11px;padding:26px 0 6px;line-height:1.7}
-.footer b{color:#8fb2c6}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-.right{text-align:right}
-.center{text-align:center}
-.flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.grow{flex:1}
-.toast-wrap{position:fixed;right:14px;bottom:14px;z-index:80;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
-.toast{border:1px solid var(--line2);background:#0c2433;border-radius:9px;padding:9px 12px;font-size:12px;color:#dcf1ff;box-shadow:var(--shadow);animation:fade .2s ease}
-.toast.ok{border-color:rgba(61,220,151,.6);color:#a8f5cd}
-.toast.bad{border-color:rgba(255,105,120,.6);color:#ffb8c0}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-@media(max-width:1080px){.grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:860px){
-  .grid.two,.grid.three,.field-grid,.field-grid.three,.field-grid.four{grid-template-columns:1fr}
-  .brand{min-width:0}.top{position:static}.statusbar{order:3;width:100%}
-  .app{padding:12px 12px 40px}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 620px at 12% -8%, var(--glow1) 0%, transparent 62%),
+    radial-gradient(900px 520px at 100% 0%, var(--glow2) 0%, transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  min-height:100vh;
+  -webkit-text-size-adjust:100%;
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media print{body{background:#fff;color:#000}.top,.nav,.actions,.toolbar,.footer,.modal-actions{display:none!important}.card{border-color:#ccc;background:#fff;color:#000}}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.wrap{max-width:1020px;margin:0 auto;padding:26px 18px 90px}
+
+/* Kopf */
+.top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{width:40px;height:40px;border-radius:11px;flex:none;
+  background:linear-gradient(145deg,var(--accent),var(--accent-d));
+  display:grid;place-items:center;box-shadow:0 8px 22px var(--accent-soft)}
+.logo svg{width:22px;height:22px;display:block}
+h1{font-size:19px;margin:0;letter-spacing:-.2px;font-weight:650}
+.sub{margin:1px 0 0;color:var(--muted);font-size:12.5px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+
+.btn{appearance:none;border:1px solid var(--line2);background:var(--panel2);color:var(--text);
+  padding:9px 14px;border-radius:10px;font:inherit;font-size:13.5px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:.14s}
+.btn:hover{border-color:var(--accent);color:var(--text)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(145deg,var(--accent),var(--accent-d));border-color:transparent;color:var(--on-accent);font-weight:650}
+.btn.primary:hover{filter:brightness(1.07);color:var(--on-accent)}
+.btn.ghost{background:transparent}
+.btn.danger:hover{border-color:var(--bad);color:var(--bad)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:8px}
+
+/* Suchzeile */
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+input[type=search],input[type=text],input[type=number],input[type=date],input[type=password],input[type=email],input[type=url],select,textarea{
+  background:var(--field);border:1px solid var(--line);color:var(--text);
+  border-radius:10px;padding:9px 11px;font:inherit;font-size:14px;width:100%;transition:.14s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+.search{flex:1 1 240px;min-width:190px;position:relative}
+.search input{padding-left:34px}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--dim);fill:none;stroke-width:2}
+.count{color:var(--muted);font-size:13px;white-space:nowrap}
+
+/* Liste */
+.list{display:grid;gap:10px}
+.row{
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;transition:.15s}
+.row:hover{border-color:var(--line2);transform:translateY(-1px)}
+.size{
+  width:52px;height:52px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:var(--accent-soft);border:1px solid var(--line2);line-height:1}
+.size b{font-size:17px;font-weight:700;color:var(--accent-text);letter-spacing:-.4px}
+.size span{display:block;font-size:9.5px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+.main{min-width:0}
+.name{font-weight:620;font-size:15.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.specs{color:var(--muted);font-size:13px;margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.specs b{color:var(--strong);font-weight:600}
+.acts{display:flex;gap:6px;flex:none}
+.dot{width:7px;height:7px;border-radius:50%;flex:none}
+.dot.ready{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.dot.maint{background:var(--warn)}
+.dot.down{background:var(--bad)}
+.st{font-size:11.5px;color:var(--muted)}
+
+.empty{border:1px dashed var(--line2);border-radius:14px;padding:46px 20px;text-align:center;color:var(--muted)}
+.empty h3{margin:0 0 6px;color:var(--text);font-size:16px;font-weight:600}
+.empty p{margin:0 0 16px;font-size:13.5px}
+
+/* Dialog */
+dialog{border:none;padding:0;background:transparent;max-width:min(620px,94vw);width:100%}
+dialog::backdrop{background:var(--backdrop);backdrop-filter:blur(3px)}
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:16px;overflow:hidden;
+  box-shadow:0 24px 70px var(--shadow)}
+.card header{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card header h2{margin:0;font-size:16px;font-weight:620}
+.body{padding:18px 20px;max-height:min(66vh,600px);overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.2px}
+label .opt{color:var(--dim);font-size:11px}
+.full{grid-column:1/-1}
+textarea{resize:vertical;min-height:62px}
+details{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+summary{cursor:pointer;color:var(--muted);font-size:13px;list-style:none;display:flex;align-items:center;gap:7px;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"";width:0;height:0;border-left:5px solid var(--dim);border-top:4px solid transparent;border-bottom:4px solid transparent;transition:.15s}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{color:var(--text)}
+details .grid{margin-top:14px}
+.card footer{padding:14px 20px;border-top:1px solid var(--line);background:var(--panel);
+  display:flex;justify-content:flex-end;gap:9px;position:sticky;bottom:0}
+.hint{color:var(--dim);font-size:11.5px;margin-top:5px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;
+  background:var(--panel2);border:1px solid var(--line2);border-radius:11px;padding:11px 17px;font-size:13.5px;
+  box-shadow:0 14px 40px var(--shadow);transition:.2s;z-index:99;max-width:90vw}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast.ok{border-color:var(--accent)}
+.toast.bad{border-color:var(--bad)}
+
+footer .ver{font-size:11px;color:var(--dim);letter-spacing:.02em;display:inline-block;margin-top:2px}
+.foot{margin-top:30px;color:var(--dim);font-size:12px;text-align:center;line-height:1.7}
+
+/* Export-Auswahl */
+.expwrap{position:relative;display:inline-block}
+.menu{position:absolute;right:0;top:calc(100% + 6px);z-index:40;min-width:210px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+  box-shadow:0 18px 44px var(--shadow);padding:6px;display:flex;flex-direction:column;gap:2px}
+.menu[hidden]{display:none}
+.menu button{appearance:none;background:transparent;border:0;color:var(--text);text-align:left;
+  font:inherit;font-size:13px;padding:8px 10px;border-radius:8px;cursor:pointer;display:flex;
+  align-items:center;justify-content:space-between;gap:10px}
+.menu button:hover{background:var(--accent-soft);color:var(--text)}
+.menu button small{color:var(--dim);font-size:11px}
+
+/* Druckansicht: nur die Tabelle kommt aufs Papier */
+#printArea{display:none}
+@media print{
+  body{background:#fff;color:#000}
+  .wrap{max-width:none;padding:0}
+  .top,.bar,.list,.foot,dialog,.menu,.toast,.expwrap,button{display:none!important}
+  #printArea{display:block!important}
+  #printArea h1{font-size:15pt;margin:0 0 2pt}
+  #printArea .meta{font-size:9pt;color:#555;margin:0 0 8pt}
+  #printArea table{width:100%;border-collapse:collapse;font-size:8.5pt;table-layout:fixed}
+  #printArea th,#printArea td{border:0.5pt solid #bbb;padding:3pt 4pt;text-align:left;
+    vertical-align:top;word-wrap:break-word;color:#000}
+  #printArea thead th{background:#eee;font-weight:700}
+  #printArea tbody tr:nth-child(even) td{background:#f7f7f7}
+  #printArea .num{text-align:right;white-space:nowrap}
+  #printArea .ft{margin-top:6pt;font-size:8pt;color:#666}
+  @page{size:A4 landscape;margin:12mm}
+}
+
+/* GitHub-Sync */
+.sync{position:relative;padding-left:26px}
+.sync .sdot{position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  width:8px;height:8px;border-radius:50%;background:var(--dim);transition:.2s}
+.sync[data-state="ok"] .sdot{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.sync[data-state="busy"] .sdot{background:var(--warn);animation:pulse 1s infinite}
+.sync[data-state="err"] .sdot{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+@keyframes pulse{50%{opacity:.35}}
+dialog{max-height:92vh}
+dialog .card{max-height:92vh;display:flex;flex-direction:column}
+dialog .body{flex:1 1 auto;min-height:0;max-height:none}
+dialog footer{flex:none}
+dialog.wide{max-width:640px}
+dialog .sec{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--panel)}
+dialog .sec h3{margin:0 0 4px;font-size:14px;font-weight:640}
+dialog .sec p{margin:0 0 10px;color:var(--muted);font-size:12.5px;line-height:1.55}
+dialog .sec code{background:var(--field);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12px}
+dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+dialog .chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);margin-top:8px}
+dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
+@media(max-width:640px){dialog .two{grid-template-columns:1fr}}
+
+/* Einstellungen: Farbschema + Sprache */
+.prefs{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden;background:var(--panel2)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12.5px;
+  font-weight:600;padding:6px 10px;cursor:pointer;letter-spacing:.3px}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.swatches{display:inline-flex;gap:5px;padding:4px;border:1px solid var(--line2);border-radius:10px;background:var(--panel2)}
+.sw{appearance:none;border:2px solid transparent;border-radius:7px;padding:0;width:30px;height:22px;cursor:pointer;
+  display:flex;overflow:hidden;background:none}
+.sw i{flex:1;display:block}
+.sw[aria-pressed="true"]{border-color:var(--text)}
+.sw:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:560px){
+  .row{grid-template-columns:auto 1fr;gap:12px}
+  .acts{grid-column:1/-1;justify-content:flex-end}
+  .wrap{padding:20px 14px 70px}
+}
 </style>
 </head>
 <body>
-<div class="app">
+<div class="wrap">
 
-  <header class="top">
+  <div class="top">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#04170f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="9" y="9" width="6" height="6" rx="1.6"/>
-          <path d="M9 9 5.5 5.5M15 9l3.5-3.5M9 15l-3.5 3.5M15 15l3.5 3.5"/>
-          <circle cx="4.4" cy="4.4" r="1.9"/><circle cx="19.6" cy="4.4" r="1.9"/>
-          <circle cx="4.4" cy="19.6" r="1.9"/><circle cx="19.6" cy="19.6" r="1.9"/>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--on-accent)" stroke-width="2.1" stroke-linecap="round">
+          <circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/>
+          <circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/>
+          <path d="M8.3 8.3 15.7 15.7M15.7 8.3 8.3 15.7"/>
         </svg>
-      </span>
-      <span>
-        <b>HangarDeck</b>
-        <small>Copter- &amp; Flight-Controller-Verwaltung</small>
-        <span class="release">v0.1.0-beta.2 · lokal · offline</span>
-      </span>
+      </div>
+      <div>
+        <h1>HangarDeck</h1>
+        <p class="sub" data-i18n="sub">Copter-Verwaltung · lokal im Browser</p>
+      </div>
     </div>
-
-    <div class="statusbar" id="statusbar"></div>
-
-    <div class="actions">
-      <button class="btn primary" id="btnNewCopter">+ Copter</button>
-      <button class="btn" id="btnGoRead">FC auslesen</button>
+    <div class="tools">
+      <div class="prefs">
+        <div class="swatches" role="group" id="themes" data-i18n-aria="theme" aria-label="Farbschema">
+          <button class="sw" type="button" data-theme="ocean" title="Ocean"><i style="background:#093840"></i><i style="background:#1e746b"></i><i style="background:#2ca387"></i></button>
+          <button class="sw" type="button" data-theme="sand" title="Sand"><i style="background:#c9e0f0"></i><i style="background:#c4b69c"></i><i style="background:#ecbda9"></i></button>
+          <button class="sw" type="button" data-theme="drakn" title="Drakn"><i style="background:#140a25"></i><i style="background:#8e1e2c"></i><i style="background:#d82828"></i></button>
+        </div>
+        <div class="seg" role="group" id="langs" data-i18n-aria="lang" aria-label="Sprache">
+          <button type="button" data-lang="de">DE</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+      </div>
+      <button class="btn ghost sm sync" id="btnSync" type="button" data-sync="off"
+              title="GitHub-Sync" aria-haspopup="dialog">
+        <span class="sdot" aria-hidden="true"></span><span id="syncLabel">GitHub</span>
+      </button>
+      <span class="expwrap">
+        <button class="btn ghost sm" id="btnExport" type="button" aria-haspopup="true" aria-expanded="false">
+          <span data-i18n="export">Export</span> ▾
+        </button>
+        <div class="menu" id="expMenu" hidden role="menu">
+          <button type="button" data-exp="pdf" role="menuitem">
+            <span data-i18n="expPdf">PDF-Tabelle</span> <small>PDF</small></button>
+          <button type="button" data-exp="csv" role="menuitem">
+            <span data-i18n="expCsv">CSV-Tabelle</span> <small>Excel</small></button>
+          <button type="button" data-exp="print" role="menuitem">
+            <span data-i18n="expPrint">Drucken</span> <small data-i18n="expPrintHint">Papier / PDF</small></button>
+          <button type="button" data-exp="json" role="menuitem">
+            <span data-i18n="expJson">JSON</span> <small data-i18n="expJsonHint">Sicherung</small></button>
+        </div>
+      </span>
+      <button class="btn ghost sm" id="btnImport" type="button" data-i18n="import">Import</button>
+      <button class="btn primary" id="btnNew" type="button" data-i18n="add">+ Copter</button>
     </div>
-  </header>
+  </div>
 
-  <nav class="nav" id="nav" aria-label="Bereiche">
-    <button class="tab active" data-view="dashboard"><span class="n">1</span><span>Übersicht<small>Flottenstatus</small></span></button>
-    <button class="tab" data-view="fleet"><span class="n">2</span><span>Flotte<small>Copter &amp; Setups</small></span></button>
-    <button class="tab" data-view="boards"><span class="n">3</span><span>FC-Bibliothek<small>Boards &amp; Targets</small></span></button>
-    <button class="tab" data-view="read"><span class="n">4</span><span>FC auslesen<small>Web-Serial / MSP</small></span></button>
-    <button class="tab" data-view="import"><span class="n">5</span><span>Import<small>CLI &amp; Diff</small></span></button>
-    <button class="tab" data-view="data"><span class="n">6</span><span>Daten<small>Export &amp; Regeln</small></span></button>
-  </nav>
+  <div class="bar">
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Suchen …" aria-label="Copter suchen" data-i18n-ph="search" data-i18n-aria="search">
+    </div>
+    <span class="count" id="count"></span>
+  </div>
 
-  <main>
-    <!-- ============ 1 Übersicht ============ -->
-    <section class="view active" id="view-dashboard">
-      <div class="card">
-        <div class="card-head">
-          <div>
-            <div class="kicker">Flottenstatus</div>
-            <h2>Überblick</h2>
-            <p class="sub">Alles, was du über deine Copter und Flight Controller wissen musst — ohne Cloud, ohne Konto.</p>
-          </div>
-          <div class="flex">
-            <button class="btn mini" id="btnDemo">Demodaten</button>
-            <button class="btn mini" id="btnReport">Bericht kopieren</button>
-          </div>
-        </div>
-        <div class="metric-grid" id="dashMetrics"></div>
-        <div class="sep"></div>
-        <div class="grid two">
-          <div>
-            <h3 style="margin-bottom:8px">Klassenverteilung</h3>
-            <div id="dashClasses"></div>
-          </div>
-          <div>
-            <h3 style="margin-bottom:8px">Zuletzt geändert</h3>
-            <div id="dashRecent"></div>
-          </div>
-        </div>
-      </div>
+  <div class="list" id="list"></div>
 
-      <div class="grid two" style="margin-top:12px">
-        <div class="card">
-          <div class="card-head"><div><div class="kicker">Aufmerksamkeit</div><h2>Setup-Hinweise</h2></div></div>
-          <div id="dashRules"></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div><div class="kicker">Bestand</div><h2>FC- und Link-Übersicht</h2></div></div>
-          <div id="dashLinks"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 2 Flotte ============ -->
-    <section class="view" id="view-fleet">
-      <div class="card">
-        <div class="card-head">
-          <div>
-            <div class="kicker">Verwaltung</div>
-            <h2>Flotte</h2>
-            <p class="sub">Ein Eintrag pro Copter: Zollgröße, Flight Controller, Antrieb, Video- und Funkstrecke.</p>
-          </div>
-          <div class="flex">
-            <button class="btn" id="btnNewCopter2">+ Neuer Copter</button>
-            <button class="btn mini" id="btnCsv">CSV</button>
-          </div>
-        </div>
-
-        <div class="toolbar">
-          <input class="search" type="search" id="fleetSearch" placeholder="Suchen: Name, FC, Frame, Link, Tags …" aria-label="Flotte durchsuchen">
-          <div class="chip-row" id="fleetFilters"></div>
-          <div class="grow"></div>
-          <select id="fleetSort" style="max-width:190px" aria-label="Sortierung">
-            <option value="updated">Zuletzt geändert</option>
-            <option value="name">Name A–Z</option>
-            <option value="size">Größe (klein → groß)</option>
-            <option value="status">Status</option>
-          </select>
-        </div>
-
-        <div class="fleet-grid" id="fleetGrid"></div>
-      </div>
-
-      <div class="card" style="margin-top:12px">
-        <div class="card-head"><div><div class="kicker">Tabelle</div><h2>Bestandsliste</h2></div></div>
-        <div class="table-wrap">
-          <table class="tbl" id="fleetTable">
-            <thead><tr>
-              <th>Name</th><th>Klasse</th><th>Frame</th><th>FC / Target</th><th>MCU</th><th>Gyro</th>
-              <th>Motor / KV</th><th>Prop</th><th>Zellen</th><th>Firmware</th><th>Status</th><th></th>
-            </tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 3 FC-Bibliothek ============ -->
-    <section class="view" id="view-boards">
-      <div class="card">
-        <div class="card-head">
-          <div>
-            <div class="kicker">Stammdaten</div>
-            <h2>FC-Bibliothek</h2>
-            <p class="sub">Boards mit Target, MCU, Gyro, UARTs und Stromversorgung. Wird beim Auslesen automatisch ergänzt, wenn ein Target noch fehlt.</p>
-          </div>
-          <div class="flex">
-            <button class="btn" id="btnNewBoard">+ Board</button>
-          </div>
-        </div>
-        <div class="toolbar">
-          <input class="search" type="search" id="boardSearch" placeholder="Target, Board, MCU, Gyro …" aria-label="Bibliothek durchsuchen">
-          <div class="chip-row" id="boardFilters"></div>
-        </div>
-        <div class="table-wrap">
-          <table class="tbl" id="boardTable">
-            <thead><tr>
-              <th>Board</th><th>Target</th><th>Hersteller</th><th>MCU</th><th>Gyro</th><th>UART</th>
-              <th>BEC</th><th>Zellen</th><th>Montage</th><th>Im Einsatz</th><th>Quelle</th><th></th>
-            </tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="notice info" style="margin-top:11px">
-          Startdaten sind mit Quelle hinterlegt. Alles editierbar: Feld geändert = als „geprüft (lokal)“ markiert. Fehlt ein Board, legt die Auslese-Funktion es automatisch mit Target und Board-Name an.
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 4 FC auslesen ============ -->
-    <section class="view" id="view-read">
-      <div class="grid two">
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="kicker">Live</div>
-              <h2>Flight Controller auslesen</h2>
-              <p class="sub">USB-Kabel an den FC, verbinden, lesen. Läuft komplett im Browser über die Web-Serial-API (MSP v1).</p>
-            </div>
-            <div><span class="serial-dot" id="serialDot"></span><span id="serialState" class="pill">nicht verbunden</span></div>
-          </div>
-
-          <div class="flex" style="margin-bottom:10px">
-            <button class="btn primary" id="btnConnect">Verbinden</button>
-            <button class="btn" id="btnRead" disabled>FC auslesen</button>
-            <button class="btn" id="btnDisconnect" disabled>Trennen</button>
-            <button class="btn ghost mini" id="btnSim">Simulation</button>
-          </div>
-
-          <div class="field-grid three" style="margin-bottom:10px">
-            <div class="field">
-              <label for="baud">Baudrate</label>
-              <select id="baud">
-                <option value="115200" selected>115200 (Standard)</option>
-                <option value="57600">57600</option>
-                <option value="250000">250000</option>
-                <option value="460800">460800</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="readTimeout">Timeout / Cmd (ms)</label>
-              <input type="number" id="readTimeout" value="1500" min="300" max="6000" step="100">
-            </div>
-            <div class="field">
-              <label for="readProfile">Umfang</label>
-              <select id="readProfile">
-                <option value="full" selected>Vollständig (empfohlen)</option>
-                <option value="fast">Schnell (nur Identität)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="notice info" id="serialHint">
-            Browser: Chrome, Edge oder Opera am Desktop. Firefox und Safari unterstützen Web-Serial nicht. Seite muss als <span class="mono">http://localhost</span>, <span class="mono">file://</span> oder über HTTPS (GitHub Pages) geöffnet sein.
-          </div>
-
-          <div class="sep"></div>
-          <h3 style="margin-bottom:7px">Ablauf</h3>
-          <div class="steps">
-            <div class="step"><span class="num">1</span><div><b>Verbinden</b> — Port wählen, FC muss mit USB angeschlossen sein. Nicht gleichzeitig Betaflight Configurator offen halten.</div></div>
-            <div class="step"><span class="num">2</span><div><b>Auslesen</b> — liest Variante, Version, Board, Target, UID, Sensor- und Motorkonfiguration.</div></div>
-            <div class="step"><span class="num">3</span><div><b>Übernehmen</b> — als neuen Copter anlegen oder in einen bestehenden Eintrag schreiben.</div></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-head"><div><div class="kicker">Ergebnis</div><h2>Gelesene Daten</h2></div>
-            <div class="flex"><button class="btn mini" id="btnReadToNew" disabled>→ neuer Copter</button><button class="btn mini" id="btnReadPatch" disabled>→ übernehmen</button></div>
-          </div>
-          <div id="readResult"><div class="empty">Noch nichts gelesen.</div></div>
-          <div class="sep"></div>
-          <h3 style="margin-bottom:6px">Konsole</h3>
-          <div class="console" id="mspConsole"><span class="dim">bereit</span></div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:12px">
-        <div class="card-head"><div><div class="kicker">Hintergrund</div><h2>Was MSP liefert — und was nicht</h2></div></div>
-        <div class="grid three">
-          <div>
-            <h3>Direkt aus dem FC</h3>
-            <p class="sub">Firmware-Variante (BTFL / INAV), Version, MSP-API, Board-Name, Target-Kürzel, Hardware-Revision, Chip-UID, Motoranzahl, Motor-Protokoll (z. B. DSHOT600), Mixer, Sensor-Status, Feature-Flags.</p>
-          </div>
-          <div>
-            <h3>Abgeleitet oder aus Bibliothek</h3>
-            <p class="sub">MCU-Typ (aus Target-Kürzel und Bibliothek), Gyro-Baureihe (Bibliothek), UART-Anzahl und BEC (Bibliothek). MSP selbst liefert den Gyro-Chip nicht — dafür gibt es keinen MSP-Befehl.</p>
-          </div>
-          <div>
-            <h3>Nur per CLI</h3>
-            <p class="sub">Exakte Sensor-Erkennung, Ressourcen, vollständige Konfiguration. Deshalb gibt es zusätzlich den Import: <span class="mono">diff all</span>, <span class="mono">status</span> oder <span class="mono">version</span> in Bereich 5 einfügen.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 5 Import ============ -->
-    <section class="view" id="view-import">
-      <div class="grid two">
-        <div class="card">
-          <div class="card-head">
-            <div><div class="kicker">Text-Import</div><h2>Betaflight / INAV Dump einfügen</h2>
-              <p class="sub">Aus dem Configurator: CLI öffnen, <span class="mono">diff all</span> oder <span class="mono">status</span> ausführen, Ausgabe hier einfügen.</p>
-            </div>
-          </div>
-          <textarea id="importText" spellcheck="false" placeholder="# diff all&#10;# Betaflight / STM32F405 (S405) 4.4.3 …&#10;# board: manufacturer_id: SPBE, board_name: SPEEDYBEEF405V4&#10;feature OSD&#10;set motor_pwm_protocol = DSHOT600&#10;set craft_name = Fünfzoll&#10;…"></textarea>
-          <div class="flex" style="margin-top:9px">
-            <button class="btn primary" id="btnParse">Auswerten</button>
-            <button class="btn" id="btnImportExample">Beispiel einfügen</button>
-            <button class="btn ghost" id="btnClearImport">Leeren</button>
-          </div>
-          <div class="sep"></div>
-          <div id="importResult"><div class="empty">Noch nichts ausgewertet.</div></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div><div class="kicker">Übernahme</div><h2>Werte zuordnen</h2></div></div>
-          <div id="importApply"><div class="empty">Nach dem Auswerten erscheint hier die Zuordnung.</div></div>
-          <div class="sep"></div>
-          <h3 style="margin-bottom:6px">Erkannte Befehle</h3>
-          <div class="console" id="importLog"><span class="dim">—</span></div>
-        </div>
-      </div>
-      <div class="card" style="margin-top:12px">
-        <div class="card-head"><div><div class="kicker">Erkennung</div><h2>Was der Parser liest</h2></div></div>
-        <div class="grid three">
-          <div><h3>Identität</h3><p class="sub">Variante, Version, MCU-Kürzel aus der Kopfzeile, <span class="mono">board_name</span>, Hersteller-ID, <span class="mono">craft_name</span>.</p></div>
-          <div><h3>Antrieb &amp; Funk</h3><p class="sub"><span class="mono">motor_pwm_protocol</span>, <span class="mono">mixer</span>, <span class="mono">serialrx_provider</span>, <span class="mono">rx_spi_protocol</span>, <span class="mono">vtx</span>-Einstellungen, Feature-Flags.</p></div>
-          <div><h3>Sensoren &amp; Board</h3><p class="sub"><span class="mono">status</span>-Ausgabe (GYRO/ACC/BARO/MAG), Zellenzahl, <span class="mono">gyro_1_*</span>-Bus, Blackbox-Typ.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 6 Daten ============ -->
-    <section class="view" id="view-data">
-      <div class="grid two">
-        <div class="card">
-          <div class="card-head"><div><div class="kicker">Sicherung</div><h2>Export &amp; Import</h2></div></div>
-          <p class="sub">Alles liegt im <span class="mono">localStorage</span> dieses Browsers. Für Umzug, Backup oder GitHub: JSON exportieren.</p>
-          <div class="flex" style="margin:10px 0">
-            <button class="btn primary" id="btnExport">JSON exportieren</button>
-            <button class="btn" id="btnExportFleet">Flotte als JSON</button>
-            <button class="btn" id="btnCsv2">Flotte als CSV</button>
-            <button class="btn" id="btnCopyReport">Bericht kopieren</button>
-          </div>
-          <div class="sep"></div>
-          <h3 style="margin-bottom:6px">Import</h3>
-          <textarea id="importJson" spellcheck="false" placeholder='{"app":"hangardeck","version":1,"fleet":[…],"boards":[…]}'></textarea>
-          <div class="flex" style="margin-top:9px">
-            <button class="btn" id="btnImportJson">JSON einlesen</button>
-            <label class="btn" style="display:inline-flex;align-items:center;gap:6px">Datei wählen<input type="file" id="fileInput" accept=".json,application/json" class="hidden"></label>
-            <button class="btn danger" id="btnWipe">Alles löschen</button>
-          </div>
-          <div class="sep"></div>
-          <div id="storageInfo" class="read-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-head"><div><div class="kicker">Verhalten</div><h2>Einstellungen &amp; Regeln</h2></div></div>
-          <div class="field-grid" style="margin-bottom:10px">
-            <div class="field">
-              <label for="accentSel">Akzentfarbe</label>
-              <select id="accentSel">
-                <option value="green">Grün (Standard)</option>
-                <option value="cyan">Cyan</option>
-                <option value="amber">Amber</option>
-                <option value="purple">Violett</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="hintLevel">Hinweis-Schwelle</label>
-              <select id="hintLevel">
-                <option value="all">Alle Hinweise</option>
-                <option value="warn" selected>Ab Warnung</option>
-                <option value="bad">Nur Fehler</option>
-              </select>
-            </div>
-          </div>
-          <div class="notice warn">
-            <b>Erfahrungswerte, keine Grenzwerte.</b> Die Setup-Hinweise prüfen Plausibilität (Zoll ↔ Prop, KV ↔ Zellen, Vollständigkeit). Sie ersetzen keine Herstellerangaben und keine Messung — nach Firmware-, Prop- oder Zellwechsel gilt: neu bewerten.
-          </div>
-          <div class="sep"></div>
-          <h3 style="margin-bottom:6px">Prüfregeln</h3>
-          <div id="ruleDoc"></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <b>HangarDeck v0.1.0-beta.2</b> · lokal im Browser · keine Cloud, keine Konten, keine Telemetrie<br>
-    Teil der FPV-Tool-Familie: FPV Guide · FlowState Tuner · HangarDeck
+  <footer class="foot">
+    <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
+    <span data-i18n="foot2">Für Backup oder Umzug den Export nutzen.</span><br>
+    <span class="ver">HangarDeck Lite · v0.4.0-beta.2</span>
   </footer>
 </div>
 
-<div class="toast-wrap" id="toasts" aria-live="polite"></div>
-<div id="modalRoot"></div>
-
-<script>
-"use strict";
-/* =====================================================================
-   HangarDeck — lokale Copter- & FC-Verwaltung
-   Einzeldatei, kein Build, keine externen Ressourcen.
-   ===================================================================== */
-
-const APP = { name:"HangarDeck", version:"0.1.0-beta.2", schema:1, key:"hangardeck.v1" };
-
-/* localStorage kann fehlen oder blockiert sein (Sandbox-Vorschau, harter Datenschutzmodus).
-   Dann arbeitet die App flüchtig weiter, statt beim Laden abzubrechen. */
-const LS = {
-  ok:true,
-  get(k){ try{ return localStorage.getItem(k); }catch(e){ this.ok=false; return null; } },
-  set(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ this.ok=false; return false; } },
-  del(k){ try{ localStorage.removeItem(k); }catch(e){ this.ok=false; } }
-};
-
-/* ---------------------------------------------------------------- Utils */
-const $  = (s,r=document)=>r.querySelector(s);
-const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
-const uid = (p="id")=>p+"_"+Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);
-const esc = v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const nowISO = ()=>new Date().toISOString();
-const dayISO = ()=>new Date().toISOString().slice(0,10);
-function fmtDate(iso){ if(!iso) return "—"; const d=new Date(iso); if(isNaN(d)) return "—";
-  return d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"}); }
-function fmtDT(iso){ if(!iso) return "—"; const d=new Date(iso); if(isNaN(d)) return "—";
-  return d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit"})+" "+d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}); }
-const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
-const num = v => { const n=parseFloat(String(v??"").replace(",",".")); return Number.isFinite(n)?n:null; };
-const uniq = a => Array.from(new Set(a.filter(Boolean)));
-
-function toast(msg,kind=""){
-  const w=$("#toasts"); const el=document.createElement("div");
-  el.className="toast "+kind; el.textContent=msg; w.appendChild(el);
-  setTimeout(()=>{ el.style.opacity="0"; el.style.transition=".3s"; setTimeout(()=>el.remove(),320); }, 2600);
-}
-function download(name, text, mime="application/json"){
-  const blob=new Blob([text],{type:mime+";charset=utf-8"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name;
-  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-}
-function copy(text){
-  if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
-  const t=document.createElement("textarea"); t.value=text; document.body.appendChild(t); t.select();
-  try{document.execCommand("copy");}catch(e){} t.remove(); return Promise.resolve();
-}
-
-/* ------------------------------------------------------------- Kataloge */
-const SIZES = [
-  {id:'65mm', label:'65 mm', short:'65', inch:0.65, group:'whoop'},
-  {id:'75mm', label:'75 mm', short:'75', inch:0.75, group:'whoop'},
-  {id:'2"',   label:'2 Zoll', short:'2″',  inch:2,    group:'micro'},
-  {id:'2.5"', label:'2,5 Zoll', short:'2.5″', inch:2.5, group:'micro'},
-  {id:'3"',   label:'3 Zoll', short:'3″',  inch:3,    group:'micro'},
-  {id:'3.5"', label:'3,5 Zoll', short:'3.5″', inch:3.5, group:'mid'},
-  {id:'4"',   label:'4 Zoll', short:'4″',  inch:4,    group:'mid'},
-  {id:'5"',   label:'5 Zoll', short:'5″',  inch:5,    group:'five'},
-  {id:'5.1"', label:'5,1 Zoll', short:'5.1″', inch:5.1, group:'five'},
-  {id:'6"',   label:'6 Zoll', short:'6″',  inch:6,    group:'large'},
-  {id:'7"',   label:'7 Zoll', short:'7″',  inch:7,    group:'large'},
-  {id:'10"',  label:'10 Zoll', short:'10″', inch:10,  group:'large'},
-  {id:'x',    label:'Sonder / Eigenbau', short:'—', inch:99, group:'other'}
-];
-const SIZE_GROUPS = [
-  {id:'all', label:'Alle'},
-  {id:'whoop', label:'Whoop'},
-  {id:'upto3', label:'≤ 3″'},
-  {id:'inch4', label:'4″'},
-  {id:'inch5', label:'5″'},
-  {id:'from6', label:'≥ 6″'},
-  {id:'other', label:'Sonder'}
-];
-const STATUS = [
-  {id:'ready', label:'flugbereit', tag:'good'},
-  {id:'maint', label:'Wartung', tag:'warn'},
-  {id:'bench', label:'Bench/Test', tag:'grey'},
-  {id:'stored', label:'eingelagert', tag:'grey'},
-  {id:'sold', label:'verkauft/ausgemustert', tag:'grey'}
-];
-const FIRMWARE = ['Betaflight','INAV','EmuFlight','ArduPilot','Quicksilver','KISS','Andere'];
-const ESC_PROTOCOLS = ['DSHOT600','DSHOT300','DSHOT150','DSHOT1200','PROSHOT1000','MULTISHOT','ONESHOT125','PWM','unbekannt'];
-const LINKS = ['ELRS 2,4 GHz','ELRS 868/900 MHz','ELRS Gemini','Crossfire','Tracer','FrSky','Ghost','DJI','Spektrum','PWM/SBUS','unbekannt'];
-const CELLS = ['1S','2S','3S','4S','5S','6S','7S','8S','10S','12S'];
-
-const sizeOf = id => SIZES.find(s=>s.id===id) || SIZES[SIZES.length-1];
-const statusOf = id => STATUS.find(s=>s.id===id) || STATUS[0];
-function sizeGroupOf(sizeId){
-  const s=sizeOf(sizeId);
-  if(s.group==='whoop') return 'whoop';
-  if(s.inch<=3) return 'upto3';
-  if(s.inch<=4) return 'inch4';
-  if(s.inch<=5.1) return 'inch5';
-  if(s.inch>=6 && s.inch<99) return 'from6';
-  return 'other';
-}
-
-/* ------------------------------------------------- Felddefinitionen */
-const FIELDS = [
-  {k:'name',      l:'Name',              g:'Basis', t:'text', ph:'z. B. Fünfzoll Freestyle', wide:false},
-  {k:'status',    l:'Status',            g:'Basis', t:'select', opts:()=>STATUS.map(s=>[s.id,s.label])},
-  {k:'size',      l:'Größe / Klasse',    g:'Basis', t:'select', opts:()=>SIZES.map(s=>[s.id,s.label])},
-  {k:'frame',     l:'Frame',             g:'Basis', t:'text', ph:'z. B. Apex 5 EVO'},
-  {k:'tags',      l:'Tags',              g:'Basis', t:'text', ph:'freestyle, 6S, backup'},
-  {k:'bought',    l:'Im Bestand seit',   g:'Basis', t:'date'},
-
-  {k:'boardId',   l:'Board aus Bibliothek', g:'FC & Firmware', t:'boardselect'},
-  {k:'fcName',    l:'Flight Controller', g:'FC & Firmware', t:'text', ph:'z. B. SpeedyBee F405 V4'},
-  {k:'fcTarget',  l:'Target',            g:'FC & Firmware', t:'text', ph:'SPEEDYBEEF405V4'},
-  {k:'fcMcu',     l:'MCU',               g:'FC & Firmware', t:'text', ph:'STM32F405'},
-  {k:'fcGyro',    l:'Gyro',              g:'FC & Firmware', t:'text', ph:'ICM42688P'},
-  {k:'fw',        l:'Firmware',          g:'FC & Firmware', t:'select', opts:()=>FIRMWARE.map(f=>[f,f])},
-  {k:'fwVersion', l:'Firmware-Version',  g:'FC & Firmware', t:'text', ph:'4.5.1'},
-  {k:'escProtocol', l:'Motor-Protokoll', g:'FC & Firmware', t:'select', opts:()=>ESC_PROTOCOLS.map(f=>[f,f])},
-  {k:'fcUid',     l:'FC-UID',            g:'FC & Firmware', t:'text', ph:'32-stellig / 12 Byte hex'},
-
-  {k:'motor',     l:'Motoren',           g:'Antrieb', t:'text', ph:'2207 / 0802'},
-  {k:'kv',        l:'KV',                g:'Antrieb', t:'number', ph:'1950'},
-  {k:'props',     l:'Props',             g:'Antrieb', t:'text', ph:'5.1x4.6x3'},
-  {k:'propInch',  l:'Prop-Zoll',         g:'Antrieb', t:'number', ph:'5.1', step:'0.05', hint:'Für die Zoll-Prüfung. Bei Whoops entfällt sie — dort ist die Klasse das Rahmenmaß, nicht der Prop.'},
-  {k:'escRating', l:'ESC-Belastbarkeit', g:'Antrieb', t:'text', ph:'55 A / 4-in-1'},
-  {k:'cells',     l:'Zellen',            g:'Antrieb', t:'select', opts:()=>CELLS.map(c=>[c,c])},
-  {k:'capacity',  l:'Akkukapazität (mAh)', g:'Antrieb', t:'number', ph:'1300'},
-  {k:'weight',    l:'Abfluggewicht (g)', g:'Antrieb', t:'number', ph:'650'},
-
-  {k:'vtx',       l:'VTX',               g:'Video & Funk', t:'text', ph:'Walksnail Avatar HD Pro'},
-  {k:'vtxPower',  l:'VTX-Leistung',      g:'Video & Funk', t:'text', ph:'500 mW'},
-  {k:'cam',       l:'Kamera',            g:'Video & Funk', t:'text', ph:'Avatar Pro / O3 / Analog'},
-  {k:'link',      l:'Funkstrecke',       g:'Video & Funk', t:'select', opts:()=>LINKS.map(f=>[f,f])},
-  {k:'rx',        l:'Empfänger',         g:'Video & Funk', t:'text', ph:'EP1 2,4 GHz'},
-  {k:'antenna',   l:'Antenne(n)',        g:'Video & Funk', t:'text', ph:'T-Antenne, LHCP'},
-
-  {k:'serial',    l:'Seriennummer',      g:'Pflege', t:'text'},
-  {k:'lastFlight',l:'Letzter Flug',      g:'Pflege', t:'date'},
-  {k:'lastService',l:'Letzte Wartung',   g:'Pflege', t:'date'},
-  {k:'notes',     l:'Notizen',           g:'Pflege', t:'textarea', wide:true, ph:'Auffälligkeiten, letzte Änderung, offene Punkte …'}
-];
-const FIELD = k => FIELDS.find(f=>f.k===k);
-
-/* ------------------------------------------------------------ Speicher */
-function blankState(){
-  return {
-    app:APP.name, schema:APP.schema, version:APP.version,
-    fleet:[], boards:[], settings:{accent:'green', hintLevel:'warn', seed:true},
-    meta:{created:nowISO(), updated:nowISO()}
-  };
-}
-let S = blankState();
-const TON_UEBERSICHT = accentFromPalette();
-
-function loadState(){
-  try{
-    const raw = LS.get(APP.key);
-    if(!raw){ S = seedState(); saveState(); return; }
-    const parsed = JSON.parse(raw);
-    S = Object.assign(blankState(), parsed);
-    S.fleet  = Array.isArray(S.fleet)?S.fleet:[];
-    S.boards = Array.isArray(S.boards)?S.boards:[];
-    S.settings = Object.assign(blankState().settings, S.settings||{});
-  }catch(e){
-    // Kein Zugriff auf localStorage (z. B. sandboxed Vorschau) → Demodaten im Speicher
-    console.warn("Speicher nicht verfügbar, arbeite flüchtig", e);
-    S = seedState();
-  }
-}
-/* Die Übersichtsseite wählt eine Palette; HangarDeck hat eine dunkle Palette mit
-   wählbarer Akzentfarbe und übernimmt daraus den passenden Ton. */
-function accentFromPalette(){
-  const map = { ocean: 'cyan', sand: 'amber', drakn: 'purple' };
-  try {
-    return map[localStorage.getItem('flowstate-theme')] || null;
-  } catch(e) { return null; }
-}
-function saveState(){
-  S.meta = S.meta||{}; S.meta.updated = nowISO(); S.schema = APP.schema;
-  if(!LS.set(APP.key, JSON.stringify(S)) && !LS.warned){
-    LS.warned=true;
-    toast("Kein schreibender Speicher — Änderungen gelten nur für diese Sitzung. Bitte JSON exportieren.","bad");
-  }
-  renderStatusbar(); renderStorageInfo();
-}
-function newCopter(patch={}){
-  return Object.assign({
-    id:uid("c"), name:"Neuer Copter", status:"bench", size:'5"', frame:"", tags:"", bought:"",
-    boardId:"", fcName:"", fcTarget:"", fcMcu:"", fcGyro:"", fw:"Betaflight", fwVersion:"",
-    escProtocol:"DSHOT600", fcUid:"", motor:"", kv:null, props:"", propInch:null, escRating:"",
-    cells:"6S", capacity:null, weight:null,
-    vtx:"", vtxPower:"", cam:"", link:"ELRS 2,4 GHz", rx:"", antenna:"",
-    serial:"", lastFlight:"", lastService:"", notes:"",
-    source:"manuell", createdAt:nowISO(), updatedAt:nowISO(), demo:false
-  }, patch);
-}
-function newBoard(patch={}){
-  return Object.assign({
-    id:uid("b"), name:"", target:"", mfr:"", mcu:"", gyro:"", uarts:"", bec:"", cells:"",
-    mount:"", osd:"", blackbox:"", esc:"", notes:"", source:"", verified:false,
-    custom:true, createdAt:nowISO(), updatedAt:nowISO()
-  }, patch);
-}
-
-/* ------------------------------------------------ Startdaten (Quellen) */
-function seedBoards(){
-  return [
-    newBoard({
-      id:"b_speedybee_f405v4", custom:false, verified:true,
-      name:"SpeedyBee F405 V4", target:"SPEEDYBEEF405V4", mfr:"SpeedyBee",
-      mcu:"STM32F405", gyro:"ICM42688P", uarts:"6",
-      bec:"5 V 3 A · 9 V 3 A · 3,3 V 500 mA · 4,5 V 1 A", cells:"3S–6S", mount:"30,5 × 30,5 mm",
-      osd:"AT7456E (analog) + MSP-DisplayPort", blackbox:"MicroSD ≤ 32 GB", esc:"M1–M8, ESC-Telemetrie UART5",
-      notes:"Bluetooth-Konfiguration über UART4 (MSP, 115200). Barometer verbaut.",
-      source:"oscarliang.com/speedybee-f405-v4 · speedybee.com (Herstellerangaben)"
-    }),
-    newBoard({
-      id:"b_speedybee_f405v3", custom:false, verified:true,
-      name:"SpeedyBee F405 V3", target:"SPEEDYBEEF405V3", mfr:"SpeedyBee",
-      mcu:"STM32F405", gyro:"BMI270", uarts:"6",
-      bec:"5 V 3 A · 9 V 3 A", cells:"3S–6S", mount:"30,5 × 30,5 mm",
-      osd:"AT7456E", blackbox:"MicroSD", esc:"M1–M8",
-      notes:"Vorgänger des V4. Der Wechsel auf ICM42688P erfolgte mit dem V4.",
-      source:"oscarliang.com/speedybee-f405-v4 (Vergleich V3/V4)"
-    }),
-    newBoard({
-      id:"b_matek_h743slimv3", custom:false, verified:true,
-      name:"Matek H743-SLIM V3", target:"MATEKH743", mfr:"MATEKSYS",
-      mcu:"STM32H743VIH6", gyro:"ICM42688P + ICM42605", uarts:"7",
-      bec:"5 V 2 A (max. 3 A)", cells:"2S–8S", mount:"30,5 × 30,5 mm",
-      osd:"AT7456E (SPI2)", blackbox:"MicroSD (SDIO)", esc:"12× PWM + LED-Pad",
-      notes:"Dual-Gyro. Barometer DPS310. CAN, 2× I2C, Vbat2 bis 69 V. Betaflight-Target MATEKH743 ab 4.3 für ICM42688P.",
-      source:"mateksys.com · rotorama.com · manuals.plus (Herstellerhandbuch)"
-    })
-  ];
-}
-function seedFleet(){
-  return [
-    newCopter({
-      id:"c_demo1", demo:true, name:"Fünfzöller Freestyle", status:"ready", size:'5"',
-      frame:"Apex 5 EVO", boardId:"b_speedybee_f405v4", fcName:"SpeedyBee F405 V4",
-      fcTarget:"SPEEDYBEEF405V4", fcMcu:"STM32F405", fcGyro:"ICM42688P",
-      fw:"Betaflight", fwVersion:"4.5.1", escProtocol:"DSHOT600",
-      motor:"2207", kv:1950, props:"5.1x4.6x3", propInch:5.1, escRating:"55 A 4-in-1",
-      cells:"6S", capacity:1300, weight:648, vtx:"Walksnail Avatar HD Pro", vtxPower:"500 mW",
-      cam:"Avatar Pro", link:"ELRS 2,4 GHz", rx:"EP1 Dual", antenna:"T-Antenne, linear",
-      tags:"freestyle, 6S, hauptsetup", notes:"Demo-Eintrag. Nach dem ersten eigenen Copter löschen."
-    }),
-    newCopter({
-      id:"c_demo2", demo:true, name:"Cinewhoop 3 Zoll", status:"maint", size:'3"',
-      frame:"Cine 3 Duct", fcName:"BetaFPV F405 AIO", fcTarget:"BETAFPVF405",
-      fcMcu:"STM32F405", fcGyro:"ICM42688P", fw:"Betaflight", fwVersion:"4.5.1",
-      escProtocol:"DSHOT300", motor:"1404", kv:3800, props:"3x2x3", propInch:3, escRating:"AIO 35 A",
-      cells:"4S", capacity:850, weight:498, vtx:"Avatar HD Mini", vtxPower:"350 mW",
-      cam:"Avatar Mini", link:"ELRS 2,4 GHz", rx:"EP2", tags:"cine, wohnung, ruhig",
-      notes:"Demo-Eintrag: Props gewechselt, Lager prüfen."
-    }),
-    newCopter({
-      id:"c_demo3", demo:true, name:"75 mm Whoop", status:"bench", size:'75mm',
-      frame:"Meteor75 Pro", fcName:"BetaFPV F4 1S AIO", fcTarget:"BETAFPVF4SX1280",
-      fcMcu:"STM32F405", fcGyro:"ICM42688P", fw:"Betaflight", fwVersion:"4.5.1",
-      escProtocol:"DSHOT300", motor:"0802", kv:22000, props:"40 mm 3-Blatt", propInch:null,
-      escRating:"AIO 5 A", cells:"1S", capacity:450, weight:26, vtx:"Analog VTX",
-      vtxPower:"25 mW", cam:"Caddx Ant", link:"ELRS 2,4 GHz", rx:"SPI ELRS",
-      tags:"indoor, wohnzimmer"
-    })
-  ];
-}
-function seedState(){
-  const s = blankState();
-  s.boards = seedBoards();
-  s.fleet  = seedFleet();
-  s.settings.seed = true;
-  return s;
-}
-
-/* --------------------------------------------------- Prüfregeln (Setup) */
-const KV_RANGES = {
-  "whoop|1S":[13000,30000], "whoop|2S":[8000,16000],
-  "upto3|2S":[8000,15000],  "upto3|3S":[4500,9500],  "upto3|4S":[2800,5200],
-  "inch4|4S":[2300,3300],   "inch4|6S":[1500,2200],
-  "inch5|4S":[2200,2900],   "inch5|6S":[1550,2050],  "inch5|8S":[1100,1500],
-  "from6|4S":[1300,2100],   "from6|6S":[1000,1600],  "from6|8S":[850,1300]
-};
-function boardOf(c){
-  if(c.boardId){ const b=S.boards.find(x=>x.id===c.boardId); if(b) return b; }
-  if(c.fcTarget){ const t=c.fcTarget.trim().toUpperCase();
-    return S.boards.find(x=>(x.target||"").trim().toUpperCase()===t) || null; }
-  return null;
-}
-function setupChecks(c){
-  const out=[]; const add=(level,text)=>out.push({level,text});
-  const size=sizeOf(c.size), grp=sizeGroupOf(c.size);
-  const board=boardOf(c);
-
-  if(!c.fcName && !c.fcTarget){ add("warn","Kein Flight Controller eingetragen — FC auslesen oder importieren."); }
-  else if(!c.fcTarget){ add("info","Target fehlt. Die Auslese-Funktion ergänzt es automatisch."); }
-  else if(!board){ add("info","Target „"+c.fcTarget+"“ ist nicht in der Bibliothek — wird beim nächsten Auslesen angelegt."); }
-  else { add("ok","Board in Bibliothek: "+(board.name||board.target)+(board.gyro?" · Gyro "+board.gyro:"")); }
-
-  if(!c.weight){ add("info","Abfluggewicht fehlt — ohne Gewicht keine Schub-/Lastbewertung."); }
-  if(!c.cells){ add("info","Zellenzahl fehlt — KV lässt sich nicht einordnen."); }
-  if(!c.props && !c.propInch){ add("info","Props fehlen — Zoll-Prüfung nicht möglich."); }
-
-  const pInch = num(c.propInch);
-  if(pInch && size.inch<99 && grp!=="whoop"){
-    if(pInch > size.inch + 0.35) add("warn","Prop "+pInch+"″ größer als Klasse "+size.label+" — Freigang, Strom und Regler prüfen.");
-    else if(pInch < size.inch - 1.2) add("info","Prop "+pInch+"″ deutlich kleiner als Klasse "+size.label+" — bewusst so gewählt?");
-    else add("ok","Prop "+pInch+"″ passt zur Klasse "+size.label+".");
-  }
-
-  const kv=num(c.kv), cellsTxt=(c.cells||"").toUpperCase();
-  const range=KV_RANGES[grp+"|"+cellsTxt];
-  if(kv && range){
-    if(kv < range[0]) add("warn","KV "+kv+" niedrig für "+cellsTxt+" auf "+size.short+" (Erfahrungsbereich "+range[0]+"–"+range[1]+").");
-    else if(kv > range[1]) add("warn","KV "+kv+" hoch für "+cellsTxt+" auf "+size.short+" (Erfahrungsbereich "+range[0]+"–"+range[1]+") — Strom und Temperatur beobachten.");
-    else add("ok","KV "+kv+" liegt im Erfahrungsbereich für "+cellsTxt+" auf "+size.short+".");
-  }
-  if(c.escProtocol==="PWM" && (c.cells==="6S"||c.cells==="8S")) add("info","PWM-Protokoll: Telemetrie und RPM-Filter bleiben außen vor.");
-
-  if(c.status==="ready"){
-    if(!c.lastFlight) add("info","Status flugbereit, aber kein letzter Flug dokumentiert.");
-    else{
-      const days=Math.floor((Date.now()-new Date(c.lastFlight).getTime())/864e5);
-      if(days>365) add("warn","Letzter Flug liegt über ein Jahr zurück — vor dem nächsten Start komplett prüfen.");
-    }
-    if(c.lastService){
-      const d=Math.floor((Date.now()-new Date(c.lastService).getTime())/864e5);
-      if(d>182) add("warn","Letzte Wartung ist "+d+" Tage her.");
-    }
-  }
-  const lvl={bad:0,warn:1,info:2,ok:3};
-  return out.sort((a,b)=>lvl[a.level]-lvl[b.level]);
-}
-function fleetHints(){
-  const rows=[];
-  S.fleet.forEach(c=>{
-    setupChecks(c).filter(r=>r.level==="warn"||r.level==="bad").forEach(r=>rows.push({c,r}));
-  });
-  const lvl={bad:0,warn:1};
-  return rows.sort((a,b)=>lvl[a.r.level]-lvl[b.r.level]);
-}
-
-/* ------------------------------------------------------------ Rendering */
-let UI = {view:"dashboard", fleetFilter:"all", fleetStatus:"all", fleetQ:"", sort:"updated",
-          boardQ:"", boardFilter:"all", lastRead:null, importParsed:null, selected:null};
-
-function renderStatusbar(){
-  const el=$("#statusbar"); if(!el) return;
-  const ready=S.fleet.filter(c=>c.status==="ready").length;
-  const maint=S.fleet.filter(c=>c.status==="maint").length;
-  const warnN=fleetHints().length;
-  const kb=Math.round((LS.get(APP.key)||"").length/1024);
-  el.innerHTML = [
-    `<span class="pill"><b>${S.fleet.length}</b> Copter</span>`,
-    `<span class="pill ${ready?'ok':''}"><b>${ready}</b> flugbereit</span>`,
-    maint?`<span class="pill warn"><b>${maint}</b> in Wartung</span>`:"",
-    `<span class="pill ${warnN?'warn':''}" title="Setup-Hinweise mit Warnstufe">${warnN?(warnN===1?"1 Hinweis":warnN+" Hinweise"):"keine Hinweise"}</span>`,
-    `<span class="pill accent"><b>${S.boards.length}</b> FC-Boards</span>`,
-    `<span class="pill" title="localStorage">${kb} KB lokal</span>`
-  ].join("");
-}
-
-function renderDashboard(){
-  const total=S.fleet.length;
-  const ready=S.fleet.filter(c=>c.status==="ready").length;
-  const maint=S.fleet.filter(c=>c.status==="maint").length;
-  const bench=S.fleet.filter(c=>["bench","stored"].includes(c.status)).length;
-  const hints=fleetHints();
-  $("#dashMetrics").innerHTML = [
-    metric("Copter im Hangar", total, `${S.fleet.filter(c=>!c.demo).length} eigene`),
-    metric("Flugbereit", ready, total?Math.round(ready/total*100)+" % der Flotte":"—","good"),
-    metric("Wartung / Bench", maint+bench, `${maint} Wartung · ${bench} Bench`,"warn"),
-    metric("Setup-Hinweise", hints.length, hints.length?"prüfen":"alles ruhig", hints.length?"warn":"good")
-  ].join("");
-
-  // Klassenverteilung
-  const groups=SIZE_GROUPS.filter(g=>g.id!=="all").map(g=>{
-    const n=S.fleet.filter(c=>sizeGroupOf(c.size)===g.id).length; return {g,n};
-  });
-  const max=Math.max(1,...groups.map(x=>x.n));
-  $("#dashClasses").innerHTML = groups.map(({g,n})=>`
-    <div style="margin-bottom:9px">
-      <div class="flex" style="justify-content:space-between;font-size:11.5px;color:#bdd4e2">
-        <span>${esc(g.label)}</span><b>${n}</b>
-      </div>
-      <div class="bar"><i style="width:${Math.round(n/max*100)}%"></i></div>
-    </div>`).join("") || `<div class="empty">Keine Daten</div>`;
-
-  // Zuletzt geändert
-  const recent=[...S.fleet].sort((a,b)=>String(b.updatedAt||"").localeCompare(String(a.updatedAt||""))).slice(0,5);
-  $("#dashRecent").innerHTML = recent.length? recent.map(c=>{
-    const st=statusOf(c.status);
-    return `<div class="flex" style="justify-content:space-between;border-top:1px solid rgba(45,74,100,.45);padding:7px 0">
-      <div style="min-width:0">
-        <b style="font-size:12px">${esc(c.name)}</b>
-        <div class="sub" style="margin:0">${esc(sizeOf(c.size).label)} · ${esc(c.fcName||"FC offen")}</div>
-      </div>
-      <div class="right nowrap"><span class="tag ${st.tag}">${esc(st.label)}</span>
-        <div class="sub" style="margin:2px 0 0">${fmtDT(c.updatedAt)}</div></div>
-    </div>`;
-  }).join("") : `<div class="empty">Noch kein Copter angelegt.</div>`;
-
-  // Hinweise
-  $("#dashRules").innerHTML = hints.length
-    ? `<div class="rule-list">${hints.slice(0,8).map(h=>`<div class="rule ${h.r.level}"><b>${esc(h.c.name)}</b> · ${esc(h.r.text)}</div>`).join("")}</div>
-       ${hints.length>8?`<div class="sub" style="margin-top:8px">… und ${hints.length-8} weitere. Details je Copter im Bereich Flotte.</div>`:""}`
-    : `<div class="notice">Keine offenen Warnungen. Alle Einträge sind plausibel.</div>`;
-
-  // Links / FC Übersicht
-  const links={}; S.fleet.forEach(c=>{ const k=c.link||"unbekannt"; links[k]=(links[k]||0)+1; });
-  const fws={}; S.fleet.forEach(c=>{ const k=(c.fw||"—")+" "+(c.fwVersion||""); fws[k.trim()]=(fws[k.trim()]||0)+1; });
-  $("#dashLinks").innerHTML = `
-    <div class="grid two">
-      <div>
-        <div class="kicker">Funkstrecken</div>
-        ${Object.keys(links).length?Object.entries(links).map(([k,n])=>
-          `<div class="flex" style="justify-content:space-between;font-size:12px;padding:4px 0;border-top:1px solid rgba(45,74,100,.35)">
-             <span>${esc(k)}</span><span class="tag">${n}</span></div>`).join(""):`<div class="empty">—</div>`}
-      </div>
-      <div>
-        <div class="kicker">Firmware</div>
-        ${Object.keys(fws).length?Object.entries(fws).map(([k,n])=>
-          `<div class="flex" style="justify-content:space-between;font-size:12px;padding:4px 0;border-top:1px solid rgba(45,74,100,.35)">
-             <span class="mono">${esc(k)}</span><span class="tag">${n}</span></div>`).join(""):`<div class="empty">—</div>`}
-      </div>
-    </div>`;
-}
-function metric(label,val,sub,kind=""){
-  return `<div class="metric"><div class="m-label">${esc(label)}</div>
-    <span class="m-val ${kind}">${esc(String(val))}</span>
-    <div class="m-sub">${esc(sub||"")}</div></div>`;
-}
-
-function fleetRows(){
-  let rows=[...S.fleet];
-  const q=UI.fleetQ.trim().toLowerCase();
-  if(UI.fleetFilter!=="all") rows=rows.filter(c=>sizeGroupOf(c.size)===UI.fleetFilter);
-  if(UI.fleetStatus!=="all") rows=rows.filter(c=>c.status===UI.fleetStatus);
-  if(q) rows=rows.filter(c=>[c.name,c.frame,c.fcName,c.fcTarget,c.fcMcu,c.fcGyro,c.motor,c.props,c.link,c.rx,c.tags,c.notes,c.fw]
-    .filter(Boolean).join(" ").toLowerCase().includes(q));
-  const cmp={
-    updated:(a,b)=>String(b.updatedAt||"").localeCompare(String(a.updatedAt||"")),
-    name:(a,b)=>String(a.name).localeCompare(String(b.name),"de"),
-    size:(a,b)=>sizeOf(a.size).inch-sizeOf(b.size).inch,
-    status:(a,b)=>String(a.status).localeCompare(String(b.status))
-  }[UI.sort]||(()=>0);
-  return rows.sort(cmp);
-}
-function renderFleet(){
-  // Filterchips
-  $("#fleetFilters").innerHTML =
-    SIZE_GROUPS.map(g=>`<button class="chip ${UI.fleetFilter===g.id?"on":""}" data-fgroup="${g.id}">${esc(g.label)}</button>`).join("") +
-    `<span style="width:1px;background:var(--line2);margin:0 4px"></span>` +
-    `<button class="chip ${UI.fleetStatus==="all"?"on":""}" data-fstatus="all">Status: alle</button>` +
-    STATUS.map(s=>`<button class="chip ${UI.fleetStatus===s.id?"on":""}" data-fstatus="${s.id}">${esc(s.label)}</button>`).join("");
-
-  const rows=fleetRows();
-  // Karten
-  $("#fleetGrid").innerHTML = rows.length ? rows.map(c=>{
-    const size=sizeOf(c.size), st=statusOf(c.status);
-    const checks=setupChecks(c);
-    const worst=checks.find(r=>r.level!=="ok");
-    const board=boardOf(c);
-    return `<article class="copter ${UI.selected===c.id?"sel":""}" data-id="${c.id}">
-      <div class="copter-top">
-        <div class="size-badge">${esc(size.short)}<small>${size.group==="whoop"?"MM":"ZOLL"}</small></div>
-        <div class="copter-title">
-          <b>${esc(c.name)}</b>
-          <span>${esc(c.frame||"Frame offen")}</span>
+<dialog id="dlg">
+  <form method="dialog" class="card" id="form">
+    <header><h2 id="dlgTitle">Neuer Copter</h2></header>
+    <div class="body">
+      <div class="grid">
+        <div class="full">
+          <label for="f_name" data-i18n="name">Name</label>
+          <input type="text" id="f_name" placeholder="z. B. Fünfzöller Freestyle" data-i18n-ph="namePh" required>
         </div>
-        <span class="tag ${st.tag}">${esc(st.label)}</span>
+        <div>
+          <label for="f_size" data-i18n="size">Größe</label>
+          <select id="f_size"></select>
+        </div>
+        <div>
+          <label for="f_cells" data-i18n="cells">Spannung</label>
+          <select id="f_cells"></select>
+        </div>
+        <div>
+          <label for="f_kv"><span data-i18n="kv">Motor KV</span> <span class="opt" data-i18n="opt">optional</span></label>
+          <input type="number" id="f_kv" min="400" max="40000" step="10" placeholder="1800">
+        </div>
+        <div>
+          <label for="f_esc">ESC <span class="opt" data-i18n="opt">optional</span></label>
+          <input type="number" id="f_esc" min="1" max="200" step="1" placeholder="45">
+          <p class="hint" data-i18n="escHint">Dauerstrom in Ampere</p>
+        </div>
+        <div>
+          <label for="f_status" data-i18n="status">Status</label>
+          <select id="f_status">
+            <option value="ready" data-i18n="st_ready">Flugbereit</option>
+            <option value="maint" data-i18n="st_maint">In Arbeit</option>
+            <option value="down" data-i18n="st_down">Defekt / Lager</option>
+          </select>
+        </div>
+        <div>
+          <label for="f_props">Props <span class="opt" data-i18n="opt">optional</span></label>
+          <input type="text" id="f_props" placeholder="5.1x4.6x3">
+        </div>
       </div>
-      <dl class="kv">
-        <dt>FC</dt><dd>${esc(c.fcName||board?.name||"—")}</dd>
-        <dt>Target · MCU</dt><dd>${esc(c.fcTarget||"—")}${c.fcMcu?" · "+esc(c.fcMcu):""}</dd>
-        <dt>Gyro</dt><dd>${esc(c.fcGyro||board?.gyro||"—")}</dd>
-        <dt>Motor · KV</dt><dd>${esc(c.motor||"—")}${c.kv?" · "+esc(c.kv):""}</dd>
-        <dt>Props · Zellen</dt><dd>${esc(c.props||"—")}${c.cells?" · "+esc(c.cells):""}</dd>
-        <dt>Firmware</dt><dd class="mono">${esc((c.fw||"—")+" "+(c.fwVersion||""))}</dd>
-        <dt>Funk</dt><dd>${esc(c.link||"—")}</dd>
-      </dl>
-      ${worst?`<div class="rule ${worst.level}">${esc(worst.text)}</div>`:`<div class="rule ok">Keine Auffälligkeiten.</div>`}
-      <div class="copter-foot">
-        <button class="btn mini" data-act="edit" data-id="${c.id}">Bearbeiten</button>
-        <button class="btn mini" data-act="dup" data-id="${c.id}" title="Kopieren">Duplizieren</button>
-        <span class="spacer"></span>
-        <button class="btn mini ghost" data-act="del" data-id="${c.id}" title="Löschen">Löschen</button>
+
+      <details id="more">
+        <summary data-i18n="more">Mehr Details</summary>
+        <div class="grid">
+          <div>
+            <label for="f_fc">Flight Controller <span class="opt" data-i18n="opt">optional</span></label>
+            <input type="text" id="f_fc" placeholder="SpeedyBee F405 V4">
+          </div>
+          <div>
+            <label for="f_mah"><span data-i18n="mah">Akku</span> <span class="opt" data-i18n="opt">optional</span></label>
+            <input type="number" id="f_mah" min="50" max="30000" step="50" placeholder="1300">
+            <p class="hint">mAh</p>
+          </div>
+          <div>
+            <label for="f_weight"><span data-i18n="weight">Abfluggewicht</span> <span class="opt" data-i18n="opt">optional</span></label>
+            <input type="number" id="f_weight" min="10" max="25000" step="1" placeholder="680">
+            <p class="hint" data-i18n="gram">Gramm</p>
+          </div>
+          <div class="full">
+            <label for="f_notes"><span data-i18n="notes">Notiz</span> <span class="opt" data-i18n="opt">optional</span></label>
+            <textarea id="f_notes" placeholder="Was zuletzt getauscht wurde, Besonderheiten …" data-i18n-ph="notesPh"></textarea>
+          </div>
+        </div>
+      </details>
+    </div>
+    <footer>
+      <button class="btn ghost" value="cancel" type="submit" formnovalidate data-i18n="cancel">Abbrechen</button>
+      <button class="btn primary" id="btnSave" type="button" data-i18n="save">Speichern</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="ghDlg" class="wide">
+  <div class="card">
+    <header><h2 id="ghTitle" data-i18n="ghTitle">GitHub-Sync</h2></header>
+    <div class="body">
+      <div class="sec">
+        <h3 data-i18n="ghHowH">So funktioniert es</h3>
+        <p data-i18n="ghHowP">Die App liest und schreibt eine JSON-Datei in deinem Repository. Damit ist dieselbe Liste auf jedem Gerät und auf der GitHub-Pages-Seite identisch. Ohne Token funktioniert nur das Lesen (öffentliches Repo).</p>
+        <p><span data-i18n="ghTokenHint">Token: fein abgestuftes persönliches Token, nur für dieses Repository, Recht</span>
+           <code>Contents: Read and write</code>.</p>
       </div>
-    </article>`;
-  }).join("") : `<div class="empty" style="grid-column:1/-1">Kein Copter passt zum Filter. <button class="btn mini" data-act="new">Neuen Copter anlegen</button></div>`;
 
-  // Tabelle
-  const tb=$("#fleetTable tbody");
-  tb.innerHTML = rows.length ? rows.map(c=>{
-    const st=statusOf(c.status), board=boardOf(c);
-    return `<tr data-id="${c.id}">
-      <td><b>${esc(c.name)}</b>${c.demo?' <span class="tag grey">Demo</span>':""}</td>
-      <td class="nowrap">${esc(sizeOf(c.size).short)}</td>
-      <td>${esc(c.frame||"—")}</td>
-      <td>${esc(c.fcName||board?.name||"—")}<br><span class="sub mono">${esc(c.fcTarget||"—")}</span></td>
-      <td class="nowrap mono">${esc(c.fcMcu||board?.mcu||"—")}</td>
-      <td>${esc(c.fcGyro||board?.gyro||"—")}</td>
-      <td class="nowrap">${esc(c.motor||"—")}${c.kv?" / "+esc(c.kv):""}</td>
-      <td class="nowrap">${esc(c.props||"—")}</td>
-      <td class="nowrap">${esc(c.cells||"—")}${c.capacity?" / "+esc(c.capacity)+" mAh":""}</td>
-      <td class="nowrap mono">${esc(c.fw||"—")} ${esc(c.fwVersion||"")}</td>
-      <td class="nowrap"><span class="tag ${st.tag}">${esc(st.label)}</span></td>
-      <td class="nowrap"><button class="btn mini" data-act="edit" data-id="${c.id}">Öffnen</button></td>
-    </tr>`;
-  }).join("") : `<tr><td colspan="12" class="empty">Keine Einträge</td></tr>`;
-}
+      <div class="two">
+        <div>
+          <label for="g_repo" data-i18n="ghRepo">Repository (owner/repo)</label>
+          <input type="text" id="g_repo" placeholder="yngwier/hangardeck" autocomplete="off" spellcheck="false">
+        </div>
+        <div>
+          <label for="g_branch" data-i18n="ghBranch">Branch</label>
+          <input type="text" id="g_branch" placeholder="main" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+      <div>
+        <label for="g_path" data-i18n="ghPath">Dateipfad im Repository</label>
+        <input type="text" id="g_path" placeholder="hangar/data/hangardeck.json" autocomplete="off" spellcheck="false">
+        <p class="hint" data-i18n="ghPathHint">Muss nicht existieren – wird beim ersten Hochladen angelegt.</p>
+      </div>
+      <div>
+        <label for="g_token"><span data-i18n="ghToken">Token</span> <span class="opt" data-i18n="opt">optional</span></label>
+        <input type="password" id="g_token" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+        <p class="hint" data-i18n="ghTokenHint2">Wird nur lokal in diesem Browser gespeichert und ausschließlich an api.github.com gesendet.</p>
+      </div>
+      <label class="chk"><input type="checkbox" id="g_auto" checked> <span data-i18n="ghAuto">Automatisch synchronisieren</span></label>
 
-function boardUsage(id){ return S.fleet.filter(c=>boardOf(c)&&boardOf(c).id===id).length; }
-function renderBoards(){
-  $("#boardFilters").innerHTML =
-    [["all","Alle"],["verified","Geprüft"],["custom","Eigene"],["used","Im Einsatz"]]
-    .map(([id,l])=>`<button class="chip ${UI.boardFilter===id?"on":""}" data-bfilter="${id}">${l}</button>`).join("");
-  const q=UI.boardQ.trim().toLowerCase();
-  let rows=[...S.boards];
-  if(UI.boardFilter==="verified") rows=rows.filter(b=>b.verified);
-  if(UI.boardFilter==="custom") rows=rows.filter(b=>b.custom||!b.id.startsWith("b_"));
-  if(UI.boardFilter==="used") rows=rows.filter(b=>boardUsage(b.id)>0);
-  if(q) rows=rows.filter(b=>[b.name,b.target,b.mfr,b.mcu,b.gyro,b.bec,b.mount,b.notes,b.source]
-    .filter(Boolean).join(" ").toLowerCase().includes(q));
-  rows.sort((a,b)=>String(a.mfr||"zz").localeCompare(String(b.mfr||"zz"))||String(a.name).localeCompare(String(b.name)));
-  $("#boardTable tbody").innerHTML = rows.length? rows.map(b=>{
-    const used=boardUsage(b.id);
-    return `<tr data-id="${b.id}">
-      <td><b>${esc(b.name||"—")}</b> ${b.verified?'<span class="tag good" title="Quelle hinterlegt">✓</span>':""}</td>
-      <td class="mono nowrap">${esc(b.target||"—")}</td>
-      <td>${esc(b.mfr||"—")}</td>
-      <td class="mono nowrap">${esc(b.mcu||"—")}</td>
-      <td>${esc(b.gyro||"—")}</td>
-      <td class="center">${esc(b.uarts||"—")}</td>
-      <td class="nowrap">${esc(b.bec||"—")}</td>
-      <td class="nowrap">${esc(b.cells||"—")}</td>
-      <td class="nowrap">${esc(b.mount||"—")}</td>
-      <td class="center">${used?`<span class="tag good">${used}</span>`:`<span class="tag grey">0</span>`}</td>
-      <td>${b.source?`<span class="sub">${esc(b.source.split("·")[0].trim())}</span>`:"—"}</td>
-      <td class="nowrap">
-        <button class="btn mini" data-act="b-edit" data-id="${b.id}">Bearbeiten</button>
-        ${b.custom||!b.id.startsWith("b_")?`<button class="btn mini ghost" data-act="b-del" data-id="${b.id}">×</button>`:""}
-      </td>
-    </tr>`;
-  }).join("") : `<tr><td colspan="12" class="empty">Keine Boards im Filter</td></tr>`;
-}
-
-function renderAll(){
-  renderStatusbar(); renderDashboard(); renderFleet(); renderBoards();
-  renderReadResult(); renderRuleDoc(); renderStorageInfo();
-  document.documentElement.dataset.accent = S.settings.accent||"green";
-  if($("#accentSel")) $("#accentSel").value = S.settings.accent||"green";
-  if($("#hintLevel")) $("#hintLevel").value = S.settings.hintLevel||"warn";
-}
-
-/* ---------------------------------------------------------------- Modal */
-function openModal(html){
-  $("#modalRoot").innerHTML = `<div class="modal" id="modal"><div class="modal-card" role="dialog" aria-modal="true">${html}</div></div>`;
-  const m=$("#modal"); m.addEventListener("mousedown",e=>{ if(e.target===m) closeModal(); });
-  document.body.style.overflow="hidden";
-}
-function closeModal(){ $("#modalRoot").innerHTML=""; document.body.style.overflow=""; }
-
-function fieldHTML(f, val){
-  const v = val??"";
-  const lab = `<label for="f_${f.k}">${esc(f.l)}</label>`;
-  let input="";
-  if(f.t==="select"){
-    input = `<select id="f_${f.k}" data-k="${f.k}">${f.opts().map(([ov,ol])=>
-      `<option value="${esc(ov)}" ${String(v)===String(ov)?"selected":""}>${esc(ol)}</option>`).join("")}</select>`;
-  } else if(f.t==="boardselect"){
-    input = `<select id="f_${f.k}" data-k="${f.k}"><option value="">— frei eingeben —</option>${
-      S.boards.slice().sort((a,b)=>String(a.name).localeCompare(String(b.name))).map(b=>
-        `<option value="${esc(b.id)}" ${v===b.id?"selected":""}>${esc(b.name||b.target)}${b.mcu?" · "+esc(b.mcu):""}</option>`).join("")
-    }</select>`;
-  } else if(f.t==="textarea"){
-    input = `<textarea id="f_${f.k}" data-k="${f.k}" placeholder="${esc(f.ph||"")}">${esc(v)}</textarea>`;
-  } else {
-    input = `<input type="${f.t}" id="f_${f.k}" data-k="${f.k}" value="${esc(v)}" placeholder="${esc(f.ph||"")}"
-      ${f.t==="number"?`step="${f.step||"1"}"`:""}>`;
-  }
-  const hint = f.hint?`<div class="hint">${esc(f.hint)}</div>`:"";
-  return `<div class="field ${f.wide?"wide":""}">${lab}${input}${hint}</div>`;
-}
-function editorHTML(c){
-  const groups=uniq(FIELDS.map(f=>f.g));
-  const body = groups.map(g=>{
-    const fs=FIELDS.filter(f=>f.g===g);
-    const cls = g==="Basis"?"three":(g==="Antrieb"?"four":"three");
-    return `<div class="form-section"><h4>${esc(g)}</h4>
-      <div class="field-grid ${cls}">${fs.map(f=>fieldHTML(f,c[f.k])).join("")}</div></div>`;
-  }).join("");
-  return `
-    <div class="flex" style="justify-content:space-between;align-items:flex-start">
-      <div><div class="kicker">${c.id&&S.fleet.some(x=>x.id===c.id)?"Bearbeiten":"Neu"}</div>
-        <h2>${esc(c.name||"Neuer Copter")}</h2>
-        <p class="sub">Größe, Flight Controller, Antrieb, Video und Funk — ein Datensatz pro Modell.</p></div>
-      <button class="x" data-close="1" aria-label="Schließen">×</button>
+      <div class="sec" style="margin-top:14px;margin-bottom:0">
+        <h3 data-i18n="ghStateH">Status</h3>
+        <p id="g_state" style="margin:0" data-i18n="ghNotSet">Noch nicht eingerichtet.</p>
+      </div>
     </div>
-    <div id="editorBody">${body}</div>
-    <div class="form-section" style="background:rgba(9,26,37,.5)">
-      <h4>Setup-Check <span class="sub" style="text-transform:none;letter-spacing:0">— Erfahrungswerte, live</span></h4>
-      <div id="editorChecks" class="rule-list"></div>
-    </div>
-    <div class="modal-actions">
-      ${c.id&&S.fleet.some(x=>x.id===c.id)?`<button class="btn danger" data-del="1">Löschen</button>`:""}
-      <span class="grow"></span>
-      <button class="btn ghost" data-close="1">Abbrechen</button>
-      <button class="btn primary" data-save="1">Speichern</button>
-    </div>`;
-}
-function readEditorForm(){
-  const o={};
-  $$("#editorBody [data-k]").forEach(el=>{
-    const f=FIELD(el.dataset.k); if(!f) return;
-    let v=el.value;
-    if(f.t==="number") v = v===""?null:num(v);
-    o[f.k]=v;
-  });
-  return o;
-}
-function openCopterEditor(id, preset){
-  const base = id ? S.fleet.find(x=>x.id===id) : newCopter(preset||{});
-  openModal(editorHTML(base));
-  const sync=()=>{
-    const draft=Object.assign({},base,readEditorForm());
-    // Bibliotheksauswahl spiegelt sich in die FC-Felder
-    const b=draft.boardId?S.boards.find(x=>x.id===draft.boardId):null;
-    if(b){
-      const set=(k,v)=>{ const el=$("#f_"+k); if(el && !el.dataset.touched) el.value=v??""; };
-      set("fcName",b.name); set("fcTarget",b.target); set("fcMcu",b.mcu); set("fcGyro",b.gyro);
-      draft.fcName=b.name||draft.fcName; draft.fcTarget=b.target||draft.fcTarget;
-      draft.fcMcu=b.mcu||draft.fcMcu; draft.fcGyro=b.gyro||draft.fcGyro;
-    }
-    const checks=setupChecks(Object.assign(newCopter(),draft));
-    $("#editorChecks").innerHTML = checks.map(r=>`<div class="rule ${r.level}">${esc(r.text)}</div>`).join("")
-      || `<div class="rule ok">Keine Auffälligkeiten.</div>`;
-  };
-  $("#editorBody").addEventListener("input",e=>{ if(e.target.dataset.k!=="boardId") e.target.dataset.touched="1"; sync(); });
-  $("#editorBody").addEventListener("change",e=>{ if(e.target.dataset.k==="boardId"){ delete $("#f_fcName").dataset.touched; sync(); } });
-  sync();
-  $("#modal").addEventListener("click",e=>{
-    if(e.target.dataset.close) closeModal();
-    if(e.target.dataset.save){
-      const data=readEditorForm();
-      const draft=Object.assign(base,data);
-      const b=draft.boardId?S.boards.find(x=>x.id===draft.boardId):null;
-      if(b){ draft.fcName=draft.fcName||b.name; draft.fcTarget=draft.fcTarget||b.target;
-             draft.fcMcu=draft.fcMcu||b.mcu; draft.fcGyro=draft.fcGyro||b.gyro; }
-      if(!draft.name || !draft.name.trim()){ toast("Name fehlt","bad"); return; }
-      draft.updatedAt=nowISO(); draft.demo=false;
-      const i=S.fleet.findIndex(x=>x.id===draft.id);
-      if(i>=0) S.fleet[i]=draft; else { draft.id=uid("c"); draft.createdAt=nowISO(); S.fleet.push(draft); }
-      saveState(); renderAll(); closeModal(); toast("Copter gespeichert","ok");
-    }
-    if(e.target.dataset.del){
-      const i=S.fleet.findIndex(x=>x.id===base.id);
-      if(i>=0){ S.fleet.splice(i,1); saveState(); renderAll(); closeModal(); toast("Copter gelöscht"); }
-    }
-  });
-}
+    <footer>
+      <button class="btn ghost" type="button" data-gh="close" data-i18n="close">Schließen</button>
+      <button class="btn ghost" type="button" data-gh="file" data-i18n="ghFile">JSON herunterladen</button>
+      <button class="btn" type="button" data-gh="pull" data-i18n="ghPull">Jetzt laden</button>
+      <button class="btn primary" type="button" data-gh="push" data-i18n="ghPush">Jetzt hochladen</button>
+    </footer>
+  </div>
+</dialog>
 
-function openBoardEditor(id, preset){
-  const b = id ? S.boards.find(x=>x.id===id) : newBoard(preset||{});
-  const F=[
-    ["name","Board-Name","text","SpeedyBee F405 V4"],["target","Target","text","SPEEDYBEEF405V4"],
-    ["mfr","Hersteller","text","SpeedyBee"],["mcu","MCU","text","STM32F405"],
-    ["gyro","Gyro","text","ICM42688P"],["uarts","UART-Anzahl","number","6"],
-    ["bec","BEC","text","5 V 3 A"],["cells","Zellbereich","text","3S–6S"],
-    ["mount","Montage","text","30,5 × 30,5 mm"],["osd","OSD","text","AT7456E"],
-    ["blackbox","Blackbox","text","MicroSD"],["esc","Motor-Ausgänge / ESC","text","M1–M8"],
-    ["source","Quelle","text","Herstellerangabe / Review"],
-    ["notes","Notizen","textarea",""]
-  ];
-  openModal(`
-    <div class="flex" style="justify-content:space-between;align-items:flex-start">
-      <div><div class="kicker">FC-Bibliothek</div><h2>${esc(b.name||"Neues Board")}</h2>
-        <p class="sub">Stammdaten, die beim Auslesen und in der Flotte als Vorschlag erscheinen.</p></div>
-      <button class="x" data-close="1">×</button>
-    </div>
-    <div class="field-grid three">
-      ${F.map(([k,l,t,ph])=>`<div class="field ${t==="textarea"?"wide":""}">
-        <label for="b_${k}">${esc(l)}</label>
-        ${t==="textarea"?`<textarea id="b_${k}" data-bk="${k}">${esc(b[k]||"")}</textarea>`
-          :`<input type="${t}" id="b_${k}" data-bk="${k}" value="${esc(b[k]??"")}" placeholder="${esc(ph)}">`}
-      </div>`).join("")}
-      <div class="field"><label for="b_verified">Eintrag geprüft</label>
-        <select id="b_verified" data-bk="verified">
-          <option value="false" ${!b.verified?"selected":""}>nein — prüfen</option>
-          <option value="true" ${b.verified?"selected":""}>ja, Quelle liegt vor</option>
-        </select></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn ghost" data-close="1">Abbrechen</button>
-      <button class="btn primary" data-save="1">Speichern</button>
-    </div>`);
-  $("#modal").addEventListener("click",e=>{
-    if(e.target.dataset.close) closeModal();
-    if(e.target.dataset.save){
-      const o=Object.assign({},b);
-      $$("#modal [data-bk]").forEach(el=>{
-        let v=el.value; if(el.dataset.bk==="uarts") v=v===""?"":String(v);
-        if(el.dataset.bk==="verified") v=el.value==="true";
-        o[el.dataset.bk]=v;
-      });
-      if(!o.name && !o.target){ toast("Board-Name oder Target angeben","bad"); return; }
-      o.updatedAt=nowISO(); o.custom=true;
-      const i=S.boards.findIndex(x=>x.id===o.id);
-      if(i>=0) S.boards[i]=o; else { o.id=uid("b"); o.createdAt=nowISO(); S.boards.push(o); }
-      saveState(); renderAll(); closeModal(); toast("Board gespeichert","ok");
-    }
-  });
-}
+<div id="printArea"></div>
 
-/* --------------------------------------------------- Dokumentationsteile */
-function renderRuleDoc(){
-  const el=$("#ruleDoc"); if(!el) return;
-  const rows=[
-    ["Vollständigkeit","FC, Zellen, Gewicht und Props vorhanden?","Hinweis"],
-    ["Zoll ↔ Prop","Prop-Zoll gegen Klassen-Zoll (Toleranz +0,35″)","Warnung"],
-    ["KV ↔ Zellen ↔ Klasse","KV gegen Erfahrungsbereich je Klasse und Zellenzahl","Warnung"],
-    ["Wartung","Status flugbereit + letzter Service älter als 182 Tage","Warnung"],
-    ["Letzter Flug","Status flugbereit + letzter Flug älter als 365 Tage","Warnung"],
-    ["Protokoll","PWM auf 6S/8S: keine Telemetrie, kein RPM-Filter","Hinweis"]
-  ];
-  el.innerHTML = `<div class="table-wrap"><table class="tbl" style="min-width:420px">
-    <thead><tr><th>Regel</th><th>Prüfung</th><th>Stufe</th></tr></thead>
-    <tbody>${rows.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
-  </table></div>
-  <div class="sub" style="margin-top:8px">Der Setup-Check ist bewusst zurückhaltend: er meldet Auffälligkeiten, keine Freigaben. Grenzwerte stammen aus Herstellerangaben — hier stehen nur Erfahrungsbereiche.</div>`;
-}
-function renderStorageInfo(){
-  const el=$("#storageInfo"); if(!el) return;
-  const raw=LS.get(APP.key)||"";
-  const kb=(raw.length/1024).toFixed(1);
-  const created=S.meta?.created?fmtDate(S.meta.created):"—";
-  el.innerHTML=[
-    `<div class="read-item"><div class="k">Einträge</div><div class="v">${S.fleet.length} Copter · ${S.boards.length} Boards</div></div>`,
-    `<div class="read-item"><div class="k">Speicher</div><div class="v">${kb} KB <small>/ ~5 MB${LS.ok?"":" · nur Sitzung"}</small></div></div>`,
-    `<div class="read-item"><div class="k">Angelegt</div><div class="v">${created}</div></div>`,
-    `<div class="read-item"><div class="k">Schema</div><div class="v">v${S.schema||1} <small>${esc(APP.version)}</small></div></div>`
-  ].join("");
-}
+<input type="file" id="file" accept="application/json,.json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-/* ------------------------------------------------------ Export / Bericht */
-function fleetCSV(){
-  const cols=[["name","Name"],["size","Klasse"],["frame","Frame"],["status","Status"],["fcName","FC"],
-    ["fcTarget","Target"],["fcMcu","MCU"],["fcGyro","Gyro"],["fw","Firmware"],["fwVersion","FW-Version"],
-    ["escProtocol","Protokoll"],["motor","Motoren"],["kv","KV"],["props","Props"],["propInch","Prop-Zoll"],
-    ["cells","Zellen"],["capacity","mAh"],["weight","Gewicht g"],["vtx","VTX"],["link","Funk"],
-    ["rx","Empfänger"],["fcUid","FC-UID"],["serial","Serie"],["lastFlight","Letzter Flug"],["notes","Notizen"]];
-  const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;
-  const head=cols.map(c=>q(c[1])).join(";");
-  const body=S.fleet.map(c=>cols.map(([k])=>{
-    if(k==="size") return q(sizeOf(c.size).label);
-    if(k==="status") return q(statusOf(c.status).label);
-    return q(c[k]);
-  }).join(";")).join("\r\n");
-  return "\uFEFF"+head+"\r\n"+body;
-}
-function fleetReport(){
-  const L=[];
-  L.push(`# ${APP.name} — Flottenbericht`);
-  L.push(`Stand: ${new Date().toLocaleString("de-DE")} · ${S.fleet.length} Copter · ${S.boards.length} FC-Boards`);
-  L.push("");
-  const byStatus={}; S.fleet.forEach(c=>{ byStatus[c.status]=(byStatus[c.status]||0)+1; });
-  L.push("## Übersicht");
-  L.push(Object.entries(byStatus).map(([k,v])=>`- ${statusOf(k).label}: ${v}`).join("\n")||"- leer");
-  L.push("");
-  S.fleet.forEach(c=>{
-    L.push(`## ${c.name}`);
-    L.push(`- Klasse: ${sizeOf(c.size).label}${c.frame?" · Frame: "+c.frame:""}`);
-    L.push(`- FC: ${c.fcName||"—"}${c.fcTarget?" ("+c.fcTarget+")":""}${c.fcMcu?" · "+c.fcMcu:""}${c.fcGyro?" · Gyro "+c.fcGyro:""}`);
-    L.push(`- Firmware: ${c.fw||"—"} ${c.fwVersion||""} · ${c.escProtocol||"—"}`);
-    L.push(`- Antrieb: ${c.motor||"—"}${c.kv?" / "+c.kv+" KV":""} · Props ${c.props||"—"} · ${c.cells||"—"} ${c.capacity?c.capacity+" mAh":""}`);
-    if(c.weight) L.push(`- Gewicht: ${c.weight} g`);
-    L.push(`- Video/Funk: ${c.vtx||"—"} · ${c.link||"—"}${c.rx?" · "+c.rx:""}`);
-    const hints=setupChecks(c).filter(r=>r.level==="warn"||r.level==="bad");
-    if(hints.length) L.push(`- Hinweise: ${hints.map(h=>h.text).join(" | ")}`);
-    L.push("");
-  });
-  return L.join("\n");
-}
+<script type="text/javascript">
+(function(){
+"use strict";
 
-/* ------------------------------------------------------ Export / Import */
-function exportAll(){
-  const payload=Object.assign({},S,{app:APP.name,version:APP.version,schema:APP.schema,exported:nowISO()});
-  download(`hangardeck-${dayISO()}.json`, JSON.stringify(payload,null,2));
-  toast("JSON exportiert","ok");
-}
-function importJSON(text){
-  let o; try{ o=JSON.parse(text); }catch(e){ toast("Kein gültiges JSON","bad"); return; }
-  if(!o || typeof o!=="object"){ toast("Unerwartetes Format","bad"); return; }
-  const fleet=Array.isArray(o.fleet)?o.fleet:null;
-  const boards=Array.isArray(o.boards)?o.boards:null;
-  if(!fleet && !boards){ toast("Weder fleet noch boards gefunden","bad"); return; }
-  let added=0, merged=0;
-  if(boards) boards.forEach(b=>{
-    if(!b||!b.id) return;
-    const i=S.boards.findIndex(x=>x.id===b.id);
-    if(i>=0){ S.boards[i]=Object.assign({},S.boards[i],b); merged++; }
-    else { S.boards.push(Object.assign(newBoard(),b)); added++; }
-  });
-  if(fleet) fleet.forEach(c=>{
-    if(!c||!c.id) return;
-    const i=S.fleet.findIndex(x=>x.id===c.id);
-    if(i>=0){ S.fleet[i]=Object.assign({},S.fleet[i],c); merged++; }
-    else { S.fleet.push(Object.assign(newCopter(),c)); added++; }
-  });
-  saveState(); renderAll();
-  toast(`${added} neu, ${merged} aktualisiert`,"ok");
-}
+var KEY = "hangardeck.lite.v1";
+var PREFS_KEY = "hangardeck.lite.prefs";
 
-/* =====================================================================
-   Web-Serial · MSP v1
-   ===================================================================== */
-const MSP_CMD = { API_VERSION:1, FC_VARIANT:2, FC_VERSION:3, BOARD_INFO:4, BUILD_INFO:5,
-  BATTERY_CONFIG:32, FEATURE_CONFIG:36, MIXER_CONFIG:42, STATUS:101, MOTOR_CONFIG:131, UID:160 };
-
-const MOTOR_PROTOCOLS = ["PWM / STANDARD","ONESHOT125","ONESHOT42","MULTISHOT","BRUSHED",
-  "DSHOT150","DSHOT300","DSHOT600","PROSHOT1000","DISABLED","DSHOT1200"];
-const MIXERS = {0:"TRI",1:"QUADP",2:"QUADX",3:"BICOPTER",5:"Y6",6:"HEX6",7:"FLYING_WING",
-  8:"Y4",9:"HEX6X",10:"OCTOX8",11:"OCTOFLATP",12:"OCTOFLATX",13:"AIRPLANE",
-  16:"VTAIL4",17:"HEX6H",19:"DUALCOPTER",20:"SINGLECOPTER",21:"ATAIL4"};
-const TARGET_MCU = {S405:"STM32F405",S411:"STM32F411",S412:"STM32F412",S446:"STM32F446",
-  S722:"STM32F722",S745:"STM32F745",S743:"STM32H743",S750:"STM32H750",S474:"STM32G474",
-  A435:"AT32F435",A437:"AT32F437"};
-
-const SER = { port:null, reader:null, connected:false, buf:new Uint8Array(0),
-  waiters:new Map(), chain:Promise.resolve(), busy:false };
-
-function slog(text,kind=""){
-  const el=$("#mspConsole"); if(!el) return;
-  if(el.querySelector(".dim") && el.children.length===1) el.innerHTML="";
-  const line=document.createElement("div");
-  line.className=kind; line.textContent=text;
-  el.appendChild(line); el.scrollTop=el.scrollHeight;
-}
-function serialUI(){
-  const dot=$("#serialDot"), state=$("#serialState");
-  if(!dot) return;
-  dot.className="serial-dot "+(SER.busy?"busy":(SER.connected?"on":""));
-  state.textContent = SER.connected ? (SER.busy?"beschäftigt":"verbunden") : "nicht verbunden";
-  state.className = "pill "+(SER.connected?"ok":"");
-  $("#btnConnect").disabled = SER.connected;
-  $("#btnDisconnect").disabled = !SER.connected;
-  $("#btnRead").disabled = !SER.connected || SER.busy;
-}
-
-async function connectSerial(){
-  if(!("serial" in navigator)){
-    toast("Web-Serial nicht verfügbar — Chrome/Edge am Desktop verwenden","bad");
-    slog("Web-Serial-API fehlt in diesem Browser.","err"); return;
+/* ---------- Sprache ---------- */
+var I18N = {
+  de:{
+    sub:"Copter-Verwaltung · lokal im Browser", theme:"Farbschema", lang:"Sprache",
+    export:"Export", import:"Import", add:"+ Copter", search:"Suchen …",
+    foot1:"Alles bleibt in diesem Browser. Kein Server, kein Konto.", foot2:"Für Backup oder Umzug den Export nutzen.",
+    name:"Name", namePh:"z. B. Fünfzöller Freestyle", size:"Größe", cells:"Spannung", kv:"Motor KV",
+    escHint:"Dauerstrom in Ampere", status:"Status", st_ready:"Flugbereit", st_maint:"In Arbeit", st_down:"Defekt / Lager",
+    more:"Mehr Details", mah:"Akku", weight:"Abfluggewicht", gram:"Gramm", notes:"Notiz",
+    notesPh:"Was zuletzt getauscht wurde, Besonderheiten …", cancel:"Abbrechen", save:"Speichern", opt:"optional",
+    newTitle:"Neuer Copter", editTitle:"Copter bearbeiten", edit:"Bearbeiten", del:"Löschen",
+    copter:"Copter", of:"von", emptyH:"Noch nichts im Hangar", emptyP:"Leg deinen ersten Copter an — Name und Größe reichen.",
+    emptyBtn:"+ Copter anlegen", noneH:"Nichts gefunden", noneP:"Andere Suche versuchen.",
+    inch:"zoll", noName:"Name fehlt", saved:"Gespeichert", created:"Angelegt", deleted:"Gelöscht",
+    confirmDel:function(n){ return "„" + n + "“ löschen?"; },
+    exported:"Export erstellt", exportFail:"Export nicht möglich",
+    imported:function(a,u){ return a + " neu, " + u + " aktualisiert"; }, badFile:"Datei nicht lesbar",
+    noStore:"Kein Speicherzugriff — Änderungen gelten nur für diese Sitzung.",
+    close:"Schließen",
+    ghTitle:"GitHub-Sync",
+    ghHowH:"So funktioniert es",
+    ghHowP:"Die App liest und schreibt eine JSON-Datei in deinem Repository. Damit ist dieselbe Liste auf jedem Gerät und auf der GitHub-Pages-Seite identisch. Ohne Token funktioniert nur das Lesen (öffentliches Repo).",
+    ghTokenHint:"Token: fein abgestuftes persönliches Token, nur für dieses Repository, Recht",
+    ghTokenHint2:"Wird nur lokal in diesem Browser gespeichert und ausschließlich an api.github.com gesendet.",
+    ghRepo:"Repository (owner/repo)", ghBranch:"Branch", ghPath:"Dateipfad im Repository",
+    ghPathHint:"Muss nicht existieren – wird beim ersten Hochladen angelegt.",
+    ghToken:"Token", ghAuto:"Automatisch synchronisieren",
+    ghStateH:"Status", ghNotSet:"Noch nicht eingerichtet.",
+    ghPull:"Jetzt laden", ghPush:"Jetzt hochladen", ghFile:"Datei herunterladen",
+    ghNeedRepo:"Repository fehlt (owner/repo).", ghNeedToken:"Für das Hochladen wird ein Token benötigt.",
+    ghPulling:"Lade von GitHub …", ghPushing:"Lade zu GitHub hoch …",
+    ghPullOk:function(n){ return "Geladen – " + n + " Datensätze geprüft."; },
+    ghPushOk:"Auf GitHub gespeichert.",
+    ghNoRemote:"Auf GitHub liegt noch keine Datei – wird beim ersten Hochladen erzeugt.",
+    ghAuthFail:"Token abgelehnt oder ohne Schreibrecht (Contents: Read and write).",
+    ghRate:"GitHub meldet zu viele Anfragen – kurz warten.",
+    ghNet:"GitHub nicht erreichbar (Netzwerk, CORS oder offline).",
+    ghConf:"Datei wurde auf GitHub zwischenzeitlich geändert – neu geladen und erneut hochgeladen.",
+    ghReadOnly:"Nur Lesezugriff (kein Token) – Änderungen bleiben lokal.",
+    ghOff:"GitHub einrichten", ghSave:"Gespeichert",
+    ghStateOk:function(t){ return "Verbunden · letzter Abgleich " + t; },
+    ghStateErr:function(m){ return "Fehler: " + m; },
+    syncBusy:"Sync …", syncOk:function(t){ return "Sync " + t; },
+    export:"Export", expPdf:"PDF-Tabelle", expCsv:"CSV-Tabelle", expPrint:"Drucken",
+    expPrintHint:"Papier / PDF", expJson:"JSON", expJsonHint:"Sicherung",
+    expPdfDone:"PDF erstellt", expCsvDone:"CSV erstellt", expEmpty:"Nichts zu exportieren",
+    colName:"Copter", colSize:"Größe", colCells:"Spannung", colKv:"KV", colEsc:"ESC (A)",
+    colProps:"Props", colStatus:"Status", colFc:"Flight Controller", colMah:"Akku (mAh)",
+    colWeight:"Gewicht (g)", colNotes:"Notiz",
+    pdfTitle:"Copterliste", pdfCount:function(n){ return n + " Copter"; },
+    pdfPage:"Seite", pdfOf:"von", pdfCreated:"erstellt"
+  },
+  en:{
+    sub:"Quad manager · stored in your browser", theme:"Colour scheme", lang:"Language",
+    export:"Export", import:"Import", add:"+ Quad", search:"Search …",
+    foot1:"Everything stays in this browser. No server, no account.", foot2:"Use Export for backups or moving devices.",
+    name:"Name", namePh:"e.g. 5\" Freestyle", size:"Size", cells:"Voltage", kv:"Motor KV",
+    escHint:"Continuous current in amps", status:"Status", st_ready:"Ready to fly", st_maint:"Work in progress", st_down:"Broken / stored",
+    more:"More details", mah:"Battery", weight:"All-up weight", gram:"grams", notes:"Note",
+    notesPh:"Last part swapped, quirks …", cancel:"Cancel", save:"Save", opt:"optional",
+    newTitle:"New quad", editTitle:"Edit quad", edit:"Edit", del:"Delete",
+    copter:"quads", copter1:"quad", of:"of", emptyH:"Your hangar is empty", emptyP:"Add your first quad — name and size are enough.",
+    emptyBtn:"+ Add quad", noneH:"Nothing found", noneP:"Try a different search.",
+    inch:"inch", noName:"Name is missing", saved:"Saved", created:"Added", deleted:"Deleted",
+    confirmDel:function(n){ return "Delete \u201C" + n + "\u201D?"; },
+    exported:"Export created", exportFail:"Export not possible",
+    imported:function(a,u){ return a + " new, " + u + " updated"; }, badFile:"File could not be read",
+    noStore:"No storage access — changes only last for this session.",
+    close:"Close",
+    ghTitle:"GitHub sync",
+    ghHowH:"How it works",
+    ghHowP:"The app reads and writes one JSON file inside your repository. That keeps the same list on every device and on the GitHub Pages site. Without a token it is read-only (public repo).",
+    ghTokenHint:"Token: fine-grained personal token, this repository only, permission",
+    ghTokenHint2:"Stored locally in this browser only and sent to api.github.com and nowhere else.",
+    ghRepo:"Repository (owner/repo)", ghBranch:"Branch", ghPath:"File path in the repository",
+    ghPathHint:"Does not have to exist — created on the first upload.",
+    ghToken:"Token", ghAuto:"Sync automatically",
+    ghStateH:"Status", ghNotSet:"Not configured yet.",
+    ghPull:"Pull now", ghPush:"Push now", ghFile:"Download file",
+    ghNeedRepo:"Repository missing (owner/repo).", ghNeedToken:"A token is required for uploading.",
+    ghPulling:"Pulling from GitHub …", ghPushing:"Pushing to GitHub …",
+    ghPullOk:function(n){ return "Pulled — " + n + " records checked."; },
+    ghPushOk:"Saved to GitHub.",
+    ghNoRemote:"No file on GitHub yet — created on the first upload.",
+    ghAuthFail:"Token rejected or missing write permission (Contents: Read and write).",
+    ghRate:"GitHub rate limit hit — wait a moment.",
+    ghNet:"GitHub unreachable (network, CORS or offline).",
+    ghConf:"File changed on GitHub in the meantime — reloaded and pushed again.",
+    ghReadOnly:"Read-only (no token) — changes stay local.",
+    ghOff:"Set up GitHub", ghSave:"Saved",
+    ghStateOk:function(t){ return "Connected · last sync " + t; },
+    ghStateErr:function(m){ return "Error: " + m; },
+    syncBusy:"Syncing …", syncOk:function(t){ return "Sync " + t; },
+    export:"Export", expPdf:"PDF table", expCsv:"CSV table", expPrint:"Print",
+    expPrintHint:"paper / PDF", expJson:"JSON", expJsonHint:"backup",
+    expPdfDone:"PDF created", expCsvDone:"CSV created", expEmpty:"Nothing to export",
+    colName:"Quad", colSize:"Size", colCells:"Voltage", colKv:"KV", colEsc:"ESC (A)",
+    colProps:"Props", colStatus:"Status", colFc:"Flight controller", colMah:"Battery (mAh)",
+    colWeight:"Weight (g)", colNotes:"Note",
+    pdfTitle:"Quad list", pdfCount:function(n){ return n + " quads"; },
+    pdfPage:"Page", pdfOf:"of", pdfCreated:"created"
   }
-  try{
-    SER.port = await navigator.serial.requestPort();
-    const baud = num($("#baud").value)||115200;
-    await SER.port.open({ baudRate: baud, bufferSize: 8192 });
-    SER.connected = true; SER.buf = new Uint8Array(0);
-    SER.reader = SER.port.readable.getReader();
-    readLoop();
-    slog("Verbunden ("+baud+" baud).","ok"); serialUI();
-    toast("Verbunden mit "+baud+" baud","ok");
-  }catch(e){
-    slog("Verbindung fehlgeschlagen: "+(e.message||e),"err");
-    toast("Verbindung fehlgeschlagen","bad");
-  }
-}
-async function readLoop(){
-  try{
-    while(SER.reader){
-      const {value,done} = await SER.reader.read();
-      if(done) break;
-      if(value && value.length){
-        const merged=new Uint8Array(SER.buf.length+value.length);
-        merged.set(SER.buf); merged.set(value,SER.buf.length); SER.buf=merged;
-        pumpFrames();
-      }
-    }
-  }catch(e){ if(SER.connected) slog("Lesefehler: "+(e.message||e),"err"); }
-}
-function pumpFrames(){
-  while(true){
-    if(SER.buf.length<3) return;
-    let start=-1;
-    for(let i=0;i<SER.buf.length-2;i++){
-      if(SER.buf[i]===0x24 && SER.buf[i+1]===0x4D){ start=i; break; }
-    }
-    if(start<0){ SER.buf=SER.buf.slice(Math.max(0,SER.buf.length-2)); return; }
-    if(start>0) SER.buf=SER.buf.slice(start);
-    if(SER.buf.length<6) return;
-    const dir=SER.buf[2], size=SER.buf[3], cmd=SER.buf[4];
-    const total=6+size;
-    if(SER.buf.length<total) return;
-    const payload=SER.buf.slice(5,5+size);
-    const crc=SER.buf[5+size];
-    let c=size^cmd; for(let i=0;i<payload.length;i++) c^=payload[i];
-    SER.buf=SER.buf.slice(total);
-    if(dir===0x21){
-      const w=SER.waiters.get(cmd);
-      if(w){ clearTimeout(w.t); SER.waiters.delete(cmd); w.reject(new Error("FC meldet MSP-Fehler (Cmd "+cmd+")")); }
-      continue;
-    }
-    if(dir!==0x3E) continue;
-    if(c!==crc){ slog("CRC-Fehler bei Cmd "+cmd,"err"); continue; }
-    const w=SER.waiters.get(cmd);
-    if(w){ clearTimeout(w.t); SER.waiters.delete(cmd); w.resolve(payload); }
-  }
-}
-function mspFrame(cmd,payload){
-  const size=payload.length;
-  const out=new Uint8Array(6+size);
-  out[0]=0x24; out[1]=0x4D; out[2]=0x3C; out[3]=size; out[4]=cmd;
-  out.set(payload,5);
-  let c=size^cmd; for(let i=0;i<size;i++) c^=payload[i];
-  out[5+size]=c; return out;
-}
-function mspOnce(cmd,payload=[],timeout=1500){
-  return new Promise((resolve,reject)=>{
-    if(!SER.port || !SER.connected) return reject(new Error("nicht verbunden"));
-    const t=setTimeout(()=>{ SER.waiters.delete(cmd); reject(new Error("Timeout (Cmd "+cmd+")")); },timeout);
-    SER.waiters.set(cmd,{resolve,reject,t});
-    const frame=mspFrame(cmd,new Uint8Array(payload));
-    (async()=>{
-      const writer=SER.port.writable.getWriter();
-      try{ await writer.write(frame); } finally { writer.releaseLock(); }
-    })().catch(e=>{ clearTimeout(t); SER.waiters.delete(cmd); reject(e); });
-  });
-}
-function mspRequest(cmd,payload=[],timeout=1500){
-  const p=SER.chain.then(()=>mspOnce(cmd,payload,timeout));
-  SER.chain=p.catch(()=>{});
-  return p;
-}
-async function disconnectSerial(){
-  try{
-    if(SER.reader){ try{ await SER.reader.cancel(); }catch(e){} SER.reader.releaseLock(); SER.reader=null; }
-    if(SER.port){ await SER.port.close(); }
-  }catch(e){}
-  SER.port=null; SER.connected=false; SER.buf=new Uint8Array(0); SER.waiters.clear();
-  serialUI(); slog("Getrennt.","dim"); toast("Getrennt");
-}
-
-/* --------------------------------------------------------- MSP-Parsing */
-const rd = {
-  u8:(b,o)=>b[o]??0,
-  u16:(b,o)=>(b[o]??0)|((b[o+1]??0)<<8),
-  u32:(b,o)=>((b[o]??0)|((b[o+1]??0)<<8)|((b[o+2]??0)<<16)|((b[o+3]??0)<<24))>>>0,
-  str:(b,o,len)=>{ let s=""; for(let i=0;i<len && o+i<b.length;i++){ const c=b[o+i]; if(c>=32&&c<127) s+=String.fromCharCode(c); } return s.trim(); },
-  hex:b=>Array.from(b).map(x=>x.toString(16).padStart(2,"0")).join("")
 };
-function decodeSensors(mask){
-  const map=[["ACC",1],["BARO",2],["MAG",4],["GPS",8],["RANGEFINDER",16],["GYRO",32]];
-  return map.filter(([,bit])=>mask&bit).map(([n])=>n);
-}
-function libraryFor(target,boardName){
-  const t=(target||"").toUpperCase(), n=(boardName||"").toUpperCase();
-  return S.boards.find(b=>b.target && b.target.toUpperCase()===t && t) ||
-         S.boards.find(b=>b.name && n && b.name.toUpperCase().replace(/\s+/g,"")===n.replace(/\s+/g,"")) || null;
-}
+var THEMES = { ocean:"#06232a", sand:"#f4f6f5", drakn:"#140a25" };
 
-async function readFC(){
-  if(!SER.connected){ toast("Nicht verbunden","bad"); return; }
-  SER.busy=true; serialUI(); $("#btnRead").disabled=true;
-  const timeout=clamp(num($("#readTimeout").value)||1500,300,6000);
-  const profile=$("#readProfile").value;
-  const R={readAt:nowISO(), source:"MSP / Web-Serial", errors:[]};
-  const step=async(label,cmd,fn,payload=[])=>{
-    try{
-      const b=await mspRequest(cmd,payload,timeout);
-      fn(b); slog(label+" → "+b.length+" Byte","ok");
-    }catch(e){ R.errors.push(label+": "+e.message); slog(label+" → "+e.message,"err"); }
-  };
+/* Speicher kann blockiert sein (private Modi, Sandbox-Vorschau) -> dann flüchtig weiterarbeiten */
+var LS = {
+  ok:true, warned:false,
+  get:function(k){ try{ return localStorage.getItem(k); }catch(e){ this.ok=false; return null; } },
+  set:function(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ this.ok=false; return false; } }
+};
 
-  slog("Starte Auslesen …","dim");
-  await step("MSP_API_VERSION",MSP_CMD.API_VERSION,b=>{
-    R.apiProtocol=rd.u8(b,0); R.apiMajor=rd.u8(b,1); R.apiMinor=rd.u8(b,2);
-  });
-  await step("MSP_FC_VARIANT",MSP_CMD.FC_VARIANT,b=>{ R.variant=rd.str(b,0,4).trim(); });
-  await step("MSP_FC_VERSION",MSP_CMD.FC_VERSION,b=>{
-    R.fwVersion=[rd.u8(b,0),rd.u8(b,1),rd.u8(b,2)].join(".");
-  });
-  await step("MSP_BOARD_INFO",MSP_CMD.BOARD_INFO,b=>{
-    R.boardId4=rd.str(b,0,4);
-    R.hwRevision=rd.u16(b,4);
-    if(b.length>11){
-      R.boardType=rd.u8(b,6);
-      R.targetName=rd.str(b,7,4);
-      const len=rd.u8(b,11);
-      if(len>0 && 12+len<=b.length) R.boardName=rd.str(b,12,len);
-      const off=12+len;
-      if(off+4<=b.length) R.manufacturerId=rd.str(b,off,4);
+var SIZES = [
+  {v:"65",  l:'65 mm Whoop'},
+  {v:"75",  l:'75 mm Whoop'},
+  {v:"2",   l:'2"'},
+  {v:"2.5", l:'2.5"'},
+  {v:"3",   l:'3"'},
+  {v:"3.5", l:'3.5"'},
+  {v:"4",   l:'4"'},
+  {v:"5",   l:'5"'},
+  {v:"6",   l:'6"'},
+  {v:"7",   l:'7"'},
+  {v:"8",   l:'8"'},
+  {v:"10",  l:'10"'}
+];
+var CELLS = ["","1S","2S","3S","4S","6S","8S","12S"];
+
+var seed = [
+  {id:"c1", name:"Fünfzöller Freestyle", size:"5",  cells:"6S", kv:1800, esc:50, props:"5.1x4.6x3", status:"ready", fc:"SpeedyBee F405 V4", mah:1300, weight:680, notes:""},
+  {id:"c2", name:'Cinewhoop 3"',         size:"3",  cells:"4S", kv:3000, esc:35, props:"3x2x3",     status:"ready", fc:"", mah:850, weight:null, notes:"Indoor, Duct"},
+  {id:"c3", name:"Tiny Whoop",           size:"65", cells:"1S", kv:19000, esc:null, props:"", status:"maint", fc:"", mah:300, weight:null, notes:"Canopy gerissen"},
+  {id:"c4", name:"Langstrecke 7\"",      size:"7",  cells:"6S", kv:1300, esc:60, props:"7x4.5x3", status:"down", fc:"Matek H743-SLIM V3", mah:4000, weight:1450, notes:"Arm gebrochen"}
+];
+
+var FLOWSTATE_ALIAS = { ocean:"ocean", sand:"sand", drakn:"drakn", dark:"ocean", light:"sand", cream:"drakn" };
+function sharedTheme(){ try{ var v = LS.get("flowstate-theme"); return FLOWSTATE_ALIAS[v] || null; }catch(e){ return null; } }
+function urlLang(){ try{ var q = new URLSearchParams(location.search).get("lang"); return I18N[q] ? q : null; }catch(e){ return null; } }
+var prefs = loadPrefs();
+function T(k){ var d = I18N[prefs.lang] || I18N.de; return d[k] != null ? d[k] : I18N.de[k]; }
+function seedFor(){
+  var en = prefs.lang === "en";
+  return seed.map(function(c){
+    var x = {}; for(var k in c) x[k] = c[k];
+    if(en){
+      x.name = {c1:'5" Freestyle', c2:'3" Cinewhoop', c3:"Tiny Whoop", c4:'7" Long Range'}[c.id] || c.name;
+      x.notes = {c2:"Indoor, ducts", c3:"Canopy cracked", c4:"Broken arm"}[c.id] || "";
     }
+    return x;
   });
-  await step("MSP_BUILD_INFO",MSP_CMD.BUILD_INFO,b=>{
-    R.buildDate=rd.str(b,0,11); R.buildTime=rd.str(b,11,8); R.gitHash=rd.str(b,19,7);
-  });
-  await step("MSP_UID",MSP_CMD.UID,b=>{ R.uidHex=rd.hex(b); });
-  await step("MSP_STATUS",MSP_CMD.STATUS,b=>{
-    R.cycleTime=rd.u16(b,0); R.i2cErrors=rd.u16(b,2);
-    R.sensorsMask=rd.u16(b,4); R.sensors=decodeSensors(R.sensorsMask);
-    R.activeProfile=rd.u8(b,8);
-  });
-  await step("MSP_MIXER_CONFIG",MSP_CMD.MIXER_CONFIG,b=>{
-    R.mixerId=rd.u8(b,0); R.mixerName=MIXERS[R.mixerId]||("Mixer-ID "+R.mixerId);
-  });
-  if(profile==="full"){
-    await step("MSP_MOTOR_CONFIG",MSP_CMD.MOTOR_CONFIG,b=>{
-      R.motorCount=rd.u8(b,0); R.motorProtocolId=rd.u8(b,1);
-      R.motorProtocol=MOTOR_PROTOCOLS[R.motorProtocolId]||("Protokoll-ID "+R.motorProtocolId);
-      R.motorPoles=rd.u8(b,2);
-    });
-    await step("MSP_BATTERY_CONFIG",MSP_CMD.BATTERY_CONFIG,b=>{
-      R.batteryCells=rd.u8(b,0);
-    });
-    await step("MSP_FEATURE_CONFIG",MSP_CMD.FEATURE_CONFIG,b=>{
-      R.featureMask=rd.u32(b,0); R.featureHex="0x"+R.featureMask.toString(16).toUpperCase().padStart(8,"0");
-    });
-  }
-
-  // Ableitungen
-  R.variantName = R.variant==="BTFL"?"Betaflight":R.variant==="INAV"?"INAV":R.variant==="EMUF"?"EmuFlight":(R.variant||"—");
-  R.mcuInferred = TARGET_MCU[(R.targetName||"").toUpperCase()] || "";
-  const lib=libraryFor(R.targetName, R.boardName);
-  R.libraryId = lib?lib.id:"";
-  R.mcu = lib?.mcu || R.mcuInferred || "";
-  R.gyro = lib?.gyro || "";
-  R.uarts = lib?.uarts || "";
-
-  // Board automatisch in die Bibliothek aufnehmen
-  if(R.targetName && !lib){
-    const nb=newBoard({
-      name:R.boardName||R.targetName, target:R.targetName,
-      mfr:R.manufacturerId||"", mcu:R.mcu||"", gyro:"",
-      source:"Ausgelesen "+fmtDate(nowISO())+" (MSP)", verified:false, custom:true
-    });
-    S.boards.push(nb); R.libraryId=nb.id; saveState();
-    slog("Board „"+(nb.name)+"“ in Bibliothek angelegt.","ok");
-  }
-
-  UI.lastRead=R;
-  SER.busy=false; serialUI(); renderReadResult(); renderBoards();
-  const okCount=Object.keys(R).length-2;
-  slog("Fertig. "+okCount+" Felder gelesen, "+R.errors.length+" Fehler.","ok");
-  toast(R.errors.length? "Ausgelesen mit "+R.errors.length+" Fehlern" : "FC vollständig ausgelesen", R.errors.length?"bad":"ok");
 }
-
-function simulateRead(){
-  const lib=S.boards[0];
-  UI.lastRead={
-    readAt:nowISO(), source:"Simulation (kein FC verbunden)",
-    apiProtocol:0, apiMajor:1, apiMinor:46,
-    variant:"BTFL", variantName:"Betaflight", fwVersion:"4.5.1",
-    boardId4:"SPBE", hwRevision:0, boardType:0, targetName:"S405",
-    boardName:"SPEEDYBEEF405V4", manufacturerId:"SPBE",
-    buildDate:"Jan 12 2025", buildTime:"12:00:00", gitHash:"a1b2c3d",
-    uidHex:"3f2a91c4d807be1592300acc", cycleTime:125, i2cErrors:0,
-    sensorsMask:35, sensors:["ACC","BARO","GYRO"], activeProfile:0,
-    mixerId:2, mixerName:"QUADX", motorCount:4, motorProtocolId:7, motorProtocol:"DSHOT600",
-    motorPoles:14, batteryCells:6, featureMask:0x80000038, featureHex:"0x80000038",
-    mcu:lib?lib.mcu:"STM32F405", mcuInferred:"STM32F405", gyro:lib?lib.gyro:"ICM42688P",
-    libraryId:lib?lib.id:"", uarts:lib?lib.uarts:"6", errors:[]
-  };
-  [$("#mspConsole")].forEach(el=>el.innerHTML="");
-  slog("Simulation gestartet — keine echte Verbindung.","dim");
-  ["MSP_API_VERSION","MSP_FC_VARIANT","MSP_FC_VERSION","MSP_BOARD_INFO","MSP_UID","MSP_STATUS","MSP_MIXER_CONFIG","MSP_MOTOR_CONFIG"]
-    .forEach(n=>slog(n+" → simuliert","ok"));
-  slog("Hinweis: Werte sind Beispieldaten.","dim");
-  renderReadResult(); toast("Simulation geladen","ok");
-}
-
-function renderReadResult(){
-  const el=$("#readResult"); if(!el) return;
-  const R=UI.lastRead;
-  $("#btnReadToNew").disabled=!R; $("#btnReadPatch").disabled=!R;
-  if(!R){ el.innerHTML=`<div class="empty">Noch nichts gelesen.</div>`; return; }
-  const items=[
-    ["Firmware", R.variantName||"—", R.variant||""],
-    ["Version", R.fwVersion||"—", R.buildDate?("Build "+R.buildDate):""],
-    ["MSP-API", R.apiMajor!=null?("1."+R.apiMinor):"—", "Protokoll "+R.apiProtocol],
-    ["Board-Name", R.boardName||"—", R.boardId4||""],
-    ["Target-Kürzel", R.targetName||"—", R.hwRevision!=null?("HW-Rev "+R.hwRevision):""],
-    ["Hersteller-ID", R.manufacturerId||"—", ""],
-    ["MCU", R.mcu||"—", R.mcuInferred?"aus Target":"—"],
-    ["Gyro", R.gyro||"unbekannt", R.gyro?"aus Bibliothek":"nicht über MSP verfügbar"],
-    ["Chip-UID", R.uidHex?R.uidHex.slice(0,12)+"…":"—", R.uidHex?R.uidHex.length/2+" Byte":""],
-    ["Mixer", R.mixerName||"—", "ID "+(R.mixerId??"—")],
-    ["Motoren", R.motorCount??"—", R.motorPoles?R.motorPoles+" Pole":""],
-    ["Motor-Protokoll", R.motorProtocol||"—", R.escProtocol||""],
-    ["Zellen (Config)", R.batteryCells?R.batteryCells+"S":"—", ""],
-    ["Sensoren", (R.sensors||[]).join(" · ")||"—", R.sensorsMask!=null?("Maske 0x"+R.sensorsMask.toString(16)):""],
-    ["Features", R.featureHex||"—", "Maske, Namen per CLI-Import"],
-    ["Quelle", R.source||"—", fmtDT(R.readAt)]
-  ];
-  el.innerHTML = `<div class="read-grid">${items.map(([k,v,sub])=>
-    `<div class="read-item"><div class="k">${esc(k)}</div><div class="v">${esc(v)} ${sub?`<small>${esc(sub)}</small>`:""}</div></div>`).join("")}</div>
-    ${R.uidHex?`<div class="notice info" style="margin-top:10px">Chip-UID <span class="mono">${esc(R.uidHex)}</span> — eindeutig pro MCU. Nutze sie als Wiedererkennungsmerkmal, wenn zwei Copter denselben Boardtyp haben.</div>`:""}
-    ${R.errors&&R.errors.length?`<div class="notice warn" style="margin-top:10px">Teilweise gelesen: ${esc(R.errors.join(" · "))}</div>`:""}`;
-}
-
-function readPreset(){
-  const R=UI.lastRead; if(!R) return {};
+function loadPrefs(){
+  var p = {};
+  try{ p = JSON.parse(LS.get(PREFS_KEY) || "{}") || {}; }catch(e){ p = {}; }
+  var navDe = /^de/i.test((navigator.language || "de"));
+  var gh = (p.gh && typeof p.gh === "object") ? p.gh : {};
   return {
-    fcName: R.boardName? (R.libraryId?(S.boards.find(b=>b.id===R.libraryId)?.name||R.boardName):R.boardName) : "",
-    fcTarget: R.targetName||"", fcMcu: R.mcu||"", fcGyro: R.gyro||"",
-    boardId: R.libraryId||"", fw: R.variantName||"Betaflight", fwVersion: R.fwVersion||"",
-    escProtocol: (R.motorProtocol&&ESC_PROTOCOLS.includes(R.motorProtocol))?R.motorProtocol:"unbekannt",
-    fcUid: R.uidHex||"", cells: R.batteryCells?R.batteryCells+"S":"",
-    source: R.source
-  };
-}
-function patchCopterFromRead(){
-  const R=UI.lastRead; if(!R) return;
-  const preset=readPreset();
-  const keys=Object.keys(preset).filter(k=>preset[k]!==""&&preset[k]!=null);
-  openModal(`
-    <div class="flex" style="justify-content:space-between"><div><div class="kicker">Übernehmen</div>
-      <h2>In welchen Copter schreiben?</h2><p class="sub">Es werden nur die gelesenen Felder gesetzt.</p></div>
-      <button class="x" data-close="1">×</button></div>
-    <div class="table-wrap" style="margin-top:10px"><table class="tbl" style="min-width:420px">
-      <thead><tr><th>Copter</th><th>Klasse</th><th>aktueller FC</th><th></th></tr></thead>
-      <tbody>${S.fleet.map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${esc(sizeOf(c.size).short)}</td>
-        <td>${esc(c.fcName||"—")}</td>
-        <td class="right"><button class="btn mini primary" data-pick="${c.id}">Übernehmen</button></td></tr>`).join("")
-        || `<tr><td colspan="4" class="empty">Keine Copter vorhanden</td></tr>`}</tbody>
-    </table></div>
-    <div class="modal-actions"><button class="btn ghost" data-close="1">Abbrechen</button></div>`);
-  $("#modal").addEventListener("click",e=>{
-    if(e.target.dataset.close) closeModal();
-    const id=e.target.dataset.pick; if(!id) return;
-    const c=S.fleet.find(x=>x.id===id); if(!c) return;
-    keys.forEach(k=>c[k]=preset[k]);
-    c.updatedAt=nowISO(); c.source=R.source;
-    saveState(); renderAll(); closeModal();
-    toast(keys.length+" Felder übernommen","ok");
-  });
-}
-
-/* =====================================================================
-   Import: Betaflight / INAV CLI-Text
-   ===================================================================== */
-const SERIALRX = {CRSF:"CRSF",FPORT:"F.Port",SBUS:"SBUS",IBUS:"iBUS",SUMD:"SUMD",
-  SPEKTRUM1024:"Spektrum 1024",SPEKTRUM2048:"Spektrum 2048",XBUS:"XBUS",SRXL2:"SRXL2",GHST:"Ghost"};
-
-function parseDump(text){
-  const src=String(text||"");
-  const facts={}, log=[], meta={};
-  const has = s => s && s.length;
-  const put=(k,v,label,note)=>{ if(v===undefined||v===null||v==="") return;
-    facts[k]={value:v,label:label||k,note:note||""}; };
-  const note=t=>log.push(t);
-
-  // --- Kopfzeile Version / MCU
-  let m=src.match(/(Betaflight|INAV|EmuFlight)\s*\/\s*(STM32\w+|AT32\w+)\s*\(\s*(\w{3,5})\s*\)\s*([\d.]+)/i);
-  if(m){
-    const fwName=/betaflight/i.test(m[1])?"Betaflight":/inav/i.test(m[1])?"INAV":"EmuFlight";
-    put("fw",fwName,"Firmware");
-    put("fwVersion",m[4],"Firmware-Version");
-    put("fcMcu",m[2].toUpperCase(),"MCU");
-    meta.targetCode=m[3].toUpperCase();
-    note("Kopfzeile: "+fwName+" / "+m[2]+" ("+m[3]+") "+m[4]);
-  }
-  // --- board-Zeile
-  m=src.match(/#\s*board:\s*manufacturer_id:\s*([A-Za-z0-9]+)\s*,\s*board_name:\s*([^\s,]+)/i);
-  if(m){
-    put("fcTarget",m[2].trim(),"Board / Target");
-    put("fcName",m[2].trim(),"Board-Name");
-    meta.mfrId=m[1];
-    note("Board: "+m[2]+" (Hersteller-ID "+m[1]+")");
-  } else {
-    m=src.match(/#\s*board_name\s+([^\s]+)/i);
-    if(m){ put("fcTarget",m[1],"Board / Target"); note("board_name: "+m[1]); }
-  }
-  // --- MCU aus status
-  m=src.match(/MCU\s+([A-Z0-9]{3,8})\s+Clock=/i);
-  if(m && !facts.fcMcu){ put("fcMcu","STM32"+m[1],"MCU","aus status"); note("status: MCU "+m[1]); }
-  // --- Sensoren aus status
-  m=src.match(/GYRO=(\d)\s+ACC=(\d)\s+BARO=(\d)\s+MAG=(\d)/i);
-  if(m){
-    const names=["GYRO","ACC","BARO","MAG"].filter((n,i)=>m[i+1]==="1");
-    put("__sensors",names.join(" · ")||"keine","Sensor-Erkennung","status");
-    note("status: Sensoren "+(names.join(", ")||"keine"));
-  }
-  // --- craft_name
-  m=src.match(/set\s+craft_name\s*=\s*(.+)/i);
-  if(m){ put("name",m[1].trim(),"Copter-Name (craft_name)"); note("craft_name: "+m[1].trim()); }
-
-  // --- Einzelwerte
-  const one=re=>{ const r=src.match(re); return r?r[1].trim():null; };
-  let v=one(/set\s+motor_pwm_protocol\s*=\s*(\w+)/i);
-  if(v){ const up=v.toUpperCase();
-    put("escProtocol", ESC_PROTOCOLS.includes(up)?up:up, "Motor-Protokoll");
-    note("motor_pwm_protocol: "+v); }
-  v=one(/set\s+mixer\s*=\s*(\w+)/i);
-  if(v){ put("__mixer",v,"Mixer"); note("mixer: "+v); }
-  v=one(/set\s+serialrx_provider\s*=\s*(\w+)/i);
-  if(v){ const name=SERIALRX[v.toUpperCase()]||v;
-    put("rx",name,"Empfänger-Protokoll"); note("serialrx_provider: "+v); }
-  v=one(/set\s+rx_spi_protocol\s*=\s*(\w+)/i);
-  if(v){ put("rx","SPI "+v,"Empfänger (SPI)");
-    if(/expresslrs|elrs/i.test(v)) put("link","ELRS 2,4 GHz","Funkstrecke","aus rx_spi_protocol");
-    note("rx_spi_protocol: "+v); }
-  v=one(/set\s+(?:bat_capacity|battery_capacity)\s*=\s*(\d+)/i);
-  if(v && num(v)>0){ put("capacity",num(v),"Akkukapazität (mAh)"); note("battery_capacity: "+v+" mAh"); }
-  v=one(/set\s+gyro_1_bustype\s*=\s*(\w+)/i);
-  if(v){ put("__gyroBus",v,"Gyro-Bus"); note("gyro_1_bustype: "+v); }
-  v=one(/set\s+gyro_1_spibus\s*=\s*(\d+)/i);
-  if(v) note("gyro_1_spibus: "+v);
-  v=one(/set\s+pid_process_denom\s*=\s*(\d+)/i) || one(/set\s+gyro_sync_denom\s*=\s*(\d+)/i);
-  if(v) note("PID-Denom: "+v);
-
-  // --- Features
-  const features=Array.from(src.matchAll(/^\s*feature\s+([A-Z0-9_]+)/gim)).map(x=>x[1].toUpperCase());
-  if(features.length){ put("__features",uniq(features).join(", "),"Features"); note("Features: "+uniq(features).join(", ")); }
-
-  // --- Motoren aus resource
-  const motors=Array.from(src.matchAll(/^\s*resource\s+MOTOR\s+(\d+)/gim)).length;
-  if(motors) note("Motor-Ressourcen: "+motors);
-
-  // --- Board in Bibliothek suchen
-  const target = facts.fcTarget?.value || meta.targetCode;
-  const lib = target ? (S.boards.find(b=>b.target && b.target.toUpperCase()===String(target).toUpperCase())||null) : null;
-  if(lib){
-    put("__library",lib.name+" ("+(lib.mcu||"MCU?")+(lib.gyro?" · "+lib.gyro:"")+")","Bibliothek-Treffer");
-    if(!facts.fcMcu && lib.mcu) put("fcMcu",lib.mcu,"MCU","aus Bibliothek");
-    if(lib.gyro) put("__gyroHint",lib.gyro,"Gyro (Bibliothek)");
-    if(!facts.fcName) put("fcName",lib.name,"Board-Name","aus Bibliothek");
-    note("Bibliothek: "+lib.name+" → "+lib.mcu+(lib.gyro?" / "+lib.gyro:""));
-  } else if(target){
-    note("Kein Bibliothek-Treffer für „"+target+"“.");
-  }
-  if(!log.length) note("Keine bekannten Zeilen gefunden. Ist es wirklich eine CLI-Ausgabe?");
-  return {facts,log,meta};
-}
-
-const IMPORTABLE = ["name","fcName","fcTarget","fcMcu","fcGyro","fw","fwVersion","escProtocol","rx","link","capacity"];
-let IMPORT_DEFAULT_TARGET = "new";
-
-function renderImport(parsed){
-  const el=$("#importResult"), ap=$("#importApply"), lg=$("#importLog");
-  if(!parsed){ el.innerHTML=`<div class="empty">Noch nichts ausgewertet.</div>`; ap.innerHTML=`<div class="empty">Nach dem Auswerten erscheint hier die Zuordnung.</div>`; lg.innerHTML=`<span class="dim">—</span>`; return; }
-  const {facts,log}=parsed;
-  const entries=Object.entries(facts);
-  const main=entries.filter(([k])=>!k.startsWith("__"));
-  const extra=entries.filter(([k])=>k.startsWith("__"));
-  el.innerHTML = `
-    <div class="read-grid">${main.map(([k,f])=>
-      `<div class="read-item"><div class="k">${esc(f.label)}</div><div class="v">${esc(f.value)} ${f.note?`<small>${esc(f.note)}</small>`:""}</div></div>`).join("")
-      || `<div class="empty">Keine übernehmbaren Felder erkannt.</div>`}</div>
-    ${extra.length?`<div class="notice info" style="margin-top:10px"><b>Zusatzinfo:</b> ${extra.map(([k,f])=>esc(f.label+": "+f.value)).join(" · ")}</div>`:""}`;
-  lg.innerHTML = log.map(l=>`<div class="dim">${esc(l)}</div>`).join("") || `<span class="dim">—</span>`;
-
-  const importable=main.filter(([k])=>IMPORTABLE.includes(k));
-  ap.innerHTML = importable.length ? `
-    <div class="table-wrap"><table class="tbl" style="min-width:380px">
-      <thead><tr><th style="width:34px"></th><th>Feld</th><th>Wert</th></tr></thead>
-      <tbody>${importable.map(([k,f])=>`<tr>
-        <td><input type="checkbox" class="impChk" data-k="${k}" checked style="width:auto;accent-color:var(--accent)"></td>
-        <td>${esc(f.label)}</td><td class="mono">${esc(f.value)}</td></tr>`).join("")}</tbody>
-    </table></div>
-    <div class="field" style="margin-top:10px">
-      <label for="impTarget">Ziel</label>
-      <select id="impTarget">
-        <option value="new">— neuen Copter anlegen —</option>
-        ${S.fleet.map(c=>`<option value="${c.id}">${esc(c.name)} (${esc(sizeOf(c.size).short)})</option>`).join("")}
-      </select>
-    </div>
-    <div class="flex" style="margin-top:9px"><button class="btn primary" id="btnApplyImport">Übernehmen</button>
-      <button class="btn ghost" id="btnApplyBoard">Board in Bibliothek</button></div>`
-    : `<div class="empty">Keine übernehmbaren Felder.</div>`;
-  if($("#impTarget")) $("#impTarget").value=IMPORT_DEFAULT_TARGET;
-
-  $("#btnApplyImport")?.addEventListener("click",()=>{
-    const keys=$$(".impChk").filter(c=>c.checked).map(c=>c.dataset.k);
-    if(!keys.length){ toast("Nichts ausgewählt","bad"); return; }
-    const target=$("#impTarget").value;
-    const patch={}; keys.forEach(k=>patch[k]=facts[k].value);
-    if(target==="new"){
-      const c=newCopter(Object.assign({name:facts.name?.value||"Import "+dayISO()},patch));
-      c.source="CLI-Import "+dayISO();
-      const lib=boardOf(c); if(lib){ c.boardId=lib.id; c.fcGyro=c.fcGyro||lib.gyro; }
-      S.fleet.push(c); saveState(); renderAll(); toast("Copter aus Import angelegt","ok");
-      IMPORT_DEFAULT_TARGET=c.id;
-    }else{
-      const c=S.fleet.find(x=>x.id===target); if(!c) return;
-      Object.assign(c,patch); c.updatedAt=nowISO(); c.source="CLI-Import "+dayISO();
-      saveState(); renderAll(); toast(keys.length+" Felder übernommen","ok");
-    }
-  });
-  $("#btnApplyBoard")?.addEventListener("click",()=>{
-    const t=facts.fcTarget?.value; if(!t){ toast("Kein Target erkannt","bad"); return; }
-    if(S.boards.some(b=>(b.target||"").toUpperCase()===String(t).toUpperCase())){ toast("Board existiert bereits"); return; }
-    openBoardEditor(null,{ name:facts.fcName?.value||t, target:t, mcu:facts.fcMcu?.value||"",
-      gyro:facts.__gyroHint?.value||"", source:"CLI-Import "+dayISO(), verified:false });
-  });
-}
-
-/* =====================================================================
-   Navigation, Ereignisse, Start
-   ===================================================================== */
-function setView(v){
-  UI.view=v;
-  $$(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
-  $$(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v));
-  try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){}
-}
-function confirmModal(title,text,onOk,okLabel="Löschen"){
-  openModal(`<div class="flex" style="justify-content:space-between"><div>
-      <div class="kicker">Bestätigen</div><h2>${esc(title)}</h2><p class="sub">${esc(text)}</p></div>
-      <button class="x" data-close="1">×</button></div>
-    <div class="modal-actions"><button class="btn ghost" data-close="1">Abbrechen</button>
-      <button class="btn danger" data-ok="1">${esc(okLabel)}</button></div>`);
-  $("#modal").addEventListener("click",e=>{
-    if(e.target.dataset.close) closeModal();
-    if(e.target.dataset.ok){ closeModal(); onOk(); }
-  });
-}
-
-const EXAMPLE_DUMP = `# diff all
-
-# version
-# Betaflight / STM32F405 (S405) 4.5.1 Jul 31 2024 / 12:00:00 (a1b2c3d4f) MSP API: 1.46
-# board: manufacturer_id: SPBE, board_name: SPEEDYBEEF405V4
-# config rev: 0
-
-# start the command batch
-batch start
-
-board_name SPEEDYBEEF405V4
-manufacturer_id SPBE
-
-# name: Fünfzoll Freestyle
-set craft_name = Fünfzoll Freestyle
-
-feature -AIRMODE
-feature OSD
-feature TELEMETRY
-feature RX_SERIAL
-feature GPS
-
-resource MOTOR 1 B00
-resource MOTOR 2 B01
-resource MOTOR 3 B10
-resource MOTOR 4 B11
-
-set gyro_1_bustype = SPI
-set gyro_1_spibus = 1
-set motor_pwm_protocol = DSHOT600
-set mixer = QUADX
-set serialrx_provider = CRSF
-set battery_capacity = 1300
-set pid_process_denom = 2
-
-# end the command batch
-batch end`;
-
-function wire(){
-  // Navigation
-  $$(".tab").forEach(t=>t.addEventListener("click",()=>setView(t.dataset.view)));
-  $("#btnGoRead").addEventListener("click",()=>setView("read"));
-  $("#btnNewCopter").addEventListener("click",()=>openCopterEditor(null));
-  $("#btnNewCopter2").addEventListener("click",()=>openCopterEditor(null));
-  $("#btnNewBoard").addEventListener("click",()=>openBoardEditor(null));
-
-  // Flotte: Filter, Suche, Sortierung
-  $("#fleetSearch").addEventListener("input",e=>{ UI.fleetQ=e.target.value; renderFleet(); });
-  $("#fleetSort").addEventListener("change",e=>{ UI.sort=e.target.value; renderFleet(); });
-  $("#fleetFilters").addEventListener("click",e=>{
-    const g=e.target.closest("[data-fgroup]"), s=e.target.closest("[data-fstatus]");
-    if(g){ UI.fleetFilter=g.dataset.fgroup; renderFleet(); }
-    if(s){ UI.fleetStatus=s.dataset.fstatus; renderFleet(); }
-  });
-  // Flotte: Aktionen
-  const fleetAction = e=>{
-    const btn=e.target.closest("[data-act]");
-    if(btn){
-      const id=btn.dataset.id, act=btn.dataset.act;
-      if(act==="edit") return openCopterEditor(id);
-      if(act==="new")  return openCopterEditor(null);
-      if(act==="dup"){
-        const c=S.fleet.find(x=>x.id===id); if(!c) return;
-        const copyC=JSON.parse(JSON.stringify(c));
-        copyC.id=uid("c"); copyC.name=c.name+" (Kopie)"; copyC.demo=false;
-        copyC.createdAt=nowISO(); copyC.updatedAt=nowISO(); copyC.fcUid="";
-        S.fleet.push(copyC); saveState(); renderAll(); toast("Dupliziert","ok"); return;
-      }
-      if(act==="del"){
-        const c=S.fleet.find(x=>x.id===id);
-        return confirmModal("Copter löschen?","„"+(c?.name||"")+"“ wird aus dem lokalen Bestand entfernt.",()=>{
-          S.fleet=S.fleet.filter(x=>x.id!==id); saveState(); renderAll(); toast("Gelöscht");
-        });
-      }
-      return;
-    }
-    const row=e.target.closest("tr[data-id]");
-    if(row && e.target.tagName!=="BUTTON") openCopterEditor(row.dataset.id);
-    const card=e.target.closest("article[data-id]");
-    if(card && e.target.tagName!=="BUTTON"){
-      UI.selected=card.dataset.id; renderFleet();
+    theme: sharedTheme() || (THEMES[p.theme] ? p.theme : "ocean"),
+    lang: urlLang() || (I18N[p.lang] ? p.lang : (navDe ? "de" : "en")),
+    gh: {
+      repo:   String(gh.repo   || ""),
+      branch: String(gh.branch || "main"),
+      path:   String(gh.path   || "hangar/data/hangardeck.json"),
+      token:  String(gh.token  || ""),
+      auto:   gh.auto !== false
     }
   };
-  $("#fleetGrid").addEventListener("click",fleetAction);
-  $("#fleetTable").addEventListener("click",fleetAction);
+}
+function savePrefs(){ LS.set(PREFS_KEY, JSON.stringify(prefs)); }
 
-  // Bibliothek
-  $("#boardSearch").addEventListener("input",e=>{ UI.boardQ=e.target.value; renderBoards(); });
-  $("#boardFilters").addEventListener("click",e=>{
-    const b=e.target.closest("[data-bfilter]"); if(!b) return;
-    UI.boardFilter=b.dataset.bfilter; renderBoards();
+function applyTheme(){
+  document.documentElement.setAttribute("data-theme", prefs.theme);
+  var m = document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute("content", THEMES[prefs.theme]);
+  [].forEach.call(document.querySelectorAll("[data-theme]"), function(b){
+    if(b.tagName === "BUTTON") b.setAttribute("aria-pressed", b.getAttribute("data-theme") === prefs.theme ? "true" : "false");
   });
-  $("#boardTable").addEventListener("click",e=>{
-    const btn=e.target.closest("[data-act]"); if(!btn) return;
-    const id=btn.dataset.id;
-    if(btn.dataset.act==="b-edit") openBoardEditor(id);
-    if(btn.dataset.act==="b-del"){
-      const b=S.boards.find(x=>x.id===id);
-      confirmModal("Board löschen?","„"+(b?.name||"")+"“ aus der Bibliothek entfernen. Copter-Einträge bleiben erhalten.",()=>{
-        S.boards=S.boards.filter(x=>x.id!==id);
-        S.fleet.forEach(c=>{ if(c.boardId===id) c.boardId=""; });
-        saveState(); renderAll(); toast("Board gelöscht");
-      });
-    }
+}
+function applyLang(){
+  document.documentElement.lang = prefs.lang;
+  document.title = prefs.lang === "en" ? "HangarDeck — Quad manager" : "HangarDeck — Copter-Verwaltung";
+  [].forEach.call(document.querySelectorAll("[data-i18n]"), function(el){ el.textContent = T(el.getAttribute("data-i18n")); });
+  [].forEach.call(document.querySelectorAll("[data-i18n-ph]"), function(el){ el.placeholder = T(el.getAttribute("data-i18n-ph")); });
+  [].forEach.call(document.querySelectorAll("[data-i18n-aria]"), function(el){ el.setAttribute("aria-label", T(el.getAttribute("data-i18n-aria"))); });
+  [].forEach.call(document.querySelectorAll("[data-lang]"), function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-lang") === prefs.lang ? "true" : "false");
+  });
+  fillSelects();
+}
+
+var data = load();
+var editId = null;
+
+var $ = function(id){ return document.getElementById(id); };
+
+function load(){
+  var raw = LS.get(KEY);
+  var list;
+  if(!raw){ list = seedFor(); }
+  else{
+    try{
+      var p = JSON.parse(raw);
+      list = Array.isArray(p) ? p : (Array.isArray(p.fleet) ? p.fleet : seedFor());
+    }catch(e){ list = seedFor(); }
+  }
+  // Migration: ältere Datensätze haben keinen Zeitstempel
+  list.forEach(function(c){ if(typeof c.updatedAt !== "number") c.updatedAt = 0; });
+  return list;
+}
+
+function save(opts){
+  if(!LS.set(KEY, JSON.stringify(data)) && !LS.warned){
+    LS.warned = true;
+    toast(T("noStore"),"bad");
+  }
+  if(!opts || opts.sync !== false) schedulePush();
+}
+
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+
+function sizeLabel(v){
+  for(var i=0;i<SIZES.length;i++){ if(SIZES[i].v === v) return SIZES[i].l; }
+  return v;
+}
+function sizeBadge(v){
+  var n = parseFloat(v);
+  if(n >= 50) return { big:String(n), small:"mm" };
+  return { big:String(v), small:T("inch") };
+}
+
+var tTimer;
+function toast(msg, kind){
+  var t = $("toast");
+  t.textContent = msg;
+  t.className = "toast on" + (kind ? " " + kind : "");
+  clearTimeout(tTimer);
+  tTimer = setTimeout(function(){ t.className = "toast"; }, 2800);
+}
+
+/* ---------- Liste ---------- */
+function render(){
+  var q = $("q").value.trim().toLowerCase();
+  var live = data.filter(function(c){ return !c.deleted; });
+  var rows = live.filter(function(c){
+    if(!q) return true;
+    return [c.name, sizeLabel(c.size), c.cells, c.props, c.fc, c.notes]
+      .join(" ").toLowerCase().indexOf(q) > -1;
   });
 
-  // Auslesen
-  $("#btnConnect").addEventListener("click",connectSerial);
-  $("#btnDisconnect").addEventListener("click",disconnectSerial);
-  $("#btnRead").addEventListener("click",readFC);
-  $("#btnSim").addEventListener("click",simulateRead);
-  $("#btnReadToNew").addEventListener("click",()=>openCopterEditor(null,readPreset()));
-  $("#btnReadPatch").addEventListener("click",patchCopterFromRead);
+  $("count").textContent = rows.length === live.length
+    ? live.length + " " + (live.length === 1 && T("copter1") ? T("copter1") : T("copter"))
+    : rows.length + " " + T("of") + " " + live.length;
 
-  // Import
-  $("#btnParse").addEventListener("click",()=>{
-    const t=$("#importText").value;
-    if(!t.trim()){ toast("Kein Text eingefügt","bad"); return; }
-    const parsed=parseDump(t); UI.importParsed=parsed; renderImport(parsed);
-    toast(Object.keys(parsed.facts).length+" Felder erkannt","ok");
-  });
-  $("#btnImportExample").addEventListener("click",()=>{
-    $("#importText").value=EXAMPLE_DUMP;
-    const parsed=parseDump(EXAMPLE_DUMP); UI.importParsed=parsed; renderImport(parsed);
-  });
-  $("#btnClearImport").addEventListener("click",()=>{
-    $("#importText").value=""; UI.importParsed=null; renderImport(null);
-  });
+  var list = $("list");
 
-  // Daten
-  $("#btnExport").addEventListener("click",exportAll);
-  $("#btnExportFleet").addEventListener("click",()=>{
-    download(`hangardeck-flotte-${dayISO()}.json`, JSON.stringify({app:APP.name,fleet:S.fleet},null,2));
-    toast("Flotte exportiert","ok");
-  });
-  $("#btnCsv").addEventListener("click",()=>{ download(`hangardeck-flotte-${dayISO()}.csv`,fleetCSV(),"text/csv"); toast("CSV exportiert","ok"); });
-  $("#btnCsv2").addEventListener("click",()=>{ download(`hangardeck-flotte-${dayISO()}.csv`,fleetCSV(),"text/csv"); toast("CSV exportiert","ok"); });
-  const report=()=>copy(fleetReport()).then(()=>toast("Bericht in die Zwischenablage kopiert","ok"));
-  $("#btnReport").addEventListener("click",report);
-  $("#btnCopyReport").addEventListener("click",report);
-  $("#btnImportJson").addEventListener("click",()=>{
-    const t=$("#importJson").value.trim();
-    if(!t){ toast("Kein JSON eingefügt","bad"); return; }
-    importJSON(t);
-  });
-  $("#fileInput").addEventListener("change",e=>{
-    const f=e.target.files?.[0]; if(!f) return;
-    const r=new FileReader(); r.onload=()=>importJSON(String(r.result)); r.readAsText(f);
-  });
-  $("#btnWipe").addEventListener("click",()=>{
-    confirmModal("Alles löschen?","Kompletter lokaler Bestand: Copter, Boards und Einstellungen. Vorher exportieren!",()=>{
-      LS.del(APP.key);
-      S=blankState(); saveState(); renderAll(); toast("Speicher geleert");
-    },"Endgültig löschen");
-  });
-  $("#accentSel").addEventListener("change",e=>{
-    S.settings.accent=e.target.value; document.documentElement.dataset.accent=e.target.value; saveState();
-  });
-  $("#hintLevel").addEventListener("change",e=>{ S.settings.hintLevel=e.target.value; saveState(); renderDashboard(); });
+  if(!live.length){
+    list.innerHTML = '<div class="empty"><h3>' + esc(T("emptyH")) + '</h3>'
+      + '<p>' + esc(T("emptyP")) + '</p>'
+      + '<button class="btn primary" type="button" data-new>' + esc(T("emptyBtn")) + '</button></div>';
+    return;
+  }
+  if(!rows.length){
+    list.innerHTML = '<div class="empty"><h3>' + esc(T("noneH")) + '</h3><p>' + esc(T("noneP")) + '</p></div>';
+    return;
+  }
 
-  // Demodaten
-  $("#btnDemo").addEventListener("click",()=>{
-    const demoN=S.fleet.filter(c=>c.demo).length;
-    openModal(`<div class="flex" style="justify-content:space-between"><div>
-        <div class="kicker">Demodaten</div><h2>Beispieldaten verwalten</h2>
-        <p class="sub">Aktuell ${demoN} Demo-Copter im Bestand. Demo-Einträge sind markiert und lassen sich jederzeit wieder entfernen — eigene Einträge bleiben unberührt.</p></div>
-        <button class="x" data-close="1">×</button></div>
-      <div class="notice info" style="margin-top:10px">Die drei Beispiel-Copter zeigen den Aufbau: 5″ Freestyle, 3″ Cinewhoop, 75 mm Whoop. Beim Bearbeiten verschwindet die Demo-Markierung automatisch.</div>
-      <div class="modal-actions">
-        <button class="btn" data-load="1">Demo-Copter laden</button>
-        <button class="btn ghost" data-close="1">Schließen</button>
-        <button class="btn danger" data-clear="1">Demo-Copter entfernen</button>
-      </div>`);
-    $("#modal").addEventListener("click",e=>{
-      if(e.target.dataset.close) closeModal();
-      if(e.target.dataset.load){
-        const existing=new Set(S.fleet.map(c=>c.id));
-        seedFleet().forEach(c=>{ if(!existing.has(c.id)) S.fleet.push(c); });
-        saveState(); renderAll(); closeModal(); toast("Demodaten geladen","ok");
-      }
-      if(e.target.dataset.clear){
-        S.fleet=S.fleet.filter(c=>!c.demo); saveState(); renderAll(); closeModal(); toast("Demodaten entfernt");
-      }
+  list.innerHTML = rows.map(function(c){
+    var b = sizeBadge(c.size);
+    var specs = [];
+    specs.push("<b>" + esc(c.cells || "–") + "</b>");
+    if(c.kv)     specs.push("<b>" + esc(c.kv) + "</b> KV");
+    if(c.esc)    specs.push("<b>" + esc(c.esc) + "</b> A ESC");
+    if(c.props)  specs.push(esc(c.props));
+    if(c.fc)     specs.push(esc(c.fc));
+    if(c.mah)    specs.push(esc(c.mah) + " mAh");
+    if(c.weight) specs.push(esc(c.weight) + " g");
+
+    return '<div class="row">'
+      + '<div class="size"><div><b>' + esc(b.big) + '</b><span>' + b.small + '</span></div></div>'
+      + '<div class="main">'
+      +   '<div class="name"><span class="dot ' + esc(c.status || "ready") + '"></span>'
+      +     esc(c.name) + ' <span class="st">' + esc(T("st_" + (c.status || "ready"))) + '</span></div>'
+      +   '<div class="specs">' + specs.join("<span></span>") + '</div>'
+      + '</div>'
+      + '<div class="acts">'
+      +   '<button class="btn sm" type="button" data-edit="' + esc(c.id) + '">' + esc(T("edit")) + '</button>'
+      +   '<button class="btn sm danger" type="button" data-del="' + esc(c.id) + '" aria-label="' + esc(T("del")) + '" title="' + esc(T("del")) + '">✕</button>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+/* ---------- Formular ---------- */
+function fillSelects(){
+  var sv = $("f_size").value, cv = $("f_cells").value;
+  $("f_size").innerHTML  = SIZES.map(function(s){ return '<option value="' + s.v + '">' + s.l + '</option>'; }).join("");
+  $("f_cells").innerHTML = CELLS.map(function(c){
+    if(!c) return '<option value="">—</option>';
+    return '<option value="' + c + '">' + c + ' · ' + (parseInt(c,10) * 3.7).toFixed(1).replace(/\.0$/,"") + ' V</option>';
+  }).join("");
+  if(sv) $("f_size").value = sv;
+  if(cv) $("f_cells").value = cv;
+}
+
+function open(id){
+  editId = id || null;
+  var c = id ? data.filter(function(x){ return x.id === id; })[0] : null;
+
+  $("dlgTitle").textContent = c ? T("editTitle") : T("newTitle");
+  $("f_name").value   = c ? (c.name || "") : "";
+  $("f_size").value   = c ? (c.size || "5") : "5";
+  $("f_cells").value  = c ? (c.cells || "") : "";
+  $("f_kv").value     = c && c.kv ? c.kv : "";
+  $("f_esc").value    = c && c.esc ? c.esc : "";
+  $("f_props").value  = c ? (c.props || "") : "";
+  $("f_status").value = c ? (c.status || "ready") : "ready";
+  $("f_fc").value     = c ? (c.fc || "") : "";
+  $("f_mah").value    = c && c.mah ? c.mah : "";
+  $("f_weight").value = c && c.weight ? c.weight : "";
+  $("f_notes").value  = c ? (c.notes || "") : "";
+
+  $("more").open = !!(c && (c.fc || c.mah || c.weight || c.notes));
+
+  $("dlg").showModal();
+  setTimeout(function(){ $("f_name").focus(); }, 40);
+}
+
+function num(v){
+  var n = parseInt(v, 10);
+  return isNaN(n) ? null : n;
+}
+
+function saveForm(){
+  var name = $("f_name").value.trim();
+  if(!name){ $("f_name").focus(); toast(T("noName"),"bad"); return; }
+
+  var rec = {
+    id: editId || ("c" + Date.now().toString(36)),
+    updatedAt: Date.now(),
+    deleted: false,
+    name: name,
+    size: $("f_size").value,
+    cells: $("f_cells").value,
+    kv: num($("f_kv").value),
+    esc: num($("f_esc").value),
+    props: $("f_props").value.trim(),
+    status: $("f_status").value,
+    fc: $("f_fc").value.trim(),
+    mah: num($("f_mah").value),
+    weight: num($("f_weight").value),
+    notes: $("f_notes").value.trim()
+  };
+
+  if(editId){
+    for(var i=0;i<data.length;i++){ if(data[i].id === editId) data[i] = rec; }
+  }else{
+    data.unshift(rec);
+  }
+
+  save();
+  render();
+  $("dlg").close();
+  toast(editId ? T("saved") : T("created"), "ok");
+  editId = null;
+}
+
+/* ---------- Export / Import ---------- */
+function download(name, text, type){
+  try{
+    var blob = new Blob([text], { type: type || "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 400);
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- Tabelle: gemeinsame Spalten für CSV, PDF und Druck ---------- */
+function compactSize(v){
+  var n = parseFloat(v);
+  if(n >= 50) return n + " mm";
+  return String(v) + '"';
+}
+function tableCols(compact){
+  return [
+    { k:"name",   key:"colName",   w:132, align:"l" },
+    { k:"size",   key:"colSize",   w:46,  align:"l", fmt:function(c){ return compact ? compactSize(c.size) : sizeLabel(c.size); } },
+    { k:"cells",  key:"colCells",  w:46,  align:"l" },
+    { k:"kv",     key:"colKv",     w:40,  align:"r" },
+    { k:"esc",    key:"colEsc",    w:40,  align:"r" },
+    { k:"props",  key:"colProps",  w:84,  align:"l" },
+    { k:"status", key:"colStatus", w:68,  align:"l", fmt:function(c){ return T("st_" + (c.status || "ready")); } },
+    { k:"fc",     key:"colFc",     w:104, align:"l" },
+    { k:"mah",    key:"colMah",    w:48,  align:"r" },
+    { k:"weight", key:"colWeight", w:46,  align:"r" },
+    { k:"notes",  key:"colNotes",  w:98,  align:"l" }
+  ];
+}
+function cellText(c, col){
+  var v = col.fmt ? col.fmt(c) : c[col.k];
+  if(v === null || v === undefined) return "";
+  return String(v);
+}
+
+/* ---------- CSV (Excel/LibreOffice: Semikolon, BOM, CRLF) ---------- */
+function doExportCsv(){
+  var rows = liveRecords();
+  if(!rows.length){ toast(T("expEmpty"), "bad"); return; }
+  var cols = tableCols(false);
+  var q = function(v){ return '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"'; };
+  var lines = [ cols.map(function(c){ return q(T(c.key)); }).join(";") ];
+  rows.forEach(function(c){
+    lines.push(cols.map(function(col){ return q(cellText(c, col)); }).join(";"));
+  });
+  var stamp = new Date().toISOString().slice(0,10);
+  var ok = download("hangardeck-" + stamp + ".csv", "\uFEFF" + lines.join("\r\n"), "text/csv;charset=utf-8");
+  toast(ok ? T("expCsvDone") : T("exportFail"), ok ? "ok" : "bad");
+}
+
+/* ---------- Druckansicht (Papier oder "Als PDF speichern" im Browser) ---------- */
+function doExportPrint(){
+  var rows = liveRecords();
+  if(!rows.length){ toast(T("expEmpty"), "bad"); return; }
+  var cols = tableCols(true);
+  var head = cols.map(function(c){
+    var cls = c.align === "r" ? ' class="num"' : "";
+    return '<th' + cls + ' style="width:' + c.w + 'pt">' + esc(T(c.key)) + '</th>';
+  }).join("");
+  var body = rows.map(function(c){
+    return "<tr>" + cols.map(function(col){
+      var cls = col.align === "r" ? ' class="num"' : "";
+      return "<td" + cls + ">" + esc(cellText(c, col)) + "</td>";
+    }).join("") + "</tr>";
+  }).join("");
+  $("printArea").innerHTML =
+    "<h1>" + esc(T("pdfTitle")) + "</h1>" +
+    '<p class="meta">' + esc(T("pdfCount")(rows.length)) + " · " + esc(T("pdfCreated")) + " " +
+      new Date().toLocaleDateString(prefs.lang === "en" ? "en-GB" : "de-DE") + " · HangarDeck Lite v" + VER + "</p>" +
+    "<table><thead><tr>" + head + "</tr></thead><tbody>" + body + "</tbody></table>" +
+    '<p class="ft">HangarDeck Lite v' + VER + " · " + esc(location.host || "lokal") + "</p>";
+  window.print();
+}
+
+/* ---------- PDF: eigener Schreiber, keine Bibliothek ---------- */
+var PDFPAGE = { w:842, h:595, m:34 };   /* A4 quer in Punkt */
+
+function winansi(str){
+  var map = { 0x2013:0x96, 0x2014:0x97, 0x2018:0x91, 0x2019:0x92,
+              0x201A:0x82, 0x201C:0x93, 0x201D:0x94, 0x2022:0x95, 0x20AC:0x80 };
+  var out = "";
+  for(var i=0;i<str.length;i++){
+    var c = str.charCodeAt(i);
+    if(map[c]) c = map[c];
+    if(c === 0x201E) c = 0x84;
+    out += (c < 256 ? String.fromCharCode(c) : "?");
+  }
+  return out;
+}
+function pdfEsc(str){
+  return winansi(str).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+}
+/* grobe Helvetica-Breite, reicht für Umbruch und Spaltenprüfung */
+function textWidth(str, size){
+  var w = 0;
+  for(var i=0;i<str.length;i++){
+    var c = str.charCodeAt(i);
+    if("iljftr.,:;'!|".indexOf(str[i]) > -1) w += 0.28;
+    else if("mwMW".indexOf(str[i]) > -1) w += 0.83;
+    else if(c >= 65 && c <= 90) w += 0.68;
+    else if(str[i] === " ") w += 0.28;
+    else w += 0.52;
+  }
+  return w * size;
+}
+function wrapText(str, maxWidth, size){
+  var words = String(str).split(/\s+/), lines = [], line = "";
+  for(var i=0;i<words.length;i++){
+    var test = line ? line + " " + words[i] : words[i];
+    if(textWidth(test, size) > maxWidth && line){
+      lines.push(line); line = words[i];
+    } else { line = test; }
+  }
+  if(line) lines.push(line);
+  return lines.length ? lines : [""];
+}
+function fmtNum(v){ return (v === null || v === undefined || v === "") ? "" : String(v); }
+
+function buildPdf(){
+  var rows = liveRecords();
+  var cols = tableCols(true);
+  var size = 8, lineH = 10.5, padX = 4, padY = 3;
+
+  /* Spaltenbreiten auf nutzbare Breite skalieren */
+  var usable = PDFPAGE.w - PDFPAGE.m * 2;
+  var sum = cols.reduce(function(a,c){ return a + c.w; }, 0);
+  var scale = usable / sum;
+  var widths = cols.map(function(c){ return c.w * scale; });
+
+  var pages = [];        /* je Seite ein Content-Stream-String */
+  var pageNo = 1, y = 0, stream = "";
+
+  function header(){
+    var d = new Date();
+    var stamp = d.toLocaleDateString(prefs.lang === "en" ? "en-GB" : "de-DE") + " " +
+      ("0"+d.getHours()).slice(-2) + ":" + ("0"+d.getMinutes()).slice(-2);
+    stream += "0.10 0.16 0.20 rg\n";
+    stream += "BT /F2 15 Tf " + PDFPAGE.m + " " + (PDFPAGE.h - 40) + " Td (" + pdfEsc(T("pdfTitle")) + ") Tj ET\n";
+    stream += "0.35 0.40 0.45 rg\n";
+    stream += "BT /F1 8 Tf " + PDFPAGE.m + " " + (PDFPAGE.h - 54) + " Td (" +
+              pdfEsc(T("pdfCount")(rows.length) + " · " + T("pdfCreated") + " " + stamp + " · HangarDeck Lite v" + VER) + ") Tj ET\n";
+    /* Kopfzeile der Tabelle */
+    var top = PDFPAGE.h - 74;
+    stream += "0.90 0.93 0.94 rg\n";
+    stream += PDFPAGE.m + " " + (top - 13) + " " + usable + " 15 re f\n";
+    var x = PDFPAGE.m;
+    stream += "0.12 0.18 0.22 rg\n";
+    cols.forEach(function(c, i){
+      var label = T(c.key);
+      var hx = x + padX;
+      if(c.align === "r") hx = x + widths[i] - padX - textWidth(label, size);
+      stream += "BT /F2 " + size + " Tf " + hx.toFixed(1) + " " + (top - 9) + " Td (" +
+                pdfEsc(label) + ") Tj ET\n";
+      x += widths[i];
     });
+    y = top - 13 - padY - size + 1.5;
+    return y;
+  }
+
+  function footer(){
+    var label = T("pdfPage") + " " + pageNo;
+    stream += "0.45 0.50 0.55 rg\n";
+    stream += "BT /F1 7.5 Tf " + PDFPAGE.m + " 20 Td (" + pdfEsc("HangarDeck Lite v" + VER) + ") Tj ET\n";
+    stream += "BT /F1 7.5 Tf " + (PDFPAGE.w - PDFPAGE.m - textWidth(label, 7.5)) + " 20 Td (" +
+              pdfEsc(label) + ") Tj ET\n";
+    pages.push(stream);
+  }
+
+  y = header();
+  var left = y - 8;
+
+  rows.forEach(function(rec, idx){
+    /* Zeilenhöhe aus Umbrüchen bestimmen */
+    var cells = cols.map(function(col){
+      return wrapText(cellText(rec, col), widths[cols.indexOf(col)] - padX * 2, size);
+    });
+    var maxLines = cells.reduce(function(a, l){ return Math.max(a, l.length); }, 1);
+    var h = maxLines * lineH + padY * 2 - 3;
+
+    if(left - h < 34){           /* neue Seite */
+      footer();
+      pageNo++;
+      stream = "";
+      left = header() - 8;
+    }
+    /* Zebra */
+    if(idx % 2 === 1){
+      stream += "0.965 0.972 0.975 rg\n";
+      stream += PDFPAGE.m + " " + (left - h) + " " + usable + " " + h + " re f\n";
+    }
+    /* Trennlinie unten */
+    stream += "0.82 0.85 0.87 RG 0.4 w\n";
+    stream += PDFPAGE.m + " " + (left - h) + " m " + (PDFPAGE.m + usable) + " " + (left - h) + " l S\n";
+
+    var x = PDFPAGE.m;
+    stream += "0.10 0.14 0.18 rg\n";
+    cells.forEach(function(lines, i){
+      var col = cols[i];
+      lines.forEach(function(txt, li){
+        if(!txt) return;
+        var ty = left - padY - size + 1.5 - li * lineH;
+        var tx = x + padX;
+        if(col.align === "r") tx = x + widths[i] - padX - textWidth(txt, size);
+        stream += "BT /F1 " + size + " Tf " + tx.toFixed(1) + " " + ty.toFixed(1) +
+                  " Td (" + pdfEsc(txt) + ") Tj ET\n";
+      });
+      x += widths[i];
+    });
+    left -= h;
+  });
+  footer();
+
+  /* --- Datei zusammensetzen --- */
+  var objCount = 4 + pages.length * 2;
+  var objs = new Array(objCount + 1);
+  objs[1] = "<< /Type /Catalog /Pages 2 0 R >>";
+  var kids = pages.map(function(_, i){ return (5 + i * 2) + " 0 R"; }).join(" ");
+  objs[2] = "<< /Type /Pages /Count " + pages.length + " /Kids [" + kids + "] >>";
+  objs[3] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
+  objs[4] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
+  pages.forEach(function(st, i){
+    var pid = 5 + i * 2, cid = pid + 1;
+    objs[pid] = "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PDFPAGE.w + " " + PDFPAGE.h + "] " +
+                "/Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents " + cid + " 0 R >>";
+    objs[cid] = "<< /Length " + st.length + " >>\nstream\n" + st + "endstream";
   });
 
-  // Tastatur
-  document.addEventListener("keydown",e=>{
-    if(e.key==="Escape") closeModal();
-    if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="s"){
-      if($("#modal [data-save]")){ e.preventDefault(); $("#modal [data-save]").click(); }
+  var out = "%PDF-1.4\n";
+  var offsets = [];
+  for(var i=1;i<=objCount;i++){
+    offsets[i] = out.length;
+    out += i + " 0 obj\n" + objs[i] + "\nendobj\n";
+  }
+  var xref = out.length;
+  out += "xref\n0 " + (objCount + 1) + "\n";
+  out += "0000000000 65535 f \n";
+  for(var j=1;j<=objCount;j++){
+    out += ("0000000000" + offsets[j]).slice(-10) + " 00000 n \n";
+  }
+  out += "trailer\n<< /Size " + (objCount + 1) + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF\n";
+
+  var bytes = new Uint8Array(out.length);
+  for(var k=0;k<out.length;k++) bytes[k] = out.charCodeAt(k) & 0xff;
+  return new Blob([bytes], { type:"application/pdf" });
+}
+
+function doExportPdf(){
+  var rows = liveRecords();
+  if(!rows.length){ toast(T("expEmpty"), "bad"); return; }
+  try{
+    var stamp = new Date().toISOString().slice(0,10);
+    var blob = buildPdf();
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = "hangardeck-" + stamp + ".pdf";
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 800);
+    toast(T("expPdfDone"), "ok");
+  }catch(e){
+    toast(T("exportFail"), "bad");
+  }
+}
+
+function doExport(){
+  var stamp = new Date().toISOString().slice(0,10);
+  var ok = download("hangardeck-" + stamp + ".json", JSON.stringify(liveRecords(), null, 2));
+  toast(ok ? T("exported") : T("exportFail"), ok ? "ok" : "bad");
+}
+
+function doImport(file){
+  var r = new FileReader();
+  r.onload = function(){
+    try{
+      var p = JSON.parse(String(r.result));
+      var incoming = Array.isArray(p) ? p : (Array.isArray(p.fleet) ? p.fleet : null);
+      if(!incoming) throw new Error("Format");
+
+      var byId = {};
+      data.forEach(function(c){ byId[c.id] = c; });
+      var added = 0, updated = 0;
+
+      incoming.forEach(function(c){
+        if(!c || !c.name) return;
+        if(!c.id) c.id = "c" + Math.random().toString(36).slice(2,9);
+        c.updatedAt = Date.now();
+        c.deleted = false;
+        if(byId[c.id]){
+          for(var i=0;i<data.length;i++){ if(data[i].id === c.id) data[i] = c; }
+          updated++;
+        }else{
+          data.push(c); byId[c.id] = c; added++;
+        }
+      });
+
+      save(); render();
+      toast(T("imported")(added, updated), "ok");
+    }catch(e){
+      toast(T("badFile"), "bad");
+    }
+  };
+  r.readAsText(file);
+}
+
+/* =====================================================================
+   GitHub-Sync
+   Liest und schreibt eine JSON-Datei im Repository. Ohne Token nur lesend.
+   Datenhoheit liegt beim Repo: Merge über updatedAt pro Datensatz,
+   Löschungen werden als Grabstein (deleted:true) übertragen.
+   ===================================================================== */
+var VER = "0.4.0-beta.2";
+var SYNC = { state:"off", remoteSha:null, last:0, msg:"", busy:false, timer:null };
+
+function ghCfg(){
+  var g = prefs.gh || {};
+  return {
+    repo:   (g.repo || "").trim(),
+    branch: (g.branch || "main").trim() || "main",
+    path:   (g.path || "hangar/data/hangardeck.json").replace(/^\/+/, ""),
+    token:  g.token || "",
+    auto:   g.auto !== false
+  };
+}
+function ghReady(){ return !!ghCfg().repo; }
+function liveRecords(){ return data.filter(function(c){ return !c.deleted; }); }
+function pruneTombstones(){
+  var dead = data.filter(function(c){ return c.deleted; })
+                 .sort(function(a,b){ return (b.updatedAt||0)-(a.updatedAt||0); });
+  for(var i=200;i<dead.length;i++){
+    var id = dead[i].id;
+    data = data.filter(function(c){ return c.id !== id; });
+  }
+}
+
+/* UTF-8 sicher nach base64 und zurück */
+function b64encode(str){
+  var bytes = new TextEncoder().encode(str), bin = "";
+  for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+function b64decode(b64){
+  var bin = atob(String(b64).replace(/\s+/g,"")), bytes = new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder("utf-8").decode(bytes);
+}
+
+function ghHeaders(withToken){
+  var h = { "Accept":"application/vnd.github+json", "X-GitHub-Api-Version":"2022-11-28" };
+  var t = ghCfg().token;
+  if(withToken !== false && t) h["Authorization"] = "Bearer " + t;
+  return h;
+}
+function ghError(res, body){
+  if(res.status === 401 || res.status === 403){
+    var msg = String((body && body.message) || "");
+    return /rate limit/i.test(msg) ? T("ghRate") : T("ghAuthFail");
+  }
+  if(res.status === 404) return "404";
+  return "HTTP " + res.status;
+}
+
+/* --- Lesen: GitHub-API (mit/ohne Token) --- */
+function ghPullFromApi(){
+  var c = ghCfg();
+  var url = "https://api.github.com/repos/" + c.repo + "/contents/"
+          + encodeURIComponent(c.path).replace(/%2F/g,"/") + "?ref=" + encodeURIComponent(c.branch);
+  return fetch(url, { headers: ghHeaders(), cache:"no-store" })
+    .then(function(res){
+      if(res.status === 404) return { missing:true };
+      return res.json().catch(function(){ return null; }).then(function(body){
+        if(!res.ok) throw new Error(ghError(res, body));
+        if(!body || !body.content) throw new Error(T("ghNoRemote"));
+        SYNC.remoteSha = body.sha || null;
+        return { text: b64decode(body.content) };
+      });
+    });
+}
+
+/* --- Lesen: statische Datei (GitHub Pages, ohne API, ohne Token) --- */
+function ghPullFromStatic(){
+  var c = ghCfg();
+  if(!c.path) return Promise.resolve({ missing:true });
+  var base = location.protocol === "file:" ? "" : location.href.replace(/[^/]*$/, "");
+  return fetch(base + c.path, { cache:"no-store" })
+    .then(function(res){ return res.ok ? res.text().then(function(t){ return { text:t }; }) : { missing:true }; })
+    .catch(function(){ return { missing:true }; });
+}
+
+function parseRemote(text){
+  var p = JSON.parse(text);
+  var list = Array.isArray(p) ? p : (Array.isArray(p.fleet) ? p.fleet : []);
+  return list.filter(function(c){ return c && c.id; });
+}
+
+/* Konfliktarm zusammenführen: pro id gewinnt der neuere updatedAt */
+function mergeRemote(list){
+  var map = {};
+  data.forEach(function(c){ map[c.id] = c; });
+  var changed = 0;
+  list.forEach(function(r){
+    if(typeof r.updatedAt !== "number") r.updatedAt = 0;
+    var l = map[r.id];
+    if(!l){ data.push(r); changed++; return; }
+    if((r.updatedAt||0) > (l.updatedAt||0)){
+      for(var k in l){ if(Object.prototype.hasOwnProperty.call(l,k)) delete l[k]; }
+      for(var k2 in r){ if(Object.prototype.hasOwnProperty.call(r,k2)) l[k2] = r[k2]; }
+      changed++;
     }
   });
+  return changed;
 }
 
-function init(){
-  loadState();
-  // Akzentfarbe aus der Übersichtsseite übernehmen, falls dort eine Palette gewählt ist.
-  if(TON_UEBERSICHT) S.settings.accent = TON_UEBERSICHT;
-  renderAll();
-  serialUI();
-  wire();
-  setView("dashboard");
-  if(!("serial" in navigator)){
-    const hint=$("#serialHint");
-    if(hint){ hint.className="notice warn";
-      hint.innerHTML="Dieser Browser unterstützt Web-Serial nicht. Auslesen funktioniert nur in Chrome, Edge oder Opera am Desktop. Import und Verwaltung laufen überall."; }
+function ghState(){
+  var el = $("btnSync"), lab = $("syncLabel");
+  if(!el) return;
+  el.setAttribute("data-state", SYNC.state);
+  var text = T("ghOff");
+  if(SYNC.state === "busy") text = T("syncBusy");
+  else if(SYNC.state === "ok") text = T("syncOk")(hhmm(SYNC.last));
+  else if(SYNC.state === "err") text = "Sync !";
+  else if(ghReady()) text = "GitHub";
+  lab.textContent = text;
+  el.setAttribute("title", SYNC.msg || (ghReady() ? ghCfg().repo : T("ghOff")));
+
+  var st = $("g_state");
+  if(st){
+    if(SYNC.state === "busy") st.textContent = SYNC.msg || T("syncBusy");
+    else if(SYNC.state === "err") st.textContent = T("ghStateErr")(SYNC.msg);
+    else if(SYNC.state === "ok") st.textContent = T("ghStateOk")(hhmm(SYNC.last)) + " · " + ghCfg().repo;
+    else if(ghReady()) st.textContent = T("ghStateOk")(hhmm(SYNC.last) || "—") + " · " + ghCfg().repo;
+    else st.textContent = T("ghNotSet");
   }
-  console.log(APP.name+" "+APP.version+" bereit");
 }
-if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
-else init();
+function hhmm(ts){
+  if(!ts) return "";
+  var d = new Date(ts);
+  return ("0"+d.getHours()).slice(-2) + ":" + ("0"+d.getMinutes()).slice(-2);
+}
+
+function pull(silent){
+  if(!ghReady()){ if(!silent) toast(T("ghNeedRepo"),"bad"); return Promise.resolve(false); }
+  SYNC.state = "busy"; SYNC.msg = T("ghPulling"); ghState();
+
+  var req = ghCfg().token ? ghPullFromApi() : ghPullFromStatic();
+  return req.then(function(r){
+    if(!r || r.missing){
+      SYNC.state = "off"; SYNC.msg = T("ghNoRemote"); ghState();
+      if(!silent) toast(T("ghNoRemote"));
+      return false;
+    }
+    var changed = mergeRemote(parseRemote(r.text));
+    save({ sync:false });
+    render();
+    SYNC.state = "ok"; SYNC.last = Date.now();
+    SYNC.msg = T("ghPullOk")(changed);
+    ghState();
+    if(!silent) toast(T("ghPullOk")(changed), "ok");
+    return true;
+  }).catch(function(e){
+    SYNC.state = "err"; SYNC.msg = (e && e.message) || T("ghNet"); ghState();
+    if(!silent) toast(SYNC.msg, "bad");
+    return false;
+  });
+}
+
+function ghPayload(){
+  return JSON.stringify({
+    app: "HangarDeck Lite", schema: 2, version: VER,
+    updated: new Date().toISOString(),
+    fleet: data
+  }, null, 2);
+}
+
+function push(silent, retried){
+  var c = ghCfg();
+  if(!ghReady()){ if(!silent) toast(T("ghNeedRepo"),"bad"); return Promise.resolve(false); }
+  if(!c.token){
+    SYNC.state = "err"; SYNC.msg = T("ghReadOnly"); ghState();
+    if(!silent) toast(T("ghReadOnly"), "bad");
+    return Promise.resolve(false);
+  }
+  SYNC.state = "busy"; SYNC.msg = T("ghPushing"); ghState();
+
+  var body = ghPayload();
+  var url  = "https://api.github.com/repos/" + c.repo + "/contents/"
+           + encodeURIComponent(c.path).replace(/%2F/g,"/");
+
+  function put(sha){
+    var payload = { message: "HangarDeck sync " + new Date().toISOString(), content: b64encode(body), branch: c.branch };
+    if(sha) payload.sha = sha;
+    return fetch(url, {
+      method: "PUT",
+      headers: (function(){ var h = ghHeaders(); h["Content-Type"] = "application/json"; return h; })(),
+      body: JSON.stringify(payload)
+    });
+  }
+
+  // aktuellen SHA holen (nötig für Updates), dann schreiben
+  return fetch(url + "?ref=" + encodeURIComponent(c.branch), { headers: ghHeaders(), cache:"no-store" })
+    .then(function(res){
+      if(res.status === 404) return put(null);
+      return res.json().catch(function(){ return null; }).then(function(j){
+        if(!res.ok) throw new Error(ghError(res, j));
+        var sha = j && j.sha ? j.sha : null;
+        return put(sha);
+      });
+    })
+    .then(function(res){
+      return res.json().catch(function(){ return null; }).then(function(j){
+        if(res.status === 409 && !retried){
+          // Datei wurde zwischenzeitlich geändert: laden, mischen, einmal erneut schreiben
+          return pull(true).then(function(){ SYNC.msg = T("ghConf"); return push(true, true); });
+        }
+        if(!res.ok) throw new Error(ghError(res, j));
+        SYNC.remoteSha = (j && j.content && j.content.sha) || SYNC.remoteSha;
+        SYNC.state = "ok"; SYNC.last = Date.now(); SYNC.msg = T("ghPushOk"); ghState();
+        if(!silent) toast(T("ghPushOk"), "ok");
+        return true;
+      });
+    })
+    .catch(function(e){
+      SYNC.state = "err"; SYNC.msg = (e && e.message) || T("ghNet"); ghState();
+      if(!silent) toast(SYNC.msg, "bad");
+      return false;
+    });
+}
+
+function schedulePush(){
+  if(!ghReady() || !ghCfg().token || !ghCfg().auto) return;
+  clearTimeout(SYNC.timer);
+  SYNC.timer = setTimeout(function(){ push(true); }, 2500);
+}
+
+/* --- Dialog --- */
+function openGh(){
+  var c = ghCfg();
+  $("g_repo").value   = c.repo;
+  $("g_branch").value = c.branch;
+  $("g_path").value   = c.path;
+  $("g_token").value  = c.token;
+  $("g_auto").checked = c.auto;
+  ghState();
+  $("ghDlg").showModal();
+}
+function readGhForm(){
+  prefs.gh = {
+    repo:   $("g_repo").value.trim(),
+    branch: $("g_branch").value.trim() || "main",
+    path:   $("g_path").value.trim() || "hangar/data/hangardeck.json",
+    token:  $("g_token").value.trim(),
+    auto:   $("g_auto").checked
+  };
+  savePrefs();
+}
+
+$("btnSync").addEventListener("click", openGh);
+$("ghDlg").addEventListener("click", function(e){
+  var b = e.target.closest("[data-gh]"); if(!b) return;
+  var act = b.getAttribute("data-gh");
+  if(act === "close") return $("ghDlg").close();
+  readGhForm();
+  if(act === "pull"){ pull(false); }
+  if(act === "push"){ push(false); }
+  if(act === "file"){
+    download("hangardeck.json", ghPayload());
+    toast(T("exported"), "ok");
+  }
+});
+$("ghDlg").addEventListener("change", function(e){
+  if(e.target.closest("#ghDlg")) readGhForm();
+});
+
+/* ---------- Events ---------- */
+document.addEventListener("click", function(e){
+  var t = e.target.closest ? e.target.closest("[data-edit],[data-del],[data-new]") : null;
+  if(!t) return;
+  if(t.hasAttribute("data-new")) return open(null);
+  if(t.hasAttribute("data-edit")) return open(t.getAttribute("data-edit"));
+  if(t.hasAttribute("data-del")){
+    var id = t.getAttribute("data-del");
+    var c = data.filter(function(x){ return x.id === id; })[0];
+    if(!c) return;
+    if(!confirm(T("confirmDel")(c.name))) return;
+    c.deleted = true;
+    c.updatedAt = Date.now();
+    pruneTombstones();
+    save(); render(); toast(T("deleted"));
+  }
+});
+
+$("btnNew").addEventListener("click", function(){ open(null); });
+$("btnSave").addEventListener("click", saveForm);
+/* Exportmenü */
+function closeExpMenu(){
+  var m = $("expMenu");
+  m.hidden = true;
+  $("btnExport").setAttribute("aria-expanded", "false");
+}
+$("btnExport").addEventListener("click", function(e){
+  e.stopPropagation();
+  var m = $("expMenu");
+  var open = m.hidden;
+  m.hidden = !open;
+  $("btnExport").setAttribute("aria-expanded", open ? "true" : "false");
+});
+$("expMenu").addEventListener("click", function(e){
+  var b = e.target.closest("[data-exp]"); if(!b) return;
+  closeExpMenu();
+  var kind = b.getAttribute("data-exp");
+  if(kind === "pdf")   doExportPdf();
+  if(kind === "csv")   doExportCsv();
+  if(kind === "print") doExportPrint();
+  if(kind === "json")  doExport();
+});
+document.addEventListener("click", function(e){
+  if(!e.target.closest || !e.target.closest(".expwrap")) closeExpMenu();
+});
+document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeExpMenu(); });
+
+/* GitHub-Dialog-Tastenkürzel bleibt; Export über Menü */
+$("btnImport").addEventListener("click", function(){ $("file").click(); });
+$("file").addEventListener("change", function(e){
+  if(e.target.files && e.target.files[0]) doImport(e.target.files[0]);
+  e.target.value = "";
+});
+$("q").addEventListener("input", render);
+$("form").addEventListener("submit", function(){ editId = null; });
+$("form").addEventListener("keydown", function(e){
+  if(e.key === "Enter" && e.target.tagName !== "TEXTAREA"){ e.preventDefault(); saveForm(); }
+});
+
+$("themes").addEventListener("click", function(e){
+  var b = e.target.closest("[data-theme]"); if(!b) return;
+  prefs.theme = b.getAttribute("data-theme"); LS.set("flowstate-theme", prefs.theme); savePrefs(); applyTheme();
+});
+$("langs").addEventListener("click", function(e){
+  var b = e.target.closest("[data-lang]"); if(!b) return;
+  prefs.lang = b.getAttribute("data-lang"); savePrefs(); applyLang(); render();
+  if($("dlg").open) $("dlgTitle").textContent = editId ? T("editTitle") : T("newTitle");
+});
+
+applyTheme();
+applyLang();
+render();
+ghState();
+if(ghReady()) pull(true);   // beim Start einmal vom Repo lesen
+})();
 </script>
 </body>
 </html>

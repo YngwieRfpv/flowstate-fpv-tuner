@@ -1,0 +1,77 @@
+{
+  "app": "HangarDeck Lite",
+  "schema": 2,
+  "version": "0.4.0-beta.2",
+  "updated": "2026-11-02T00:00:00.000Z",
+  "prefs": {
+    "theme": "ocean",
+    "lang": "de",
+    "updatedAt": 0
+  },
+  "fleet": [
+    {
+      "id": "c1",
+      "updatedAt": 0,
+      "deleted": false,
+      "name": "Fünfzöller Freestyle",
+      "size": "5",
+      "cells": "6S",
+      "kv": 1800,
+      "esc": 50,
+      "props": "5.1x4.6x3",
+      "status": "ready",
+      "fc": "SpeedyBee F405 V4",
+      "mah": 1300,
+      "weight": 680,
+      "notes": ""
+    },
+    {
+      "id": "c2",
+      "updatedAt": 0,
+      "deleted": false,
+      "name": "Cinewhoop 3\"",
+      "size": "3",
+      "cells": "4S",
+      "kv": 3000,
+      "esc": 35,
+      "props": "3x2x3",
+      "status": "ready",
+      "fc": "",
+      "mah": 850,
+      "weight": null,
+      "notes": "Indoor, Duct"
+    },
+    {
+      "id": "c3",
+      "updatedAt": 0,
+      "deleted": false,
+      "name": "Tiny Whoop",
+      "size": "65",
+      "cells": "1S",
+      "kv": 19000,
+      "esc": null,
+      "props": "",
+      "status": "maint",
+      "fc": "",
+      "mah": 300,
+      "weight": null,
+      "notes": "Canopy gerissen"
+    },
+    {
+      "id": "c4",
+      "updatedAt": 0,
+      "deleted": false,
+      "name": "Langstrecke 7\"",
+      "size": "7",
+      "cells": "6S",
+      "kv": 1300,
+      "esc": 60,
+      "props": "7x4.5x3",
+      "status": "down",
+      "fc": "Matek H743-SLIM V3",
+      "mah": 4000,
+      "weight": 1450,
+      "notes": "Arm gebrochen"
+    }
+  ]
+}

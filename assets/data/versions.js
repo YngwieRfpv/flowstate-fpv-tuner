@@ -22,13 +22,13 @@ window.FLOWSTATE_DATA = {
           "Sechs Phasen von Setup bis Archiv, jede mit eigenem Abschluss",
           "Sichtbarer CLI-Plan vor jedem Schreibvorgang",
           "Zielprofil-Schutz: nur das gewählte PID-Profil wird verändert",
-          "Deutsch und Englisch, hell, dunkel und creme"
+          "Deutsch und Englisch, Ozean, Leinen und Dunkelrot"
         ],
         "en": [
           "Six phases from setup to archive, each with its own completion",
           "Visible CLI plan before every write",
           "Target-profile protection: only the selected PID profile changes",
-          "German and English, light, dark and cream"
+          "German and English, Ocean, Sand and Drakn"
         ]
       },
       "meta": {
@@ -62,13 +62,13 @@ window.FLOWSTATE_DATA = {
           "Acht Bereiche von der Startseite bis zur Linkliste",
           "95 Glossarbegriffe, direkt im Text aufrufbar",
           "Werte und Tabellen folgen deinem Copterprofil",
-          "Workspace als Datei sichern und später wieder laden"
+          "Ozean, Leinen und Dunkelrot, übernommen aus der Übersichtsseite"
         ],
         "en": [
           "Eight sections from the home page to the link list",
           "95 glossary terms, openable straight from the text",
           "Values and tables follow your quad profile",
-          "Save the workspace as a file and load it later"
+          "Ocean, Sand and Drakn, taken over from the overview page"
         ]
       },
       "meta": {
@@ -86,65 +86,65 @@ window.FLOWSTATE_DATA = {
     },
     {
       "id": "hangar",
-      "name": "HangarDeck",
+      "name": "HangarDeck Lite",
       "accent": "mint",
       "path": "hangar/",
       "kind": {
-        "de": "Copter und Flight Controller verwalten",
-        "en": "Manage quads and flight controllers"
+        "de": "Copter in einer Liste führen",
+        "en": "Keep quads in one list"
       },
       "description": {
-        "de": "Führt die Flotte und die FC-Bibliothek, liest Betaflight- oder INAV-Controller über Web Serial aus oder importiert CLI-Dumps. Daten liegen als JSON im Browser und lassen sich jederzeit exportieren.",
-        "en": "Keeps the fleet and the FC library, reads Betaflight or INAV controllers over Web Serial or imports CLI dumps. Data stays in the browser as JSON and can be exported at any time."
+        "de": "Eine Liste pro Copter mit Größe, Zellen, KV, ESC, Props und Status. Export als PDF-Tabelle, CSV, Druck oder JSON, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
+        "en": "One list for your quads with size, cells, KV, ESC, props and status. Export as a PDF table, CSV, print or JSON, plus a sync with your own repository. Everything runs from a single file in the browser."
       },
       "highlights": {
         "de": [
-          "Flotte mit Filter, Suche und Bestandsliste",
-          "FC auslesen per MSP oder CLI-Dump einlesen",
-          "Prüfregeln zu Klasse, KV, Props und Wartung",
-          "Export als JSON, CSV und Markdown-Bericht"
+          "Name und Größe reichen, weitere Felder bleiben optional",
+          "Export als PDF-Tabelle, CSV, Druck oder JSON",
+          "Abgleich über das eigene Repository, Lesen ohne Token",
+          "Deutsch und Englisch, Ozean, Leinen und Dunkelrot"
         ],
         "en": [
-          "Fleet with filters, search and a table view",
-          "Read a controller over MSP or import a CLI dump",
-          "Checks on class, KV, props and maintenance",
-          "Export as JSON, CSV and a Markdown report"
+          "Name and size are enough, further fields stay optional",
+          "Export as a PDF table, CSV, print or JSON",
+          "Sync through your own repository, reading needs no token",
+          "German and English, Ocean, Sand and Drakn"
         ]
       },
       "meta": {
         "de": [
-          "1 Datei · 112 KB",
-          "Betaflight, INAV",
-          "Web Serial in Chrome / Edge / Opera"
+          "1 Datei · 65 KB",
+          "4 Felder Pflicht, 7 optional",
+          "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 112 KB",
-          "Betaflight, INAV",
-          "Web Serial in Chrome / Edge / Opera"
+          "1 file · 65 KB",
+          "4 required fields, 7 optional",
+          "any modern browser"
         ]
       }
     }
   ],
   "releases": [
     {
-      "id": "hangar-0.1.0-beta.2",
+      "id": "hangar-0.4.0-beta.2",
       "program": "hangar",
-      "version": "v0.1.0-beta.2",
+      "version": "v0.4.0-beta.2",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Akzentfarbe folgt der Übersichtsseite.",
-        "en": "The accent colour follows the overview page."
+        "de": "Farbwahl der Übersichtsseite, Export als Tabelle.",
+        "en": "Colour choice of the overview page, export as a table."
       },
       "summary": {
         "de": "HangarDeck hat eine dunkle Palette mit wählbarer Akzentfarbe und nimmt aus der Farbwahl des Hubs den passenden Ton: Ozean cyan, Leinen amber, Dunkelrot violett. Ohne Wahl im Hub bleibt Grün.",
         "en": "HangarDeck has one dark palette with a selectable accent and takes the matching tone from the hub choice: ocean cyan, sand amber, drakn violet. Without a choice in the hub it stays green."
       },
       "file": "hangar/index.html",
-      "size_bytes": 112090,
-      "sha256": "500cda43df1c14e05fd5af3c260074f1173d0cf6ae696722635bd3fee880d406",
+      "size_bytes": 65058,
+      "sha256": "726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2",
       "signals": [
         {
           "label": {
@@ -301,24 +301,24 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "guide-1.0.2-beta.1-es",
+      "id": "guide-1.0.2-beta.10-es",
       "program": "guide",
-      "version": "v1.0.2-beta.1-es",
+      "version": "v1.0.2-beta.10-es",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Übernimmt die Farbwahl der Übersichtsseite.",
-        "en": "Takes over the colour choice of the overview page."
+        "de": "Drei Paletten, eine gemeinsame Wahl.",
+        "en": "Three palettes, one shared choice."
       },
       "summary": {
-        "de": "Beim Öffnen liest der Guide den Eintrag flowstate-theme: Ozean öffnet die dunkle Palette, Leinen die helle. Ein eigenes Dunkelrot gibt es im Guide nicht, deshalb bleibt Dunkelrot dort dunkel. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
-        "en": "On load the guide reads flowstate-theme: ocean opens the dark palette, sand the light one. The guide has no dark red of its own, so drakn stays dark there. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
+        "de": "Der Guide kennt jetzt Ozean, Leinen und Dunkelrot als vollständige Paletten, nicht nur hell und dunkel. Beim Öffnen liest er den Eintrag flowstate-theme, eine Wahl im Guide schreibt dorthin zurück. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "The guide now has Ocean, Sand and Drakn as full palettes, not just light and dark. On load it reads flowstate-theme, a choice inside the guide writes back to it. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
-      "size_bytes": 7663821,
-      "sha256": "796ec978e462857667f25cb61fff0912379ae6ffbd1712b0223002ac14665674",
+      "size_bytes": 7679773,
+      "sha256": "f109c8ba5c2b1a200061cc018b4ce6b3881f7ab3ce35c2b7e898a25f1a39d47e",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.1-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.10-es",
       "signals": [
         {
           "label": {
