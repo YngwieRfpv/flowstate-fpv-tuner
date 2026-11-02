@@ -404,18 +404,15 @@ kbd {
 .theme-menu summary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   height: 36px;
-  padding: 0 10px;
+  padding: 0 9px;
   border: 1px solid var(--line);
   border-radius: 9px;
   background: var(--panel);
   color: var(--muted);
   cursor: pointer;
   list-style: none;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
   transition: color 0.16s var(--ease), border-color 0.16s var(--ease),
     background 0.16s var(--ease);
 }
@@ -467,7 +464,7 @@ kbd {
 .theme-dots i:nth-child(5) { background: var(--sw-5, transparent); }
 
 .theme-menu summary .theme-dots i {
-  width: 7px;
+  width: 8px;
 }
 
 .theme-menu__list {
@@ -475,10 +472,11 @@ kbd {
   top: calc(100% + 8px);
   right: 0;
   z-index: 60;
-  min-width: 234px;
+  width: max-content;
+  min-width: 158px;
   padding: 6px;
   display: grid;
-  gap: 2px;
+  gap: 4px;
   background: var(--panel);
   border: 1px solid var(--line-strong);
   border-radius: 12px;
@@ -486,19 +484,14 @@ kbd {
 }
 
 .theme-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: block;
   width: 100%;
-  padding: 7px 9px;
+  padding: 4px;
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--text);
-  font: inherit;
-  font-size: 13.5px;
-  text-align: left;
   cursor: pointer;
+  line-height: 0;
 }
 
 .theme-option:hover {
@@ -509,24 +502,27 @@ kbd {
   background: var(--mint-soft);
 }
 
-.theme-option__name {
+/* Der laufende Satz ist umrandet statt beschriftet. */
+.theme-option .theme-dots {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16) inset;
+}
+
+.theme-option .theme-dots i {
   flex: 1;
+  width: auto;
+  height: 24px;
 }
 
-.theme-option__check {
-  width: 14px;
-  height: 14px;
-  color: var(--mint);
-  opacity: 0;
+.theme-option[aria-pressed="true"] .theme-dots {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
 }
 
-.theme-option[aria-pressed="true"] .theme-option__check {
-  opacity: 1;
-}
-
-@media (max-width: 720px) {
-  .theme-menu summary .theme-menu__label {
-    display: none;
+@media (max-width: 420px) {
+  .theme-menu summary .theme-dots i {
+    width: 6px;
   }
 }
 
