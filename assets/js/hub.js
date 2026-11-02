@@ -11,10 +11,7 @@
 
   var UI = {
     de: {
-      'theme.label': 'Farbschema',
-      'theme.ocean': 'Ocean',
-      'theme.sand': 'Sand',
-      'theme.drakn': 'Drakn',
+      'theme.label': 'Farben',
       'nav.projects': 'Programme',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -155,10 +152,7 @@
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.'
     },
     en: {
-      'theme.label': 'Colour scheme',
-      'theme.ocean': 'Ocean',
-      'theme.sand': 'Sand',
-      'theme.drakn': 'Drakn',
+      'theme.label': 'Colours',
       'nav.projects': 'Programs',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -385,11 +379,6 @@
     return label === key ? c : label;
   }
 
-  function themeName(theme) {
-    var label = t('theme.' + theme);
-    return label === 'theme.' + theme ? theme : label;
-  }
-
   function syncThemeState() {
     var current = document.documentElement.getAttribute('data-theme') || THEMES[0];
     if (THEMES.indexOf(current) === -1) current = THEMES[0];
@@ -397,11 +386,7 @@
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-theme-set') === current));
     });
     var summary = $('#theme-menu summary');
-    if (summary) {
-      var label = t('theme.label') + ': ' + themeName(current);
-      summary.setAttribute('aria-label', label);
-      summary.setAttribute('title', label);
-    }
+    if (summary) summary.setAttribute('aria-label', t('theme.label'));
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta && THEME_BG[current]) meta.setAttribute('content', THEME_BG[current]);
   }

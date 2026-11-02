@@ -12,8 +12,8 @@ Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versi
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
 Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
-(Deutsch/Englisch) und bietet drei Farbschemata zur Auswahl: Ocean, Sand und Drakn. Beide
-Programme gibt es auf Deutsch, Englisch und Spanisch.
+(Deutsch/Englisch); die Farben lassen sich im Kopf der Seite in drei Paletten umschalten:
+Ocean, Sand und Drakn. Beide Programme gibt es auf Deutsch, Englisch und Spanisch.
 
 ---
 
