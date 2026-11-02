@@ -885,11 +885,39 @@ body.app-open .site-header {
   margin: 22px 0 12px;
 }
 
-.overview-note {
-  margin: 0;
-  max-width: 52ch;
-  color: var(--muted);
+.bundle-info {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  max-width: 56ch;
+}
+
+.bundle-info__lead {
+  margin: 0 0 8px;
   font-size: 13px;
+  font-weight: 650;
+  color: var(--text-soft);
+}
+
+.bundle-info__list {
+  display: grid;
+  gap: 5px;
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.bundle-info__list li::marker {
+  color: var(--mint);
+}
+
+.bundle-info__note {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-soft);
 }
 
 .overview-list {
