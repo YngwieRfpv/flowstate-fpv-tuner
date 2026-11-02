@@ -680,9 +680,25 @@ body.app-open .site-header {
   }
 }
 
-@media (max-width: 400px) {
-  .header-inner .brand-mark {
+/* Ganz schmal: die Marke weicht, damit Umschalter, Sprache und Farben passen. */
+@media (max-width: 560px) {
+  .header-inner .brand {
     display: none;
+  }
+
+  .header-inner {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 420px) {
+  .theme-switch .theme-dots i {
+    width: 4px;
+    height: 13px;
+  }
+
+  .app-switch__item {
+    padding: 6px 5px;
   }
 }
 
