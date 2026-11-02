@@ -163,7 +163,9 @@
       'footer.releases': 'Releases',
       'footer.repo': 'Repository',
       'footer.license': 'Lizenz',
-      'footer.licenseNote': 'Weitergabe nur unverändert erlaubt',
+      'footer.asOf': 'Stand',
+      'footer.credit': 'Ein Projekt von YngwierFPV · KI-gestützt erstellt',
+      'footer.safety': 'Kein Ersatz für einen Pre-Flight-Check, sichere Flugfläche und eigene Verantwortung.',
       'date.asOf': 'Stand {date}',
       'phase.setup': 'Setup', 'phase.setup.d': 'FC, Hardware, Profil',
       'phase.pidname': 'P/D neutral', 'phase.mastername': 'Master',
@@ -354,7 +356,9 @@
       'footer.releases': 'Versiones',
       'footer.repo': 'Repositorio',
       'footer.license': 'Licencia',
-      'footer.licenseNote': 'Solo se permite redistribuir sin cambios',
+      'footer.asOf': 'Estado',
+      'footer.credit': 'Un proyecto de YngwierFPV · creado con apoyo de IA',
+      'footer.safety': 'No sustituye una revisión previa al vuelo, una zona de vuelo segura y la responsabilidad propia.',
       'date.asOf': 'Estado {date}',
       'phase.setup': 'Preparación',
       'phase.setup.d': 'FC, hardware, perfil',
@@ -552,7 +556,9 @@
       'footer.releases': 'Releases',
       'footer.repo': 'Repository',
       'footer.license': 'License',
-      'footer.licenseNote': 'Redistribution only in unmodified form',
+      'footer.asOf': 'As of',
+      'footer.credit': 'A project by YngwierFPV · built with AI support',
+      'footer.safety': 'No substitute for a pre-flight check, a safe flying area and your own responsibility.',
       'date.asOf': 'As of {date}',
       'phase.setup': 'Setup', 'phase.setup.d': 'FC, hardware, profile',
       'phase.pidname': 'Neutral P/D', 'phase.mastername': 'Master',
@@ -1055,7 +1061,17 @@
         '</a>';
     }).join('');
 
+    // Stand aus den Versionsdaten, in der Form 02.11.2026 wie im Tuner.
+    var stamp = formatDay(state.data.updated);
+    $$('[data-hero-date]').forEach(function (el) { el.textContent = stamp; });
+
     syncAppLinks();
+  }
+
+  function formatDay(iso) {
+    var parts = String(iso || '').split('-');
+    if (parts.length !== 3) return iso || '—';
+    return parts[2] + '.' + parts[1] + '.' + parts[0];
   }
 
   function matches(release) {
