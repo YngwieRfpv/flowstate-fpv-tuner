@@ -32,8 +32,14 @@
   --sw-4: #258c71;
   --sw-5: #2ca387;
 
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -24px rgba(1, 10, 14, 0.9);
-  --radius: 16px;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 18px -18px rgba(1, 10, 14, 0.9);
+  --radius: 8px;
+  --r-flat: 2px;
+  --r-chip: 3px;
+  --r-seg: 5px;
+  --r-card: 8px;
+  --card-edge: 1px solid var(--line-strong);
+  --ring: #eef6f5;
   --maxw: 1120px;
 
   --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -51,6 +57,8 @@
   --panel-hover: #ffffff;
   --line: #d6dcd9;
   --line-strong: #b2bdb8;
+  --card-edge: 1px solid var(--line);
+  --ring: #ffffff;
   --text: #22302e;
   --text-soft: #35443f;
   --muted: #5b6a66;
@@ -73,7 +81,7 @@
   --sw-4: #f0e6cb;
   --sw-5: #ecbda9;
 
-  --shadow: 0 1px 2px rgba(34, 48, 46, 0.06), 0 16px 32px -26px rgba(34, 48, 46, 0.55);
+  --shadow: 0 1px 2px rgba(34, 48, 46, 0.05), 0 8px 16px -20px rgba(34, 48, 46, 0.4);
 }
 
 [data-theme="drakn"] {
@@ -84,6 +92,7 @@
   --panel-hover: #331c55;
   --line: #3f2059;
   --line-strong: #5a2b76;
+  --ring: #f7eef7;
   --text: #f7eef7;
   --text-soft: #e5d6e9;
   --muted: #b6a3bd;
@@ -106,7 +115,7 @@
   --sw-4: #3f092b;
   --sw-5: #140a25;
 
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -24px rgba(8, 2, 16, 0.9);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 18px -18px rgba(8, 2, 16, 0.92);
 }
 
 *,
@@ -195,7 +204,7 @@ kbd {
 :focus-visible {
   outline: 2px solid var(--mint);
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius: 3px;
 }
 
 ::selection {
@@ -352,7 +361,7 @@ kbd {
   font-size: 13.5px;
   font-weight: 550;
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 5px;
   transition: color 0.16s var(--ease), background 0.16s var(--ease);
 }
 
@@ -374,7 +383,7 @@ kbd {
   place-items: center;
   width: 36px;
   height: 36px;
-  border-radius: 9px;
+  border-radius: 5px;
   border: 1px solid var(--line);
   background: var(--panel);
   color: var(--muted);
@@ -424,7 +433,7 @@ kbd {
   gap: 6px;
   padding: 6px 11px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 5px;
   background: var(--panel);
   color: var(--muted);
   font: inherit;
@@ -560,7 +569,7 @@ body.app-open .site-header {
   gap: 2px;
   padding: 3px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 5px;
   background: var(--bg-soft);
   flex-shrink: 0;
 }
@@ -571,7 +580,7 @@ body.app-open .site-header {
   bottom: 3px;
   left: 0;
   width: 0;
-  border-radius: 7px;
+  border-radius: 3px;
   background: var(--panel);
   box-shadow: 0 0 0 1px var(--line-strong), 0 2px 6px -2px rgba(0, 0, 0, 0.35);
   opacity: 0;
@@ -591,7 +600,7 @@ body.app-open .site-header {
   align-items: center;
   gap: 6px;
   padding: 7px 11px;
-  border-radius: 7px;
+  border-radius: 3px;
   color: var(--muted);
   font-size: 13px;
   font-weight: 600;
@@ -710,7 +719,7 @@ body.app-open .site-header {
   gap: 2px;
   padding: 2px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 5px;
   background: var(--bg-soft);
   flex-shrink: 0;
 }
@@ -718,7 +727,7 @@ body.app-open .site-header {
 .theme-switch .theme-option {
   width: auto;
   padding: 3px;
-  border-radius: 6px;
+  border-radius: 3px;
   line-height: 0;
 }
 
@@ -733,18 +742,19 @@ body.app-open .site-header {
 
 .theme-switch .theme-option[aria-pressed="true"] {
   background: var(--panel);
+  box-shadow: 0 0 0 2px var(--ring);
 }
 
 .theme-switch .theme-dots {
   width: auto;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 /* Die fünf Töne der laufenden Palette als Streifen */
 .theme-dots {
   display: inline-flex;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 3px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) inset;
 }
 
@@ -765,7 +775,7 @@ body.app-open .site-header {
   width: 100%;
   padding: 4px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 3px;
   background: transparent;
   cursor: pointer;
   line-height: 0;
@@ -800,11 +810,16 @@ body.app-open .site-header {
 .lang-switch {
   display: inline-flex;
   flex-shrink: 0;
-  padding: 2px;
-  gap: 2px;
+  padding: 0;
+  gap: 0;
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-seg);
+  overflow: hidden;
+}
+
+.lang-switch button + button {
+  border-left: 1px solid var(--line);
 }
 
 .lang-switch button {
@@ -816,8 +831,8 @@ body.app-open .site-header {
   color: var(--muted);
   background: transparent;
   border: 0;
-  padding: 5px 8px;
-  border-radius: 6px;
+  padding: 5px 10px;
+  border-radius: 0;
   cursor: pointer;
   transition: color 0.15s var(--ease), background 0.15s var(--ease);
 }
@@ -827,9 +842,8 @@ body.app-open .site-header {
 }
 
 .lang-switch button[aria-pressed="true"] {
-  background: var(--panel-2);
-  color: var(--mint);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  background: var(--mint);
+  color: var(--bg);
 }
 
 .hero {
@@ -907,8 +921,8 @@ body.app-open .site-header {
 }
 
 .hero-card {
-  border: 1px solid var(--line);
-  border-radius: 18px;
+  border: var(--card-edge);
+  border-radius: var(--r-card);
   background: linear-gradient(170deg, var(--panel-2), var(--panel) 60%);
   box-shadow: var(--shadow);
   padding: 20px;
@@ -954,7 +968,7 @@ body.app-open .site-header {
   align-items: center;
   gap: 12px;
   padding: 12px;
-  border-radius: 11px;
+  border-radius: 8px;
   border: 1px solid var(--line);
   background: var(--bg-soft);
 }
@@ -966,7 +980,7 @@ body.app-open .site-header {
 .mini-dot {
   width: 34px;
   height: 34px;
-  border-radius: 9px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
   font-size: 13px;
@@ -1024,7 +1038,7 @@ body.app-open .site-header {
   justify-content: center;
   gap: 9px;
   padding: 11px 18px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 14.5px;
   font-weight: 600;
   font-family: inherit;
@@ -1086,7 +1100,7 @@ body.app-open .site-header {
 .btn--sm {
   padding: 8px 13px;
   font-size: 13px;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .card {
@@ -1146,7 +1160,7 @@ body.app-open .site-header {
 .project-icon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   background: var(--proj-soft);
@@ -1218,7 +1232,7 @@ body.app-open .site-header {
   background: var(--bg-soft);
   border: 1px solid var(--line);
   padding: 4px 9px;
-  border-radius: 6px;
+  border-radius: 3px;
 }
 
 .chip--mono {
@@ -1290,7 +1304,7 @@ body.app-open .site-header {
   border-collapse: collapse;
   font-size: 13.8px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 2px;
   overflow: hidden;
   background: var(--panel);
 }
@@ -1341,7 +1355,7 @@ body.app-open .site-header {
   border-collapse: collapse;
   font-size: 13.8px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 2px;
   overflow: hidden;
   background: var(--panel);
 }
@@ -1436,7 +1450,7 @@ body.app-open .site-header {
   color: var(--text-soft);
   background: var(--panel-2);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 1px 6px;
 }
 
@@ -1457,7 +1471,7 @@ body.app-open .site-header {
 .area {
   padding: 14px 15px;
   border: 1px solid var(--line);
-  border-radius: 11px;
+  border-radius: 8px;
   background: var(--panel);
 }
 
@@ -1500,7 +1514,7 @@ body.app-open .site-header {
 .program-warning {
   margin-top: 14px;
   padding: 11px 13px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid var(--amber-line);
   background: var(--amber-soft);
   font-size: 12.8px;
@@ -1516,7 +1530,7 @@ body.app-open .site-header {
   display: flex;
   gap: 14px;
   padding: 18px 20px;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid var(--amber-line);
   background: var(--amber-soft);
 }
@@ -1585,7 +1599,7 @@ body.app-open .site-header {
   color: var(--text);
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: 5px;
 }
 
 .search input::placeholder {
@@ -1600,11 +1614,12 @@ body.app-open .site-header {
 
 .segmented {
   display: inline-flex;
-  padding: 3px;
-  gap: 2px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .segmented button {
@@ -1615,8 +1630,12 @@ body.app-open .site-header {
   background: transparent;
   border: 0;
   padding: 7px 12px;
-  border-radius: 7px;
+  border-radius: 0;
   cursor: pointer;
+}
+
+.segmented button + button {
+  border-left: 1px solid var(--line);
 }
 
 .segmented button:hover {
@@ -1626,7 +1645,6 @@ body.app-open .site-header {
 .segmented button[aria-pressed="true"] {
   background: var(--panel-2);
   color: var(--text);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
 .toolbar-count {
@@ -1759,7 +1777,7 @@ body.app-open .site-header {
   color: var(--muted);
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 3px 8px;
   cursor: pointer;
 }
@@ -1919,7 +1937,7 @@ details.notes > summary:hover {
 
 .faq details {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--panel);
   padding: 16px 18px;
 }
@@ -2144,8 +2162,8 @@ details.notes > summary:hover {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: 0;
-  border: 1px solid var(--line);
-  border-radius: 18px;
+  border: var(--card-edge);
+  border-radius: var(--r-card);
   background: var(--panel);
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -2226,7 +2244,7 @@ details.notes > summary:hover {
   display: inline-flex;
   align-items: baseline;
   gap: 10px;
-  border-radius: 6px;
+  border-radius: 3px;
   transition: color 0.18s var(--ease);
 }
 
