@@ -22,8 +22,12 @@ aufrufen und weitergeben.
 Im Kopf stehen Sprache und Farben als Felder nebeneinander, ohne aufklappende Liste:
 DE und EN, daneben die drei Paletten Ozean, Leinen und Dunkelrot als Farbstreifen. Beide
 Wahlen gelten auch für das Programm, das du danach öffnest. Die Sprache steht in der
-Adresse (`?lang=`), die Farbe in `flowstate-theme`. Wechselst du die Farbe bei offenem
-Programm, lädt der Rahmen einmal neu, damit das Programm mitzieht.
+Adresse (`?lang=`), die Farbe in `flowstate-theme`. Wechselst du die Farbe oder die
+Sprache bei offenem Programm, lädt der Rahmen einmal neu, damit das Programm mitzieht.
+
+In den Programmen selbst stehen dieselben Wahlen als Reihen im Kopf: DE, EN und ES
+nebeneinander, daneben die drei Farbstreifen. Kein aufklappendes Feld, damit im Rahmen
+unter der Kopfzeile nichts abgeschnitten wird.
 
 Alle drei Programme bringen dieselben drei Paletten mit und lesen sie aus demselben
 Eintrag. Wählst du im Programm selbst eine Farbe, schreibt es sie zurück, und die
@@ -380,6 +384,8 @@ that contains the overview page plus all three programs; unzip it and open `inde
 Language and colour sit side by side in the header, without a drop-down: DE and EN plus
 three palette strips. Both choices carry into the program you open next. `flowstate-theme`
 holds `ocean`, `sand` or `drakn`; older values `dark`, `light` and `cream` are still read.
+Inside the programs the same choices sit side by side: DE, EN and ES, plus the three
+colour strips, without a drop-down that the frame could cut off.
 
 All three programs ship the same three palettes and read the same entry. A choice made
 inside a program is written back, so the overview page shows it on the next visit.
