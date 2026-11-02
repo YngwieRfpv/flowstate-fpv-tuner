@@ -50,21 +50,12 @@
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
+      'overview.sections': 'Mehr zu den Programmen',
       'hero.title1': 'Drei Programme,',
       'hero.title2': 'je eine HTML-Datei,',
       'hero.accent': 'kein Server',
       'hero.lede': 'HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Öffnen genügt: Installation, Konto und Internet braucht keines der drei.',
-      'hero.cta1': 'HangarDeck Lite öffnen',
-      'hero.cta2': 'FlowState Tuner',
-      'hero.cta3': 'FPV Guide',
       'hero.cta4': 'Versionen',
-      'hero.card': 'Aktuelle Stände',
-      'hero.foot': 'Stand der Dateien',
-      'hero.fact.size.t': 'Eine Datei je Programm',
-      'hero.fact.lang.t': 'Sprachen',
-      'hero.fact.lang.d': 'Deutsch und Englisch vollständig, Spanisch ungeprüft',
-      'hero.fact.colors.t': 'Farben',
-      'hero.fact.colors.d': 'Ozean, Leinen und Dunkelrot, in allen drei Programmen',
       'programs.eyebrow': 'Programme',
       'programs.title': 'Was die drei Programme machen',
       'programs.lede': 'Die drei sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.',
@@ -231,21 +222,12 @@
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
       'hero.eyebrow': 'FlowState FPV',
+      'overview.sections': 'Más sobre los programas',
       'hero.title1': 'Tres programas,',
       'hero.title2': 'cada uno un archivo HTML,',
       'hero.accent': 'sin servidor',
       'hero.lede': 'HangarDeck Lite lleva la lista de copter y la imprime como tabla. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Basta con abrir el archivo: ninguno necesita instalación, cuenta ni conexión.',
-      'hero.cta1': 'Abrir HangarDeck Lite',
-      'hero.cta2': 'FlowState Tuner',
-      'hero.cta3': 'Guía FPV',
       'hero.cta4': 'Versiones',
-      'hero.card': 'Versiones actuales',
-      'hero.foot': 'Estado de los archivos',
-      'hero.fact.size.t': 'Un archivo por programa',
-      'hero.fact.lang.t': 'Idiomas',
-      'hero.fact.lang.d': 'Alemán e inglés completos, español sin revisar',
-      'hero.fact.colors.t': 'Colores',
-      'hero.fact.colors.d': 'Océano, Lino y Rojo oscuro en los tres programas',
       'programs.eyebrow': 'Programas',
       'programs.title': 'Qué hacen los tres programas',
       'programs.lede': 'Los tres son independientes. No comparten código ni datos y siempre abres solo uno. Los apartados siguientes muestran qué contiene cada uno.',
@@ -431,21 +413,12 @@
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
+      'overview.sections': 'More on the programs',
       'hero.title1': 'Three programs,',
       'hero.title2': 'each a single HTML file,',
       'hero.accent': 'no server',
       'hero.lede': 'HangarDeck Lite keeps the quad list and prints it as a table. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV Guide explains workflow, filters and terms. Opening the file is enough: none of them needs an install, an account or an internet connection.',
-      'hero.cta1': 'Open HangarDeck Lite',
-      'hero.cta2': 'FlowState Tuner',
-      'hero.cta3': 'FPV Guide',
       'hero.cta4': 'Versions',
-      'hero.card': 'Current builds',
-      'hero.foot': 'State of the files',
-      'hero.fact.size.t': 'One file per program',
-      'hero.fact.lang.t': 'Languages',
-      'hero.fact.lang.d': 'German and English complete, Spanish unverified',
-      'hero.fact.colors.t': 'Colours',
-      'hero.fact.colors.d': 'Ocean, Sand and Drakn in all three programs',
       'programs.eyebrow': 'Programs',
       'programs.title': 'What the three programs do',
       'programs.lede': 'All three are self-contained. They share no code and no data, and you only ever open one of them. The sections below show what each one contains.',
@@ -897,6 +870,24 @@
 
   function initTheme() {
     syncThemeState();
+
+    // Ein Programm im Rahmen schreibt Farbe und Sprache selbst. Der Hub zieht nach,
+    // ohne dass die Seite neu geladen werden muss.
+    window.addEventListener('storage', function (event) {
+      if (!event || !event.key || !event.newValue) return;
+      if (event.key === THEME_KEY) {
+        var next = THEME_ALIAS[event.newValue] || event.newValue;
+        if (THEMES.indexOf(next) === -1) return;
+        if (document.documentElement.getAttribute('data-theme') === next) return;
+        document.documentElement.setAttribute('data-theme', next);
+        syncThemeState();
+        refreshApp();
+      } else if (event.key === LANG_KEY) {
+        if (LANGS.indexOf(event.newValue) === -1 || event.newValue === state.lang) return;
+        setLang(event.newValue, false);
+      }
+    });
+
     $$('[data-theme-set]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         setTheme(btn.getAttribute('data-theme-set'));
@@ -940,6 +931,7 @@
   }
 
   function setLang(lang, persist) {
+    var previous = state.lang;
     state.lang = LANGS.indexOf(lang) === -1 ? FALLBACK : lang;
     if (persist !== false) {
       try { localStorage.setItem(LANG_KEY, state.lang); } catch (e) {}
@@ -947,10 +939,11 @@
     applyStatic();
     if (state.data) {
       renderProjects();
-      renderHero();
-      renderStats();
+      renderOverview();
       render();
     }
+    // Ein offenes Programm liest die Sprache beim Laden: neu laden, damit es mitzieht.
+    if (previous !== state.lang) refreshApp();
   }
 
   function projectTemplate(program) {
@@ -992,26 +985,35 @@
     grid.innerHTML = state.data.programs.map(projectTemplate).join('');
   }
 
-  function renderHero() {
-    var holder = $('#hero-mini');
+  // Startansicht: eine Zeile je Programm, gebaut aus versions.json.
+  function renderOverview() {
+    var holder = $('#overview-list');
     if (!holder || !state.data) return;
 
-    holder.innerHTML = state.data.releases.map(function (release) {
-      var program = projectOf(release.program);
-      var tone = program && program.accent === 'sky' ? 'sky' : 'mint';
-      var initial = (program ? program.name : release.program).charAt(0).toUpperCase();
+    var releases = state.data.releases || [];
+
+    holder.innerHTML = state.data.programs.map(function (program, index) {
+      var release = null;
+      releases.forEach(function (r) { if (r.program === program.id) release = r; });
+      var version = release ? release.version : '';
+      var size = release && release.size_bytes ? formatBytes(release.size_bytes) : '';
+
       return '' +
-        '<div class="mini-release">' +
-          '<span class="mini-dot mini-dot--' + tone + '" aria-hidden="true">' + esc(initial) + '</span>' +
-          '<span class="mini-body">' +
-            '<span class="mini-name">' + esc(program ? program.name : release.program) + '</span>' +
-            '<span class="mini-ver">' + esc(release.version) + '</span>' +
+        '<a class="tile" href="' + esc(program.path) + '" data-app-open="' + esc(program.id) + '">' +
+          '<span class="tile-index">' + ('0' + (index + 1)).slice(-2) + '</span>' +
+          '<span class="tile-text">' +
+            '<span class="tile-name">' + esc(program.name) + '</span>' +
+            '<span class="tile-kind">' + esc(pick(program.kind)) + '</span>' +
           '</span>' +
-          '<span class="mini-state ' + channelClass(release.channel) + '">' +
-            esc(channelLabel(release.channel)) +
+          '<span class="tile-meta">' + esc(version) +
+            (size ? '<span class="tile-size">' + esc(size) + '</span>' : '') +
           '</span>' +
-        '</div>';
+          '<svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>' +
+        '</a>';
     }).join('');
+
+    syncAppLinks();
   }
 
   function matches(release) {
@@ -1377,6 +1379,16 @@
       event.preventDefault();
       downloadBundle(button.getAttribute('data-bundle'), button);
     });
+
+    // Die Kacheln der Startansicht öffnen das Programm im Rahmen,
+    // mit Strg- oder Mittelklick weiterhin in einem eigenen Tab.
+    document.addEventListener('click', function (event) {
+      var tile = event.target && event.target.closest ? event.target.closest('[data-app-open]') : null;
+      if (!tile) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      openApp(tile.getAttribute('data-app-open'));
+    });
   }
 
   function releaseTemplate(release) {
@@ -1442,23 +1454,6 @@
         esc(t('filter.reset')) + '</button></div>';
 
     if (count) count.textContent = t('count', { n: visible.length, total: all.length });
-  }
-
-  function renderStats() {
-    var releases = state.data.releases;
-
-    // Die Startseite nennt die Dateigrößen in der Reihenfolge der Programme.
-    var sizes = state.data.programs.map(function (program) {
-      var release = null;
-      releases.forEach(function (r) { if (r.program === program.id) release = r; });
-      return release && release.size_bytes ? formatBytes(release.size_bytes) : '—';
-    });
-
-    var sizesEl = document.querySelector('[data-stat="sizes"]');
-    if (sizesEl) sizesEl.textContent = sizes.join(' · ');
-
-    var label = t('date.asOf', { date: formatDate(state.data.updated) });
-    $$('[data-hero-date]').forEach(function (el) { el.textContent = label; });
   }
 
   function initControls() {
@@ -1600,8 +1595,7 @@
     function applyData(data) {
       state.data = data;
       renderProjects();
-      renderHero();
-      renderStats();
+      renderOverview();
       render();
     }
 

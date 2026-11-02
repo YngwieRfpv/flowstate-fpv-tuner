@@ -142,7 +142,7 @@ window.FLOWSTATE_DATA = {
       },
       "file": "hangar/index.html",
       "size_bytes": 65431,
-      "sha256": "42ba97d2deeeb868c3765fd33c081ae418154fbd9608ab0b822141dbe48f8241",
+      "sha256": "c0651cba657ffe27398aa01b7518f56c6234508c81f3d4c3703c51aaa5f5b75e",
       "available": true,
       "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.3",
       "signals": [
