@@ -1574,6 +1574,27 @@ body.app-open .site-header {
   margin-bottom: 18px;
 }
 
+.bundle-all {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+
+.bundle-all__btn svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.bundle-all__note {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .search {
   position: relative;
   flex: 1 1 260px;
