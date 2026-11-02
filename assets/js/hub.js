@@ -15,8 +15,6 @@
       'apps.guide': 'Guide',
       'apps.tuner': 'Autotuner',
       'apps.hangar': 'Hangar',
-      'apps.soon': 'bald',
-      'apps.hangarSoon': 'Hangar folgt, die Seite gibt es noch nicht.',
       'stage.back': 'Zurück zur Übersicht',
       'stage.newTab': 'In neuem Tab',
       'stage.loading': 'Wird geladen',
@@ -28,7 +26,8 @@
       'nav.langs': 'Sprachen',
       'langs.eyebrow': 'Sprachen',
       'langs.title': 'Deutsch und Englisch vollständig, Spanisch als Vorschau',
-      'langs.lede': 'Beide Programme liegen auf Deutsch und Englisch vollständig vor. Spanisch ist übersetzt und auswählbar, aber in keinem Bereich geprüft. Deshalb steht im Programm ein dauerhafter Hinweis, und offene Stellen erscheinen auf Englisch.',
+      'langs.lede': 'Tuner und Guide liegen auf Deutsch und Englisch vollständig vor. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch. HangarDeck ist in dieser Fassung nur auf Deutsch.',
+      'langs.notYet': 'noch nicht',
       'langs.h.language': 'Sprache',
       'langs.h.status': 'Stand',
       'langs.h.checked': 'Geprüft',
@@ -39,14 +38,15 @@
       'langs.no': 'nein',
       'langs.open': 'Tuner öffnen',
       'langs.openGuide': 'Guide öffnen',
+      'langs.openHangar': 'HangarDeck öffnen',
       'langs.none': 'kein Link',
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe erkennt das Programm die Browsersprache, sonst Deutsch.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
-      'hero.title1': 'Zwei Programme',
+      'hero.title1': 'Drei Programme',
       'hero.title2': 'für Betaflight,',
       'hero.accent': 'die offline laufen',
-      'hero.lede': 'Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. Beide bestehen aus einer einzigen HTML-Datei und brauchen keine Internetverbindung.',
+      'hero.lede': 'Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. HangarDeck führt Flotte und Flight Controller. Jedes Programm besteht aus einer einzigen HTML-Datei und braucht keine Internetverbindung.',
       'hero.cta1': 'Tuner starten',
       'hero.cta2': 'Guide öffnen',
       'hero.cta3': 'Versionen',
@@ -56,8 +56,8 @@
       'stat.online': 'bereit',
       'stat.offline': 'offline',
       'programs.eyebrow': 'Programme',
-      'programs.title': 'Was die beiden Programme machen',
-      'programs.lede': 'Beide sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines von beiden. Die Abschnitte darunter zeigen, was jeweils drin ist.',
+      'programs.title': 'Was die drei Programme machen',
+      'programs.lede': 'Die drei sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.',
       'programs.open': 'Starten',
       'row.more': 'Wie es arbeitet',
       'row.tuner.kicker': 'Loganalyse und CLI-Plan',
@@ -73,6 +73,26 @@
       'row.guide.p2': '95 Glossarbegriffe, direkt im Text aufrufbar',
       'row.guide.p3': 'Läuft in jedem Browser, auch auf dem Handy',
       'row.guide.cta': 'Guide öffnen',
+      'row.hangar.kicker': 'Flotte und Boards an einem Ort',
+      'row.hangar.text': 'Ein Eintrag pro Copter, dazu die Stammdaten der Flight Controller. Die Auslese holt Identität und Motorkonfiguration über Web Serial, ohne Verbindung lässt sich der Ablauf mit Beispieldaten prüfen.',
+      'row.hangar.p1': 'Flotte mit Filter, Suche und Bestandsliste',
+      'row.hangar.p2': 'Auslese per MSP oder Import eines CLI-Dumps',
+      'row.hangar.p3': 'Export als JSON, CSV und Markdown-Bericht',
+      'row.hangar.cta': 'HangarDeck öffnen',
+      'hangar.eyebrow': 'HangarDeck',
+      'hangar.title': 'Flotte und Flight Controller',
+      'hangar.lede': 'Sechs Bereiche, von der Übersicht bis zum Export. Die Daten liegen im Browser und lassen sich als JSON sichern.',
+      'hangar.areas': 'Die Bereiche',
+      'hangar.check': 'Setup-Check',
+      'hangar.check.lede': 'Vollständigkeit, Prop-Zoll gegen Klasse, KV gegen Erfahrungsbereich und der Abstand zwischen Flug und Wartung. Es sind Hinweise, keine Freigabe.',
+      'hangar.data': 'Wo die Daten liegen',
+      'hangar.data.lede': 'Im localStorage des jeweiligen Browsers. Kein Sync, keine Konten, keine Telemetrie. Vor einem Browserwechsel den JSON-Export nehmen.',
+      'area.overview.t': 'Übersicht', 'area.overview.d': 'Klassenverteilung, offene Hinweise, letzte Änderungen.',
+      'area.fleet.t': 'Flotte', 'area.fleet.d': 'Ein Copter pro Eintrag, mit Filter, Suche und Tabelle.',
+      'area.boards.t': 'FC-Bibliothek', 'area.boards.d': 'Target, MCU, Gyro, UARTs und Stromversorgung der Boards.',
+      'area.read.t': 'FC auslesen', 'area.read.d': 'Web Serial und MSP, oder Simulation als Probelauf.',
+      'area.import.t': 'Import', 'area.import.d': 'diff all, status und version aus Betaflight oder INAV.',
+      'area.data.t': 'Daten', 'area.data.d': 'JSON und CSV, Markdown-Bericht, Speicherübersicht.',
       'programs.details': 'Details',
       'tuner.eyebrow': 'FlowState Tuner',
       'tuner.title': 'Sechs Phasen bis zum CLI-Plan',
@@ -106,6 +126,10 @@
       'channel.stable': 'Stable',
       'release.open': 'Im Browser öffnen',
       'release.download': 'Herunterladen',
+      'release.bundle': 'Mit Hub herunterladen',
+      'release.packing': 'Wird gepackt …',
+      'release.packed': 'Gespeichert',
+      'release.failed': 'Nicht möglich',
       'release.copy': 'kopieren',
       'release.page': 'Eigenes Release',
       'release.copied': 'kopiert',
@@ -120,11 +144,11 @@
       'faq.title': 'Häufige Fragen',
       'faq.lede': 'Die Fragen, die am häufigsten kommen.',
       'faq.install.q': 'Muss ich etwas installieren?',
-      'faq.install.a': 'Nein. Beide Programme bestehen aus je einer HTML-Datei, die du im Browser öffnest. Es gibt nichts zu installieren und kein Konto.',
+      'faq.install.a': 'Nein. Jedes Programm besteht aus einer HTML-Datei, die du im Browser öffnest. Es gibt nichts zu installieren und kein Konto.',
       'faq.pages.q': 'Warum gibt es überhaupt eine GitHub-Seite?',
       'faq.pages.a': 'GitHub Pages liefert nur Dateien aus, die im Repository liegen. Es startet nichts und es baut nichts. Damit eine Adresse wie /tuner/ funktioniert, muss in den Repository-Einstellungen unter Pages der Branch ausgewählt sein, in dem die Dateien liegen.',
       'faq.offline.q': 'Funktioniert das auch ohne Internet?',
-      'faq.offline.a': 'Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Du kannst die Datei herunterladen oder direkt öffnen, das WLAN kann dabei aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.',
+      'faq.offline.a': 'Ja. Die Dateien laden keine externen Skripte, Schriften oder Bilder. Du kannst sie herunterladen oder direkt öffnen, das WLAN kann dabei aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.',
       'faq.browser.q': 'Welcher Browser?',
       'faq.browser.a': 'Der Guide läuft in jedem modernen Browser, auch auf dem Handy. Für die Verbindung zum Flight Controller braucht der Tuner Web Serial. Chrome, Edge und Opera haben es am Desktop eingebaut. In anderen Chromium-Browsern kann es funktionieren, getestet ist das aber nicht. Brave liefert Web Serial abgeschaltet, du musst es erst in den Einstellungen einschalten. Bei Vivaldi fehlte es in manchen Versionen. Firefox und Safari haben es gar nicht. Die Log-Analyse funktioniert in jedem Browser.',
       'faq.data.q': 'Wohin gehen meine Daten?',
@@ -165,8 +189,6 @@
       'apps.guide': 'Guide',
       'apps.tuner': 'Autotuner',
       'apps.hangar': 'Hangar',
-      'apps.soon': 'soon',
-      'apps.hangarSoon': 'Hangar is coming, the page does not exist yet.',
       'stage.back': 'Back to the overview',
       'stage.newTab': 'In a new tab',
       'stage.loading': 'Loading',
@@ -178,7 +200,8 @@
       'nav.langs': 'Languages',
       'langs.eyebrow': 'Languages',
       'langs.title': 'German and English complete, Spanish as a preview',
-      'langs.lede': 'Both programs are complete in German and English. Spanish is translated and selectable, but verified in no area. That is why the program shows a permanent notice, and unrevised passages appear in English.',
+      'langs.lede': 'Tuner and guide are complete in German and English. Spanish is translated and selectable there, but verified in no area, and unrevised passages fall back to English. HangarDeck is German only in this version.',
+      'langs.notYet': 'not yet',
       'langs.h.language': 'Language',
       'langs.h.status': 'State',
       'langs.h.checked': 'Verified',
@@ -189,14 +212,15 @@
       'langs.no': 'no',
       'langs.open': 'Open tuner',
       'langs.openGuide': 'Open guide',
+      'langs.openHangar': 'Open HangarDeck',
       'langs.none': 'no link',
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the program reads the browser language, otherwise German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
-      'hero.title1': 'Two programs',
+      'hero.title1': 'Three programs',
       'hero.title2': 'for Betaflight',
       'hero.accent': 'that run offline',
-      'hero.lede': 'The tuner turns your logs into new filter and PID values. The guide explains what sits behind them and when a value fits. Both are a single HTML file and need no internet connection.',
+      'hero.lede': 'The tuner turns your logs into new filter and PID values. The guide explains what sits behind them and when a value fits. HangarDeck keeps your fleet and flight controllers. Each program is a single HTML file and needs no internet connection.',
       'hero.cta1': 'Start tuner',
       'hero.cta2': 'Open guide',
       'hero.cta3': 'Versions',
@@ -206,8 +230,8 @@
       'stat.online': 'ready',
       'stat.offline': 'offline',
       'programs.eyebrow': 'Programs',
-      'programs.title': 'What the two programs do',
-      'programs.lede': 'Both are self-contained. They share no code and no data, and you only ever open one of them. The sections below show what each one contains.',
+      'programs.title': 'What the three programs do',
+      'programs.lede': 'All three are self-contained. They share no code and no data, and you only ever open one of them. The sections below show what each one contains.',
       'programs.open': 'Start',
       'row.more': 'How it works',
       'row.tuner.kicker': 'Log analysis and CLI plan',
@@ -223,6 +247,26 @@
       'row.guide.p2': '95 glossary terms, openable straight from the text',
       'row.guide.p3': 'Runs in any browser, on mobile too',
       'row.guide.cta': 'Open guide',
+      'row.hangar.kicker': 'Fleet and boards in one place',
+      'row.hangar.text': 'One entry per quad, plus the master data of the flight controllers. Reading pulls identity and motor configuration over Web Serial; without a connection the workflow can be tried with sample data.',
+      'row.hangar.p1': 'Fleet with filters, search and a table view',
+      'row.hangar.p2': 'Read over MSP or import a CLI dump',
+      'row.hangar.p3': 'Export as JSON, CSV and a Markdown report',
+      'row.hangar.cta': 'Open HangarDeck',
+      'hangar.eyebrow': 'HangarDeck',
+      'hangar.title': 'Fleet and flight controllers',
+      'hangar.lede': 'Six sections, from the overview to the export. The data stays in the browser and can be saved as JSON.',
+      'hangar.areas': 'The sections',
+      'hangar.check': 'Setup check',
+      'hangar.check.lede': 'Completeness, prop size against class, KV against a field range and the gap between flight and maintenance. These are hints, not an approval.',
+      'hangar.data': 'Where the data lives',
+      'hangar.data.lede': 'In the localStorage of that browser. No sync, no accounts, no telemetry. Take the JSON export before changing browsers.',
+      'area.overview.t': 'Overview', 'area.overview.d': 'Class split, open hints, recent changes.',
+      'area.fleet.t': 'Fleet', 'area.fleet.d': 'One quad per entry, with filters, search and a table.',
+      'area.boards.t': 'FC library', 'area.boards.d': 'Target, MCU, gyro, UARTs and power supply of the boards.',
+      'area.read.t': 'Read FC', 'area.read.d': 'Web Serial and MSP, or a simulation as a trial run.',
+      'area.import.t': 'Import', 'area.import.d': 'diff all, status and version from Betaflight or INAV.',
+      'area.data.t': 'Data', 'area.data.d': 'JSON and CSV, Markdown report, storage overview.',
       'programs.details': 'Details',
       'tuner.eyebrow': 'FlowState Tuner',
       'tuner.title': 'Six phases to a CLI plan',
@@ -256,6 +300,10 @@
       'channel.stable': 'Stable',
       'release.open': 'Open in browser',
       'release.download': 'Download',
+      'release.bundle': 'Download with hub',
+      'release.packing': 'Packing …',
+      'release.packed': 'Saved',
+      'release.failed': 'Not possible',
       'release.copy': 'copy',
       'release.page': 'Own release',
       'release.copied': 'copied',
@@ -274,7 +322,7 @@
       'faq.pages.q': 'Why is there a GitHub page at all?',
       'faq.pages.a': 'GitHub Pages only serves files that sit in the repository. It starts nothing and builds nothing. For an address such as /tuner/ to work, the repository settings under Pages must point at the branch holding those files.',
       'faq.offline.q': 'Does it work without internet?',
-      'faq.offline.a': 'Yes. Both files load no external scripts, fonts or images. You can download the file or open it directly, the network can stay off. Only the guide’s links point outward: they need a connection, the content does not.',
+      'faq.offline.a': 'Yes. The files load no external scripts, fonts or images. You can download them or open them directly, the network can stay off. Only the guide’s links point outward: they need a connection, the content does not.',
       'faq.browser.q': 'Which browser?',
       'faq.browser.a': 'The guide runs in any modern browser, on mobile too. For the flight controller the tuner needs Web Serial. Chrome, Edge and Opera ship it on desktop. Other Chromium browsers may work, but that is untested: Brave ships it disabled, so you have to switch it on in the settings first, and some Vivaldi versions lacked it. Firefox and Safari do not have it at all. Log analysis works in every browser.',
       'faq.data.q': 'Where does my data go?',
@@ -431,12 +479,12 @@
     if (track) track.removeAttribute('data-active');
   }
 
-  var APPS = { guide: 'guide/', tuner: 'tuner/' };
+  var APPS = { guide: 'guide/', tuner: 'tuner/', hangar: 'hangar/' };
   var stageScroll = 0;
   var stageTimer = null;
 
   function currentAppId() {
-    var m = /^#\/(guide|tuner)$/.exec(location.hash);
+    var m = /^#\/(guide|tuner|hangar)$/.exec(location.hash);
     return m ? m[1] : '';
   }
 
@@ -444,8 +492,13 @@
     var path = APPS[id];
     var stage = $('#app-stage');
     var frame = $('#app-frame');
+    var lang = (opts && opts.lang) || state.lang;
     if (!path) return;
-    if (!stage || !frame) { window.location.href = path; return; }
+    // Per file:// geoeffnet blockieren die meisten Browser den Rahmen. Dann eigenes Tab.
+    if (!stage || !frame || location.protocol === 'file:') {
+      window.location.href = path + '?lang=' + lang;
+      return;
+    }
 
     if (!document.body.classList.contains('app-open')) stageScroll = window.scrollY;
     document.body.classList.add('app-open');
@@ -453,7 +506,6 @@
     window.scrollTo(0, 0);
 
     var loading = $('#app-stage-loading');
-    var lang = (opts && opts.lang) || state.lang;
     var url = path + '?lang=' + lang;
     if (frame.getAttribute('data-src') !== url) {
       frame.setAttribute('data-src', url);
@@ -774,12 +826,201 @@
       '</details>';
   }
 
-  // Beim Speichern einen sprechenden Namen vergeben: Programm + Version.
-  // Die Datei im Repo heißt technisch index.html, damit die Adresse /tuner/ funktioniert.
-  function downloadName(release) {
-    var program = projectOf(release.program);
-    var name = (program ? program.name : release.program) || 'FlowState';
-    return String(name).replace(/\s+/g, '-') + '-' + String(release.version) + '.html';
+  // ---- Sammel-Download: Hub-Seite plus Programm als ZIP ----
+  // Die Dateien werden im Browser geholt und ohne Kompression in ein ZIP gelegt.
+  // So muss im Repository kein zweites Mal dieselben Bytes liegen.
+
+  var BUNDLE_BASE = [
+    { path: 'index.html', name: 'index.html' },
+    { path: 'assets/css/style.css', name: 'assets/css/style.css' },
+    { path: 'assets/js/hub.js', name: 'assets/js/hub.js' },
+    { path: 'assets/data/versions.json', name: 'assets/data/versions.json' },
+    { path: 'assets/data/versions.js', name: 'assets/data/versions.js' },
+    { path: 'assets/images/favicon.png', name: 'assets/images/favicon.png' },
+    { path: 'assets/images/mark.png', name: 'assets/images/mark.png' },
+    { path: 'assets/images/logo-tuner.png', name: 'assets/images/logo-tuner.png' },
+    { path: 'assets/images/logo-tuner-hell.png', name: 'assets/images/logo-tuner-hell.png' },
+    { path: 'assets/images/preview-tuner.svg', name: 'assets/images/preview-tuner.svg' },
+    { path: 'assets/images/preview-guide.svg', name: 'assets/images/preview-guide.svg' },
+    { path: 'assets/images/preview-hangar.svg', name: 'assets/images/preview-hangar.svg' }
+  ];
+
+  var CRC_TABLE = (function () {
+    var table = new Uint32Array(256);
+    for (var i = 0; i < 256; i++) {
+      var c = i;
+      for (var k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      table[i] = c >>> 0;
+    }
+    return table;
+  })();
+
+  function crc32(bytes) {
+    var c = 0xffffffff;
+    for (var i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+    return (c ^ 0xffffffff) >>> 0;
+  }
+
+  function dosStamp(date) {
+    var time = (date.getHours() << 11) | (date.getMinutes() << 5) | (date.getSeconds() >> 1);
+    var day = ((date.getFullYear() - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
+    return { time: time & 0xffff, date: day & 0xffff };
+  }
+
+  function zipStore(entries) {
+    var stamp = dosStamp(new Date());
+    var chunks = [];
+    var central = [];
+    var offset = 0;
+
+    entries.forEach(function (entry) {
+      var nameBytes = new TextEncoder().encode(entry.name);
+      var crc = crc32(entry.data);
+      var size = entry.data.length;
+
+      var local = new Uint8Array(30 + nameBytes.length);
+      var lv = new DataView(local.buffer);
+      lv.setUint32(0, 0x04034b50, true);
+      lv.setUint16(4, 20, true);
+      lv.setUint16(6, 0x0800, true);
+      lv.setUint16(8, 0, true);
+      lv.setUint16(10, stamp.time, true);
+      lv.setUint16(12, stamp.date, true);
+      lv.setUint32(14, crc, true);
+      lv.setUint32(18, size, true);
+      lv.setUint32(22, size, true);
+      lv.setUint16(26, nameBytes.length, true);
+      lv.setUint16(28, 0, true);
+      local.set(nameBytes, 30);
+
+      chunks.push(local, entry.data);
+
+      var head = new Uint8Array(46 + nameBytes.length);
+      var cv = new DataView(head.buffer);
+      cv.setUint32(0, 0x02014b50, true);
+      cv.setUint16(4, 20, true);
+      cv.setUint16(6, 20, true);
+      cv.setUint16(8, 0x0800, true);
+      cv.setUint16(10, 0, true);
+      cv.setUint16(12, stamp.time, true);
+      cv.setUint16(14, stamp.date, true);
+      cv.setUint32(16, crc, true);
+      cv.setUint32(20, size, true);
+      cv.setUint32(24, size, true);
+      cv.setUint16(28, nameBytes.length, true);
+      cv.setUint16(30, 0, true);
+      cv.setUint16(32, 0, true);
+      cv.setUint16(34, 0, true);
+      cv.setUint16(36, 0, true);
+      cv.setUint32(38, 0, true);
+      cv.setUint32(42, offset, true);
+      head.set(nameBytes, 46);
+      central.push(head);
+
+      offset += local.length + size;
+    });
+
+    var centralSize = central.reduce(function (sum, part) { return sum + part.length; }, 0);
+    var end = new Uint8Array(22);
+    var ev = new DataView(end.buffer);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(8, entries.length, true);
+    ev.setUint16(10, entries.length, true);
+    ev.setUint32(12, centralSize, true);
+    ev.setUint32(16, offset, true);
+
+    return new Blob(chunks.concat(central, [end]), { type: 'application/zip' });
+  }
+
+  function bundleEntries(programId) {
+    var files = BUNDLE_BASE.slice();
+    Object.keys(APPS).forEach(function (id) {
+      files.push({ path: APPS[id] + 'index.html', name: id + '/index.html' });
+    });
+
+    var readme = {
+      name: 'LIESMICH.txt',
+      text: [
+        'FlowState FPV - Hub mit den Programmen',
+        '',
+        '1. Diese Datei entpacken.',
+        '2. index.html im Browser oeffnen.',
+        '3. Im Kopf der Seite zwischen Guide, Autotuner und Hangar waehlen.',
+        '',
+        'Alles laeuft lokal, ohne Server und ohne Internet. Wird der Hub ueber',
+        'file:// geoeffnet, oeffnen sich die Programme in einem eigenen Tab;',
+        'ueber einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
+        '',
+        'Programme in diesem Paket:',
+        '  guide/index.html      FPV Guide',
+        '  tuner/index.html      FlowState Tuner (Alpha)',
+        '  hangar/index.html     HangarDeck (Beta)',
+        '',
+        'Hinweis: Der FPV Guide ist 7,6 MB gross, der erste Aufruf dauert kurz.',
+        ''
+      ].join('\n')
+    };
+
+    var tasks = files.map(function (file) {
+      return fetch(file.path, { cache: 'no-cache' }).then(function (response) {
+        if (!response.ok) throw new Error(file.path + ': HTTP ' + response.status);
+        return response.arrayBuffer();
+      }).then(function (buffer) {
+        return { name: file.name, data: new Uint8Array(buffer) };
+      });
+    });
+
+    return Promise.all(tasks).then(function (entries) {
+      entries.push({ name: readme.name, data: new TextEncoder().encode(readme.text) });
+      return entries;
+    });
+  }
+
+  function saveBlob(blob, name) {
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+
+  function downloadBundle(programId, button) {
+    var program = projectOf(programId);
+    var release = null;
+    var all = state.data && state.data.releases ? state.data.releases : [];
+    all.forEach(function (r) { if (r.program === programId) release = r; });
+
+    var zipName = (program ? program.name.replace(/\s+/g, '-') : programId) +
+      (release ? '-' + release.version : '') + '-mit-Hub.zip';
+
+    var original = button.getAttribute('data-label') || button.textContent;
+    button.setAttribute('data-label', original);
+    button.classList.add('is-busy');
+    button.textContent = t('release.packing');
+
+    bundleEntries(programId)
+      .then(function (entries) {
+        saveBlob(zipStore(entries), zipName);
+        button.textContent = t('release.packed');
+        window.setTimeout(function () { button.textContent = original; button.classList.remove('is-busy'); }, 2600);
+      })
+      .catch(function (error) {
+        button.textContent = t('release.failed');
+        button.setAttribute('title', String(error && error.message ? error.message : error));
+        window.setTimeout(function () { button.textContent = original; button.classList.remove('is-busy'); }, 3200);
+      });
+  }
+
+  function initDownloads() {
+    document.addEventListener('click', function (event) {
+      var button = event.target && event.target.closest ? event.target.closest('[data-bundle]') : null;
+      if (!button) return;
+      event.preventDefault();
+      downloadBundle(button.getAttribute('data-bundle'), button);
+    });
   }
 
   function releaseTemplate(release) {
@@ -791,8 +1032,8 @@
         esc(t('release.open')) +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
         '</a>');
-      actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.file) + '" download="' + esc(downloadName(release)) + '">' +
-        esc(t('release.download')) + '</a>');
+      actions.push('<button class="btn btn--sm btn--ghost bundle-btn" type="button" data-bundle="' + esc(release.program) + '">' +
+        esc(t('release.bundle')) + '</button>');
       if (release.release_url) {
         actions.push('<a class="btn btn--sm btn--ghost" href="' + esc(release.release_url) + '" target="_blank" rel="noopener">' +
           esc(t('release.page')) + '</a>');
@@ -996,15 +1237,17 @@
     }
 
     if (location.protocol === 'file:') {
-      var target = $('#release-list');
-      if (target) {
-        target.innerHTML = '<p class="empty">' +
-          esc(state.lang === 'de'
-            ? 'Die Versionsliste benötigt einen Server. Bitte über die GitHub-Pages-Adresse öffnen.'
-            : 'The version list needs a server. Please open through the GitHub Pages address.') +
-          '</p>';
-      }
+      // Ohne Server kein fetch: die mitgelieferte Kopie der Versionsdaten nehmen.
+      if (window.FLOWSTATE_DATA) applyData(window.FLOWSTATE_DATA);
       return;
+    }
+
+    function applyData(data) {
+      state.data = data;
+      renderProjects();
+      renderHero();
+      renderStats();
+      render();
     }
 
     fetch(DATA_URL, { cache: 'no-cache' })
@@ -1012,14 +1255,10 @@
         if (!response.ok) throw new Error('HTTP ' + response.status);
         return response.json();
       })
-      .then(function (data) {
-        state.data = data;
-        renderProjects();
-        renderHero();
-        renderStats();
-        render();
-      })
+      .then(applyData)
       .catch(function () {
+        // Ohne Server (file://) oder wenn die Datei fehlt: mitgelieferte Kopie nehmen.
+        if (window.FLOWSTATE_DATA) { applyData(window.FLOWSTATE_DATA); return; }
         var target = $('#release-list');
         if (target) {
           target.innerHTML = '<p class="empty">' +
@@ -1030,6 +1269,8 @@
         }
       });
   }
+
+  initDownloads();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });

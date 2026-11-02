@@ -1,12 +1,13 @@
 # [FlowState FPV](https://yngwierfpv.github.io/flowstate-fpv-tuner/)
 
-Zwei HTML-Programme für Betaflight-Tuning. Jedes ist **eine einzelne Datei**, die im
-Browser läuft und weder Installation noch Konto noch Internetverbindung braucht.
+Drei HTML-Programme für Betaflight. Jedes ist **eine einzelne Datei**, die im Browser
+läuft und weder Installation noch Konto noch Internetverbindung braucht.
 
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 496 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,7 MB | Erklären, nachschlagen, Ablauf begleiten |
+| **[HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 112 KB | Flotte und Flight Controller verwalten |
 
 Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
@@ -15,9 +16,15 @@ Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprach
 (Deutsch/Englisch), und im Kopf der Seite schaltet ein Streifen zwischen Guide, Autotuner
 und Hangar um. Die gewählte App öffnet sich direkt darunter im Rahmen, ohne Seitenwechsel;
 darüber liegen zwei Schaltflächen für die Rückkehr zur Übersicht und für ein eigenes
-Browserfenster. Die Adressen `#/guide` und `#/tuner` lassen sich direkt aufrufen und
-weitergeben. Die Farben wechseln ebenfalls im Kopf: Ozean, Leinen und Dunkelrot.
-Beide Programme gibt es auf Deutsch, Englisch und Spanisch.
+Browserfenster. Die Adressen `#/guide`, `#/tuner` und `#/hangar` lassen sich direkt
+aufrufen und weitergeben. Die Farben wechseln ebenfalls im Kopf: Ozean, Leinen und
+Dunkelrot. Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck in
+dieser Fassung auf Deutsch.
+
+Wer in der Versionsliste auf *Mit Hub herunterladen* klickt, bekommt die Übersichtsseite als
+Paket: Hub, Styles, Skripte und alle drei Programme in einem ZIP. Entpackt und per
+Doppelklick auf `index.html` geöffnet, arbeitet der Umschalter wie auf der
+veröffentlichten Seite.
 
 ---
 
@@ -121,6 +128,37 @@ bestimmt, welche Kapitel und Tabellen der Guide zeigt.
 
 ---
 
+## [HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
+
+HangarDeck führt die Flotte und die Stammdaten der Flight Controller: ein Datensatz pro
+Copter mit Größe, Frame, FC, Firmware, Antrieb, Video- und Funkstrecke, dazu die
+Zuletzt-Stände von Flug und Wartung. Die FC-Bibliothek hält Target, MCU, Gyro, UARTs und
+Stromversorgung der Boards.
+
+### Bereiche
+
+| Bereich | Inhalt |
+|---|---|
+| Übersicht | Klassenverteilung, offene Hinweise, letzte Änderungen |
+| Flotte | Copterkarten und Bestandsliste, Filter, Suche, Sortierung |
+| FC-Bibliothek | Boards als Stammdaten, Startbestand mit Quelle |
+| FC auslesen | Web Serial und MSP v1, oder Simulation als Probelauf |
+| Import | `diff all`, `status` und `version` aus Betaflight oder INAV |
+| Daten | JSON und CSV, Markdown-Bericht, Speicherübersicht |
+
+### Grenzen
+
+- **Beta:** Auslese an echter Hardware steht aus, der Ablauf ist mit Beispieldaten prüfbar.
+- Die Oberfläche ist in dieser Fassung deutsch; Englisch ist noch nicht übersetzt.
+- MSP v1 liefert Identität, Sensormaske und Motorkonfiguration, aber keinen Gyro-Chip.
+  Dafür ist der CLI-Import vorgesehen.
+- Alle Daten liegen im `localStorage` dieses Browsers und dieses Profils. Kein Sync,
+  keine Konten, keine Telemetrie. Vor Browserwechsel oder Reinigung den JSON-Export nehmen.
+- Der FC darf nicht gleichzeitig im Betaflight Configurator geöffnet sein, der COM-Port
+  ist exklusiv.
+
+---
+
 ## Zusammen
 
 Der Guide erklärt das Tuning, der Tuner rechnet die Werte dafür aus.
@@ -132,42 +170,54 @@ Tuner, Setup                verbinden, auslesen, sichern, Profil schützen
 Tuner, Filter → P/D → Master → FF/I
 Tuner, Archiv               Plan, Manifest und Logs sichern
 Guide, Technik & Referenz   Werte nachlesen und dokumentieren
+HangarDeck, Flotte          festhalten, was verbaut ist und wann gewartet wurde
 ```
 
 ---
 
 ## Öffnen
 
-Beide Programme laufen direkt im Browser. Entweder über die veröffentlichte Adresse
-oder als heruntergeladene Datei per Doppelklick. Beides zeigt dieselbe Anwendung.
+Alle drei Programme laufen direkt im Browser. Entweder über die veröffentlichte Adresse,
+über den Rahmen der Übersichtsseite oder als heruntergeladene Datei per Doppelklick.
+Alle Wege zeigen dieselbe Anwendung.
 
-Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/) und
-[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/).
+Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
+[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/) und
+[HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/index.html).
 
-### Warum beide Dateien `index.html` heißen
+### Herunterladen: Programm plus Hub
 
-Die Adressen `/tuner/` und `/guide/` funktionieren nur, weil im jeweiligen Ordner eine
-`index.html` liegt. Genau diese Datei liefert ein Webserver für ein Verzeichnis aus.
-Ein Name mit Versionsnummer würde die Adresse brechen: `/tuner/` wäre leer, erreichbar
-wäre nur noch ein langer Pfad wie `/tuner/FlowState-Tuner-v4.8-alpha.1.html`.
+Der Knopf *Mit Hub herunterladen* in der Versionsliste packt im Browser ein ZIP mit der
+Übersichtsseite, ihren Styles und Skripten sowie allen drei Programmen. Der Dateiname
+nennt das Programm, für das geklickt wurde, und seine Version, zum Beispiel
+`FlowState-Tuner-v4.8-alpha.1-mit-Hub.zip`. Der Inhalt ist in jedem Fall derselbe.
 
-Damit beim Speichern trotzdem ein sprechender Name entsteht, vergibt die Übersichtsseite
-ihn beim Herunterladen:
+Entpackt liegt der Hub als `index.html` daneben, die Programme in `guide/`, `tuner/` und
+`hangar/`. Ein Doppelklick auf die `index.html` öffnet die Übersicht mit Umschalter. Über
+`file://` öffnen die Programme in einem eigenen Tab, weil Browser dort den Rahmen
+blockieren; über einen lokalen Server oder GitHub Pages erscheinen sie im Rahmen.
 
-| Programm | Datei im Repository | Gespeichert als |
-|---|---|---|
-| FlowState Tuner | `tuner/index.html` | `FlowState-Tuner-v4.8-alpha.1.html` |
-| FPV Guide | `guide/index.html` | `FPV-Guide-v1.0.1-beta.9-es.html` |
+Das ZIP wird bei jedem Klick neu gebaut, damit im Repository keine zweite Kopie derselben
+Bytes liegt. Es ist rund 8,6 MB groß, der größte Teil davon ist der Guide.
 
-Wer direkt über die Rohadresse des Repositories lädt, bekommt weiterhin `index.html` und
-benennt die Datei beim Speichern selbst um. Der Inhalt ist identisch, die Prüfsumme
-bleibt dieselbe.
+### Warum die Dateien `index.html` heißen
 
-| | Guide | Tuner ohne FC | Tuner mit FC |
-|---|---|---|---|
-| Chrome, Edge, Opera (Desktop) | ✓ | ✓ | ✓ |
-| Firefox, Safari | ✓ | ✓ | — |
-| Mobil | ✓ | ✓ | — |
+Die Adressen `/tuner/`, `/guide/` und `/hangar/` funktionieren nur, weil im jeweiligen
+Ordner eine `index.html` liegt. Genau diese Datei liefert ein Webserver für ein
+Verzeichnis aus. Ein Name mit Versionsnummer würde die Adresse brechen: `/tuner/` wäre
+leer, erreichbar wäre nur noch ein langer Pfad wie
+`/tuner/FlowState-Tuner-v4.8-alpha.1.html`.
+
+Damit beim Speichern trotzdem ein sprechender Name entsteht, trägt ihn das ZIP: Programm
+und Version stehen im Dateinamen, die Ordner darin bleiben technisch benannt. Wer direkt
+über die Rohadresse des Repositories lädt, bekommt `index.html` und benennt die Datei beim
+Speichern selbst um. Der Inhalt ist identisch, die Prüfsumme bleibt dieselbe.
+
+| | Guide | HangarDeck | Tuner ohne FC | Tuner mit FC |
+|---|---|---|---|---|
+| Chrome, Edge, Opera (Desktop) | ✓ | ✓ | ✓ | ✓ |
+| Firefox, Safari | ✓ | ✓ | ✓ | — |
+| Mobil | ✓ | ✓ | ✓ | — |
 
 Für die Verbindung zum Flight Controller braucht der Tuner Web Serial. Das bringen
 Chrome, Edge und Opera auf dem Desktop mit. Andere Chromium-Browser sind möglich, aber
@@ -183,16 +233,17 @@ Die Log-Analyse funktioniert in jedem Browser, dafür braucht es kein Web Serial
 
 ## Sprachen
 
-| Sprache | Stand | Geprüft | FlowState Tuner | FPV Guide |
-|---|---|---|---|---|
-| **Deutsch** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) |
-| **English** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) |
-| **Español** | Vorschau, nicht geprüft | nein | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) |
+| Sprache | Stand | Geprüft | FlowState Tuner | FPV Guide | HangarDeck |
+|---|---|---|---|---|---|
+| **Deutsch** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/) |
+| **English** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) | noch nicht |
+| **Español** | Vorschau, nicht geprüft | nein | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) | noch nicht |
 
-Deutsch und Englisch sind in beiden Programmen vollständig: Oberfläche, Meldungen,
-Glossar und Kapitel. Spanisch ist übersetzt und auswählbar, aber in keinem Bereich
-geprüft. Das Programm zeigt deshalb einen dauerhaften Hinweis; nicht überprüfte Stellen
-fallen auf Englisch zurück.
+Deutsch und Englisch sind in Tuner und Guide vollständig: Oberfläche, Meldungen, Glossar
+und Kapitel. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft.
+Das Programm zeigt deshalb einen dauerhaften Hinweis; nicht überprüfte Stellen fallen auf
+Englisch zurück. HangarDeck ist in dieser Fassung nur auf Deutsch; die Oberfläche ist
+vollständig, eine Übersetzung ist noch nicht angelegt.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist. Bei jeder
@@ -206,21 +257,21 @@ füllt die Lücken in einer vorhandenen Übersetzung.
 
 ## Versionen
 
-**Zwei Programme, zwei Versionsreihen.** Tuner und Guide werden getrennt nummeriert und
-getrennt veröffentlicht. Jede Reihe hat ihr eigenes Release. Die Zahlen sagen nichts
-übereinander aus: Der Tuner steht bei `4.8`, der Guide bei `1.0.1`, weil sie
-verschieden weit sind, nicht weil eines neuer wäre. Ein neuer Guide-Stand lässt den
-Tuner unberührt, und umgekehrt.
+**Drei Programme, drei Versionsreihen.** Tuner, Guide und HangarDeck werden getrennt
+nummeriert und getrennt veröffentlicht. Jede Reihe hat ihr eigenes Release. Die Zahlen
+sagen nichts übereinander aus: Der Tuner steht bei `4.8`, der Guide bei `1.0.1`,
+HangarDeck bei `0.1.0`, weil sie verschieden weit sind, nicht weil eines neuer wäre. Ein
+neuer Guide-Stand lässt die anderen unberührt, und umgekehrt.
 
-| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) |
-|---|---|---|
-| Version | [`v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [`v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) |
-| Kanal | Alpha | Beta |
-| Datum | 02.11.2026 | 25.10.2026 |
-| Größe (Bytes) | 496.467 | 7.663.650 |
-| SHA-256 | `68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4` | `bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459` |
+| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) | [HangarDeck](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.1) |
+|---|---|---|---|
+| Version | [`v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [`v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) | [`v0.1.0-beta.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.1) |
+| Kanal | Alpha | Beta | Beta |
+| Datum | 02.11.2026 | 25.10.2026 | 02.11.2026 |
+| Größe (Bytes) | 496.467 | 7.663.650 | 111.542 |
+| SHA-256 | `68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4` | `bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459` | `049a60829e827cb06c2b0c487a0cf70b918e45b06d99c42bf7c152bfb5eb1344` |
 
-Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
+Die Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
 führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
 selbst braucht sie nicht.
 
@@ -232,17 +283,21 @@ sha256sum tuner/index.html
 
 sha256sum guide/index.html
 bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459
+
+sha256sum hangar/index.html
+049a60829e827cb06c2b0c487a0cf70b918e45b06d99c42bf7c152bfb5eb1344
 ```
 
 Eigene Release-Seite je Programm:
 [Tuner `v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) ·
-[Guide `v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es)
+[Guide `v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) ·
+[HangarDeck `v0.1.0-beta.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.1)
 
 ---
 
 ## English
 
-Two single-file HTML programs for Betaflight tuning, running entirely in the browser.
+Three single-file HTML programs for Betaflight, running entirely in the browser.
 
 - **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** — reads Blackbox and Dataflash logs, derives
   filter and PID values, shows every step as a readable CLI plan and writes it over
@@ -250,17 +305,25 @@ Two single-file HTML programs for Betaflight tuning, running entirely in the bro
   neutral P/D, master, FF/I/D-Max, archive.
 - **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** — explains the workflow from the first build to fine
   tuning, with 95 glossary terms and reference tables.
+- **[HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** — keeps the fleet and the flight-controller
+  library, reads Betaflight or INAV controllers over Web Serial or imports a CLI dump,
+  and exports the data as JSON, CSV or a Markdown report.
 
-Both ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es. Spanish is
-translated but verified in no area. The program shows a permanent notice and falls back
-to English where text is unrevised.
+Tuner and guide ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es.
+Spanish is translated but verified in no area. The program shows a permanent notice and
+falls back to English where text is unrevised. HangarDeck is German only in this
+version.
 
 Two separate mechanisms: an unknown browser language starts the program in German,
 while a missing individual string inside a translation appears in English.
 
-Neither needs an install, an account or an internet connection. Neither file loads
-external scripts, fonts or images; the guide's links point outward on purpose and only
-open with a connection.
+None needs an install, an account or an internet connection. No file loads external
+scripts, fonts or images; the guide's links point outward on purpose and only open with
+a connection.
+
+The overview page embeds the programs below its header and keeps the address in the form
+of `#/guide`, `#/tuner` or `#/hangar`. *Download with hub* builds a ZIP in the browser
+that contains the overview page plus all three programs; unzip it and open `index.html`.
 
 The tuner is an alpha: its write path has not been tested on real hardware yet. The plan
 can be read and checked in full without writing anything. Writing is at your own risk;

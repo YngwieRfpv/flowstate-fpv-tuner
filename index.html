@@ -56,11 +56,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16.5a8 8 0 1 1 16 0"/><path d="M12 16.5 16 10"/><circle cx="12" cy="16.5" r="1.6"/></svg>
         <span data-i18n="apps.tuner">Autotuner</span>
       </a>
-      <span class="app-switch__item app-switch__item--soon" aria-disabled="true" data-app="hangar" data-i18n-title="apps.hangarSoon">
+      <a class="app-switch__item" href="hangar/" data-app="hangar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V9.5L12 4l9 5.5V20"/><path d="M3 20h18"/><path d="M9.5 20v-5.5h5V20"/></svg>
         <span data-i18n="apps.hangar">Hangar</span>
-        <em class="app-switch__soon" data-i18n="apps.soon">bald</em>
-      </span>
+      </a>
     </div>
 
     <nav class="nav" aria-label="Navigation">
@@ -130,11 +129,11 @@
     <div>
       <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV</p>
       <h1>
-        <span data-i18n="hero.title1">Zwei Programme</span><br>
+        <span data-i18n="hero.title1">Drei Programme</span><br>
         <span data-i18n="hero.title2">für Betaflight,</span>
         <span class="accent" data-i18n="hero.accent">die offline laufen</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. Beide bestehen aus einer einzigen HTML-Datei und brauchen keine Internetverbindung.</p>
+      <p class="hero-lede" data-i18n="hero.lede">Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. HangarDeck führt Flotte und Flight Controller. Jedes Programm besteht aus einer einzigen HTML-Datei und braucht keine Internetverbindung.</p>
       <div class="hero-cta">
         <a class="btn btn--primary" href="tuner/">
           <span data-i18n="hero.cta1">Tuner starten</span>
@@ -144,9 +143,9 @@
         <a class="btn btn--quiet" href="#versionen" data-i18n="hero.cta3">Versionen</a>
       </div>
       <div class="stat-strip">
-        <div class="stat"><span class="stat-value" data-stat="programs">2</span><span class="stat-label" data-i18n="stat.programs">Programme</span></div>
-        <div class="stat"><span class="stat-value" data-stat="versions">2</span><span class="stat-label" data-i18n="stat.versions">Versionen</span></div>
-        <div class="stat"><span class="stat-value" data-stat="online">2</span><span class="stat-label" data-i18n="stat.online">bereit</span></div>
+        <div class="stat"><span class="stat-value" data-stat="programs">3</span><span class="stat-label" data-i18n="stat.programs">Programme</span></div>
+        <div class="stat"><span class="stat-value" data-stat="versions">3</span><span class="stat-label" data-i18n="stat.versions">Versionen</span></div>
+        <div class="stat"><span class="stat-value" data-stat="online">3</span><span class="stat-label" data-i18n="stat.online">bereit</span></div>
         <div class="stat"><span class="stat-value">100 %</span><span class="stat-label" data-i18n="stat.offline">offline</span></div>
       </div>
     </div>
@@ -170,7 +169,7 @@
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="programs.eyebrow">Programme</p>
       <h2 data-i18n="programs.title">Was die beiden Programme machen</h2>
-      <p class="lede" data-i18n="programs.lede">Beide sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines von beiden. Die Abschnitte darunter zeigen, was jeweils drin ist.</p>
+      <p class="lede" data-i18n="programs.lede">Die drei sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.</p>
     </div>
 
     <article class="program program--tuner reveal">
@@ -218,6 +217,30 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
           </a>
           <a class="btn btn--quiet" href="#guide" data-i18n="row.more">Wie es arbeitet</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="program program--hangar reveal">
+      <figure class="program-figure">
+        <img src="assets/images/preview-hangar.svg" alt="Ansicht von HangarDeck: Seitenleiste mit sechs Bereichen, Flottenstatus mit Klassenverteilung, Copterkarten und Bestandsliste" width="1200" height="760" loading="lazy">
+      </figure>
+      <div class="program-body">
+        <span class="program-index">03</span>
+        <p class="program-kicker" data-i18n="row.hangar.kicker">Flotte und Boards an einem Ort</p>
+        <h3 class="program-title"><a class="program-title-link" href="https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/"><span>HangarDeck</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></a></h3>
+        <p class="program-text" data-i18n="row.hangar.text">Ein Eintrag pro Copter, dazu die Stammdaten der Flight Controller. Die Auslese holt Identität und Motorkonfiguration über Web Serial, ohne Verbindung lässt sich der Ablauf mit Beispieldaten prüfen.</p>
+        <ul class="program-points">
+          <li data-i18n="row.hangar.p1">Flotte mit Filter, Suche und Bestandsliste</li>
+          <li data-i18n="row.hangar.p2">Auslese per MSP oder Import eines CLI-Dumps</li>
+          <li data-i18n="row.hangar.p3">Export als JSON, CSV und Markdown-Bericht</li>
+        </ul>
+        <div class="program-actions">
+          <a class="btn btn--primary" href="hangar/">
+            <span data-i18n="row.hangar.cta">HangarDeck öffnen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--quiet" href="#hangar" data-i18n="row.more">Wie es arbeitet</a>
         </div>
       </div>
     </article>
@@ -297,12 +320,48 @@
   </div>
 </section>
 
+<section class="section section--detail" id="hangar">
+  <div class="wrap">
+    <div class="detail-head reveal">
+      <span class="detail-index">03</span>
+      <div>
+        <p class="eyebrow" data-i18n="hangar.eyebrow">HangarDeck</p>
+        <h2 data-i18n="hangar.title">Flotte und Flight Controller</h2>
+        <p class="lede" data-i18n="hangar.lede">Sechs Bereiche, von der Übersicht bis zum Export. Die Daten liegen im Browser und lassen sich als JSON sichern.</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 class="sub-title" data-i18n="hangar.areas">Die Bereiche</h3>
+      <div class="area-grid">
+        <div class="area"><strong data-i18n="area.overview.t">Übersicht</strong><span data-i18n="area.overview.d">Klassenverteilung, offene Hinweise, letzte Änderungen.</span></div>
+        <div class="area"><strong data-i18n="area.fleet.t">Flotte</strong><span data-i18n="area.fleet.d">Ein Copter pro Eintrag, mit Filter, Suche und Tabelle.</span></div>
+        <div class="area"><strong data-i18n="area.boards.t">FC-Bibliothek</strong><span data-i18n="area.boards.d">Target, MCU, Gyro, UARTs und Stromversorgung der Boards.</span></div>
+        <div class="area"><strong data-i18n="area.read.t">FC auslesen</strong><span data-i18n="area.read.d">Web Serial und MSP, oder Simulation als Probelauf.</span></div>
+        <div class="area"><strong data-i18n="area.import.t">Import</strong><span data-i18n="area.import.d">diff all, status und version aus Betaflight oder INAV.</span></div>
+        <div class="area"><strong data-i18n="area.data.t">Daten</strong><span data-i18n="area.data.d">JSON und CSV, Markdown-Bericht, Speicherübersicht.</span></div>
+      </div>
+    </div>
+
+    <div class="detail-grid" style="margin-top:26px">
+      <div class="reveal">
+        <h3 class="sub-title" data-i18n="hangar.check">Setup-Check</h3>
+        <p class="sub-text" data-i18n="hangar.check.lede">Vollständigkeit, Prop-Zoll gegen Klasse, KV gegen Erfahrungsbereich und der Abstand zwischen Flug und Wartung. Es sind Hinweise, keine Freigabe.</p>
+      </div>
+      <div class="reveal">
+        <h3 class="sub-title" data-i18n="hangar.data">Wo die Daten liegen</h3>
+        <p class="sub-text" data-i18n="hangar.data.lede">Im localStorage des jeweiligen Browsers. Kein Sync, keine Konten, keine Telemetrie. Vor einem Browserwechsel den JSON-Export nehmen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="sprachen">
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="langs.eyebrow">Sprachen</p>
       <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch als Vorschau</h2>
-      <p class="lede" data-i18n="langs.lede">Beide Programme liegen auf Deutsch und Englisch vollständig vor. Spanisch ist übersetzt und auswählbar, aber in keinem Bereich geprüft. Deshalb steht im Programm ein dauerhafter Hinweis, und offene Stellen erscheinen auf Englisch.</p>
+      <p class="lede" data-i18n="langs.lede">Tuner und Guide liegen auf Deutsch und Englisch vollständig vor. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch. HangarDeck ist in dieser Fassung nur auf Deutsch.</p>
     </div>
 
     <div class="reveal">
@@ -314,6 +373,7 @@
             <th scope="col" data-i18n="langs.h.checked">Geprüft</th>
             <th scope="col">FlowState Tuner</th>
             <th scope="col">FPV Guide</th>
+            <th scope="col">HangarDeck</th>
           </tr>
         </thead>
         <tbody>
@@ -323,6 +383,7 @@
             <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
             <td><a class="lang-link" href="tuner/?lang=de" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=de" data-i18n="langs.openGuide">Guide öffnen</a></td>
+            <td><a class="lang-link" href="hangar/">HangarDeck öffnen</a></td>
           </tr>
           <tr>
             <th scope="row"><strong>English</strong><span class="lang-code">EN</span></th>
@@ -330,6 +391,7 @@
             <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
             <td><a class="lang-link" href="tuner/?lang=en" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=en" data-i18n="langs.openGuide">Guide öffnen</a></td>
+            <td><span class="lang-flag lang-flag--open" data-i18n="langs.notYet">noch nicht</span></td>
           </tr>
           <tr>
             <th scope="row"><strong>Español</strong><span class="lang-code">ES</span></th>
@@ -337,6 +399,7 @@
             <td><span class="lang-flag lang-flag--open" data-i18n="langs.no">nein</span></td>
             <td><a class="lang-link" href="tuner/?lang=es" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=es" data-i18n="langs.openGuide">Guide öffnen</a></td>
+            <td><span class="lang-flag lang-flag--open" data-i18n="langs.notYet">noch nicht</span></td>
           </tr>
         </tbody>
       </table>
@@ -391,7 +454,7 @@
     <div class="faq reveal">
       <details open>
         <summary data-i18n="faq.install.q">Muss ich etwas installieren?</summary>
-        <p data-i18n="faq.install.a">Nein. Beide Programme bestehen aus je einer HTML-Datei, die du im Browser öffnest. Es gibt nichts zu installieren und kein Konto.</p>
+        <p data-i18n="faq.install.a">Nein. Jedes Programm besteht aus einer HTML-Datei, die du im Browser öffnest. Es gibt nichts zu installieren und kein Konto.</p>
       </details>
       <details>
         <summary data-i18n="faq.pages.q">Warum gibt es überhaupt eine GitHub-Seite?</summary>
@@ -399,7 +462,7 @@
       </details>
       <details>
         <summary data-i18n="faq.offline.q">Funktioniert das auch ohne Internet?</summary>
-        <p data-i18n="faq.offline.a">Ja. Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Du kannst die Datei herunterladen oder direkt öffnen, das WLAN kann dabei aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.</p>
+        <p data-i18n="faq.offline.a">Ja. Die Dateien laden keine externen Skripte, Schriften oder Bilder. Du kannst sie herunterladen oder direkt öffnen, das WLAN kann dabei aus bleiben. Nur die Verweise im Guide führen ins Netz: Sie öffnen sich erst mit Verbindung, der Inhalt braucht sie nicht.</p>
       </details>
       <details>
         <summary data-i18n="faq.browser.q">Welcher Browser?</summary>
@@ -467,6 +530,7 @@
   </div>
 </footer>
 
+<script src="assets/data/versions.js"></script>
 <script src="assets/js/hub.js"></script>
 </body>
 </html>
