@@ -1,17 +1,25 @@
 name: Gesamtpaket
 
 # Baut das ZIP mit Startseite, allen drei Programmen, README als Seite, Lizenz und
-# LIESMICH und hängt es an das Release. Läuft bei jeder Veröffentlichung, sonst von Hand
-# mit dem Tag als Eingabe.
+# LIESMICH und hängt es an die laufenden Releases. Läuft nach jeder Änderung an den
+# ausgelieferten Dateien, bei jeder Veröffentlichung und von Hand.
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/**'
+      - 'hangar/**'
+      - 'tuner/**'
+      - 'guide/**'
+      - 'README.md'
+      - 'LICENSE'
+      - 'tools/**'
+      - '.github/workflows/paket.yml'
   release:
     types: [published]
   workflow_dispatch:
-    inputs:
-      tag:
-        description: Tag, an den das Paket gehaengt wird
-        required: true
 
 permissions:
   contents: write
@@ -35,8 +43,17 @@ jobs:
       - name: ZIP bauen
         run: node tools/paket.mjs
 
-      - name: ZIP an das Release hängen
+      - name: ZIP an die Releases hängen
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
-        run: gh release upload "$TAG" paket/FlowState-FPV-mit-Hub.zip --clobber
+          NEU: ${{ github.event.release.tag_name }}
+        run: |
+          set -e
+          if [ -n "$NEU" ]; then
+            gh release upload "$NEU" paket/FlowState-FPV-mit-Hub.zip --clobber
+            exit 0
+          fi
+          gh release list --limit 20 --json tagName --jq '.[].tagName' | while read -r tag; do
+            echo "Release $tag"
+            gh release upload "$tag" paket/FlowState-FPV-mit-Hub.zip --clobber || true
+          done
