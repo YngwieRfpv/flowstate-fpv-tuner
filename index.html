@@ -126,7 +126,7 @@
         <span data-i18n="hero.title2">für Betaflight,</span>
         <span class="accent" data-i18n="hero.accent">die offline laufen</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. HangarDeck führt Flotte und Flight Controller. Jedes Programm besteht aus einer einzigen HTML-Datei und braucht keine Internetverbindung.</p>
+      <p class="hero-lede" data-i18n="hero.lede">Der Tuner rechnet aus deinen Logs neue Filter- und PID-Werte. Der Guide erklärt, was dahintersteckt und wann welcher Wert passt. HangarDeck führt die Copter-Liste. Jedes Programm besteht aus einer einzigen HTML-Datei und braucht keine Internetverbindung.</p>
       <div class="hero-cta">
         <a class="btn btn--primary" href="tuner/">
           <span data-i18n="hero.cta1">Tuner starten</span>
@@ -216,17 +216,17 @@
 
     <article class="program program--hangar reveal">
       <figure class="program-figure">
-        <img src="assets/images/preview-hangar.svg" alt="Ansicht von HangarDeck: Seitenleiste mit sechs Bereichen, Flottenstatus mit Klassenverteilung, Copterkarten und Bestandsliste" width="1200" height="760" loading="lazy">
+        <img src="assets/images/preview-hangar.svg" alt="Ansicht von HangarDeck Lite: Kopf mit Farbreihen, Sprachwahl und Copter-Zähler, darunter die Copter-Liste mit Größe, Zellen, KV, ESC, Props und Status" width="1200" height="760" loading="lazy">
       </figure>
       <div class="program-body">
         <span class="program-index">03</span>
-        <p class="program-kicker" data-i18n="row.hangar.kicker">Flotte und Boards an einem Ort</p>
+        <p class="program-kicker" data-i18n="row.hangar.kicker">Copter-Liste, offline geführt</p>
         <h3 class="program-title"><a class="program-title-link" href="https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/"><span>HangarDeck</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></a></h3>
-        <p class="program-text" data-i18n="row.hangar.text">Ein Eintrag pro Copter, dazu die Stammdaten der Flight Controller. Die Auslese holt Identität und Motorkonfiguration über Web Serial, ohne Verbindung lässt sich der Ablauf mit Beispieldaten prüfen.</p>
+        <p class="program-text" data-i18n="row.hangar.text">Eine Liste pro Copter: Größe, Zellen, KV, ESC, Props und Status. Weitere Felder liegen unter Mehr Details und bleiben leer, wenn du sie nicht brauchst.</p>
         <ul class="program-points">
-          <li data-i18n="row.hangar.p1">Flotte mit Filter, Suche und Bestandsliste</li>
-          <li data-i18n="row.hangar.p2">Auslese per MSP oder Import eines CLI-Dumps</li>
-          <li data-i18n="row.hangar.p3">Export als JSON, CSV und Markdown-Bericht</li>
+          <li data-i18n="row.hangar.p1">Copter anlegen, suchen und filtern</li>
+          <li data-i18n="row.hangar.p2">Export als PDF, CSV, Druck oder JSON</li>
+          <li data-i18n="row.hangar.p3">Abgleich mit dem eigenen Repository</li>
         </ul>
         <div class="program-actions">
           <a class="btn btn--primary" href="hangar/">
@@ -319,31 +319,31 @@
       <span class="detail-index">03</span>
       <div>
         <p class="eyebrow" data-i18n="hangar.eyebrow">HangarDeck</p>
-        <h2 data-i18n="hangar.title">Flotte und Flight Controller</h2>
-        <p class="lede" data-i18n="hangar.lede">Sechs Bereiche, von der Übersicht bis zum Export. Die Daten liegen im Browser und lassen sich als JSON sichern.</p>
+        <h2 data-i18n="hangar.title">Die Copter-Liste</h2>
+        <p class="lede" data-i18n="hangar.lede">Ein Kopf, eine Liste, ein Dialog. Die Daten bleiben im Browser, der Abgleich mit GitHub ist optional.</p>
       </div>
     </div>
 
     <div class="reveal">
-      <h3 class="sub-title" data-i18n="hangar.areas">Die Bereiche</h3>
+      <h3 class="sub-title" data-i18n="hangar.areas">Was drin ist</h3>
       <div class="area-grid">
-        <div class="area"><strong data-i18n="area.overview.t">Übersicht</strong><span data-i18n="area.overview.d">Klassenverteilung, offene Hinweise, letzte Änderungen.</span></div>
-        <div class="area"><strong data-i18n="area.fleet.t">Flotte</strong><span data-i18n="area.fleet.d">Ein Copter pro Eintrag, mit Filter, Suche und Tabelle.</span></div>
-        <div class="area"><strong data-i18n="area.boards.t">FC-Bibliothek</strong><span data-i18n="area.boards.d">Target, MCU, Gyro, UARTs und Stromversorgung der Boards.</span></div>
-        <div class="area"><strong data-i18n="area.read.t">FC auslesen</strong><span data-i18n="area.read.d">Web Serial und MSP, oder Simulation als Probelauf.</span></div>
-        <div class="area"><strong data-i18n="area.import.t">Import</strong><span data-i18n="area.import.d">diff all, status und version aus Betaflight oder INAV.</span></div>
-        <div class="area"><strong data-i18n="area.data.t">Daten</strong><span data-i18n="area.data.d">JSON und CSV, Markdown-Bericht, Speicherübersicht.</span></div>
+        <div class="area"><strong data-i18n="area.list.t">Liste</strong><span data-i18n="area.list.d">Name, Größe, Spannung, KV, ESC, Props und Status in einer Tabelle.</span></div>
+        <div class="area"><strong data-i18n="area.detail.t">Mehr Details</strong><span data-i18n="area.detail.d">Flight Controller, Akku, Abfluggewicht und Notiz, nur auf Wunsch.</span></div>
+        <div class="area"><strong data-i18n="area.export.t">Export</strong><span data-i18n="area.export.d">PDF-Tabelle für die Ablage, CSV für Excel, Druck und JSON als Sicherung.</span></div>
+        <div class="area"><strong data-i18n="area.sync.t">GitHub-Sync</strong><span data-i18n="area.sync.d">Lesen ohne Token, Schreiben mit Token, Zusammenführen über den Zeitstempel.</span></div>
+        <div class="area"><strong data-i18n="area.lang.t">Sprache und Farbe</strong><span data-i18n="area.lang.d">Deutsch und Englisch, dazu Ozean, Leinen und Dunkelrot.</span></div>
+        <div class="area"><strong data-i18n="area.offline.t">Offline</strong><span data-i18n="area.offline.d">Eine HTML-Datei, kein Build, keine fremden Ressourcen.</span></div>
       </div>
     </div>
 
     <div class="detail-grid" style="margin-top:26px">
       <div class="reveal">
-        <h3 class="sub-title" data-i18n="hangar.check">Setup-Check</h3>
-        <p class="sub-text" data-i18n="hangar.check.lede">Vollständigkeit, Prop-Zoll gegen Klasse, KV gegen Erfahrungsbereich und der Abstand zwischen Flug und Wartung. Es sind Hinweise, keine Freigabe.</p>
+        <h3 class="sub-title" data-i18n="hangar.check">Anlegen</h3>
+        <p class="sub-text" data-i18n="hangar.check.lede">Name und Größe reichen zum Speichern. Alles andere bleibt leer, bis du es brauchst.</p>
       </div>
       <div class="reveal">
         <h3 class="sub-title" data-i18n="hangar.data">Wo die Daten liegen</h3>
-        <p class="sub-text" data-i18n="hangar.data.lede">Im localStorage des jeweiligen Browsers. Kein Sync, keine Konten, keine Telemetrie. Vor einem Browserwechsel den JSON-Export nehmen.</p>
+        <p class="sub-text" data-i18n="hangar.data.lede">Im localStorage dieses Browsers, mit eingerichtetem Abgleich zusätzlich im eigenen Repository. Kein Konto, keine Telemetrie.</p>
       </div>
     </div>
   </div>
@@ -354,7 +354,7 @@
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="langs.eyebrow">Sprachen</p>
       <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch als Vorschau</h2>
-      <p class="lede" data-i18n="langs.lede">Tuner und Guide liegen auf Deutsch und Englisch vollständig vor. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch. HangarDeck ist in dieser Fassung nur auf Deutsch.</p>
+      <p class="lede" data-i18n="langs.lede">Tuner und Guide liegen auf Deutsch und Englisch vollständig vor. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch. HangarDeck liegt auf Deutsch und Englisch vor, Spanisch ist dort nicht angelegt.</p>
     </div>
 
     <div class="reveal">
@@ -384,7 +384,7 @@
             <td><span class="lang-flag lang-flag--ok" data-i18n="langs.yes">ja</span></td>
             <td><a class="lang-link" href="tuner/?lang=en" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=en" data-i18n="langs.openGuide">Guide öffnen</a></td>
-            <td><span class="lang-flag lang-flag--open" data-i18n="langs.notYet">noch nicht</span></td>
+            <td><a class="lang-link" href="hangar/?lang=en">HangarDeck öffnen</a></td>
           </tr>
           <tr>
             <th scope="row"><strong>Español</strong><span class="lang-code">ES</span></th>
@@ -392,7 +392,7 @@
             <td><span class="lang-flag lang-flag--open" data-i18n="langs.no">nein</span></td>
             <td><a class="lang-link" href="tuner/?lang=es" data-i18n="langs.open">Tuner öffnen</a></td>
             <td><a class="lang-link" href="guide/?lang=es" data-i18n="langs.openGuide">Guide öffnen</a></td>
-            <td><span class="lang-flag lang-flag--open" data-i18n="langs.notYet">noch nicht</span></td>
+            <td><span class="lang-flag lang-flag--open" data-i18n="langs.notPlanned">nicht angelegt</span></td>
           </tr>
         </tbody>
       </table>

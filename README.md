@@ -7,7 +7,7 @@ läuft und weder Installation noch Konto noch Internetverbindung braucht.
 |---|---|---|---|
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,7 MB | Erklären, nachschlagen, Ablauf begleiten |
-| **[HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 112 KB | Flotte und Flight Controller verwalten |
+| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 65 KB | Copter-Liste führen und als Tabelle ausgeben |
 
 Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
@@ -25,19 +25,18 @@ Wahlen gelten auch für das Programm, das du danach öffnest. Die Sprache steht 
 Adresse (`?lang=`), die Farbe in `flowstate-theme`. Wechselst du die Farbe bei offenem
 Programm, lädt der Rahmen einmal neu, damit das Programm mitzieht.
 
-Wie weit die Farbe im Programm ankommt, hängt an dessen Paletten:
+Alle drei Programme bringen dieselben drei Paletten mit und lesen sie aus demselben
+Eintrag. Wählst du im Programm selbst eine Farbe, schreibt es sie zurück, und die
+Übersichtsseite zeigt beim nächsten Aufruf denselben Stand.
 
-| Programm | Ozean | Leinen | Dunkelrot |
-|---|---|---|---|
-| FlowState Tuner | Ozean | Leinen | Dunkelrot |
-| FPV Guide | Dunkel | Hell | Dunkel, weil der Guide kein Dunkelrot hat |
-| HangarDeck | Akzent Cyan | Akzent Amber | Akzent Violett, die Palette bleibt dunkel |
+| Palette | Fünf Töne |
+|---|---|
+| Ozean | `#093840` `#155b5b` `#1e746b` `#258c71` `#2ca387` |
+| Leinen | `#c9e0f0` `#f4f6f5` `#c4b69c` `#f0e6cb` `#ecbda9` |
+| Dunkelrot | `#140a25` `#390c2b` `#5a152a` `#8e1e2c` `#d82828` |
 
-Der Tuner schreibt seine eigene Farbwahl in denselben Eintrag zurück. Änderst du dort die
-Farbe, steht sie beim nächsten Aufruf der Übersichtsseite auch dort.
-
-Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck in dieser Fassung
-auf Deutsch.
+Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck Lite auf Deutsch
+und Englisch. Spanisch ist im Tuner und im Guide als ungeprüfte Vorschau gekennzeichnet.
 
 Wer in der Versionsliste auf *Mit Hub herunterladen* klickt, bekommt die Übersichtsseite als
 Paket: Hub, Styles, Skripte und alle drei Programme in einem ZIP. Entpackt und per
@@ -146,34 +145,52 @@ bestimmt, welche Kapitel und Tabellen der Guide zeigt.
 
 ---
 
-## [HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
+## [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-HangarDeck führt die Flotte und die Stammdaten der Flight Controller: ein Datensatz pro
-Copter mit Größe, Frame, FC, Firmware, Antrieb, Video- und Funkstrecke, dazu die
-Zuletzt-Stände von Flug und Wartung. Die FC-Bibliothek hält Target, MCU, Gyro, UARTs und
-Stromversorgung der Boards.
+HangarDeck Lite führt eine Copter-Liste. Pro Zeile stehen Name, Größe, Spannung, KV, ESC,
+Props und Status; wer mehr festhalten will, öffnet *Mehr Details* und trägt Flight
+Controller, Akku, Abfluggewicht und Notiz nach. Name und Größe reichen zum Speichern,
+alles andere bleibt leer, bis es gebraucht wird.
 
-### Bereiche
+### Felder
 
-| Bereich | Inhalt |
+| Feld | Pflicht | Anmerkung |
+|---|---|---|
+| Name | ja | frei wählbar |
+| Größe | ja | feste Liste von 65 mm Whoop bis 10 Zoll |
+| Status | ja | Flugbereit, In Arbeit, Defekt |
+| Spannung | nein | 1S bis 12S, mit Volt-Anzeige bei 3,7 V pro Zelle |
+| Motor-KV | nein | Zahl |
+| ESC | nein | Dauerstrom in Ampere |
+| Props | nein | frei, etwa `5.1x4.6x3` |
+| Flight Controller | nein | nur unter *Mehr Details* |
+| Akku | nein | mAh, nur unter *Mehr Details* |
+| Abfluggewicht | nein | Gramm, nur unter *Mehr Details* |
+| Notiz | nein | nur unter *Mehr Details* |
+
+### Export und Abgleich
+
+| Ausgabe | Inhalt |
 |---|---|
-| Übersicht | Klassenverteilung, offene Hinweise, letzte Änderungen |
-| Flotte | Copterkarten und Bestandsliste, Filter, Suche, Sortierung |
-| FC-Bibliothek | Boards als Stammdaten, Startbestand mit Quelle |
-| FC auslesen | Web Serial und MSP v1, oder Simulation als Probelauf |
-| Import | `diff all`, `status` und `version` aus Betaflight oder INAV |
-| Daten | JSON und CSV, Markdown-Bericht, Speicherübersicht |
+| PDF-Tabelle | A4 quer, Kopfzeile auf jeder Seite, elf Spalten |
+| CSV | Semikolon und BOM, öffnet in Excel ohne Import-Dialog |
+| Drucken | Papier oder *Als PDF speichern* über den Browser |
+| JSON | Sicherung und Import, Grundlage für den Abgleich |
+
+Für den Abgleich trägst du im Kopf unter *GitHub* das eigene Repository ein, dazu Branch,
+Pfad und ein Token mit Schreibrecht auf die Inhalte. Gelesen wird auch ohne Token über die
+Adressen von GitHub Pages. Zusammengeführt wird pro Copter über den Zeitstempel,
+Löschungen wandern als Grabstein mit.
 
 ### Grenzen
 
-- **Beta:** Auslese an echter Hardware steht aus, der Ablauf ist mit Beispieldaten prüfbar.
-- Die Oberfläche ist in dieser Fassung deutsch; Englisch ist noch nicht übersetzt.
-- MSP v1 liefert Identität, Sensormaske und Motorkonfiguration, aber keinen Gyro-Chip.
-  Dafür ist der CLI-Import vorgesehen.
-- Alle Daten liegen im `localStorage` dieses Browsers und dieses Profils. Kein Sync,
-  keine Konten, keine Telemetrie. Vor Browserwechsel oder Reinigung den JSON-Export nehmen.
-- Der FC darf nicht gleichzeitig im Betaflight Configurator geöffnet sein, der COM-Port
-  ist exklusiv.
+- **Beta:** Der Abgleich ist eingerichtet, an vielen Coptern und mit mehreren Geräten aber
+  nicht durchgespielt.
+- Bewusst klein: keine FC-Bibliothek, kein Auslesen über Web Serial, keine Flottenstatistik.
+- Die Größe ist eine feste Liste, kein Freitext. Für Sondergrößen die nächste Klasse nehmen
+  und die Notiz nutzen.
+- Daten liegen im `localStorage` dieses Browsers, mit eingerichtetem Abgleich zusätzlich im
+  eigenen Repository. Kein Konto, keine Telemetrie.
 
 ---
 
@@ -188,7 +205,7 @@ Tuner, Setup                verbinden, auslesen, sichern, Profil schützen
 Tuner, Filter → P/D → Master → FF/I
 Tuner, Archiv               Plan, Manifest und Logs sichern
 Guide, Technik & Referenz   Werte nachlesen und dokumentieren
-HangarDeck, Flotte          festhalten, was verbaut ist und wann gewartet wurde
+HangarDeck Lite, Liste      festhalten, was verbaut ist und wann gewartet wurde
 ```
 
 ---
@@ -201,14 +218,14 @@ Alle Wege zeigen dieselbe Anwendung.
 
 Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/) und
-[HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/index.html).
+[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/). Die Übersicht liegt in [index.html](https://yngwierfpv.github.io/flowstate-fpv-tuner/index.html).
 
 ### Herunterladen: Programm plus Hub
 
 Der Knopf *Mit Hub herunterladen* in der Versionsliste packt im Browser ein ZIP mit der
 Übersichtsseite, ihren Styles und Skripten sowie allen drei Programmen. Der Dateiname
 nennt das Programm, für das geklickt wurde, und seine Version, zum Beispiel
-`FlowState-Tuner-v4.8-alpha.2-mit-Hub.zip`. Der Inhalt ist in jedem Fall derselbe.
+`FlowState-Tuner-v4.8-alpha.3-mit-Hub.zip`. Der Inhalt ist in jedem Fall derselbe.
 
 Entpackt liegt der Hub als `index.html` daneben, die Programme in `guide/`, `tuner/` und
 `hangar/`. Ein Doppelklick auf die `index.html` öffnet die Übersicht mit Umschalter. Über
@@ -224,14 +241,14 @@ Die Adressen `/tuner/`, `/guide/` und `/hangar/` funktionieren nur, weil im jewe
 Ordner eine `index.html` liegt. Genau diese Datei liefert ein Webserver für ein
 Verzeichnis aus. Ein Name mit Versionsnummer würde die Adresse brechen: `/tuner/` wäre
 leer, erreichbar wäre nur noch ein langer Pfad wie
-`/tuner/FlowState-Tuner-v4.8-alpha.2.html`.
+`/tuner/FlowState-Tuner-v4.8-alpha.3.html`.
 
 Damit beim Speichern trotzdem ein sprechender Name entsteht, trägt ihn das ZIP: Programm
 und Version stehen im Dateinamen, die Ordner darin bleiben technisch benannt. Wer direkt
 über die Rohadresse des Repositories lädt, bekommt `index.html` und benennt die Datei beim
 Speichern selbst um. Der Inhalt ist identisch, die Prüfsumme bleibt dieselbe.
 
-| | Guide | HangarDeck | Tuner ohne FC | Tuner mit FC |
+| | Guide | HangarDeck Lite | Tuner ohne FC | Tuner mit FC |
 |---|---|---|---|---|
 | Chrome, Edge, Opera (Desktop) | ✓ | ✓ | ✓ | ✓ |
 | Firefox, Safari | ✓ | ✓ | ✓ | — |
@@ -251,17 +268,17 @@ Die Log-Analyse funktioniert in jedem Browser, dafür braucht es kein Web Serial
 
 ## Sprachen
 
-| Sprache | Stand | Geprüft | FlowState Tuner | FPV Guide | HangarDeck |
+| Sprache | Stand | Geprüft | FlowState Tuner | FPV Guide | HangarDeck Lite |
 |---|---|---|---|---|---|
 | **Deutsch** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=de) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=de) | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/) |
-| **English** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) | noch nicht |
-| **Español** | Vorschau, nicht geprüft | nein | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) | noch nicht |
+| **English** | vollständig integriert | ja | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=en) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=en) | [HangarDeck öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/?lang=en) |
+| **Español** | Vorschau, nicht geprüft | nein | [Tuner öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/?lang=es) | [Guide öffnen](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/?lang=es) | nicht angelegt |
 
 Deutsch und Englisch sind in Tuner und Guide vollständig: Oberfläche, Meldungen, Glossar
 und Kapitel. Spanisch ist dort übersetzt und auswählbar, aber in keinem Bereich geprüft.
 Das Programm zeigt deshalb einen dauerhaften Hinweis; nicht überprüfte Stellen fallen auf
-Englisch zurück. HangarDeck ist in dieser Fassung nur auf Deutsch; die Oberfläche ist
-vollständig, eine Übersetzung ist noch nicht angelegt.
+Englisch zurück. HangarDeck Lite liegt auf Deutsch und Englisch vor; Spanisch ist dort
+nicht angelegt.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 übernimmt das Programm die Browsersprache, wenn sie eine dieser drei ist. Bei jeder
@@ -278,16 +295,16 @@ füllt die Lücken in einer vorhandenen Übersetzung.
 **Drei Programme, drei Versionsreihen.** Tuner, Guide und HangarDeck werden getrennt
 nummeriert und getrennt veröffentlicht. Jede Reihe hat ihr eigenes Release. Die Zahlen
 sagen nichts übereinander aus: Der Tuner steht bei `4.8`, der Guide bei `1.0.2`,
-HangarDeck bei `0.1.0`, weil sie verschieden weit sind, nicht weil eines neuer wäre. Ein
+HangarDeck Lite bei `0.4.0`, weil sie verschieden weit sind, nicht weil eines neuer wäre. Ein
 neuer Guide-Stand lässt die anderen unberührt, und umgekehrt.
 
-| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.1-es) | [HangarDeck](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.2) |
+| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es) | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2) |
 |---|---|---|---|
-| Version | [`v4.8-alpha.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2) | [`v1.0.2-beta.1-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.1-es) | [`v0.1.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.2) |
+| Version | [`v4.8-alpha.3`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3) | [`v1.0.2-beta.11-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es) | [`v0.4.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2) |
 | Kanal | Alpha | Beta | Beta |
 | Datum | 02.11.2026 | 02.11.2026 | 02.11.2026 |
-| Größe (Bytes) | 496.561 | 7.663.821 | 112.090 |
-| SHA-256 | `38cfae5db2dd3f460bd0116d40ca3298dae51b2c89fb3ca1b8306c77e96bd418` | `796ec978e462857667f25cb61fff0912379ae6ffbd1712b0223002ac14665674` | `500cda43df1c14e05fd5af3c260074f1173d0cf6ae696722635bd3fee880d406` |
+| Größe (Bytes) | 496.634 | 7.682.770 | 65.058 |
+| SHA-256 | `31e9db7e45831ec0618d280bdba6a1e15b939008f6865109bb299360540df57f` | `6ebac700f89e317258ee8b470b838e2ead3e4d0d8dd492408f2473bea22d8a6a` | `726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a` |
 
 Die Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
 führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
@@ -297,19 +314,19 @@ Zum Nachrechnen: Befehl, darunter der erwartete Wert.
 
 ```
 sha256sum tuner/index.html
-38cfae5db2dd3f460bd0116d40ca3298dae51b2c89fb3ca1b8306c77e96bd418
+31e9db7e45831ec0618d280bdba6a1e15b939008f6865109bb299360540df57f
 
 sha256sum guide/index.html
-796ec978e462857667f25cb61fff0912379ae6ffbd1712b0223002ac14665674
+6ebac700f89e317258ee8b470b838e2ead3e4d0d8dd492408f2473bea22d8a6a
 
 sha256sum hangar/index.html
-500cda43df1c14e05fd5af3c260074f1173d0cf6ae696722635bd3fee880d406
+726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a
 ```
 
 Eigene Release-Seite je Programm:
-[Tuner `v4.8-alpha.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2) ·
-[Guide `v1.0.2-beta.1-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.1-es) ·
-[HangarDeck `v0.1.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.2)
+[Tuner `v4.8-alpha.3`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3) ·
+[Guide `v1.0.2-beta.11-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es) ·
+[HangarDeck Lite `v0.4.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2)
 
 ### Was diese drei Stände geändert haben
 
@@ -317,12 +334,16 @@ Alle drei übernehmen jetzt die Farbwahl der Übersichtsseite. Ein Eintrag, ein 
 `flowstate-theme` trägt `ocean`, `sand` oder `drakn`. Ältere Stände haben `dark`, `light`
 und `cream` gespeichert, die werden weiter gelesen.
 
-- **Tuner:** liest die Palette beim Start, schreibt eine Änderung im Kopf zurück, damit
-  die Übersichtsseite mitzieht. Fußzeile und CLI-Kommentar nennen `v4.8-alpha.2`.
-- **Guide:** liest die Palette beim Start. Er kennt Hell, Dunkel und Sand; Ozean öffnet
-  dunkel, Leinen hell, Dunkelrot bleibt dunkel. Inhalt und Werte sind unverändert.
-- **HangarDeck:** hat eine dunkle Palette mit wählbarer Akzentfarbe und nimmt aus der
-  Wahl den passenden Ton. Ohne Wahl im Hub bleibt Grün.
+- **Tuner:** Sprache und Farbe stehen im Kopf als Reihen nebeneinander: DE, EN, ES und
+  drei Farbstreifen. Kein aufklappendes Feld mehr, das im Rahmen der Übersichtsseite
+  abgeschnitten werden konnte.
+- **Guide:** bringt Ozean, Leinen und Dunkelrot als vollständige Paletten mit, nicht nur
+  hell und dunkel. Sprache und Darstellung stehen ebenfalls als Reihen im Kopf. Er liest
+  `flowstate-theme` beim Start und schreibt eine eigene Wahl dorthin zurück. Inhalt und
+  Werte sind unverändert.
+- **HangarDeck Lite:** löst die ausführliche Fassung ab und bringt die drei Paletten
+  ebenfalls mit. Dazu Export als PDF-Tabelle, CSV, Druck und JSON sowie der Abgleich mit
+  dem eigenen Repository.
 
 ---
 
@@ -336,14 +357,14 @@ Three single-file HTML programs for Betaflight, running entirely in the browser.
   neutral P/D, master, FF/I/D-Max, archive.
 - **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** — explains the workflow from the first build to fine
   tuning, with 95 glossary terms and reference tables.
-- **[HangarDeck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** — keeps the fleet and the flight-controller
-  library, reads Betaflight or INAV controllers over Web Serial or imports a CLI dump,
-  and exports the data as JSON, CSV or a Markdown report.
+- **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** — keeps one quad list with size,
+  cells, KV, ESC, props and status, exports it as a PDF table, CSV, print or JSON, and
+  syncs it with your own repository.
 
 Tuner and guide ship in German, English and Spanish: ?lang=de, ?lang=en or ?lang=es.
 Spanish is translated but verified in no area. The program shows a permanent notice and
-falls back to English where text is unrevised. HangarDeck is German only in this
-version.
+falls back to English where text is unrevised. HangarDeck Lite ships in German and
+English; Spanish is not built there.
 
 Two separate mechanisms: an unknown browser language starts the program in German,
 while a missing individual string inside a translation appears in English.
@@ -359,9 +380,15 @@ that contains the overview page plus all three programs; unzip it and open `inde
 Language and colour sit side by side in the header, without a drop-down: DE and EN plus
 three palette strips. Both choices carry into the program you open next. `flowstate-theme`
 holds `ocean`, `sand` or `drakn`; older values `dark`, `light` and `cream` are still read.
-The tuner has all three palettes. The guide knows light, dark and sand, so ocean opens
-dark, sand light and drakn stays dark there. HangarDeck keeps one dark palette and takes
-the matching accent instead.
+
+All three programs ship the same three palettes and read the same entry. A choice made
+inside a program is written back, so the overview page shows it on the next visit.
+
+| Palette | Five tones |
+|---|---|
+| Ocean | `#093840` `#155b5b` `#1e746b` `#258c71` `#2ca387` |
+| Sand | `#c9e0f0` `#f4f6f5` `#c4b69c` `#f0e6cb` `#ecbda9` |
+| Drakn | `#140a25` `#390c2b` `#5a152a` `#8e1e2c` `#d82828` |
 
 The tuner is an alpha: its write path has not been tested on real hardware yet. The plan
 can be read and checked in full without writing anything. Writing is at your own risk;
