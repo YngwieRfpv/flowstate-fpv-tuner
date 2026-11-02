@@ -212,24 +212,24 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "tuner-4.8-alpha.2",
+      "id": "tuner-4.8-alpha.3",
       "program": "tuner",
-      "version": "v4.8-alpha.2",
+      "version": "v4.8-alpha.3",
       "channel": "alpha",
       "released": "2026-11-02",
       "title": {
-        "de": "Farbwahl folgt jetzt der Übersichtsseite.",
-        "en": "The colour choice now follows the overview page."
+        "de": "Sprache und Farbe als Reihen im Kopf.",
+        "en": "Language and colour as rows in the header."
       },
       "summary": {
-        "de": "Übernimmt beim Start die Palette der Übersichtsseite und schreibt eine Änderung im Kopf in denselben Eintrag zurück. Im Fuß und im CLI-Kommentar steht die Versionsnummer 4.8-alpha.2. An echter Hardware und im Flug weiterhin nicht getestet.",
-        "en": "Takes the palette from the overview page at start and writes a header change back to the same entry. The footer and the CLI comment show version 4.8-alpha.2. Still not tested on real hardware or in flight."
+        "de": "Sprache und Farbwahl stehen im Kopf als Reihen nebeneinander statt hinter einem aufklappenden Feld: DE, EN, ES und drei Farbstreifen. Beides kommt aus der Übersichtsseite und schreibt dorthin zurück. An echter Hardware und im Flug weiterhin nicht getestet.",
+        "en": "Language and colour sit side by side in the header instead of behind a drop-down: DE, EN, ES and three colour strips. Both come from the overview page and write back to it. Still not tested on real hardware or in flight."
       },
       "file": "tuner/index.html",
-      "size_bytes": 496561,
-      "sha256": "38cfae5db2dd3f460bd0116d40ca3298dae51b2c89fb3ca1b8306c77e96bd418",
+      "size_bytes": 496634,
+      "sha256": "31e9db7e45831ec0618d280bdba6a1e15b939008f6865109bb299360540df57f",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3",
       "signals": [
         {
           "label": {
@@ -301,24 +301,24 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "guide-1.0.2-beta.10-es",
+      "id": "guide-1.0.2-beta.11-es",
       "program": "guide",
-      "version": "v1.0.2-beta.10-es",
+      "version": "v1.0.2-beta.11-es",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Drei Paletten, eine gemeinsame Wahl.",
-        "en": "Three palettes, one shared choice."
+        "de": "Drei Paletten und Sprache als Reihen.",
+        "en": "Three palettes and language as rows."
       },
       "summary": {
         "de": "Der Guide kennt jetzt Ozean, Leinen und Dunkelrot als vollständige Paletten, nicht nur hell und dunkel. Beim Öffnen liest er den Eintrag flowstate-theme, eine Wahl im Guide schreibt dorthin zurück. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
         "en": "The guide now has Ocean, Sand and Drakn as full palettes, not just light and dark. On load it reads flowstate-theme, a choice inside the guide writes back to it. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
-      "size_bytes": 7679773,
-      "sha256": "f109c8ba5c2b1a200061cc018b4ce6b3881f7ab3ce35c2b7e898a25f1a39d47e",
+      "size_bytes": 7682770,
+      "sha256": "6ebac700f89e317258ee8b470b838e2ead3e4d0d8dd492408f2473bea22d8a6a",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.10-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es",
       "signals": [
         {
           "label": {

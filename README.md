@@ -225,7 +225,7 @@ Veröffentlicht: [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tu
 Der Knopf *Mit Hub herunterladen* in der Versionsliste packt im Browser ein ZIP mit der
 Übersichtsseite, ihren Styles und Skripten sowie allen drei Programmen. Der Dateiname
 nennt das Programm, für das geklickt wurde, und seine Version, zum Beispiel
-`FlowState-Tuner-v4.8-alpha.2-mit-Hub.zip`. Der Inhalt ist in jedem Fall derselbe.
+`FlowState-Tuner-v4.8-alpha.3-mit-Hub.zip`. Der Inhalt ist in jedem Fall derselbe.
 
 Entpackt liegt der Hub als `index.html` daneben, die Programme in `guide/`, `tuner/` und
 `hangar/`. Ein Doppelklick auf die `index.html` öffnet die Übersicht mit Umschalter. Über
@@ -241,7 +241,7 @@ Die Adressen `/tuner/`, `/guide/` und `/hangar/` funktionieren nur, weil im jewe
 Ordner eine `index.html` liegt. Genau diese Datei liefert ein Webserver für ein
 Verzeichnis aus. Ein Name mit Versionsnummer würde die Adresse brechen: `/tuner/` wäre
 leer, erreichbar wäre nur noch ein langer Pfad wie
-`/tuner/FlowState-Tuner-v4.8-alpha.2.html`.
+`/tuner/FlowState-Tuner-v4.8-alpha.3.html`.
 
 Damit beim Speichern trotzdem ein sprechender Name entsteht, trägt ihn das ZIP: Programm
 und Version stehen im Dateinamen, die Ordner darin bleiben technisch benannt. Wer direkt
@@ -298,13 +298,13 @@ sagen nichts übereinander aus: Der Tuner steht bei `4.8`, der Guide bei `1.0.2`
 HangarDeck Lite bei `0.4.0`, weil sie verschieden weit sind, nicht weil eines neuer wäre. Ein
 neuer Guide-Stand lässt die anderen unberührt, und umgekehrt.
 
-| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.10-es) | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2) |
+| | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es) | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2) |
 |---|---|---|---|
-| Version | [`v4.8-alpha.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2) | [`v1.0.2-beta.10-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.10-es) | [`v0.4.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2) |
+| Version | [`v4.8-alpha.3`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3) | [`v1.0.2-beta.11-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es) | [`v0.4.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2) |
 | Kanal | Alpha | Beta | Beta |
 | Datum | 02.11.2026 | 02.11.2026 | 02.11.2026 |
-| Größe (Bytes) | 496.561 | 7.679.773 | 65.058 |
-| SHA-256 | `38cfae5db2dd3f460bd0116d40ca3298dae51b2c89fb3ca1b8306c77e96bd418` | `f109c8ba5c2b1a200061cc018b4ce6b3881f7ab3ce35c2b7e898a25f1a39d47e` | `726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a` |
+| Größe (Bytes) | 496.634 | 7.682.770 | 65.058 |
+| SHA-256 | `31e9db7e45831ec0618d280bdba6a1e15b939008f6865109bb299360540df57f` | `6ebac700f89e317258ee8b470b838e2ead3e4d0d8dd492408f2473bea22d8a6a` | `726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a` |
 
 Die Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
 führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
@@ -314,18 +314,18 @@ Zum Nachrechnen: Befehl, darunter der erwartete Wert.
 
 ```
 sha256sum tuner/index.html
-38cfae5db2dd3f460bd0116d40ca3298dae51b2c89fb3ca1b8306c77e96bd418
+31e9db7e45831ec0618d280bdba6a1e15b939008f6865109bb299360540df57f
 
 sha256sum guide/index.html
-f109c8ba5c2b1a200061cc018b4ce6b3881f7ab3ce35c2b7e898a25f1a39d47e
+6ebac700f89e317258ee8b470b838e2ead3e4d0d8dd492408f2473bea22d8a6a
 
 sha256sum hangar/index.html
 726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a
 ```
 
 Eigene Release-Seite je Programm:
-[Tuner `v4.8-alpha.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2) ·
-[Guide `v1.0.2-beta.10-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.10-es) ·
+[Tuner `v4.8-alpha.3`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3) ·
+[Guide `v1.0.2-beta.11-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es) ·
 [HangarDeck Lite `v0.4.0-beta.2`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2)
 
 ### Was diese drei Stände geändert haben
@@ -334,11 +334,13 @@ Alle drei übernehmen jetzt die Farbwahl der Übersichtsseite. Ein Eintrag, ein 
 `flowstate-theme` trägt `ocean`, `sand` oder `drakn`. Ältere Stände haben `dark`, `light`
 und `cream` gespeichert, die werden weiter gelesen.
 
-- **Tuner:** liest die Palette beim Start, schreibt eine Änderung im Kopf zurück, damit
-  die Übersichtsseite mitzieht. Fußzeile und CLI-Kommentar nennen `v4.8-alpha.2`.
-- **Guide:** bringt jetzt Ozean, Leinen und Dunkelrot als vollständige Paletten mit, nicht
-  nur hell und dunkel. Er liest `flowstate-theme` beim Start und schreibt eine eigene Wahl
-  dorthin zurück. Inhalt und Werte sind unverändert.
+- **Tuner:** Sprache und Farbe stehen im Kopf als Reihen nebeneinander: DE, EN, ES und
+  drei Farbstreifen. Kein aufklappendes Feld mehr, das im Rahmen der Übersichtsseite
+  abgeschnitten werden konnte.
+- **Guide:** bringt Ozean, Leinen und Dunkelrot als vollständige Paletten mit, nicht nur
+  hell und dunkel. Sprache und Darstellung stehen ebenfalls als Reihen im Kopf. Er liest
+  `flowstate-theme` beim Start und schreibt eine eigene Wahl dorthin zurück. Inhalt und
+  Werte sind unverändert.
 - **HangarDeck Lite:** löst die ausführliche Fassung ab und bringt die drei Paletten
   ebenfalls mit. Dazu Export als PDF-Tabelle, CSV, Druck und JSON sowie der Abgleich mit
   dem eigenen Repository.
