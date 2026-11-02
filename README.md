@@ -13,7 +13,10 @@ Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versi
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
 Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
 (Deutsch/Englisch), und im Kopf der Seite schaltet ein Streifen zwischen Guide, Autotuner
-und Hangar um. Die Farben lassen sich dort ebenfalls wechseln: Ozean, Leinen und Dunkelrot.
+und Hangar um. Die gewählte App öffnet sich direkt darunter im Rahmen, ohne Seitenwechsel;
+darüber liegen zwei Schaltflächen für die Rückkehr zur Übersicht und für ein eigenes
+Browserfenster. Die Adressen `#/guide` und `#/tuner` lassen sich direkt aufrufen und
+weitergeben. Die Farben wechseln ebenfalls im Kopf: Ozean, Leinen und Dunkelrot.
 Beide Programme gibt es auf Deutsch, Englisch und Spanisch.
 
 ---
