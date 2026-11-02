@@ -5,15 +5,16 @@ Browser läuft und weder Installation noch Konto noch Internetverbindung braucht
 
 | Programm | Datei | Größe | Aufgabe |
 |---|---|---|---|
-| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 477 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
+| **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 496 KB | Logs messen, Werte ableiten, CLI-Plan schreiben |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7,7 MB | Erklären, nachschlagen, Ablauf begleiten |
 
 Größen in KB und MB zur Basis 1000; die genauen Byte-Werte stehen unter *Versionen*.
 
 Der Einstieg liegt in [`index.html`](index.html): Programmübersicht, Versionen mit
 Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprachig
-(Deutsch/Englisch); die Farben lassen sich im Kopf der Seite in drei Paletten umschalten:
-Ocean, Sand und Drakn. Beide Programme gibt es auf Deutsch, Englisch und Spanisch.
+(Deutsch/Englisch), und im Kopf der Seite schaltet ein Streifen zwischen Guide, Autotuner
+und Hangar um. Die Farben lassen sich dort ebenfalls wechseln: Ozean, Leinen und Dunkelrot.
+Beide Programme gibt es auf Deutsch, Englisch und Spanisch.
 
 ---
 
@@ -212,9 +213,9 @@ Tuner unberührt, und umgekehrt.
 |---|---|---|
 | Version | [`v4.8-alpha.1`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1) | [`v1.0.1-beta.9-es`](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es) |
 | Kanal | Alpha | Beta |
-| Datum | 25.10.2026 | 25.10.2026 |
-| Größe (Bytes) | 477.784 | 7.663.650 |
-| SHA-256 | `97d99f32e81c6cc35e0d57665cca371c07bc49d6d5485f68e097deaab7e920e7` | `bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459` |
+| Datum | 02.11.2026 | 25.10.2026 |
+| Größe (Bytes) | 496.467 | 7.663.650 |
+| SHA-256 | `68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4` | `bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459` |
 
 Beide Dateien laden keine externen Skripte, Schriften oder Bilder. Verweise im Guide
 führen absichtlich nach außen: Sie öffnen sich nur mit Internetverbindung, der Inhalt
@@ -224,7 +225,7 @@ Zum Nachrechnen: Befehl, darunter der erwartete Wert.
 
 ```
 sha256sum tuner/index.html
-97d99f32e81c6cc35e0d57665cca371c07bc49d6d5485f68e097deaab7e920e7
+68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4
 
 sha256sum guide/index.html
 bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459
