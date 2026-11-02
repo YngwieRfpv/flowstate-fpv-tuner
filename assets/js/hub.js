@@ -184,7 +184,12 @@
       'area.glossary.t': 'Glossar', 'area.glossary.d': '95 Begriffe, direkt im Text aufrufbar.',
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.',
       'bundle.all': 'Alles herunterladen',
-      'bundle.allNote': 'Übersicht, alle drei Programme, README, Lizenz und LIESMICH in einem ZIP.'
+      'bundle.what': 'Im Paket liegt:',
+      'bundle.item.site': 'Diese Startseite mit Kopfzeile und Versionsliste, dazu alle Bilder und Skripte, die sie braucht',
+      'bundle.item.programs': 'Die drei Programme als je eine HTML-Datei, mit Vorschau und dem Startbestand für den HangarDeck-Abgleich',
+      'bundle.item.readme': 'README.md als Text und dieselbe Beschreibung als lesbare Seite README.html',
+      'bundle.item.legal': 'LICENSE und LIESMICH.txt mit den ersten Schritten',
+      'bundle.optional': 'Herunterladen ist freiwillig. Alle drei Programme laufen auch hier auf der Seite, im Rahmen unter der Kopfzeile, und brauchen dabei weder Server noch Internet.'
     },
     es: {
       'theme.label': 'Colores',
@@ -375,7 +380,12 @@
       'area.sources.t': 'Fuentes y enlaces',
       'area.sources.d': 'Manuales originales, documentación, herramientas.',
       'bundle.all': 'Descargar todo',
-      'bundle.allNote': 'Vista general, los tres programas, README, licencia y archivo léeme en un ZIP.'
+      'bundle.what': 'El paquete contiene:',
+      'bundle.item.site': 'Esta vista general con cabecera y lista de versiones, además de las imágenes y los scripts que necesita',
+      'bundle.item.programs': 'Los tres programas, cada uno en un archivo HTML, con la vista previa y el contenido inicial para la sincronización de HangarDeck',
+      'bundle.item.readme': 'README.md como texto y la misma descripción como página legible README.html',
+      'bundle.item.legal': 'LICENSE y LIESMICH.txt con los primeros pasos',
+      'bundle.optional': 'Descargar es opcional. Los tres programas también funcionan aquí en la página, en el marco bajo la cabecera, y no necesitan servidor ni internet.'
     },
     en: {
       'theme.label': 'Colours',
@@ -547,7 +557,12 @@
       'area.glossary.t': 'Glossary', 'area.glossary.d': '95 terms, openable straight from the text.',
       'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.',
       'bundle.all': 'Download everything',
-      'bundle.allNote': 'Overview, all three programs, README, licence and readme file in one ZIP.'
+      'bundle.what': 'The package holds:',
+      'bundle.item.site': 'This overview page with header and version list, plus every image and script it needs',
+      'bundle.item.programs': 'The three programs, each one HTML file, with the previews and the starting set for the HangarDeck sync',
+      'bundle.item.readme': 'README.md as text and the same description as a readable page, README.html',
+      'bundle.item.legal': 'LICENSE and LIESMICH.txt with the first steps',
+      'bundle.optional': 'Downloading is optional. All three programs also run right here on this page, in the frame below the header, and need neither server nor internet.'
     }
   };
 

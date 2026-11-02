@@ -50,6 +50,9 @@ braucht es nicht. Quellen und Lizenzangaben bleiben im Dokument stehen.
 
 ## Öffnen und herunterladen
 
+Herunterladen ist freiwillig. Alle drei Programme laufen auch direkt auf der Übersichtsseite,
+im Rahmen unter der Kopfzeile, ohne Server und ohne Internet.
+
 Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner/),
 [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/),
 [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
@@ -117,6 +120,9 @@ install, an account or an internet connection.
 | **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 65 KB | Keep the quad list, export it as a table |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
+
+Downloading is optional. All three programs also run right on the overview page, in the frame
+below the header, without a server and without internet.
 
 *Download everything* on the overview page packs a ZIP with the overview page, the three
 programs, `README.md`, `README.html`, `LICENSE` and `LIESMICH.txt`. The same package sits as
