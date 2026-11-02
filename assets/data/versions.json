@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "updated": "2026-10-25",
+  "updated": "2026-11-02",
   "programs": [
     {
       "id": "tuner",
@@ -30,8 +30,8 @@
         ]
       },
       "meta": {
-        "de": ["1 Datei · 477 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"],
-        "en": ["1 file · 477 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"]
+        "de": ["1 Datei · 496 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"],
+        "en": ["1 file · 496 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"]
       }
     },
     {
@@ -73,18 +73,18 @@
       "program": "tuner",
       "version": "v4.8-alpha.1",
       "channel": "alpha",
-      "released": "2026-10-25",
+      "released": "2026-11-02",
       "title": {
         "de": "Erste öffentliche Alpha.",
         "en": "First public alpha."
       },
       "summary": {
-        "de": "Der komplette Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Prüfungen vor jedem Schreiben. Der Schnellabgleich oben ist neu getextet, an den Werten hat sich nichts geändert. An echter Hardware und im Flug ist er noch nicht getestet.",
-        "en": "The whole workflow with a visible CLI plan, backup gate and checks before every write. The quick guide at the top has new wording, the values themselves are unchanged. It has not been tested on real hardware or in flight."
+        "de": "Der komplette Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Prüfungen vor jedem Schreiben. Neu im Kopf: Sprache und Farbwahl als aufklappbare Auswahl. An echter Hardware und im Flug ist er noch nicht getestet.",
+        "en": "The whole workflow with a visible CLI plan, backup gate and checks before every write. New in the header: language and colour as collapsible selectors. It has not been tested on real hardware or in flight."
       },
       "file": "tuner/index.html",
-      "size_bytes": 477784,
-      "sha256": "97d99f32e81c6cc35e0d57665cca371c07bc49d6d5485f68e097deaab7e920e7",
+      "size_bytes": 496467,
+      "sha256": "68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4",
       "available": true,
       "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1",
       "signals": [

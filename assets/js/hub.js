@@ -12,6 +12,11 @@
   var UI = {
     de: {
       'theme.label': 'Farben',
+      'apps.guide': 'Guide',
+      'apps.tuner': 'Autotuner',
+      'apps.hangar': 'Hangar',
+      'apps.soon': 'bald',
+      'apps.hangarSoon': 'Hangar folgt, die Seite gibt es noch nicht.',
       'nav.projects': 'Programme',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -153,6 +158,11 @@
     },
     en: {
       'theme.label': 'Colours',
+      'apps.guide': 'Guide',
+      'apps.tuner': 'Autotuner',
+      'apps.hangar': 'Hangar',
+      'apps.soon': 'soon',
+      'apps.hangarSoon': 'Hangar is coming, the page does not exist yet.',
       'nav.projects': 'Programs',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -398,6 +408,50 @@
     syncThemeState();
   }
 
+  function moveAppPill(item) {
+    var track = $('#app-switch');
+    if (!track || !item) return;
+    var pill = track.querySelector('.app-switch__pill');
+    if (!pill) return;
+    pill.style.width = item.offsetWidth + 'px';
+    pill.style.transform = 'translateX(' + item.offsetLeft + 'px)';
+    track.setAttribute('data-active', '');
+  }
+
+  function hideAppPill() {
+    var track = $('#app-switch');
+    if (track) track.removeAttribute('data-active');
+  }
+
+  function initAppSwitch() {
+    var track = $('#app-switch');
+    if (!track) return;
+    var items = $$('.app-switch__item', track);
+
+    items.forEach(function (item) {
+      item.addEventListener('pointerenter', function () { moveAppPill(item); });
+      item.addEventListener('focus', function () { moveAppPill(item); });
+    });
+
+    track.addEventListener('pointerleave', hideAppPill);
+
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    items.forEach(function (item) {
+      if (item.tagName !== 'A') return;
+      item.addEventListener('click', function (event) {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        moveAppPill(item);
+        var target = item.getAttribute('href');
+        if (reduced) { window.location.href = target; return; }
+        window.setTimeout(function () { window.location.href = target; }, 150);
+      });
+    });
+
+    window.addEventListener('resize', hideAppPill);
+  }
+
   function initTheme() {
     var menu = $('#theme-menu');
     if (!menu) return;
@@ -428,6 +482,9 @@
     });
     $$('[data-i18n-placeholder]').forEach(function (el) {
       el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+    });
+    $$('[data-i18n-title]').forEach(function (el) {
+      el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
     });
     $$('[data-lang-btn]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === state.lang));
@@ -762,6 +819,7 @@
 
   function boot() {
     initTheme();
+    initAppSwitch();
     initControls();
 
     state.lang = document.documentElement.getAttribute('data-lang') === 'de' ? 'de' : 'en';
