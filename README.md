@@ -56,7 +56,8 @@ Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/).
 
 *Alles herunterladen* auf der Startseite packt ein ZIP mit der Übersichtsseite, den drei
-Programmen, `README.md`, `README.html`, `LICENSE` und `LIESMICH.txt`. *Mit Hub
+Programmen, `README.md`, `README.html`, `LICENSE` und `LIESMICH.txt`. Dasselbe Paket liegt
+als `FlowState-FPV-mit-Hub.zip` an jedem [Release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Mit Hub
 herunterladen* in einer Versionszeile packt denselben Inhalt und nennt das Programm im
 Dateinamen. Das ZIP entsteht bei jedem Klick neu, `README.html` wird dabei aus `README.md`
 erzeugt.
@@ -118,7 +119,8 @@ install, an account or an internet connection.
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 
 *Download everything* on the overview page packs a ZIP with the overview page, the three
-programs, `README.md`, `README.html`, `LICENSE` and `LIESMICH.txt`. *Download with hub* in a
+programs, `README.md`, `README.html`, `LICENSE` and `LIESMICH.txt`. The same package sits as
+`FlowState-FPV-mit-Hub.zip` on every [release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Download with hub* in a
 release row packs the same content and names the program in the file name. Unzip it and open
 `index.html`. Over `file://` the programs open in their own tab, over a server they sit in
 the frame below the header.
