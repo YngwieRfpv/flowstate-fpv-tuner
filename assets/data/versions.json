@@ -9,11 +9,13 @@
       "path": "hangar/",
       "kind": {
         "de": "Copter in einer Liste führen",
-        "en": "Keep quads in one list"
+        "en": "Keep quads in one list",
+        "es": "Llevar los copter en una lista"
       },
       "description": {
         "de": "Eine Liste pro Copter mit Größe, Zellen, KV, ESC, Props und Status. Export als PDF-Tabelle, CSV, Druck oder JSON, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
-        "en": "One list for your quads with size, cells, KV, ESC, props and status. Export as a PDF table, CSV, print or JSON, plus a sync with your own repository. Everything runs from a single file in the browser."
+        "en": "One list for your quads with size, cells, KV, ESC, props and status. Export as a PDF table, CSV, print or JSON, plus a sync with your own repository. Everything runs from a single file in the browser.",
+        "es": "Una lista por copter con tamaño, celdas, KV, ESC, hélices y estado. Exportación como tabla PDF, CSV, impresión o JSON, además de una sincronización con tu propio repositorio. Todo funciona en un solo archivo en el navegador."
       },
       "highlights": {
         "de": [
@@ -27,11 +29,30 @@
           "Export as a PDF table, CSV, print or JSON",
           "Sync through your own repository, reading needs no token",
           "German and English, Ocean, Sand and Drakn"
+        ],
+        "es": [
+          "El nombre y el tamaño bastan, los demás campos son opcionales",
+          "Exportación como tabla PDF, CSV, impresión o JSON",
+          "Sincronización con tu propio repositorio, lectura sin token",
+          "Alemán e inglés, océano, lino y rojo oscuro"
         ]
       },
       "meta": {
-        "de": ["1 Datei · 65 KB", "4 Felder Pflicht, 7 optional", "jeder moderne Browser"],
-        "en": ["1 file · 65 KB", "4 required fields, 7 optional", "any modern browser"]
+        "de": [
+          "1 Datei · 65 KB",
+          "4 Felder Pflicht, 7 optional",
+          "jeder moderne Browser"
+        ],
+        "en": [
+          "1 file · 65 KB",
+          "4 required fields, 7 optional",
+          "any modern browser"
+        ],
+        "es": [
+          "1 archivo · 65 KB",
+          "4 campos obligatorios, 7 opcionales",
+          "cualquier navegador actual"
+        ]
       }
     },
     {
@@ -41,11 +62,13 @@
       "path": "tuner/",
       "kind": {
         "de": "Tuning aus Blackbox-Logs",
-        "en": "Tuning from blackbox logs"
+        "en": "Tuning from blackbox logs",
+        "es": "Ajuste a partir de registros Blackbox"
       },
       "description": {
         "de": "Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial, nur nach Sicherung und Bestätigung. Alles läuft im Browser.",
-        "en": "Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial, only after a backup and confirmation. Everything runs in the browser."
+        "en": "Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial, only after a backup and confirmation. Everything runs in the browser.",
+        "es": "Lee registros Blackbox y Dataflash, deduce valores de filtros y PID y muestra cada paso como un plan CLI legible. La escritura va por Web Serial, solo tras una copia de seguridad y una confirmación. Todo funciona en el navegador."
       },
       "highlights": {
         "de": [
@@ -59,11 +82,30 @@
           "Visible CLI plan before every write",
           "Target-profile protection: only the selected PID profile changes",
           "German and English, Ocean, Sand and Drakn"
+        ],
+        "es": [
+          "Seis fases desde el setup hasta el archivo, cada una con su cierre",
+          "Plan CLI visible antes de cada escritura",
+          "Protección del perfil objetivo: solo cambia el perfil PID elegido",
+          "Alemán, inglés y español, océano, lino y rojo oscuro"
         ]
       },
       "meta": {
-        "de": ["1 Datei · 497 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"],
-        "en": ["1 file · 497 KB", "Betaflight 4.5+", "Chrome / Edge / Opera"]
+        "de": [
+          "1 Datei · 497 KB",
+          "Betaflight 4.5+",
+          "Chrome / Edge / Opera"
+        ],
+        "en": [
+          "1 file · 497 KB",
+          "Betaflight 4.5+",
+          "Chrome / Edge / Opera"
+        ],
+        "es": [
+          "1 archivo · 497 KB",
+          "Betaflight 4.5+",
+          "Chrome / Edge / Opera"
+        ]
       }
     },
     {
@@ -73,11 +115,13 @@
       "path": "guide/",
       "kind": {
         "de": "Nachschlagen und Schritt für Schritt nachbauen",
-        "en": "Look things up and rebuild step by step"
+        "en": "Look things up and rebuild step by step",
+        "es": "Consultar y reconstruir paso a paso"
       },
       "description": {
         "de": "Führt vom ersten Build bis zum Feintuning: Simple Tuning, Advanced Tuning, Build-Guide, 95 Glossarbegriffe mit Quellen und der vollständige Sbang-Ablauf. Mit Profilauswahl für Coptergröße, Frame, Taktrate und Firmware.",
-        "en": "Leads from the first build to fine tuning: simple tuning, advanced tuning, build guide, 95 glossary terms with sources and the full Sbang workflow. With profile selection for quad size, frame, loop rate and firmware."
+        "en": "Leads from the first build to fine tuning: simple tuning, advanced tuning, build guide, 95 glossary terms with sources and the full Sbang workflow. With profile selection for quad size, frame, loop rate and firmware.",
+        "es": "Lleva desde el primer montaje hasta el ajuste fino: simple tuning, advanced tuning, guía de montaje, 95 términos de glosario con fuentes y el procedimiento Sbang completo. Con selección de perfil por tamaño de copter, chasis, frecuencia de bucle y firmware."
       },
       "highlights": {
         "de": [
@@ -91,11 +135,30 @@
           "95 glossary terms, openable straight from the text",
           "Values and tables follow your quad profile",
           "Ocean, Sand and Drakn, taken over from the overview page"
+        ],
+        "es": [
+          "Ocho secciones desde la portada hasta la lista de enlaces",
+          "95 términos de glosario, que se abren directamente en el texto",
+          "Los valores y las tablas siguen el perfil de tu copter",
+          "Océano, lino y rojo oscuro, tomados de la vista general"
         ]
       },
       "meta": {
-        "de": ["1 Datei · 7,7 MB", "DE / EN / ES", "auch mobil"],
-        "en": ["1 file · 7.7 MB", "DE / EN / ES", "mobile ready"]
+        "de": [
+          "1 Datei · 7,7 MB",
+          "DE / EN / ES",
+          "auch mobil"
+        ],
+        "en": [
+          "1 file · 7.7 MB",
+          "DE / EN / ES",
+          "mobile ready"
+        ],
+        "es": [
+          "1 archivo · 7,7 MB",
+          "DE / EN / ES",
+          "también en móvil"
+        ]
       }
     }
   ],
@@ -108,11 +171,13 @@
       "released": "2026-11-02",
       "title": {
         "de": "Farbe kommt aus der Adresse, erster Platz im Umschalter.",
-        "en": "Colour comes in the address, first place in the switch."
+        "en": "Colour comes in the address, first place in the switch.",
+        "es": "El color llega por la dirección, primer puesto en el selector."
       },
       "summary": {
         "de": "HangarDeck Lite liest die Palette zusätzlich aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. In der Übersicht steht es jetzt an erster Stelle: HangarDeck, Tuner, Guide. Liste, Exporte und Abgleich sind unverändert.",
-        "en": "HangarDeck Lite also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes first: HangarDeck, tuner, guide. List, exports and sync are unchanged."
+        "en": "HangarDeck Lite also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes first: HangarDeck, tuner, guide. List, exports and sync are unchanged.",
+        "es": "HangarDeck Lite también lee la paleta de la dirección (`?theme=`) y la sigue cuando en otra ventana se elige un color. En la vista general ocupa ahora el primer puesto: HangarDeck, Tuner, Guide. La lista, las exportaciones y la sincronización no cambian."
       },
       "file": "hangar/index.html",
       "size_bytes": 65431,
@@ -123,35 +188,40 @@
         {
           "label": {
             "de": "Flotte",
-            "en": "Fleet"
+            "en": "Fleet",
+            "es": "Flota"
           },
           "state": "ok"
         },
         {
           "label": {
             "de": "CLI-Import",
-            "en": "CLI import"
+            "en": "CLI import",
+            "es": "Importación CLI"
           },
           "state": "ok"
         },
         {
           "label": {
             "de": "Auslese am FC",
-            "en": "Reading a controller"
+            "en": "Reading a controller",
+            "es": "Lectura en la FC"
           },
           "state": "pending"
         },
         {
           "label": {
             "de": "Sprache DE/EN",
-            "en": "Language DE/EN"
+            "en": "Language DE/EN",
+            "es": "Idioma DE/EN"
           },
           "state": "ok"
         },
         {
           "label": {
             "de": "Datenexport",
-            "en": "Data export"
+            "en": "Data export",
+            "es": "Exportación de datos"
           },
           "state": "ok"
         }
@@ -168,6 +238,12 @@
           "Import reads diff all, status and version",
           "Without a controller the workflow can be tried with sample data",
           "Export JSON before changing browsers or clearing data"
+        ],
+        "es": [
+          "MSP v1 devuelve identidad, máscara de sensores y configuración de motores, pero no el chip del giroscopio",
+          "La importación lee diff all, status y version",
+          "Sin una FC conectada el procedimiento se puede probar con datos de ejemplo",
+          "Exporta JSON antes de cambiar de navegador o de limpiar los datos"
         ]
       },
       "limits": {
@@ -182,6 +258,12 @@
           "German and English, no Spanish",
           "Reading from real hardware is pending",
           "Data lives only in this browser's localStorage"
+        ],
+        "es": [
+          "La paleta viene de la elección en la vista general o de `?theme=`",
+          "Alemán e inglés, sin español",
+          "La lectura en hardware real sigue pendiente",
+          "Los datos solo viven en el localStorage de este navegador"
         ]
       }
     },
@@ -193,11 +275,13 @@
       "released": "2026-11-02",
       "title": {
         "de": "Farbe kommt aus der Adresse und aus dem zweiten Fenster.",
-        "en": "Colour comes in the address and from the second window."
+        "en": "Colour comes in the address and from the second window.",
+        "es": "El color llega por la dirección y desde la segunda ventana."
       },
       "summary": {
         "de": "Der Tuner liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. Im Umschalter steht er jetzt zwischen HangarDeck und Guide. Der Ablauf der sechs Phasen ist unverändert, an echter Hardware und im Flug weiterhin nicht getestet.",
-        "en": "The tuner also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the switch it now sits between HangarDeck and guide. The six phases are unchanged, still not tested on real hardware or in flight."
+        "en": "The tuner also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the switch it now sits between HangarDeck and guide. The six phases are unchanged, still not tested on real hardware or in flight.",
+        "es": "El tuner también lee la paleta de la dirección (`?theme=`) y la sigue cuando en otra ventana se elige un color. En el selector está ahora entre HangarDeck y Guide. El desarrollo de las seis fases no cambia y sigue sin probarse en hardware real ni en vuelo."
       },
       "file": "tuner/index.html",
       "size_bytes": 496882,
@@ -205,11 +289,46 @@
       "available": true,
       "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4",
       "signals": [
-        { "label": { "de": "Log-Analyse", "en": "Log analysis" }, "state": "ok" },
-        { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
-        { "label": { "de": "Spanisch", "en": "Spanish" }, "state": "pending" },
-        { "label": { "de": "Verbindung zum FC", "en": "Connection to FC" }, "state": "pending" },
-        { "label": { "de": "Flugtest", "en": "Flight test" }, "state": "pending" }
+        {
+          "label": {
+            "de": "Log-Analyse",
+            "en": "Log analysis",
+            "es": "Análisis de registros"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN",
+            "es": "Idioma DE/EN"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Spanisch",
+            "en": "Spanish",
+            "es": "Español"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Verbindung zum FC",
+            "en": "Connection to FC",
+            "es": "Conexión a la FC"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Flugtest",
+            "en": "Flight test",
+            "es": "Prueba en vuelo"
+          },
+          "state": "pending"
+        }
       ],
       "notes": {
         "de": [
@@ -229,6 +348,15 @@
           "Imported logs keep their origin; missing values stay UNKNOWN",
           "Multiple flights in one log are kept as separate segments",
           "Plan, manifest and raw logs can be exported at any time"
+        ],
+        "es": [
+          "Una entrada para todos los programas: flowstate-theme lleva ocean, sand y drakn",
+          "Los valores antiguos dark, light y cream se siguen leyendo",
+          "El color viaja además como ?theme= en la dirección",
+          "Las fases de filtro, P/D, master y finish trabajan sobre el mismo conjunto de registros",
+          "Los registros importados conservan su origen, los valores ausentes quedan como DESCONOCIDO",
+          "Varios vuelos en un registro se llevan como segmentos separados",
+          "El plan, el manifiesto y los registros en bruto se pueden exportar en cualquier momento"
         ]
       },
       "limits": {
@@ -243,6 +371,12 @@
           "Writing requires Betaflight 4.5 or newer",
           "Tuning does not replace mechanical inspection",
           "Remove props for all work on the USB-connected craft"
+        ],
+        "es": [
+          "La prueba de conexión con una controladora real sigue pendiente",
+          "Escritura solo con Betaflight 4.5 o más nuevo",
+          "El ajuste no sustituye una revisión mecánica",
+          "Quita las hélices para cualquier trabajo en el copter conectado por USB"
         ]
       }
     },
@@ -254,11 +388,13 @@
       "released": "2026-11-02",
       "title": {
         "de": "Farbe kommt aus der Adresse, dritter Platz im Umschalter.",
-        "en": "Colour comes in the address, third place in the switch."
+        "en": "Colour comes in the address, third place in the switch.",
+        "es": "El color llega por la dirección, tercer puesto en el selector."
       },
       "summary": {
         "de": "Der Guide liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. In der Übersicht steht er jetzt an dritter Stelle: HangarDeck, Tuner, Guide. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
-        "en": "The guide also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes third: HangarDeck, tuner, guide. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
+        "en": "The guide also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes third: HangarDeck, tuner, guide. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview.",
+        "es": "La guía también lee la paleta de la dirección (`?theme=`) y la sigue cuando en otra ventana se elige un color. En la vista general ocupa ahora el tercer puesto: HangarDeck, Tuner, Guide. El contenido, los valores, las fuentes y el procedimiento Sbang no cambian; el español sigue siendo una vista previa sin revisar."
       },
       "file": "guide/index.html",
       "size_bytes": 7682974,
@@ -266,11 +402,46 @@
       "available": true,
       "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.12-es",
       "signals": [
-        { "label": { "de": "Aufbau der Seite", "en": "Page structure" }, "state": "ok" },
-        { "label": { "de": "Glossar", "en": "Glossary" }, "state": "ok" },
-        { "label": { "de": "Sprache DE/EN", "en": "Language DE/EN" }, "state": "ok" },
-        { "label": { "de": "Spanisch", "en": "Spanish" }, "state": "pending" },
-        { "label": { "de": "Durchsicht", "en": "Review" }, "state": "pending" }
+        {
+          "label": {
+            "de": "Aufbau der Seite",
+            "en": "Page structure",
+            "es": "Estructura de la página"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Glossar",
+            "en": "Glossary",
+            "es": "Glosario"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN",
+            "es": "Idioma DE/EN"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Spanisch",
+            "en": "Spanish",
+            "es": "Español"
+          },
+          "state": "pending"
+        },
+        {
+          "label": {
+            "de": "Durchsicht",
+            "en": "Review",
+            "es": "Revisión"
+          },
+          "state": "pending"
+        }
       ],
       "notes": {
         "de": [
@@ -284,6 +455,12 @@
           "The build guide checks the foundation before tuning starts",
           "The quad profile drives values, tables and checklists",
           "Sbang is a guided workflow in six steps"
+        ],
+        "es": [
+          "Simple tuning como entrada directa, advanced tuning para el trabajo fino",
+          "La guía de montaje revisa la base antes de ajustar",
+          "El perfil del copter determina los valores, las tablas y las listas de comprobación",
+          "Sbang es un procedimiento guiado en seis pasos"
         ]
       },
       "limits": {
@@ -298,6 +475,12 @@
           "One large file: the first load takes a moment",
           "Leave Sbang content and sequence unchanged",
           "Do not remove source or licence notices inside the document"
+        ],
+        "es": [
+          "Los valores de Betaflight y ESC dependen del firmware y del hardware",
+          "Un solo archivo grande: la primera carga tarda un momento",
+          "No cambiar el contenido ni el orden de Sbang",
+          "No quitar los avisos de fuentes y licencias del documento"
         ]
       }
     }
