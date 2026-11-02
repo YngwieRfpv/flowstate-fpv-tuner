@@ -17,6 +17,10 @@
       'apps.hangar': 'Hangar',
       'apps.soon': 'bald',
       'apps.hangarSoon': 'Hangar folgt, die Seite gibt es noch nicht.',
+      'stage.back': 'Zurück zur Übersicht',
+      'stage.newTab': 'In neuem Tab',
+      'stage.loading': 'Wird geladen',
+      'stage.slow': 'Lädt nicht im Rahmen, dann hier direkt öffnen',
       'nav.projects': 'Programme',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -163,6 +167,10 @@
       'apps.hangar': 'Hangar',
       'apps.soon': 'soon',
       'apps.hangarSoon': 'Hangar is coming, the page does not exist yet.',
+      'stage.back': 'Back to the overview',
+      'stage.newTab': 'In a new tab',
+      'stage.loading': 'Loading',
+      'stage.slow': 'Not loading in the frame? Open it directly',
       'nav.projects': 'Programs',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -423,6 +431,143 @@
     if (track) track.removeAttribute('data-active');
   }
 
+  var APPS = { guide: 'guide/', tuner: 'tuner/' };
+  var stageScroll = 0;
+  var stageTimer = null;
+
+  function currentAppId() {
+    var m = /^#\/(guide|tuner)$/.exec(location.hash);
+    return m ? m[1] : '';
+  }
+
+  function openApp(id, opts) {
+    var path = APPS[id];
+    var stage = $('#app-stage');
+    var frame = $('#app-frame');
+    if (!path) return;
+    if (!stage || !frame) { window.location.href = path; return; }
+
+    if (!document.body.classList.contains('app-open')) stageScroll = window.scrollY;
+    document.body.classList.add('app-open');
+    stage.hidden = false;
+    window.scrollTo(0, 0);
+
+    var loading = $('#app-stage-loading');
+    var lang = (opts && opts.lang) || state.lang;
+    var url = path + '?lang=' + lang;
+    if (frame.getAttribute('data-src') !== url) {
+      frame.setAttribute('data-src', url);
+      frame.removeAttribute('data-loaded');
+      if (loading) loading.hidden = false;
+      frame.src = url;
+    } else if (loading && frame.getAttribute('data-loaded') === 'true') {
+      loading.hidden = true;
+    }
+
+    var slow = $('#app-stage-slow');
+    var slowLink = $('#app-stage-slow-link');
+    if (slowLink) slowLink.setAttribute('href', path + '?lang=' + lang);
+    if (slow) slow.hidden = true;
+    if (stageTimer) window.clearTimeout(stageTimer);
+    stageTimer = window.setTimeout(function () {
+      if (frame.getAttribute('data-loaded') !== 'true' && slow) slow.hidden = false;
+    }, 12000);
+
+    var title = $('#app-stage-title');
+    if (title) title.textContent = t('apps.' + id);
+    frame.setAttribute('title', t('apps.' + id));
+    var openLink = $('#app-stage-open');
+    if (openLink) openLink.setAttribute('href', path);
+
+    var track = $('#app-switch');
+    if (track) {
+      $$('.app-switch__item', track).forEach(function (item) {
+        var on = item.getAttribute('data-app') === id;
+        item.classList.toggle('app-switch__item--active', on);
+        if (on) moveAppPill(item);
+      });
+    }
+
+    if (!opts || opts.push !== false) {
+      var hash = '#/' + id;
+      if (location.hash !== hash) history.pushState({ app: id }, '', hash);
+    }
+  }
+
+  function closeApp(opts) {
+    var stage = $('#app-stage');
+    if (!stage || stage.hidden) return;
+    stage.hidden = true;
+    document.body.classList.remove('app-open');
+
+    var track = $('#app-switch');
+    if (track) {
+      $$('.app-switch__item', track).forEach(function (item) {
+        item.classList.remove('app-switch__item--active');
+      });
+      hideAppPill();
+    }
+
+    if (!opts || opts.restore !== false) window.scrollTo(0, stageScroll);
+    if (!opts || opts.push !== false) {
+      history.pushState({}, '', location.pathname + location.search);
+    }
+  }
+
+  function routeApp() {
+    var id = currentAppId();
+    if (id) openApp(id, { push: false });
+    else closeApp({ push: false });
+  }
+
+  function initAppStage() {
+    var stage = $('#app-stage');
+    var frame = $('#app-frame');
+    if (!stage || !frame) return;
+
+    frame.addEventListener('load', function () {
+      if (frame.getAttribute('src') === 'about:blank') return;
+      frame.setAttribute('data-loaded', 'true');
+      var loading = $('#app-stage-loading');
+      if (loading) loading.hidden = true;
+      if (stageTimer) { window.clearTimeout(stageTimer); stageTimer = null; }
+    });
+
+    var close = $('#app-stage-close');
+    if (close) close.addEventListener('click', function () { closeApp(); });
+
+    var brand = document.querySelector('.site-header .brand');
+    if (brand) {
+      brand.addEventListener('click', function (event) {
+        if (stage.hidden) return;
+        event.preventDefault();
+        closeApp();
+      });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !stage.hidden) closeApp();
+    });
+
+    window.addEventListener('popstate', routeApp);
+
+    // Verweise auf die Programme laufen im Rahmen, nicht als Seitenwechsel.
+    document.addEventListener('click', function (event) {
+      if (event.defaultPrevented) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      var link = event.target && event.target.closest ? event.target.closest('a') : null;
+      if (!link || link.hasAttribute('download')) return;
+      if (link.target && link.target !== '_self') return;
+      var href = link.getAttribute('href') || '';
+      var m = /^(?:\.\/)?(guide|tuner)\/?(?:\?lang=(de|en|es))?$/.exec(href);
+      if (!m) return;
+      event.preventDefault();
+      openApp(m[1], { lang: m[2] });
+    });
+
+    routeApp();
+  }
+
   function initAppSwitch() {
     var track = $('#app-switch');
     if (!track) return;
@@ -443,9 +588,9 @@
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
         event.preventDefault();
         moveAppPill(item);
-        var target = item.getAttribute('href');
-        if (reduced) { window.location.href = target; return; }
-        window.setTimeout(function () { window.location.href = target; }, 150);
+        var id = item.getAttribute('data-app');
+        if (reduced) { openApp(id); return; }
+        window.setTimeout(function () { openApp(id); }, 120);
       });
     });
 
@@ -725,6 +870,8 @@
     $$('[data-lang-btn]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         setLang(btn.getAttribute('data-lang-btn'));
+        var stage = $('#app-stage');
+        if (stage && !stage.hidden) openApp(currentAppId() || 'guide', { push: false });
       });
     });
 
@@ -825,6 +972,7 @@
     state.lang = document.documentElement.getAttribute('data-lang') === 'de' ? 'de' : 'en';
     applyStatic();
     syncThemeState();
+    initAppStage();
 
     var year = $('#year');
     if (year) year.textContent = String(new Date().getFullYear());
