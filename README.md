@@ -17,9 +17,16 @@ Prüfsummen und Antworten auf die häufigsten Fragen. Diese Seite ist zweisprach
 und Hangar um. Die gewählte App öffnet sich direkt darunter im Rahmen, ohne Seitenwechsel;
 darüber liegen zwei Schaltflächen für die Rückkehr zur Übersicht und für ein eigenes
 Browserfenster. Die Adressen `#/guide`, `#/tuner` und `#/hangar` lassen sich direkt
-aufrufen und weitergeben. Die Farben wechseln ebenfalls im Kopf: Ozean, Leinen und
-Dunkelrot. Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck in
-dieser Fassung auf Deutsch.
+aufrufen und weitergeben.
+
+Im Kopf stehen Sprache und Farben als Felder nebeneinander, ohne aufklappende Liste:
+DE und EN, daneben die drei Paletten Ozean, Leinen und Dunkelrot als Farbstreifen. Beide
+Wahlen gelten auch für das Programm, das du danach öffnest. Die Sprache steht in der
+Adresse (`?lang=`), die Farbe im lokalen Speicher, den auch der Tuner liest. Wechselst du
+die Farbe bei offenem Programm, lädt der Rahmen einmal neu, damit das Programm mitzieht.
+
+Tuner und Guide gibt es auf Deutsch, Englisch und Spanisch, HangarDeck in dieser Fassung
+auf Deutsch.
 
 Wer in der Versionsliste auf *Mit Hub herunterladen* klickt, bekommt die Übersichtsseite als
 Paket: Hub, Styles, Skripte und alle drei Programme in einem ZIP. Entpackt und per

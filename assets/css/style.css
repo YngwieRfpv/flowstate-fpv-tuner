@@ -636,6 +636,13 @@ body.app-open .site-header {
   }
 }
 
+/* Enger gestellt, damit Umschalter, Sprache und Farben nebeneinander Platz haben. */
+@media (max-width: 1140px) {
+  .header-inner {
+    gap: 12px;
+  }
+}
+
 /* Auf schmalen Schirmen bleibt die Marke als Zeichen, damit der Umschalter Platz hat. */
 @media (max-width: 640px) {
   .header-inner .brand-text {
@@ -649,52 +656,72 @@ body.app-open .site-header {
   }
 }
 
-/* Farbschema-Auswahl: ein Knopf, der die Palettenliste aufklappt. */
+/* Auf dem Handy enger: Sprache, Farben und Umschalter bleiben nebeneinander. */
+@media (max-width: 480px) {
+  .header-inner {
+    gap: 8px;
+  }
 
-.theme-menu {
-  position: relative;
+  .app-switch__item {
+    padding: 7px 6px;
+  }
+
+  .lang-switch button {
+    padding: 5px 6px;
+  }
+
+  .theme-switch .theme-option {
+    padding: 2px;
+  }
+
+  .theme-switch .theme-dots i {
+    width: 4px;
+    height: 14px;
+  }
 }
 
-.theme-menu summary {
+@media (max-width: 400px) {
+  .header-inner .brand-mark {
+    display: none;
+  }
+}
+
+/* Farben: die drei Paletten liegen nebeneinander, nichts klappt auf. */
+
+.theme-switch {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 36px;
-  padding: 0 9px;
+  gap: 2px;
+  padding: 2px;
   border: 1px solid var(--line);
-  border-radius: 9px;
-  background: var(--panel);
-  color: var(--muted);
-  cursor: pointer;
-  list-style: none;
-  transition: color 0.16s var(--ease), border-color 0.16s var(--ease),
-    background 0.16s var(--ease);
+  border-radius: 8px;
+  background: var(--bg-soft);
+  flex-shrink: 0;
 }
 
-.theme-menu summary::-webkit-details-marker {
-  display: none;
+.theme-switch .theme-option {
+  width: auto;
+  padding: 3px;
+  border-radius: 6px;
+  line-height: 0;
 }
 
-.theme-menu summary:hover,
-.theme-menu[open] summary {
-  color: var(--text);
-  border-color: var(--line-strong);
+.theme-switch .theme-option:hover {
   background: var(--panel-hover);
 }
 
-.theme-menu summary:focus-visible {
+.theme-switch .theme-option:focus-visible {
   outline: 2px solid var(--mint);
   outline-offset: 2px;
 }
 
-.theme-menu__chev {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.18s var(--ease);
+.theme-switch .theme-option[aria-pressed="true"] {
+  background: var(--panel);
 }
 
-.theme-menu[open] .theme-menu__chev {
-  transform: rotate(180deg);
+.theme-switch .theme-dots {
+  width: auto;
+  border-radius: 4px;
 }
 
 /* Die fünf Töne der laufenden Palette als Streifen */
@@ -717,26 +744,6 @@ body.app-open .site-header {
 .theme-dots i:nth-child(4) { background: var(--sw-4, transparent); }
 .theme-dots i:nth-child(5) { background: var(--sw-5, transparent); }
 
-.theme-menu summary .theme-dots i {
-  width: 8px;
-}
-
-.theme-menu__list {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  z-index: 60;
-  width: max-content;
-  min-width: 158px;
-  padding: 6px;
-  display: grid;
-  gap: 4px;
-  background: var(--panel);
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-}
-
 .theme-option {
   display: block;
   width: 100%;
@@ -757,31 +764,26 @@ body.app-open .site-header {
 }
 
 /* Der laufende Satz ist umrandet statt beschriftet. */
-.theme-option .theme-dots {
-  width: 100%;
-  border-radius: 5px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16) inset;
-}
-
 .theme-option .theme-dots i {
-  flex: 1;
-  width: auto;
-  height: 24px;
+  width: 6px;
+  height: 18px;
 }
 
 .theme-option[aria-pressed="true"] .theme-dots {
   outline: 2px solid var(--mint);
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
 @media (max-width: 420px) {
-  .theme-menu summary .theme-dots i {
-    width: 6px;
+  .theme-option .theme-dots i {
+    width: 5px;
+    height: 16px;
   }
 }
 
 .lang-switch {
   display: inline-flex;
+  flex-shrink: 0;
   padding: 2px;
   gap: 2px;
   background: var(--bg-soft);
@@ -2053,11 +2055,13 @@ details.notes > summary:hover {
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   .nav {
     display: none;
   }
+}
 
+@media (max-width: 860px) {
   .project-grid {
     grid-template-columns: 1fr;
   }
