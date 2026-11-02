@@ -8,3 +8,6 @@ Thumbs.db
 *.log
 .env
 .env.*
+
+# Das Gesamtpaket entsteht beim Bauen, es gehoert nicht in den Verlauf.
+paket/

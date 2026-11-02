@@ -1,0 +1,42 @@
+name: Gesamtpaket
+
+# Baut das ZIP mit Startseite, allen drei Programmen, README als Seite, Lizenz und
+# LIESMICH und hängt es an das Release. Läuft bei jeder Veröffentlichung, sonst von Hand
+# mit dem Tag als Eingabe.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag, an den das Paket gehaengt wird
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: paket
+  cancel-in-progress: false
+
+jobs:
+  paket:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository holen
+        uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: ZIP bauen
+        run: node tools/paket.mjs
+
+      - name: ZIP an das Release hängen
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
+        run: gh release upload "$TAG" paket/FlowState-FPV-mit-Hub.zip --clobber
