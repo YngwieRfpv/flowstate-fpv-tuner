@@ -81,13 +81,13 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.3) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.12-es) |
+| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.3) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.13-es) |
 |---|---|---|---|
-| Version | `v0.4.0-beta.3` | `v4.8-alpha.4` | `v1.0.2-beta.12-es` |
+| Version | `v0.4.0-beta.3` | `v4.8-alpha.4` | `v1.0.2-beta.13-es` |
 | Kanal | Beta | Alpha | Beta |
 | Datum | 02.11.2026 | 02.11.2026 | 02.11.2026 |
-| Größe (Bytes) | 65.431 | 496.882 | 7.682.974 |
-| SHA-256 | `c0651cba657ffe27398aa01b7518f56c6234508c81f3d4c3703c51aaa5f5b75e` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `42c84cfaa3af61248e4e91434d6c43f35be040fd330caa3ba8576673731ff178` |
+| Größe (Bytes) | 65.431 | 496.882 | 7.687.988 |
+| SHA-256 | `c0651cba657ffe27398aa01b7518f56c6234508c81f3d4c3703c51aaa5f5b75e` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `09293f03b5ae0da0409c8169e67706fa67b11ba70aed4f7b9fd7e25ffd3d1342` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, jeweils gefolgt vom erwarteten Wert aus der Tabelle.

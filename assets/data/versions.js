@@ -383,26 +383,26 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "guide-1.0.2-beta.12-es",
+      "id": "guide-1.0.2-beta.13-es",
       "program": "guide",
-      "version": "v1.0.2-beta.12-es",
+      "version": "v1.0.2-beta.13-es",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Farbe kommt aus der Adresse, dritter Platz im Umschalter.",
-        "en": "Colour comes in the address, third place in the switch.",
-        "es": "El color llega por la dirección, tercer puesto en el selector."
+        "de": "Spanisch im Guide vollständig, Farbe aus der Adresse.",
+        "en": "Spanish complete in the guide, colour from the address.",
+        "es": "Español completo en la guía, color desde la dirección."
       },
       "summary": {
-        "de": "Der Guide liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. In der Übersicht steht er jetzt an dritter Stelle: HangarDeck, Tuner, Guide. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
-        "en": "The guide also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes third: HangarDeck, tuner, guide. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview.",
-        "es": "La guía también lee la paleta de la dirección (`?theme=`) y la sigue cuando en otra ventana se elige un color. En la vista general ocupa ahora el tercer puesto: HangarDeck, Tuner, Guide. El contenido, los valores, las fuentes y el procedimiento Sbang no cambian; el español sigue siendo una vista previa sin revisar."
+        "de": "Der Guide liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. In der Übersicht steht er an dritter Stelle: HangarDeck, Tuner, Guide. Das Spanische ist ergänzt: 69 fehlende Kurzbeschreibungen von Glossarbegriffen und Linkzielen sind übersetzt, falsche Begriffsnamen bereinigt. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "The guide also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it comes third: HangarDeck, tuner, guide. Spanish is filled in: 69 missing short descriptions of glossary terms and link targets are translated, wrong term names corrected. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview.",
+        "es": "La guía también lee la paleta de la dirección (`?theme=`) y la sigue cuando en otra ventana se elige un color. En la vista general ocupa el tercer puesto: HangarDeck, Tuner, Guide. El español está completo: se han traducido 69 descripciones cortas de términos del glosario y de enlaces, y se han corregido nombres de términos. El contenido, los valores, las fuentes y el procedimiento Sbang no cambian; el español sigue siendo una vista previa sin revisar."
       },
       "file": "guide/index.html",
-      "size_bytes": 7682974,
-      "sha256": "42c84cfaa3af61248e4e91434d6c43f35be040fd330caa3ba8576673731ff178",
+      "size_bytes": 7687988,
+      "sha256": "09293f03b5ae0da0409c8169e67706fa67b11ba70aed4f7b9fd7e25ffd3d1342",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.12-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.13-es",
       "signals": [
         {
           "label": {
