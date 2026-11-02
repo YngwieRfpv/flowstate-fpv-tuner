@@ -1,9 +1,7 @@
 # [FlowState FPV](https://yngwierfpv.github.io/flowstate-fpv-tuner/)
 
-Drei Programme für Betaflight. Jedes ist eine einzelne HTML-Datei, die im Browser läuft,
+Drei Programme für deine Copter. Jedes ist eine einzelne HTML-Datei, die im Browser läuft,
 ohne Installation, Konto oder Internetverbindung.
-
-Größen zur Basis 1000. Byte-Werte und Prüfsummen stehen unter [Versionen](#versionen).
 
 ---
 
@@ -126,7 +124,7 @@ auf Deutsch und Englisch in [`LICENSE`](LICENSE).
 
 ## English
 
-Three programs for Betaflight, each a single HTML file that runs in the browser without an
+Three programs for your quads, each a single HTML file that runs in the browser without an
 install, an account or an internet connection.
 
 | Program | File | Size | Purpose |
