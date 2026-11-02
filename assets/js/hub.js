@@ -5,9 +5,8 @@
   var LANG_KEY = 'flowstate-lang';
   var THEME_KEY = 'flowstate-theme';
   var THEMES = ['ocean', 'sand', 'drakn'];
-  // Die Programme lesen denselben Eintrag und kennen nur diese drei Namen.
-  // Gespeichert wird deshalb die Schreibweise der Programme, angezeigt die hiesige.
-  var THEME_STORED = { ocean: 'dark', sand: 'light', drakn: 'cream' };
+  // Ein Eintrag für alle Programme: flowstate-theme trägt ocean, sand oder drakn.
+  // Ältere Stände haben dark, light und cream gespeichert; die werden übersetzt.
   var THEME_ALIAS = { dark: 'ocean', light: 'sand', cream: 'drakn' };
   var THEME_BG = { ocean: '#06232a', sand: '#eef1f2', drakn: '#140a25' };
   var FALLBACK = 'en';
@@ -462,7 +461,7 @@
   function setTheme(theme) {
     if (THEMES.indexOf(theme) === -1) return;
     document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem(THEME_KEY, THEME_STORED[theme] || theme); } catch (e) {}
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
     syncThemeState();
     // Ein offenes Programm liest die Farben beim Laden: neu laden, damit es mitzieht.
     refreshApp();

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07131d">
 <meta name="description" content="HangarDeck - lokale Copter- und Flight-Controller-Verwaltung. Liest Betaflight/INAV FCs per Web-Serial (MSP) aus oder importiert CLI-Dumps. Offline, einzelne HTML-Datei.">
-<title>HangarDeck v0.1.0-beta.1 — Copter- &amp; FC-Verwaltung</title>
+<title>HangarDeck v0.1.0-beta.2 — Copter- &amp; FC-Verwaltung</title>
 <style>
 :root{
   --bg:#07131d;--bg2:#0a1a26;--panel:#0d1f2c;--panel2:#102735;
@@ -230,7 +230,7 @@ table.tbl td.nowrap{white-space:nowrap}
       <span>
         <b>HangarDeck</b>
         <small>Copter- &amp; Flight-Controller-Verwaltung</small>
-        <span class="release">v0.1.0-beta.1 · lokal · offline</span>
+        <span class="release">v0.1.0-beta.2 · lokal · offline</span>
       </span>
     </div>
 
@@ -547,7 +547,7 @@ table.tbl td.nowrap{white-space:nowrap}
   </main>
 
   <footer class="footer">
-    <b>HangarDeck v0.1.0-beta.1</b> · lokal im Browser · keine Cloud, keine Konten, keine Telemetrie<br>
+    <b>HangarDeck v0.1.0-beta.2</b> · lokal im Browser · keine Cloud, keine Konten, keine Telemetrie<br>
     Teil der FPV-Tool-Familie: FPV Guide · FlowState Tuner · HangarDeck
   </footer>
 </div>
@@ -562,7 +562,7 @@ table.tbl td.nowrap{white-space:nowrap}
    Einzeldatei, kein Build, keine externen Ressourcen.
    ===================================================================== */
 
-const APP = { name:"HangarDeck", version:"0.1.0-beta.1", schema:1, key:"hangardeck.v1" };
+const APP = { name:"HangarDeck", version:"0.1.0-beta.2", schema:1, key:"hangardeck.v1" };
 
 /* localStorage kann fehlen oder blockiert sein (Sandbox-Vorschau, harter Datenschutzmodus).
    Dann arbeitet die App flüchtig weiter, statt beim Laden abzubrechen. */
@@ -704,6 +704,7 @@ function blankState(){
   };
 }
 let S = blankState();
+const TON_UEBERSICHT = accentFromPalette();
 
 function loadState(){
   try{
@@ -719,6 +720,14 @@ function loadState(){
     console.warn("Speicher nicht verfügbar, arbeite flüchtig", e);
     S = seedState();
   }
+}
+/* Die Übersichtsseite wählt eine Palette; HangarDeck hat eine dunkle Palette mit
+   wählbarer Akzentfarbe und übernimmt daraus den passenden Ton. */
+function accentFromPalette(){
+  const map = { ocean: 'cyan', sand: 'amber', drakn: 'purple' };
+  try {
+    return map[localStorage.getItem('flowstate-theme')] || null;
+  } catch(e) { return null; }
 }
 function saveState(){
   S.meta = S.meta||{}; S.meta.updated = nowISO(); S.schema = APP.schema;
@@ -2059,6 +2068,8 @@ function wire(){
 
 function init(){
   loadState();
+  // Akzentfarbe aus der Übersichtsseite übernehmen, falls dort eine Palette gewählt ist.
+  if(TON_UEBERSICHT) S.settings.accent = TON_UEBERSICHT;
   renderAll();
   serialUI();
   wire();

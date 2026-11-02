@@ -33,12 +33,12 @@ window.FLOWSTATE_DATA = {
       },
       "meta": {
         "de": [
-          "1 Datei · 496 KB",
+          "1 Datei · 497 KB",
           "Betaflight 4.5+",
           "Chrome / Edge / Opera"
         ],
         "en": [
-          "1 file · 496 KB",
+          "1 file · 497 KB",
           "Betaflight 4.5+",
           "Chrome / Edge / Opera"
         ]
@@ -113,12 +113,12 @@ window.FLOWSTATE_DATA = {
       },
       "meta": {
         "de": [
-          "1 Datei · 109 KB",
+          "1 Datei · 112 KB",
           "Betaflight, INAV",
           "Web Serial in Chrome / Edge / Opera"
         ],
         "en": [
-          "1 file · 109 KB",
+          "1 file · 112 KB",
           "Betaflight, INAV",
           "Web Serial in Chrome / Edge / Opera"
         ]
@@ -127,24 +127,24 @@ window.FLOWSTATE_DATA = {
   ],
   "releases": [
     {
-      "id": "hangar-0.1.0-beta.1",
+      "id": "hangar-0.1.0-beta.2",
       "program": "hangar",
-      "version": "v0.1.0-beta.1",
+      "version": "v0.1.0-beta.2",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Erste Beta.",
-        "en": "First beta."
+        "de": "Akzentfarbe folgt der Übersichtsseite.",
+        "en": "The accent colour follows the overview page."
       },
       "summary": {
-        "de": "Flotte, FC-Bibliothek, Auslese über Web Serial, CLI-Import und Datenexport in einer Datei. Die Daten bleiben im Browser und lassen sich als JSON sichern.",
-        "en": "Fleet, FC library, reading over Web Serial, CLI import and data export in one file. Data stays in the browser and can be saved as JSON."
+        "de": "HangarDeck hat eine dunkle Palette mit wählbarer Akzentfarbe und nimmt aus der Farbwahl des Hubs den passenden Ton: Ozean cyan, Leinen amber, Dunkelrot violett. Ohne Wahl im Hub bleibt Grün.",
+        "en": "HangarDeck has one dark palette with a selectable accent and takes the matching tone from the hub choice: ocean cyan, sand amber, drakn violet. Without a choice in the hub it stays green."
       },
       "file": "hangar/index.html",
-      "size_bytes": 111542,
-      "sha256": "049a60829e827cb06c2b0c487a0cf70b918e45b06d99c42bf7c152bfb5eb1344",
+      "size_bytes": 112090,
+      "sha256": "500cda43df1c14e05fd5af3c260074f1173d0cf6ae696722635bd3fee880d406",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.1",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.2",
       "signals": [
         {
           "label": {
@@ -198,11 +198,13 @@ window.FLOWSTATE_DATA = {
       },
       "limits": {
         "de": [
+          "Eine dunkle Palette; die Farbwahl des Hubs steuert nur den Akzent",
           "Oberfläche derzeit nur auf Deutsch",
           "Auslese an echter Hardware steht aus",
           "Daten liegen nur im localStorage dieses Browsers"
         ],
         "en": [
+          "One dark palette; the hub choice only drives the accent",
           "Interface currently German only",
           "Reading from real hardware is pending",
           "Data lives only in this browser's localStorage"
@@ -210,24 +212,24 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "tuner-4.8-alpha.1",
+      "id": "tuner-4.8-alpha.2",
       "program": "tuner",
-      "version": "v4.8-alpha.1",
+      "version": "v4.8-alpha.2",
       "channel": "alpha",
       "released": "2026-11-02",
       "title": {
-        "de": "Erste öffentliche Alpha.",
-        "en": "First public alpha."
+        "de": "Farbwahl folgt jetzt der Übersichtsseite.",
+        "en": "The colour choice now follows the overview page."
       },
       "summary": {
-        "de": "Der komplette Ablauf mit sichtbarem CLI-Plan, Backup-Gate und Prüfungen vor jedem Schreiben. Neu im Kopf: Sprache und Farbwahl als aufklappbare Auswahl. An echter Hardware und im Flug ist er noch nicht getestet.",
-        "en": "The whole workflow with a visible CLI plan, backup gate and checks before every write. New in the header: language and colour as collapsible selectors. It has not been tested on real hardware or in flight."
+        "de": "Übernimmt beim Start die Palette der Übersichtsseite und schreibt eine Änderung im Kopf in denselben Eintrag zurück. Im Fuß und im CLI-Kommentar steht die Versionsnummer 4.8-alpha.2. An echter Hardware und im Flug weiterhin nicht getestet.",
+        "en": "Takes the palette from the overview page at start and writes a header change back to the same entry. The footer and the CLI comment show version 4.8-alpha.2. Still not tested on real hardware or in flight."
       },
       "file": "tuner/index.html",
-      "size_bytes": 496467,
-      "sha256": "68632ad6b277a44e726a7fefc9e2467ea0b45fd6e86caef96def45634d1337c4",
+      "size_bytes": 496561,
+      "sha256": "38cfae5db2dd3f460bd0116d40ca3298dae51b2c89fb3ca1b8306c77e96bd418",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.1",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.2",
       "signals": [
         {
           "label": {
@@ -267,12 +269,16 @@ window.FLOWSTATE_DATA = {
       ],
       "notes": {
         "de": [
+          "Ein Eintrag für alle Programme: flowstate-theme trägt ocean, sand und drakn",
+          "Alte Werte dark, light und cream werden weiter gelesen",
           "Filter-, P/D-, Master- und Finish-Phase arbeiten auf demselben Log-Satz",
           "Importierte Logs behalten ihre Herkunft; fehlende Werte bleiben UNBEKANNT",
           "Mehrere Flüge in einem Log werden als getrennte Segmente geführt",
           "Plan, Manifest und Roh-Logs lassen sich jederzeit exportieren"
         ],
         "en": [
+          "One entry for all programs: flowstate-theme carries ocean, sand and drakn",
+          "Old values dark, light and cream are still read",
           "Filter, P/D, master and finish phases work on the same log set",
           "Imported logs keep their origin; missing values stay UNKNOWN",
           "Multiple flights in one log are kept as separate segments",
@@ -295,24 +301,24 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "guide-1.0.1-beta.9-es",
+      "id": "guide-1.0.2-beta.1-es",
       "program": "guide",
-      "version": "v1.0.1-beta.9-es",
+      "version": "v1.0.2-beta.1-es",
       "channel": "beta",
-      "released": "2026-10-25",
+      "released": "2026-11-02",
       "title": {
-        "de": "Kapitel und Einleitungen sachlich überarbeitet.",
-        "en": "Chapters and introductions rewritten in plain language."
+        "de": "Übernimmt die Farbwahl der Übersichtsseite.",
+        "en": "Takes over the colour choice of the overview page."
       },
       "summary": {
-        "de": "Kapitelüberschriften nennen wieder direkt, was der Abschnitt behandelt, und die Einleitungen erklären den Zweck ohne Werbeton. Technische Werte, Quellen, Bilder und der Sbang-Ablauf sind unverändert. Spanisch bleibt ungeprüfte Vorschau.",
-        "en": "Chapter headings again state directly what a section covers, and the introductions explain their purpose without marketing language. Technical values, sources, images and the Sbang workflow are unchanged. Spanish remains an unverified preview."
+        "de": "Beim Öffnen liest der Guide den Eintrag flowstate-theme: Ozean öffnet die dunkle Palette, Leinen die helle. Ein eigenes Dunkelrot gibt es im Guide nicht, deshalb bleibt Dunkelrot dort dunkel. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "On load the guide reads flowstate-theme: ocean opens the dark palette, sand the light one. The guide has no dark red of its own, so drakn stays dark there. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
-      "size_bytes": 7663650,
-      "sha256": "bbded0b19bb854328bdd931adbee4da4ba20a80a9f71a497edae69b845650459",
+      "size_bytes": 7663821,
+      "sha256": "796ec978e462857667f25cb61fff0912379ae6ffbd1712b0223002ac14665674",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.1-beta.9-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.1-es",
       "signals": [
         {
           "label": {
