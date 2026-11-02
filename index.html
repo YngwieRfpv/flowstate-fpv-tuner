@@ -35,7 +35,7 @@
 </head>
 <body>
 
-<a class="sr-only" href="#programme">Zum Inhalt</a>
+<a class="sr-only" href="#uebersicht">Zum Inhalt</a>
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -64,7 +64,7 @@
     </div>
 
     <nav class="nav" aria-label="Navigation">
-      <a href="#programme" data-i18n="nav.projects">Programme</a>
+      <a href="#uebersicht" data-i18n="nav.projects">Programme</a>
       <a href="#sprachen" data-i18n="nav.langs">Sprachen</a>
       <a href="#versionen" data-i18n="nav.versions">Versionen</a>
       <a href="#fragen" data-i18n="nav.faq">Fragen</a>
@@ -120,9 +120,9 @@
 
 <main>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
+<section class="overview" id="uebersicht">
+  <div class="wrap overview-grid">
+    <div class="overview-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV</p>
       <h1>
         <span data-i18n="hero.title1">Drei Programme,</span><br>
@@ -130,128 +130,25 @@
         <span class="accent" data-i18n="hero.accent">kein Server</span>.
       </h1>
       <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Öffnen genügt: Installation, Konto und Internet braucht keines der drei.</p>
-      <div class="hero-cta">
-        <a class="btn btn--primary" href="hangar/">
-          <span data-i18n="hero.cta1">HangarDeck Lite öffnen</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-        </a>
-        <a class="btn btn--ghost" href="tuner/" data-i18n="hero.cta2">FlowState Tuner</a>
-        <a class="btn btn--ghost" href="guide/" data-i18n="hero.cta3">FPV Guide</a>
+      <div class="overview-actions">
+        <button class="btn btn--primary" type="button" data-bundle="all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5"/></svg>
+          <span data-i18n="bundle.all">Alles herunterladen</span>
+        </button>
         <a class="btn btn--quiet" href="#versionen" data-i18n="hero.cta4">Versionen</a>
       </div>
-      <dl class="hero-facts">
-        <div class="hero-fact">
-          <dt data-i18n="hero.fact.size.t">Eine Datei je Programm</dt>
-          <dd data-stat="sizes">65 KB · 497 KB · 7,7 MB</dd>
-        </div>
-        <div class="hero-fact">
-          <dt data-i18n="hero.fact.lang.t">Sprachen</dt>
-          <dd data-i18n="hero.fact.lang.d">Deutsch und Englisch vollständig, Spanisch ungeprüft</dd>
-        </div>
-        <div class="hero-fact">
-          <dt data-i18n="hero.fact.colors.t">Farben</dt>
-          <dd data-i18n="hero.fact.colors.d">Ozean, Leinen und Dunkelrot, in allen drei Programmen</dd>
-        </div>
-      </dl>
+      <p class="overview-note" data-i18n="bundle.allNote">Übersicht, alle drei Programme, README, Lizenz und LIESMICH in einem ZIP.</p>
     </div>
 
-    <aside class="hero-card">
-      <div class="hero-card-top">
-        <span class="hero-card-title" data-i18n="hero.card">Aktuelle Stände</span>
-        <span class="dot-row" aria-hidden="true"><span class="dot dot--live"></span><span class="dot"></span><span class="dot"></span></span>
-      </div>
-      <div id="hero-mini"></div>
-      <div class="hero-card-foot">
-        <span data-i18n="hero.foot">Stand der Dateien</span>
-        <span data-hero-date>—</span>
-      </div>
-    </aside>
+    <div class="overview-list reveal" id="overview-list" aria-live="polite"></div>
+    <p class="overview-links reveal">
+      <span data-i18n="overview.sections">Mehr zu den Programmen</span>
+      <a href="#hangar">HangarDeck Lite</a>
+      <a href="#tuner">FlowState Tuner</a>
+      <a href="#guide">FPV Guide</a>
+    </p>
   </div>
 </section>
-
-<section class="section" id="programme">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="programs.eyebrow">Programme</p>
-      <h2 data-i18n="programs.title">Was die drei Programme machen</h2>
-      <p class="lede" data-i18n="programs.lede">Die drei sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.</p>
-    </div>
-
-    <article class="program program--hangar reveal">
-      <figure class="program-figure">
-        <img src="assets/images/preview-hangar.svg" alt="Ansicht von HangarDeck Lite: Kopf mit Farbreihen, Sprachwahl und Copter-Zähler, darunter die Copter-Liste mit Größe, Zellen, KV, ESC, Props und Status" width="1200" height="760" loading="lazy">
-      </figure>
-      <div class="program-body">
-        <span class="program-index">01</span>
-        <p class="program-kicker" data-i18n="row.hangar.kicker">Copter-Liste, offline geführt</p>
-        <h3 class="program-title"><a class="program-title-link" href="https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/"><span>HangarDeck</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></a></h3>
-        <p class="program-text" data-i18n="row.hangar.text">Eine Liste pro Copter: Größe, Zellen, KV, ESC, Props und Status. Weitere Felder liegen unter Mehr Details und bleiben leer, wenn du sie nicht brauchst.</p>
-        <ul class="program-points">
-          <li data-i18n="row.hangar.p1">Copter anlegen, suchen und filtern</li>
-          <li data-i18n="row.hangar.p2">Export als PDF, CSV, Druck oder JSON</li>
-          <li data-i18n="row.hangar.p3">Abgleich mit dem eigenen Repository</li>
-        </ul>
-        <div class="program-actions">
-          <a class="btn btn--primary" href="hangar/">
-            <span data-i18n="row.hangar.cta">HangarDeck öffnen</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn--quiet" href="#hangar" data-i18n="row.more">Wie es arbeitet</a>
-        </div>
-      </div>
-    </article>
-    <article class="program program--tuner reveal">
-      <figure class="program-figure">
-        <img src="assets/images/preview-tuner.svg" alt="Ansicht des FlowState Tuner: Phasenleiste, Prüf-Gates, Gyro-Spektrum mit Motor-Notch, Filter-Slider und CLI-Plan" width="1200" height="760" loading="lazy">
-      </figure>
-      <div class="program-body">
-        <span class="program-index">02</span>
-        <p class="program-kicker" data-i18n="row.tuner.kicker">Aus Logs werden Werte</p>
-        <h3 class="program-title"><a class="program-title-link" href="https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/"><span>FlowState Tuner</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></a></h3>
-        <p class="program-text" data-i18n="row.tuner.text">Liest Blackbox- und Dataflash-Logs, rechnet daraus Filter- und PID-Werte und zeigt das Ergebnis als CLI-Plan zum Lesen. Geschrieben wird über Web Serial, und zwar erst, wenn ein Backup vorliegt und du zustimmst.</p>
-        <ul class="program-points">
-          <li data-i18n="row.tuner.p1">Sechs Phasen, die aufeinander aufbauen</li>
-          <li data-i18n="row.tuner.p2">Backup-, Firmware- und Profil-Gate vor jedem Schreiben</li>
-          <li data-i18n="row.tuner.p3">Chrome, Edge oder Opera am Desktop für die FC-Verbindung</li>
-        </ul>
-        <p class="program-warning" data-i18n="row.tuner.warning">Alpha: Schreiben auf eigene Gefahr. An echter Hardware und im Flug ist der Schreibpfad noch nicht getestet. Den Plan kannst du vorher vollständig lesen.<strong>Alpha:</strong> Schreiben auf eigene Gefahr. Der Schreibpfad ist an echter Hardware und im Flug nicht erprobt — der Plan lässt sich vorher vollständig lesen und prüfen.</p>
-        <div class="program-actions">
-          <a class="btn btn--primary" href="tuner/">
-            <span data-i18n="row.tuner.cta">Tuner öffnen</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn--quiet" href="#tuner" data-i18n="row.more">Wie es arbeitet</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="program program--guide reveal">
-      <figure class="program-figure">
-        <img src="assets/images/preview-guide.svg" alt="Ansicht des FPV Guide: Seitenleiste mit acht Bereichen und Workflow, Topbar, Profilzeile und der Tuning-Schritt ESC vorbereiten" width="1200" height="760" loading="lazy">
-      </figure>
-      <div class="program-body">
-        <span class="program-index">03</span>
-        <p class="program-kicker" data-i18n="row.guide.kicker">Erklärt, was du einstellst</p>
-        <h3 class="program-title"><a class="program-title-link" href="https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/"><span>FPV Guide</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></a></h3>
-        <p class="program-text" data-i18n="row.guide.text">Führt vom ersten Build bis zum Feintuning, mit Begriffen, Tabellen und dem Ablauf Schritt für Schritt. Welche Werte auftauchen, hängt am Profil, von Tiny Whoop bis 10 Zoll.</p>
-        <ul class="program-points">
-          <li data-i18n="row.guide.p1">Acht Bereiche, von Simple Tuning bis zur Linkliste</li>
-          <li data-i18n="row.guide.p2">95 Glossarbegriffe, direkt im Text aufrufbar</li>
-          <li data-i18n="row.guide.p3">Läuft in jedem Browser, auch auf dem Handy</li>
-        </ul>
-        <div class="program-actions">
-          <a class="btn btn--primary" href="guide/">
-            <span data-i18n="row.guide.cta">Guide öffnen</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn--quiet" href="#guide" data-i18n="row.more">Wie es arbeitet</a>
-        </div>
-      </div>
-    </article>
-
-  </div>
-</section>
-
 <section class="section section--detail" id="hangar">
   <div class="wrap">
     <div class="detail-head reveal">
@@ -423,14 +320,6 @@
       <p class="eyebrow" data-i18n="versions.eyebrow">Versionen</p>
       <h2 data-i18n="versions.title">Was gerade veröffentlicht ist</h2>
       <p class="lede" data-i18n="versions.lede">Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Oben lässt sich alles auf einmal laden, in der Zeile dasselbe Paket mit dem Programmnamen im Dateinamen.</p>
-    </div>
-
-    <div class="bundle-all reveal">
-      <button class="btn btn--primary bundle-all__btn" type="button" data-bundle="all">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5"/></svg>
-        <span data-i18n="bundle.all">Alles herunterladen</span>
-      </button>
-      <p class="bundle-all__note" data-i18n="bundle.allNote">Übersicht, alle drei Programme, README, Lizenz und LIESMICH in einem ZIP.</p>
     </div>
 
     <div class="toolbar reveal">
