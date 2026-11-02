@@ -40,7 +40,7 @@
     </g>
     <circle cx="44" cy="34" r="2.2" fill="url(#tmark)"/>
     <text x="70" y="40" fill="#ecf6ff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">FlowState Tuner</text>
-    <text x="258" y="40" fill="#8aa2bd" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5">v4.8-alpha.3</text>
+    <text x="258" y="40" fill="#8aa2bd" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11.5">v4.8-alpha.4</text>
 
     <rect x="698" y="17" width="82" height="30" rx="9" fill="#0e1b2e" stroke="#223653"/>
     <text x="710" y="37" fill="#8aa2bd" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5">kein Log</text>
@@ -204,6 +204,6 @@
     </g>
   </g>
 
-  <text x="24" y="742" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9">FlowState Tuner · v4.8-alpha.3 · Alpha Build</text>
+  <text x="24" y="742" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9">FlowState Tuner · v4.8-alpha.4 · Alpha Build</text>
   <text x="1176" y="742" fill="#5e748e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" text-anchor="end">Ein Projekt von YngwierFPV</text>
 </svg>

@@ -157,7 +157,7 @@
     <text x="40" y="636" fill="#62968b" font-size="11.5">Für Backup oder Umzug den Export nutzen, für den Abgleich das eigene Repository.</text>
 
     <!-- Fußzeile -->
-    <text x="40" y="722" fill="#62968b" font-size="12">HangarDeck Lite · v0.4.0-beta.2</text>
+    <text x="40" y="722" fill="#62968b" font-size="12">HangarDeck Lite · v0.4.0-beta.3</text>
     <text x="1160" y="722" fill="#62968b" font-size="12" text-anchor="end">Ozean · Leinen · Dunkelrot</text>
   </g>
 </svg>
