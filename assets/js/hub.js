@@ -4,12 +4,17 @@
   var DATA_URL = 'assets/data/versions.json';
   var LANG_KEY = 'flowstate-lang';
   var THEME_KEY = 'flowstate-theme';
-  var THEMES = ['dark', 'light', 'cream'];
+  var THEMES = ['ocean', 'sand', 'drakn'];
+  var THEME_BG = { ocean: '#06232a', sand: '#eef1f2', drakn: '#140a25' };
   var FALLBACK = 'en';
   var CHANNELS = ['alpha', 'beta', 'rc', 'stable'];
 
   var UI = {
     de: {
+      'theme.label': 'Farbschema',
+      'theme.ocean': 'Ocean',
+      'theme.sand': 'Sand',
+      'theme.drakn': 'Drakn',
       'nav.projects': 'Programme',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -150,6 +155,10 @@
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.'
     },
     en: {
+      'theme.label': 'Colour scheme',
+      'theme.ocean': 'Ocean',
+      'theme.sand': 'Sand',
+      'theme.drakn': 'Drakn',
       'nav.projects': 'Programs',
       'nav.tuner': 'Tuner',
       'nav.guide': 'Guide',
@@ -376,32 +385,55 @@
     return label === key ? c : label;
   }
 
-  function themeLabel(theme) {
-    var names = {
-      de: { dark: 'Dunkel', light: 'Hell', cream: 'Creme' },
-      en: { dark: 'Dark', light: 'Light', cream: 'Cream' }
-    };
-    return names[state.lang][theme];
+  function themeName(theme) {
+    var label = t('theme.' + theme);
+    return label === 'theme.' + theme ? theme : label;
   }
 
-  function syncThemeLabel() {
-    var button = $('#theme-toggle');
-    if (!button) return;
-    var current = document.documentElement.getAttribute('data-theme') || 'dark';
-    button.setAttribute('aria-label', themeLabel(current));
-    button.setAttribute('title', themeLabel(current));
+  function syncThemeState() {
+    var current = document.documentElement.getAttribute('data-theme') || THEMES[0];
+    if (THEMES.indexOf(current) === -1) current = THEMES[0];
+    $$('[data-theme-set]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('data-theme-set') === current));
+    });
+    var summary = $('#theme-menu summary');
+    if (summary) {
+      var label = t('theme.label') + ': ' + themeName(current);
+      summary.setAttribute('aria-label', label);
+      summary.setAttribute('title', label);
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta && THEME_BG[current]) meta.setAttribute('content', THEME_BG[current]);
+  }
+
+  function setTheme(theme) {
+    if (THEMES.indexOf(theme) === -1) return;
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+    syncThemeState();
   }
 
   function initTheme() {
-    var button = $('#theme-toggle');
-    if (!button) return;
-    syncThemeLabel();
-    button.addEventListener('click', function () {
-      var current = document.documentElement.getAttribute('data-theme');
-      var next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
-      document.documentElement.setAttribute('data-theme', next);
-      syncThemeLabel();
-      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    var menu = $('#theme-menu');
+    if (!menu) return;
+    syncThemeState();
+    $$('[data-theme-set]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setTheme(btn.getAttribute('data-theme-set'));
+        menu.open = false;
+        var summary = menu.querySelector('summary');
+        if (summary) summary.focus();
+      });
+    });
+    document.addEventListener('click', function (event) {
+      if (menu.open && !menu.contains(event.target)) menu.open = false;
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && menu.open) {
+        menu.open = false;
+        var summary = menu.querySelector('summary');
+        if (summary) summary.focus();
+      }
     });
   }
 
@@ -415,6 +447,7 @@
     $$('[data-lang-btn]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === state.lang));
     });
+    if (typeof syncThemeState === 'function') syncThemeState();
     document.documentElement.setAttribute('lang', state.lang);
     document.documentElement.setAttribute('data-lang', state.lang);
   }
@@ -748,7 +781,7 @@
 
     state.lang = document.documentElement.getAttribute('data-lang') === 'de' ? 'de' : 'en';
     applyStatic();
-    syncThemeLabel();
+    syncThemeState();
 
     var year = $('#year');
     if (year) year.textContent = String(new Date().getFullYear());
