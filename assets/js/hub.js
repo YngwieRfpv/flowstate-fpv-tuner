@@ -5,6 +5,10 @@
   var LANG_KEY = 'flowstate-lang';
   var THEME_KEY = 'flowstate-theme';
   var THEMES = ['ocean', 'sand', 'drakn'];
+  // Die Programme lesen denselben Eintrag und kennen nur diese drei Namen.
+  // Gespeichert wird deshalb die Schreibweise der Programme, angezeigt die hiesige.
+  var THEME_STORED = { ocean: 'dark', sand: 'light', drakn: 'cream' };
+  var THEME_ALIAS = { dark: 'ocean', light: 'sand', cream: 'drakn' };
   var THEME_BG = { ocean: '#06232a', sand: '#eef1f2', drakn: '#140a25' };
   var FALLBACK = 'en';
   var CHANNELS = ['alpha', 'beta', 'rc', 'stable'];
@@ -449,8 +453,8 @@
     $$('[data-theme-set]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-theme-set') === current));
     });
-    var summary = $('#theme-menu summary');
-    if (summary) summary.setAttribute('aria-label', t('theme.label'));
+    var group = $('#theme-switch');
+    if (group) group.setAttribute('aria-label', t('theme.label'));
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta && THEME_BG[current]) meta.setAttribute('content', THEME_BG[current]);
   }
@@ -458,9 +462,12 @@
   function setTheme(theme) {
     if (THEMES.indexOf(theme) === -1) return;
     document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+    try { localStorage.setItem(THEME_KEY, THEME_STORED[theme] || theme); } catch (e) {}
     syncThemeState();
+    // Ein offenes Programm liest die Farben beim Laden: neu laden, damit es mitzieht.
+    refreshApp();
   }
+
 
   function moveAppPill(item) {
     var track = $('#app-switch');
@@ -527,7 +534,7 @@
     if (title) title.textContent = t('apps.' + id);
     frame.setAttribute('title', t('apps.' + id));
     var openLink = $('#app-stage-open');
-    if (openLink) openLink.setAttribute('href', path);
+    if (openLink) openLink.setAttribute('href', path + '?lang=' + lang);
 
     var track = $('#app-switch');
     if (track) {
@@ -542,6 +549,18 @@
       var hash = '#/' + id;
       if (location.hash !== hash) history.pushState({ app: id }, '', hash);
     }
+  }
+
+  // Rahmen neu laden, ohne die Adresse anzufassen. Wird gebraucht, wenn sich
+  // Sprache oder Farben ändern und ein Programm bereits offen ist.
+  function refreshApp() {
+    var stage = $('#app-stage');
+    var frame = $('#app-frame');
+    if (!stage || !frame || stage.hidden) return;
+    frame.removeAttribute('data-src');
+    frame.removeAttribute('data-loaded');
+    var id = currentAppId();
+    if (id) openApp(id, { push: false });
   }
 
   function closeApp(opts) {
@@ -648,26 +667,11 @@
   }
 
   function initTheme() {
-    var menu = $('#theme-menu');
-    if (!menu) return;
     syncThemeState();
     $$('[data-theme-set]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         setTheme(btn.getAttribute('data-theme-set'));
-        menu.open = false;
-        var summary = menu.querySelector('summary');
-        if (summary) summary.focus();
       });
-    });
-    document.addEventListener('click', function (event) {
-      if (menu.open && !menu.contains(event.target)) menu.open = false;
-    });
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && menu.open) {
-        menu.open = false;
-        var summary = menu.querySelector('summary');
-        if (summary) summary.focus();
-      }
     });
   }
 
@@ -685,8 +689,25 @@
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === state.lang));
     });
     if (typeof syncThemeState === 'function') syncThemeState();
+    syncAppLinks();
     document.documentElement.setAttribute('lang', state.lang);
     document.documentElement.setAttribute('data-lang', state.lang);
+  }
+
+  // Jeder Verweis auf ein Programm bekommt die laufende Sprache mit.
+  // Feste Sprachverweise, etwa in der Tabelle, bleiben unangetastet.
+  function syncAppLinks() {
+    $$('a[href]').forEach(function (link) {
+      var base = link.getAttribute('data-app-base');
+      if (!base) {
+        var href = link.getAttribute('href') || '';
+        if (href.indexOf('?') !== -1) return;
+        if (!/(^|\/)(guide|tuner|hangar)\/?$/.test(href)) return;
+        base = href;
+        link.setAttribute('data-app-base', base);
+      }
+      link.setAttribute('href', base + '?lang=' + state.lang);
+    });
   }
 
   function setLang(lang, persist) {

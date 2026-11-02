@@ -13,12 +13,11 @@
     var d = document.documentElement;
     d.classList.add('js');
     try {
+      // Gespeichert wird der Name, den auch der Tuner kennt (dunkel/hell/creme);
+      // hier wird er auf Ocean, Sand und Drakn abgebildet.
       var theme = localStorage.getItem('flowstate-theme');
       var alt = { dark: 'ocean', light: 'sand', cream: 'drakn' };
-      if (alt[theme]) {
-        theme = alt[theme];
-        try { localStorage.setItem('flowstate-theme', theme); } catch (e) {}
-      }
+      if (alt[theme]) theme = alt[theme];
       if (theme === 'ocean' || theme === 'sand' || theme === 'drakn') {
         d.setAttribute('data-theme', theme);
       }
@@ -74,23 +73,17 @@
         <button type="button" data-lang-btn="de" aria-pressed="true">DE</button>
         <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
       </div>
-      <details class="theme-menu" id="theme-menu">
-        <summary aria-label="Farben">
-          <span class="theme-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-          <svg class="theme-menu__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <div class="theme-menu__list" role="group" aria-label="Farben">
-          <button class="theme-option" type="button" data-theme-set="ocean" aria-label="Ocean" aria-pressed="true">
-            <span class="theme-dots" aria-hidden="true" style="--sw-1:#0b383e;--sw-2:#155b5b;--sw-3:#1e746b;--sw-4:#258c71;--sw-5:#2ca387"><i></i><i></i><i></i><i></i><i></i></span>
-          </button>
-          <button class="theme-option" type="button" data-theme-set="sand" aria-label="Sand" aria-pressed="false">
-            <span class="theme-dots" aria-hidden="true" style="--sw-1:#c9e0f0;--sw-2:#f4f6f5;--sw-3:#c4b69c;--sw-4:#f0e6cb;--sw-5:#ecbda9"><i></i><i></i><i></i><i></i><i></i></span>
-          </button>
-          <button class="theme-option" type="button" data-theme-set="drakn" aria-label="Drakn" aria-pressed="false">
-            <span class="theme-dots" aria-hidden="true" style="--sw-1:#dd2328;--sw-2:#8e1e2c;--sw-3:#5a152a;--sw-4:#3f092b;--sw-5:#140a25"><i></i><i></i><i></i><i></i><i></i></span>
-          </button>
-        </div>
-      </details>
+      <div class="theme-switch" id="theme-switch" role="group" aria-label="Farben">
+        <button class="theme-option" type="button" data-theme-set="ocean" aria-label="Ocean" aria-pressed="true">
+          <span class="theme-dots" aria-hidden="true" style="--sw-1:#0b383e;--sw-2:#155b5b;--sw-3:#1e746b;--sw-4:#258c71;--sw-5:#2ca387"><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+        <button class="theme-option" type="button" data-theme-set="sand" aria-label="Sand" aria-pressed="false">
+          <span class="theme-dots" aria-hidden="true" style="--sw-1:#c9e0f0;--sw-2:#f4f6f5;--sw-3:#c4b69c;--sw-4:#f0e6cb;--sw-5:#ecbda9"><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+        <button class="theme-option" type="button" data-theme-set="drakn" aria-label="Drakn" aria-pressed="false">
+          <span class="theme-dots" aria-hidden="true" style="--sw-1:#dd2328;--sw-2:#8e1e2c;--sw-3:#5a152a;--sw-4:#3f092b;--sw-5:#140a25"><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+      </div>
       <a class="icon-btn" href="https://github.com/YngwieRfpv/flowstate-fpv-tuner" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
       </a>
