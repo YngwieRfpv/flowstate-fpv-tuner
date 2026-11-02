@@ -112,7 +112,7 @@
       'guide.workspace.lede': 'Fünf Schritte: ESC, Betaflight-Basis, Filterflug, PID und Feedforward, Abschlussprüfung. Jeden Schritt kannst du später nachlesen.',
       'versions.eyebrow': 'Versionen',
       'versions.title': 'Was gerade veröffentlicht ist',
-      'versions.lede': 'Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte.',
+      'versions.lede': 'Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Der Knopf zum Herunterladen packt die Übersichtsseite mit allen drei Programmen in ein ZIP.',
       'search.label': 'Versionen durchsuchen',
       'search.placeholder': 'Version, Programm oder Stichwort …',
       'filter.all': 'Alle',
@@ -125,7 +125,6 @@
       'channel.rc': 'Release Candidate',
       'channel.stable': 'Stable',
       'release.open': 'Im Browser öffnen',
-      'release.download': 'Herunterladen',
       'release.bundle': 'Mit Hub herunterladen',
       'release.packing': 'Wird gepackt …',
       'release.packed': 'Gespeichert',
@@ -286,7 +285,7 @@
       'guide.workspace.lede': 'Five steps: ESC, Betaflight basics, filter flight, PID and feedforward, final check. You can read up on each one later.',
       'versions.eyebrow': 'Versions',
       'versions.title': 'What is published right now',
-      'versions.lede': 'For each version: channel, date, size and checksum, plus the state right on the card.',
+      'versions.lede': 'For each version: channel, date, size and checksum, plus the state right on the card. The download button packs the overview page with all three programs into a ZIP.',
       'search.label': 'Search versions',
       'search.placeholder': 'Version, program or keyword …',
       'filter.all': 'All',
@@ -299,7 +298,6 @@
       'channel.rc': 'Release candidate',
       'channel.stable': 'Stable',
       'release.open': 'Open in browser',
-      'release.download': 'Download',
       'release.bundle': 'Download with hub',
       'release.packing': 'Packing …',
       'release.packed': 'Saved',
@@ -941,22 +939,22 @@
     var readme = {
       name: 'LIESMICH.txt',
       text: [
-        'FlowState FPV - Hub mit den Programmen',
+        'FlowState FPV, Übersichtsseite mit den Programmen',
         '',
-        '1. Diese Datei entpacken.',
-        '2. index.html im Browser oeffnen.',
-        '3. Im Kopf der Seite zwischen Guide, Autotuner und Hangar waehlen.',
+        '1. Dieses Paket entpacken.',
+        '2. index.html im Browser öffnen.',
+        '3. Im Kopf der Seite zwischen Guide, Autotuner und Hangar wählen.',
         '',
-        'Alles laeuft lokal, ohne Server und ohne Internet. Wird der Hub ueber',
-        'file:// geoeffnet, oeffnen sich die Programme in einem eigenen Tab;',
-        'ueber einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
+        'Alles läuft lokal, ohne Server und ohne Internet. Wird die Seite über',
+        'file:// geöffnet, öffnen sich die Programme in einem eigenen Tab;',
+        'über einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
         '',
         'Programme in diesem Paket:',
         '  guide/index.html      FPV Guide',
         '  tuner/index.html      FlowState Tuner (Alpha)',
-        '  hangar/index.html     HangarDeck (Beta)',
+        '  hangar/index.html     HangarDeck (Beta), Oberfläche auf Deutsch',
         '',
-        'Hinweis: Der FPV Guide ist 7,6 MB gross, der erste Aufruf dauert kurz.',
+        'Hinweis: Der FPV Guide ist 7,6 MB groß, der erste Aufruf dauert kurz.',
         ''
       ].join('\n')
     };
@@ -999,16 +997,19 @@
     var original = button.getAttribute('data-label') || button.textContent;
     button.setAttribute('data-label', original);
     button.classList.add('is-busy');
+    button.setAttribute('aria-busy', 'true');
     button.textContent = t('release.packing');
 
     bundleEntries(programId)
       .then(function (entries) {
         saveBlob(zipStore(entries), zipName);
         button.textContent = t('release.packed');
+        button.removeAttribute('aria-busy');
         window.setTimeout(function () { button.textContent = original; button.classList.remove('is-busy'); }, 2600);
       })
       .catch(function (error) {
         button.textContent = t('release.failed');
+        button.removeAttribute('aria-busy');
         button.setAttribute('title', String(error && error.message ? error.message : error));
         window.setTimeout(function () { button.textContent = original; button.classList.remove('is-busy'); }, 3200);
       });
