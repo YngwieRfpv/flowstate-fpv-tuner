@@ -5,6 +5,46 @@ window.FLOWSTATE_DATA = {
   "updated": "2026-11-02",
   "programs": [
     {
+      "id": "hangar",
+      "name": "HangarDeck Lite",
+      "accent": "mint",
+      "path": "hangar/",
+      "kind": {
+        "de": "Copter in einer Liste führen",
+        "en": "Keep quads in one list"
+      },
+      "description": {
+        "de": "Eine Liste pro Copter mit Größe, Zellen, KV, ESC, Props und Status. Export als PDF-Tabelle, CSV, Druck oder JSON, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
+        "en": "One list for your quads with size, cells, KV, ESC, props and status. Export as a PDF table, CSV, print or JSON, plus a sync with your own repository. Everything runs from a single file in the browser."
+      },
+      "highlights": {
+        "de": [
+          "Name und Größe reichen, weitere Felder bleiben optional",
+          "Export als PDF-Tabelle, CSV, Druck oder JSON",
+          "Abgleich über das eigene Repository, Lesen ohne Token",
+          "Deutsch und Englisch, Ozean, Leinen und Dunkelrot"
+        ],
+        "en": [
+          "Name and size are enough, further fields stay optional",
+          "Export as a PDF table, CSV, print or JSON",
+          "Sync through your own repository, reading needs no token",
+          "German and English, Ocean, Sand and Drakn"
+        ]
+      },
+      "meta": {
+        "de": [
+          "1 Datei · 65 KB",
+          "4 Felder Pflicht, 7 optional",
+          "jeder moderne Browser"
+        ],
+        "en": [
+          "1 file · 65 KB",
+          "4 required fields, 7 optional",
+          "any modern browser"
+        ]
+      }
+    },
+    {
       "id": "tuner",
       "name": "FlowState Tuner",
       "accent": "mint",
@@ -83,68 +123,28 @@ window.FLOWSTATE_DATA = {
           "mobile ready"
         ]
       }
-    },
-    {
-      "id": "hangar",
-      "name": "HangarDeck Lite",
-      "accent": "mint",
-      "path": "hangar/",
-      "kind": {
-        "de": "Copter in einer Liste führen",
-        "en": "Keep quads in one list"
-      },
-      "description": {
-        "de": "Eine Liste pro Copter mit Größe, Zellen, KV, ESC, Props und Status. Export als PDF-Tabelle, CSV, Druck oder JSON, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
-        "en": "One list for your quads with size, cells, KV, ESC, props and status. Export as a PDF table, CSV, print or JSON, plus a sync with your own repository. Everything runs from a single file in the browser."
-      },
-      "highlights": {
-        "de": [
-          "Name und Größe reichen, weitere Felder bleiben optional",
-          "Export als PDF-Tabelle, CSV, Druck oder JSON",
-          "Abgleich über das eigene Repository, Lesen ohne Token",
-          "Deutsch und Englisch, Ozean, Leinen und Dunkelrot"
-        ],
-        "en": [
-          "Name and size are enough, further fields stay optional",
-          "Export as a PDF table, CSV, print or JSON",
-          "Sync through your own repository, reading needs no token",
-          "German and English, Ocean, Sand and Drakn"
-        ]
-      },
-      "meta": {
-        "de": [
-          "1 Datei · 65 KB",
-          "4 Felder Pflicht, 7 optional",
-          "jeder moderne Browser"
-        ],
-        "en": [
-          "1 file · 65 KB",
-          "4 required fields, 7 optional",
-          "any modern browser"
-        ]
-      }
     }
   ],
   "releases": [
     {
-      "id": "hangar-0.4.0-beta.2",
+      "id": "hangar-0.4.0-beta.3",
       "program": "hangar",
-      "version": "v0.4.0-beta.2",
+      "version": "v0.4.0-beta.3",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Farbwahl der Übersichtsseite, Export als Tabelle.",
-        "en": "Colour choice of the overview page, export as a table."
+        "de": "Farbe kommt aus der Adresse, erster Platz im Umschalter.",
+        "en": "Colour comes in the address, first place in the switch."
       },
       "summary": {
-        "de": "HangarDeck hat eine dunkle Palette mit wählbarer Akzentfarbe und nimmt aus der Farbwahl des Hubs den passenden Ton: Ozean cyan, Leinen amber, Dunkelrot violett. Ohne Wahl im Hub bleibt Grün.",
-        "en": "HangarDeck has one dark palette with a selectable accent and takes the matching tone from the hub choice: ocean cyan, sand amber, drakn violet. Without a choice in the hub it stays green."
+        "de": "HangarDeck Lite liest die Palette zusätzlich aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. In der Übersicht steht es jetzt an erster Stelle: HangarDeck, Tuner, Guide. Liste, Exporte und Abgleich sind unverändert.",
+        "en": "HangarDeck Lite also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes first: HangarDeck, tuner, guide. List, exports and sync are unchanged."
       },
       "file": "hangar/index.html",
-      "size_bytes": 65058,
-      "sha256": "726d090297671ca902f671d64ec769ace86f408e830869a46f0a7f94490d858a",
+      "size_bytes": 65431,
+      "sha256": "42ba97d2deeeb868c3765fd33c081ae418154fbd9608ab0b822141dbe48f8241",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.3",
       "signals": [
         {
           "label": {
@@ -172,7 +172,7 @@ window.FLOWSTATE_DATA = {
             "de": "Sprache DE/EN",
             "en": "Language DE/EN"
           },
-          "state": "pending"
+          "state": "ok"
         },
         {
           "label": {
@@ -198,38 +198,38 @@ window.FLOWSTATE_DATA = {
       },
       "limits": {
         "de": [
-          "Eine dunkle Palette; die Farbwahl des Hubs steuert nur den Akzent",
-          "Oberfläche derzeit nur auf Deutsch",
+          "Palette kommt aus der Wahl der Übersichtsseite oder aus `?theme=`",
+          "Deutsch und Englisch, kein Spanisch",
           "Auslese an echter Hardware steht aus",
           "Daten liegen nur im localStorage dieses Browsers"
         ],
         "en": [
-          "One dark palette; the hub choice only drives the accent",
-          "Interface currently German only",
+          "Palette comes from the overview choice or from `?theme=`",
+          "German and English, no Spanish",
           "Reading from real hardware is pending",
           "Data lives only in this browser's localStorage"
         ]
       }
     },
     {
-      "id": "tuner-4.8-alpha.3",
+      "id": "tuner-4.8-alpha.4",
       "program": "tuner",
-      "version": "v4.8-alpha.3",
+      "version": "v4.8-alpha.4",
       "channel": "alpha",
       "released": "2026-11-02",
       "title": {
-        "de": "Sprache und Farbe als Reihen im Kopf.",
-        "en": "Language and colour as rows in the header."
+        "de": "Farbe kommt aus der Adresse und aus dem zweiten Fenster.",
+        "en": "Colour comes in the address and from the second window."
       },
       "summary": {
-        "de": "Sprache und Farbwahl stehen im Kopf als Reihen nebeneinander statt hinter einem aufklappenden Feld: DE, EN, ES und drei Farbstreifen. Beides kommt aus der Übersichtsseite und schreibt dorthin zurück. An echter Hardware und im Flug weiterhin nicht getestet.",
-        "en": "Language and colour sit side by side in the header instead of behind a drop-down: DE, EN, ES and three colour strips. Both come from the overview page and write back to it. Still not tested on real hardware or in flight."
+        "de": "Der Tuner liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. Im Umschalter steht er jetzt zwischen HangarDeck und Guide. Der Ablauf der sechs Phasen ist unverändert, an echter Hardware und im Flug weiterhin nicht getestet.",
+        "en": "The tuner also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the switch it now sits between HangarDeck and guide. The six phases are unchanged, still not tested on real hardware or in flight."
       },
       "file": "tuner/index.html",
-      "size_bytes": 496634,
-      "sha256": "31e9db7e45831ec0618d280bdba6a1e15b939008f6865109bb299360540df57f",
+      "size_bytes": 496882,
+      "sha256": "ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.3",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4",
       "signals": [
         {
           "label": {
@@ -271,6 +271,7 @@ window.FLOWSTATE_DATA = {
         "de": [
           "Ein Eintrag für alle Programme: flowstate-theme trägt ocean, sand und drakn",
           "Alte Werte dark, light und cream werden weiter gelesen",
+          "Die Farbe reist zusätzlich als ?theme= in der Adresse mit",
           "Filter-, P/D-, Master- und Finish-Phase arbeiten auf demselben Log-Satz",
           "Importierte Logs behalten ihre Herkunft; fehlende Werte bleiben UNBEKANNT",
           "Mehrere Flüge in einem Log werden als getrennte Segmente geführt",
@@ -279,6 +280,7 @@ window.FLOWSTATE_DATA = {
         "en": [
           "One entry for all programs: flowstate-theme carries ocean, sand and drakn",
           "Old values dark, light and cream are still read",
+          "The colour also travels in the address as ?theme=",
           "Filter, P/D, master and finish phases work on the same log set",
           "Imported logs keep their origin; missing values stay UNKNOWN",
           "Multiple flights in one log are kept as separate segments",
@@ -301,24 +303,24 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "guide-1.0.2-beta.11-es",
+      "id": "guide-1.0.2-beta.12-es",
       "program": "guide",
-      "version": "v1.0.2-beta.11-es",
+      "version": "v1.0.2-beta.12-es",
       "channel": "beta",
       "released": "2026-11-02",
       "title": {
-        "de": "Drei Paletten und Sprache als Reihen.",
-        "en": "Three palettes and language as rows."
+        "de": "Farbe kommt aus der Adresse, dritter Platz im Umschalter.",
+        "en": "Colour comes in the address, third place in the switch."
       },
       "summary": {
-        "de": "Der Guide kennt jetzt Ozean, Leinen und Dunkelrot als vollständige Paletten, nicht nur hell und dunkel. Beim Öffnen liest er den Eintrag flowstate-theme, eine Wahl im Guide schreibt dorthin zurück. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
-        "en": "The guide now has Ocean, Sand and Drakn as full palettes, not just light and dark. On load it reads flowstate-theme, a choice inside the guide writes back to it. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
+        "de": "Der Guide liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. In der Übersicht steht er jetzt an dritter Stelle: HangarDeck, Tuner, Guide. Inhalt, Werte, Quellen und der Sbang-Ablauf sind unverändert, Spanisch bleibt ungeprüfte Vorschau.",
+        "en": "The guide also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the overview it now comes third: HangarDeck, tuner, guide. Content, values, sources and the Sbang workflow are unchanged, Spanish remains an unverified preview."
       },
       "file": "guide/index.html",
-      "size_bytes": 7682770,
-      "sha256": "6ebac700f89e317258ee8b470b838e2ead3e4d0d8dd492408f2473bea22d8a6a",
+      "size_bytes": 7682974,
+      "sha256": "42c84cfaa3af61248e4e91434d6c43f35be040fd330caa3ba8576673731ff178",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.11-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.12-es",
       "signals": [
         {
           "label": {

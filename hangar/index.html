@@ -294,7 +294,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug den Export nutzen.</span><br>
-    <span class="ver">HangarDeck Lite · v0.4.0-beta.2</span>
+    <span class="ver">HangarDeck Lite · v0.4.0-beta.3</span>
   </footer>
 </div>
 
@@ -564,7 +564,8 @@ var seed = [
 ];
 
 var FLOWSTATE_ALIAS = { ocean:"ocean", sand:"sand", drakn:"drakn", dark:"ocean", light:"sand", cream:"drakn" };
-function sharedTheme(){ try{ var v = LS.get("flowstate-theme"); return FLOWSTATE_ALIAS[v] || null; }catch(e){ return null; } }
+function urlTheme(){ try{ var q = new URLSearchParams(location.search).get("theme"); return FLOWSTATE_ALIAS[q] || null; }catch(e){ return null; } }
+function sharedTheme(){ try{ var v = urlTheme() || LS.get("flowstate-theme"); return FLOWSTATE_ALIAS[v] || null; }catch(e){ return null; } }
 function urlLang(){ try{ var q = new URLSearchParams(location.search).get("lang"); return I18N[q] ? q : null; }catch(e){ return null; } }
 var prefs = loadPrefs();
 function T(k){ var d = I18N[prefs.lang] || I18N.de; return d[k] != null ? d[k] : I18N.de[k]; }
@@ -606,6 +607,7 @@ function applyTheme(){
     if(b.tagName === "BUTTON") b.setAttribute("aria-pressed", b.getAttribute("data-theme") === prefs.theme ? "true" : "false");
   });
 }
+window.addEventListener("storage", function(e){ if(e.key !== "flowstate-theme" || !e.newValue) return; var m = FLOWSTATE_ALIAS[e.newValue]; if(!m || m === prefs.theme) return; prefs.theme = m; applyTheme(); });
 function applyLang(){
   document.documentElement.lang = prefs.lang;
   document.title = prefs.lang === "en" ? "HangarDeck — Quad manager" : "HangarDeck — Copter-Verwaltung";

@@ -485,7 +485,18 @@
     if (track) track.removeAttribute('data-active');
   }
 
-  var APPS = { guide: 'guide/', tuner: 'tuner/', hangar: 'hangar/' };
+  var APPS = { hangar: 'hangar/', tuner: 'tuner/', guide: 'guide/' };
+
+  // Palette als Adressbestandteil: so kommt die Wahl auch dann an, wenn ein
+  // Browser den Speicher zwischen zwei Dateien nicht teilt (file://).
+  function themeValue() {
+    var theme = document.documentElement.getAttribute('data-theme');
+    return theme === 'sand' || theme === 'drakn' ? theme : 'ocean';
+  }
+
+  function appUrl(path, lang) {
+    return path + '?lang=' + lang + '&theme=' + themeValue();
+  }
   var stageScroll = 0;
   var stageTimer = null;
 
@@ -502,7 +513,7 @@
     if (!path) return;
     // Per file:// geoeffnet blockieren die meisten Browser den Rahmen. Dann eigenes Tab.
     if (!stage || !frame || location.protocol === 'file:') {
-      window.location.href = path + '?lang=' + lang;
+      window.location.href = appUrl(path, lang);
       return;
     }
 
@@ -512,7 +523,7 @@
     window.scrollTo(0, 0);
 
     var loading = $('#app-stage-loading');
-    var url = path + '?lang=' + lang;
+    var url = appUrl(path, lang);
     if (frame.getAttribute('data-src') !== url) {
       frame.setAttribute('data-src', url);
       frame.removeAttribute('data-loaded');
@@ -524,7 +535,7 @@
 
     var slow = $('#app-stage-slow');
     var slowLink = $('#app-stage-slow-link');
-    if (slowLink) slowLink.setAttribute('href', path + '?lang=' + lang);
+    if (slowLink) slowLink.setAttribute('href', appUrl(path, lang));
     if (slow) slow.hidden = true;
     if (stageTimer) window.clearTimeout(stageTimer);
     stageTimer = window.setTimeout(function () {
@@ -535,7 +546,7 @@
     if (title) title.textContent = t('apps.' + id);
     frame.setAttribute('title', t('apps.' + id));
     var openLink = $('#app-stage-open');
-    if (openLink) openLink.setAttribute('href', path + '?lang=' + lang);
+    if (openLink) openLink.setAttribute('href', appUrl(path, lang));
 
     var track = $('#app-switch');
     if (track) {
@@ -707,7 +718,7 @@
         base = href;
         link.setAttribute('data-app-base', base);
       }
-      link.setAttribute('href', base + '?lang=' + state.lang);
+      link.setAttribute('href', appUrl(base, state.lang));
     });
   }
 
@@ -753,7 +764,7 @@
         '<div class="meta-row">' + meta + '</div>' +
         '<div class="project-actions">' +
           '<a class="btn btn--sm btn--primary" href="' + esc(program.path) + '">' + esc(t('programs.open')) + '</a>' +
-          '<a class="btn btn--sm btn--quiet" href="#' + (tone === 'tuner' ? 'tuner' : 'guide') + '">' + esc(t('programs.details')) + '</a>' +
+          '<a class="btn btn--sm btn--quiet" href="#' + esc(program.id) + '">' + esc(t('programs.details')) + '</a>' +
         '</div>' +
       '</article>';
   }
@@ -966,16 +977,16 @@
         '',
         '1. Dieses Paket entpacken.',
         '2. index.html im Browser öffnen.',
-        '3. Im Kopf der Seite zwischen Guide, Autotuner und Hangar wählen.',
+        '3. Im Kopf der Seite zwischen Hangar, Autotuner und Guide wählen.',
         '',
         'Alles läuft lokal, ohne Server und ohne Internet. Wird die Seite über',
         'file:// geöffnet, öffnen sich die Programme in einem eigenen Tab;',
         'über einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
         '',
         'Programme in diesem Paket:',
-        '  guide/index.html      FPV Guide',
-        '  tuner/index.html      FlowState Tuner (Alpha)',
         '  hangar/index.html     HangarDeck Lite (Beta), Deutsch und Englisch',
+        '  tuner/index.html      FlowState Tuner (Alpha)',
+        '  guide/index.html      FPV Guide',
         '  hangar/data/hangardeck.json  Startbestand für den Abgleich',
         '',
         'Hinweis: Der FPV Guide ist 7,6 MB groß, der erste Aufruf dauert kurz.',
