@@ -15,30 +15,30 @@ window.FLOWSTATE_DATA = {
         "es": "Llevar los copter en una lista"
       },
       "description": {
-        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
-        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Export as a PDF table, CSV, print, JSON and an HTML backup, plus a sync with your own repository. Everything runs from a single file in the browser.",
-        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML, además de una sincronización con tu propio repositorio. Todo funciona en un solo archivo en el navegador."
+        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt. Alles läuft in einer Datei im Browser.",
+        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in. Everything runs from a single file in the browser.",
+        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML que se puede volver a cargar. Todo funciona en un solo archivo en el navegador."
       },
       "highlights": {
         "de": [
           "Name und Größe reichen, Bild und weitere Felder bleiben optional",
           "Flight Controller über USB auslesen oder CLI-Text einfügen",
           "Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup",
-          "Abgleich über das eigene Repository, Lesen ohne Token",
+          "Sicherung als JSON oder HTML lässt sich wieder einlesen",
           "Deutsch, Englisch und Spanisch, Ozean, Leinen und Dunkelrot"
         ],
         "en": [
           "Name and size are enough, picture and further fields stay optional",
           "Read the flight controller over USB or paste CLI text",
           "Export as a PDF table, CSV, print, JSON and an HTML backup",
-          "Sync through your own repository, reading needs no token",
+          "A JSON or HTML backup can be read back in",
           "German, English and Spanish, Ocean, Sand and Drakn"
         ],
         "es": [
           "El nombre y el tamaño bastan, la imagen y los demás campos son opcionales",
           "Leer la controladora por USB o pegar texto CLI",
           "Exportación como tabla PDF, CSV, impresión, JSON y copia HTML",
-          "Sincronización con tu propio repositorio, lectura sin token",
+          "La copia en JSON o HTML se puede volver a cargar",
           "Alemán, inglés y español, océano, lino y rojo oscuro"
         ]
       },
@@ -242,21 +242,21 @@ window.FLOWSTATE_DATA = {
       "notes": {
         "de": [
           "Copter mit Bild, Bild wird vor dem Speichern verkleinert und bleibt lokal",
-          "FC auslesen über USB oder CLI-Text einfügen, mit Abgleich des Targets vor der Sicherung",
+          "FC auslesen über USB oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung",
           "Export als PDF, CSV, Druck, JSON und HTML-Backup",
-          "Abgleich mit dem eigenen Repository über updatedAt und Grabsteine"
+          "Sicherung als JSON oder HTML, die sich wieder einlesen lässt"
         ],
         "en": [
           "Quads with a picture, shrunk before saving and kept local",
           "Read the flight controller over USB or paste CLI text, with a target check before the backup",
           "Export as PDF, CSV, print, JSON and HTML backup",
-          "Sync with your own repository through updatedAt and tombstones"
+          "A JSON or HTML backup that can be read back in"
         ],
         "es": [
           "Copter con imagen, reducida antes de guardar y guardada en local",
           "Leer la controladora por USB o pegar texto CLI, con comprobación del target antes de la copia",
           "Exportación como PDF, CSV, impresión, JSON y copia HTML",
-          "Sincronización con tu propio repositorio mediante updatedAt y lápidas"
+          "Copia en JSON o HTML que se puede volver a cargar"
         ]
       },
       "limits": {
@@ -264,19 +264,19 @@ window.FLOWSTATE_DATA = {
           "Auslesen am Flight Controller setzt Chrome, Edge oder Opera voraus",
           "Daten liegen im localStorage dieses Browsers",
           "Spanisch ist übersetzt, aber nicht durchgesehen",
-          "Bilder bleiben im Browser, nicht im Repository"
+          "Kein Abgleich zwischen Geräten, jede Datei führt ihre eigene Liste"
         ],
         "en": [
           "Reading the controller requires Chrome, Edge or Opera",
           "Data lives in this browser's localStorage",
           "Spanish is translated but not reviewed",
-          "Pictures stay in the browser, not in the repository"
+          "No sync between devices, each file keeps its own list"
         ],
         "es": [
           "Leer la controladora requiere Chrome, Edge u Opera",
           "Los datos están en el localStorage de este navegador",
           "El español está traducido, pero sin revisar",
-          "Las imágenes se quedan en el navegador, no en el repositorio"
+          "Sin sincronización entre dispositivos, cada archivo lleva su propia lista"
         ]
       }
     },
