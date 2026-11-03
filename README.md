@@ -14,9 +14,9 @@ ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem,
 und Notiz liegen unter *Mehr Details* und bleiben leer, wenn sie nicht gebraucht werden.
 
 - Bild je Copter, vor dem Speichern verkleinert und nur lokal gehalten
-- Flight Controller über USB auslesen oder CLI-Text einfügen, mit Target-Abgleich vor der Sicherung
-- Export als PDF-Tabelle, CSV, Druck, JSON und als HTML-Backup
-- Abgleich mit dem eigenen Repository, Lesen ohne Token
+- Flight Controller über USB auslesen oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung
+- Betaflight-Backup je Modell, dazu Empfänger, Videosystem, Akku und Abfluggewicht
+- Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup; JSON und HTML lassen sich wieder einlesen
 - Daten im localStorage des Browsers, kein Konto, keine Telemetrie
 - Deutsch, Englisch und Spanisch
 

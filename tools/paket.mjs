@@ -126,7 +126,7 @@ function liesmich(data) {
   ]
     .concat(programLines)
     .concat([
-      '  hangar/data/hangardeck.json   Startbestand für den Abgleich',
+      '  hangar/data/hangardeck.json   Startbestand für die Copter-Liste',
       '',
       'Dazu:',
       '  README.md      Beschreibung des Projekts, wie auf GitHub',
