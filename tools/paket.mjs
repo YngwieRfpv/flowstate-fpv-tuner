@@ -11,6 +11,25 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const OUT_DIR = path.join(ROOT, 'paket');
 const OUT_FILE = path.join(OUT_DIR, 'FlowState-FPV-mit-Hub.zip');
 const SKIP = new Set(['.git', '.github', 'tools', 'paket', 'node_modules', '.arena']);
+const SKIP_FILES = new Set(['.gitignore', '.nojekyll']);
+
+// Ein Ordner um alles, damit beim Auspacken nichts verstreut liegt. Die Startseite
+// heisst nach dem Projekt, die Programme nach sich selbst statt alle index.html.
+const FOLDER = 'FlowState-FPV/';
+const HUB_PAGE = 'FlowState-FPV.html';
+const PAGES = {
+  hangar: 'hangar/HangarDeck-Lite.html',
+  tuner: 'tuner/FlowState-Tuner.html',
+  guide: 'guide/FPV-Guide.html'
+};
+
+// Verweise der Startseite auf die neuen Dateinamen, und die Pfade fuer die hub.js.
+function packagedHub(html) {
+  const text = html.replace(/href="(hangar|tuner|guide)\/(\?[^"]*)?"/g, (all, id, query) => 'href="' + PAGES[id] + (query || '') + '"');
+  return text.replace('<html ', '<html data-app-hangar="' + PAGES.hangar +
+    '" data-app-tuner="' + PAGES.tuner +
+    '" data-app-guide="' + PAGES.guide + '" ');
+}
 
 function walk(dir, prefix = '') {
   const out = [];
@@ -19,7 +38,7 @@ function walk(dir, prefix = '') {
     const rel = prefix ? prefix + '/' + entry.name : entry.name;
     const abs = path.join(dir, entry.name);
     if (entry.isDirectory()) out.push(...walk(abs, rel));
-    else if (entry.isFile()) out.push(rel);
+    else if (entry.isFile() && !(prefix === '' && SKIP_FILES.has(entry.name))) out.push(rel);
   }
   return out;
 }
@@ -84,17 +103,20 @@ function liesmich(data) {
   const programLines = ['hangar', 'tuner', 'guide'].map((id) => {
     const program = data.programs.find((p) => p.id === id) || { name: id };
     const release = data.releases.find((r) => r.program === id) || {};
-    let line = '  ' + id + '/index.html';
-    while (line.length < 24) line += ' ';
+    let line = '  ' + PAGES[id];
+    while (line.length < 30) line += ' ';
     return line + program.name + (release.version ? ' ' + release.version : '');
   });
 
   return [
     'FlowState FPV, Übersichtsseite mit den Programmen',
     '',
-    '1. Dieses Paket entpacken.',
-    '2. index.html im Browser öffnen.',
+    '1. Dieses Paket entpacken, es liegt alles im Ordner FlowState-FPV.',
+    '2. ' + HUB_PAGE + ' im Browser öffnen.',
     '3. Im Kopf der Seite zwischen Hangar, Autotuner und Guide wählen.',
+    '',
+    'Jedes Programm lässt sich auch einzeln öffnen, ohne die Übersicht:',
+    'einfach die jeweilige Datei doppelklicken und als Lesezeichen ablegen.',
     '',
     'Alles läuft lokal, ohne Server und ohne Internet. Wird die Seite über',
     'file:// geöffnet, öffnen sich die Programme in einem eigenen Tab;',
@@ -198,17 +220,27 @@ function zip(entries) {
 
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets/data/versions.json'), 'utf8'));
 const files = walk(ROOT);
-const entries = files.map((rel) => ({
-  name: rel,
-  data: fs.readFileSync(path.join(ROOT, rel))
-}));
+
+// Startseite und Programme unter ihren neuen Namen, alles andere unverändert.
+const RENAMED = {
+  'index.html': HUB_PAGE,
+  'hangar/index.html': PAGES.hangar,
+  'tuner/index.html': PAGES.tuner,
+  'guide/index.html': PAGES.guide
+};
+
+const entries = files.map((rel) => {
+  let data = fs.readFileSync(path.join(ROOT, rel));
+  if (rel === 'index.html') data = Buffer.from(packagedHub(data.toString('utf8')), 'utf8');
+  return { name: FOLDER + (RENAMED[rel] || rel), data };
+});
 
 entries.push({
-  name: 'LIESMICH.txt',
+  name: FOLDER + 'LIESMICH.txt',
   data: Buffer.from(liesmich(data), 'utf8')
 });
 entries.push({
-  name: 'README.html',
+  name: FOLDER + 'README.html',
   data: Buffer.from(readmePage(fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8')), 'utf8')
 });
 

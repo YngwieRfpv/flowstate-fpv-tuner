@@ -187,8 +187,8 @@
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.',
       'bundle.all': 'Alles herunterladen',
       'bundle.what': 'Im Paket liegt:',
-      'bundle.item.site': 'Diese Startseite mit Kopfzeile und Versionsliste, dazu alle Bilder und Skripte, die sie braucht',
-      'bundle.item.programs': 'Die drei Programme als je eine HTML-Datei, mit Vorschau und dem Startbestand für den HangarDeck-Abgleich',
+      'bundle.item.site': 'Ein Ordner FlowState-FPV mit der Startseite als FlowState-FPV.html, dazu alle Bilder und Skripte, die sie braucht',
+      'bundle.item.programs': 'Die drei Programme als je eine HTML-Datei unter eigenem Namen: HangarDeck-Lite.html, FlowState-Tuner.html und FPV-Guide.html, jede auch allein zu öffnen',
       'bundle.item.readme': 'README.md als Text und dieselbe Beschreibung als lesbare Seite README.html',
       'bundle.item.legal': 'LICENSE und LIESMICH.txt mit den ersten Schritten',
       'bundle.optional': 'Herunterladen ist freiwillig: die drei Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick. Diese Seite selbst kommt aus dem Netz. Ohne Verbindung laufen die Programme nur aus dem entpackten Paket, dann ohne Server.',
@@ -393,8 +393,8 @@
       'area.sources.d': 'Manuales originales, documentación, herramientas.',
       'bundle.all': 'Descargar todo',
       'bundle.what': 'El paquete contiene:',
-      'bundle.item.site': 'Esta vista general con cabecera y lista de versiones, además de las imágenes y los scripts que necesita',
-      'bundle.item.programs': 'Los tres programas, cada uno en un archivo HTML, con la vista previa y el contenido inicial para la sincronización de HangarDeck',
+      'bundle.item.site': 'Una carpeta FlowState-FPV con la vista general como FlowState-FPV.html, además de las imágenes y los scripts que necesita',
+      'bundle.item.programs': 'Los tres programas, cada uno en un archivo HTML con su propio nombre: HangarDeck-Lite.html, FlowState-Tuner.html y FPV-Guide.html, cada uno se abre también por separado',
       'bundle.item.readme': 'README.md como texto y la misma descripción como página legible README.html',
       'bundle.item.legal': 'LICENSE y LIESMICH.txt con los primeros pasos',
       'bundle.optional': 'Descargar es opcional: los tres programas están aquí en el marco bajo la cabecera y arrancan con un clic. Esta página llega desde la red. Sin conexión, los programas solo funcionan desde el paquete descomprimido, sin servidor.',
@@ -580,8 +580,8 @@
       'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.',
       'bundle.all': 'Download everything',
       'bundle.what': 'The package holds:',
-      'bundle.item.site': 'This overview page with header and version list, plus every image and script it needs',
-      'bundle.item.programs': 'The three programs, each one HTML file, with the previews and the starting set for the HangarDeck sync',
+      'bundle.item.site': 'One folder FlowState-FPV with the overview page as FlowState-FPV.html, plus every image and script it needs',
+      'bundle.item.programs': 'The three programs, each one HTML file under its own name: HangarDeck-Lite.html, FlowState-Tuner.html and FPV-Guide.html, each one opens on its own too',
       'bundle.item.readme': 'README.md as text and the same description as a readable page, README.html',
       'bundle.item.legal': 'LICENSE and LIESMICH.txt with the first steps',
       'bundle.optional': 'Downloading is optional: the three programs sit in the frame below the header and start with a click. This page itself comes from the network. Without a connection the programs only run from the unpacked package, then with no server.',
@@ -722,6 +722,13 @@
 
   var APPS = { hangar: 'hangar/', tuner: 'tuner/', guide: 'guide/' };
 
+  // Im Paket heißen die Programmdateien nach dem Programm statt alle index.html.
+  // Dort stehen die Pfade in der Kopfzeile der Seite.
+  ['hangar', 'tuner', 'guide'].forEach(function (id) {
+    var value = document.documentElement.getAttribute('data-app-' + id);
+    if (value) APPS[id] = value;
+  });
+
   // Palette als Adressbestandteil: so kommt die Wahl auch dann an, wenn ein
   // Browser den Speicher zwischen zwei Dateien nicht teilt (file://).
   function themeValue() {
@@ -749,9 +756,9 @@
       });
       raw = raw.slice(0, mark);
     }
-    var m = /(?:^|\/)(hangar|tuner|guide)\/?$/.exec(raw);
+    var m = /(?:^|\/)(hangar|tuner|guide)\/(?:[a-z0-9.-]*\.html)?$/i.exec(raw);
     if (!m) return null;
-    return { id: m[1], lang: lang };
+    return { id: m[1].toLowerCase(), lang: lang };
   }
   var stageScroll = 0;
   var stageTimer = null;
@@ -1158,8 +1165,28 @@
   // Die Dateien werden im Browser geholt und ohne Kompression in ein ZIP gelegt.
   // So muss im Repository kein zweites Mal dieselben Bytes liegen.
 
+  // Ein Ordner um alles, und die Startseite heißt nach dem Projekt statt index.html.
+  var PACK_FOLDER = 'FlowState-FPV/';
+  var PACK_HUB = 'FlowState-FPV.html';
+  var PACK_PAGES = {
+    hangar: 'hangar/HangarDeck-Lite.html',
+    tuner: 'tuner/FlowState-Tuner.html',
+    guide: 'guide/FPV-Guide.html'
+  };
+
+  // Die Startseite im Paket verweist auf die Dateinamen aus PACK_PAGES und sagt der
+  // hub.js ueber data-app-* wo die Programme liegen.
+  function packagedHub(html) {
+    var text = String(html).replace(/href="(hangar|tuner|guide)\/(\?[^"]*)?"/g, function (all, id, query) {
+      return 'href="' + PACK_PAGES[id] + (query || '') + '"';
+    });
+    return text.replace('<html ', '<html data-app-hangar="' + PACK_PAGES.hangar +
+      '" data-app-tuner="' + PACK_PAGES.tuner +
+      '" data-app-guide="' + PACK_PAGES.guide + '" ');
+  }
+
   var BUNDLE_BASE = [
-    { path: 'index.html', name: 'index.html' },
+    { path: 'index.html', name: PACK_HUB, hub: true },
     { path: 'assets/css/style.css', name: 'assets/css/style.css' },
     { path: 'assets/js/hub.js', name: 'assets/js/hub.js' },
     { path: 'assets/js/markdown.js', name: 'assets/js/markdown.js' },
@@ -1328,12 +1355,14 @@
   ];
 
   function bundleEntries(programId) {
-    var files = BUNDLE_BASE.slice();
-    Object.keys(APPS).forEach(function (id) {
-      files.push({ path: APPS[id] + 'index.html', name: id + '/index.html' });
+    var files = BUNDLE_BASE.map(function (file) {
+      return { path: file.path, name: PACK_FOLDER + file.name, hub: file.hub };
     });
-    files.push({ path: 'hangar/data/hangardeck.json', name: 'hangar/data/hangardeck.json' });
-    GUIDE_ASSETS.forEach(function (file) { files.push(file); });
+    ['hangar', 'tuner', 'guide'].forEach(function (id) {
+      files.push({ path: id + '/index.html', name: PACK_FOLDER + PACK_PAGES[id] });
+    });
+    files.push({ path: 'hangar/data/hangardeck.json', name: PACK_FOLDER + 'hangar/data/hangardeck.json' });
+    GUIDE_ASSETS.forEach(function (file) { files.push({ path: file.path, name: PACK_FOLDER + file.name }); });
 
     var releases = (state.data && state.data.releases) || [];
 
@@ -1349,8 +1378,8 @@
       var program = projectOf(id);
       var label = program ? program.name : id;
       var version = versionOf(id);
-      var path = '  ' + id + '/index.html';
-      while (path.length < 24) path += ' ';
+      var path = '  ' + PACK_PAGES[id];
+      while (path.length < 30) path += ' ';
       return path + label + (version ? ' ' + version : '');
     });
 
@@ -1359,9 +1388,12 @@
       text: [
         'FlowState FPV, Übersichtsseite mit den Programmen',
         '',
-        '1. Dieses Paket entpacken.',
-        '2. index.html im Browser öffnen.',
+        '1. Dieses Paket entpacken, es liegt alles im Ordner FlowState-FPV.',
+        '2. ' + PACK_HUB + ' im Browser öffnen.',
         '3. Im Kopf der Seite zwischen Hangar, Autotuner und Guide wählen.',
+        '',
+        'Jedes Programm lässt sich auch einzeln öffnen, ohne die Übersicht:',
+        'einfach die jeweilige Datei doppelklicken und als Lesezeichen ablegen.',
         '',
         'Alles läuft lokal, ohne Server und ohne Internet. Wird die Seite über',
         'file:// geöffnet, öffnen sich die Programme in einem eigenen Tab;',
@@ -1386,13 +1418,17 @@
         if (!response.ok) throw new Error(file.path + ': HTTP ' + response.status);
         return response.arrayBuffer();
       }).then(function (buffer) {
+        if (file.hub) {
+          var html = new TextDecoder().decode(new Uint8Array(buffer));
+          return { name: file.name, data: new TextEncoder().encode(packagedHub(html)) };
+        }
         return { name: file.name, data: new Uint8Array(buffer) };
       });
     }
 
     var tasks = files.map(grab);
     var extras = BUNDLE_EXTRA.map(function (file) {
-      return grab(file).catch(function () { return null; });
+      return grab({ path: file.path, name: PACK_FOLDER + file.name }).catch(function () { return null; });
     });
 
     return Promise.all(tasks.concat(extras)).then(function (all) {
@@ -1400,12 +1436,12 @@
       var extra = all.slice(files.length);
       var readmeBytes = extra[0] ? extra[0].data : null;
 
-      entries.push({ name: notice.name, data: new TextEncoder().encode(notice.text) });
+      entries.push({ name: PACK_FOLDER + notice.name, data: new TextEncoder().encode(notice.text) });
       extra.forEach(function (entry) { if (entry) entries.push(entry); });
 
       if (readmeBytes) {
         var markdown = new TextDecoder().decode(readmeBytes);
-        entries.push({ name: 'README.html', data: new TextEncoder().encode(readmePage(markdown)) });
+        entries.push({ name: PACK_FOLDER + 'README.html', data: new TextEncoder().encode(readmePage(markdown)) });
       }
       return entries;
     });
