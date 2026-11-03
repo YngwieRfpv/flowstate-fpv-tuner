@@ -1655,6 +1655,10 @@ body.app-open .site-header {
   border-left: 1px solid var(--line);
 }
 
+.segmented button[hidden] {
+  display: none;
+}
+
 .segmented button:hover {
   color: var(--text);
 }
