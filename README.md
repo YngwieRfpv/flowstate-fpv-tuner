@@ -7,7 +7,7 @@ ohne Installation und ohne Konto. Einmal geladen arbeiten sie ohne Verbindung.
 
 ## [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-[`hangar/index.html`](hangar/index.html) · 110 KB · Copter mit Bild führen, Flight Controller auslesen
+[`hangar/index.html`](hangar/index.html) · 132 KB · Copter mit Bild führen, Flight Controller auslesen
 
 Führt die Copter-Liste, wahlweise als Kacheln oder als Tabelle. Name, Größe, Spannung, KV,
 ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem, Abfluggewicht
@@ -16,6 +16,7 @@ und Notiz liegen unter *Mehr Details* und bleiben leer, wenn sie nicht gebraucht
 - Bild je Copter, vor dem Speichern verkleinert und nur lokal gehalten
 - Flight Controller über USB auslesen oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung
 - Betaflight-Backup je Modell, dazu Empfänger, Videosystem, Akku und Abfluggewicht
+- Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät
 - Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup; JSON und HTML lassen sich wieder einlesen
 - Daten im localStorage des Browsers, kein Konto, keine Telemetrie
 - Deutsch, Englisch und Spanisch
@@ -105,7 +106,7 @@ Stand zu sehen, dort gibt es nichts zu ersetzen.
 | Spanisch | nicht geprüft | nicht geprüft | nicht geprüft | nicht geprüft |
 
 Spanisch ist in allen drei Programmen und in der Übersicht wählbar, aber nirgends
-durchgesehen. HangarDeck Lite ist erst mit dem Stand 0.9.2 dazugekommen.
+durchgesehen. HangarDeck Lite ist später dazugekommen.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
@@ -115,13 +116,13 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.2-beta.2) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) |
+| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.5-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) |
 |---|---|---|---|
-| Version | `v0.9.2-beta.2` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` |
+| Version | `v0.9.5-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` |
 | Kanal | Beta | Alpha | Beta |
 | Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 |
-| Größe (Bytes) | 112.243 | 496.882 | 7.700.211 |
-| SHA-256 | `0ec1c6c6f97375e092f136d644c7b96af4d2754befd46746cde02502badb2709` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` |
+| Größe (Bytes) | 131.966 | 496.882 | 7.700.211 |
+| SHA-256 | `603b54b6f1b8354308e8130a0ef85a6e0412566f9a711f56af451e7a9f3a5728` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, jeweils gefolgt vom erwarteten Wert aus der Tabelle.
@@ -147,7 +148,7 @@ install and without an account. Once loaded they work offline.
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
-| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 110 KB | Keep the quad list, read the flight controller |
+| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 132 KB | Keep the quad list, read the flight controller |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 
@@ -176,7 +177,7 @@ in their own tab, because browsers block the frame there. Over a local server th
 frame below the header. The check for newer builds works the same either way.
 
 Spanish is selectable in all three programs and on the overview page, but reviewed
-nowhere. HangarDeck Lite joined with build 0.9.2.
+nowhere. HangarDeck Lite joined later.
 
 Language lives in the address: `?lang=de`, `?lang=en` or `?lang=es`. Without it the browser
 language decides, otherwise German. A missing string falls back to English.

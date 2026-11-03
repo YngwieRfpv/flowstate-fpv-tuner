@@ -1,7 +1,7 @@
 {
   "app": "HangarDeck Lite",
   "schema": 2,
-  "version": "0.9.2-beta.2",
+  "version": "0.9.5-beta.1",
   "updated": "2026-11-03T00:00:00.000Z",
   "prefs": {
     "theme": "ocean",
@@ -24,22 +24,6 @@
       "mah": 1300,
       "weight": 680,
       "notes": ""
-    },
-    {
-      "id": "c2",
-      "updatedAt": 0,
-      "deleted": false,
-      "name": "Cinewhoop 3\"",
-      "size": "3",
-      "cells": "4S",
-      "kv": 3000,
-      "esc": 35,
-      "props": "3x2x3",
-      "status": "ready",
-      "fc": "",
-      "mah": 850,
-      "weight": null,
-      "notes": "Indoor, Duct"
     },
     {
       "id": "c3",
