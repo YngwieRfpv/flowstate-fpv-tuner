@@ -927,6 +927,10 @@ body.app-open .site-header {
   color: var(--text-soft);
 }
 
+.bundle-info__note + .bundle-info__note {
+  margin-top: 6px;
+}
+
 .overview-list {
   display: grid;
   gap: 10px;
@@ -2589,4 +2593,13 @@ details.notes > summary:hover {
 
 .report-status.is-warn {
   color: var(--amber);
+}
+
+/* Dateinamen in der Paketliste: nur der Name, kein Satz drumherum. */
+.bundle-info__list code {
+  color: var(--text-soft);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 5px;
 }

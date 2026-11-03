@@ -55,6 +55,10 @@ Herunterladen ist freiwillig. Die drei Programme laufen auch direkt auf der Übe
 Rahmen unter der Kopfzeile. Die Seite selbst kommt aus dem Netz, ohne Verbindung laufen die
 Programme nur aus dem entpackten Paket.
 
+Was auf der Seite angelegt wird, liegt im Browserspeicher dieser Adresse. Das Paket führt seinen
+eigenen Speicher, die Liste aus der Übersicht ist dort nicht drin. Über `file://` kann der
+Browser den Speicher sperren; dann gelten Änderungen nur für die laufende Sitzung.
+
 Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner/),
 [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/),
 [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
@@ -155,6 +159,10 @@ install and without an account. Once loaded they work offline.
 Downloading is optional. The three programs also run right on the overview page, in the frame
 below the header. The page itself comes from the network; without a connection the programs
 only run from the unpacked package.
+
+What you create on the page lives in the browser storage of that address. The package keeps its
+own storage, the list from the overview is not in it. Over `file://` the browser may block
+storage; changes then only last for the running session.
 
 *Download everything* on the overview page packs a ZIP with everything in one folder
 `FlowState-FPV`: the overview page, the three programs, `README.md`, `README.html`, `LICENSE`
