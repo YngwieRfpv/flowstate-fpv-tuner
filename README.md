@@ -1,22 +1,24 @@
 # [FlowState FPV](https://yngwierfpv.github.io/flowstate-fpv-tuner/)
 
 Drei Programme für deine Copter. Jedes ist eine einzelne HTML-Datei, die im Browser läuft,
-ohne Installation, Konto oder Internetverbindung.
+ohne Installation und ohne Konto. Einmal geladen arbeiten sie ohne Verbindung.
 
 ---
 
 ## [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-[`hangar/index.html`](hangar/index.html) · 65 KB · Copter-Liste führen, als Tabelle ausgeben
+[`hangar/index.html`](hangar/index.html) · 110 KB · Copter mit Bild führen, Flight Controller auslesen
 
-Führt die Copter-Liste. Pro Zeile stehen Name, Größe, Spannung, KV, ESC, Props und Status;
-Flight Controller, Akku, Abfluggewicht und Notiz liegen unter *Mehr Details* und bleiben
-leer, wenn sie nicht gebraucht werden.
+Führt die Copter-Liste, wahlweise als Kacheln oder als Tabelle. Name, Größe, Spannung, KV,
+ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem, Abfluggewicht
+und Notiz liegen unter *Mehr Details* und bleiben leer, wenn sie nicht gebraucht werden.
 
-- Export als PDF-Tabelle, CSV, Druck oder JSON
+- Bild je Copter, vor dem Speichern verkleinert und nur lokal gehalten
+- Flight Controller über USB auslesen oder CLI-Text einfügen, mit Target-Abgleich vor der Sicherung
+- Export als PDF-Tabelle, CSV, Druck, JSON und als HTML-Backup
 - Abgleich mit dem eigenen Repository, Lesen ohne Token
 - Daten im localStorage des Browsers, kein Konto, keine Telemetrie
-- Deutsch und Englisch
+- Deutsch, Englisch und Spanisch
 
 ## [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)
 
@@ -88,10 +90,10 @@ Stand zu sehen, dort gibt es nichts zu ersetzen.
 |---|---|---|---|---|
 | Deutsch | vollständig integriert | vollständig integriert | vollständig integriert | vollständig integriert |
 | Englisch | vollständig integriert | vollständig integriert | vollständig integriert | vollständig integriert |
-| Spanisch | nicht geprüft | nicht angelegt | nicht geprüft | nicht geprüft |
+| Spanisch | nicht geprüft | nicht geprüft | nicht geprüft | nicht geprüft |
 
-Für HangarDeck Lite ist Spanisch nicht vorgesehen, die Oberfläche bleibt bei Deutsch und
-Englisch.
+Spanisch ist in allen drei Programmen und in der Übersicht wählbar, aber nirgends
+durchgesehen. HangarDeck Lite ist erst mit dem Stand 0.9.2 dazugekommen.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
@@ -101,13 +103,13 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.4.0-beta.3) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.13-es) |
+| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.2-beta.2) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) |
 |---|---|---|---|
-| Version | `v0.4.0-beta.3` | `v4.8-alpha.4` | `v1.0.2-beta.13-es` |
+| Version | `v0.9.2-beta.2` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` |
 | Kanal | Beta | Alpha | Beta |
-| Datum | 02.11.2026 | 02.11.2026 | 02.11.2026 |
-| Größe (Bytes) | 65.431 | 496.882 | 7.687.988 |
-| SHA-256 | `c0651cba657ffe27398aa01b7518f56c6234508c81f3d4c3703c51aaa5f5b75e` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `09293f03b5ae0da0409c8169e67706fa67b11ba70aed4f7b9fd7e25ffd3d1342` |
+| Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 |
+| Größe (Bytes) | 112.243 | 496.882 | 7.700.211 |
+| SHA-256 | `0ec1c6c6f97375e092f136d644c7b96af4d2754befd46746cde02502badb2709` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, jeweils gefolgt vom erwarteten Wert aus der Tabelle.
@@ -148,7 +150,8 @@ release row packs the same content and names the program in the file name. Unzip
 `index.html`. Over `file://` the programs open in their own tab, over a server they sit in
 the frame below the header.
 
-Spanish is not planned for HangarDeck Lite, its interface stays German and English.
+Spanish is selectable in all three programs and on the overview page, but reviewed
+nowhere. HangarDeck Lite joined with build 0.9.2.
 
 Language lives in the address: `?lang=de`, `?lang=en` or `?lang=es`. Without it the browser
 language decides, otherwise German. A missing string falls back to English. Spanish is

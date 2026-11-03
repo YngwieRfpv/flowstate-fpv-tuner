@@ -452,7 +452,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">FlowState Hangar · v0.9.2-beta.1</span>
+    <span class="ver">FlowState Hangar · v0.9.2-beta.2</span>
   </footer>
 </div>
 
@@ -875,6 +875,15 @@ function seedFor(){
   });
 }
 function normTheme(name){ return THEME_ALIAS[name] || null; }
+/* Farbe und Sprache kommen zusaetzlich aus der Adresse (?theme=, ?lang=) und aus
+   den Schluesseln, die die Uebersichtsseite schreibt. Reihenfolge: Adresse,
+   Uebersichtsseite, gemeinsamer Schluessel, eigene Wahl, Browsersprache. */
+var HUB_THEME_KEY = "flowstate-theme";
+var HUB_LANG_KEY = "flowstate-lang";
+function urlTheme(){ try{ return normTheme(new URLSearchParams(location.search).get("theme")); }catch(e){ return null; } }
+function urlLang(){ try{ var q = new URLSearchParams(location.search).get("lang"); return I18N[q] ? q : null; }catch(e){ return null; } }
+function hubTheme(){ var t = normTheme(LS.get(HUB_THEME_KEY)); return t && THEMES[t] ? t : null; }
+function hubLang(){ var v = LS.get(HUB_LANG_KEY); return I18N[v] ? v : null; }
 function readShared(){
   var f = {};
   try{ f = JSON.parse(LS.get(FS_KEY) || "{}") || {}; }catch(e){ f = {}; }
@@ -890,6 +899,9 @@ function writeShared(){
   LS.set(FS_KEY, JSON.stringify({
     theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0, by: "hangar"
   }));
+  // die Schluessel, die die Uebersichtsseite liest
+  LS.set(HUB_THEME_KEY, prefs.theme);
+  LS.set(HUB_LANG_KEY, prefs.lang);
 }
 function loadPrefs(){
   var p = {};
@@ -899,9 +911,11 @@ function loadPrefs(){
   var sh = readShared();           // was eine Schwesterseite zuletzt gesetzt hat
   var mine = typeof p.updatedAt === "number" ? p.updatedAt : 0;
   var useShared = sh.updatedAt >= mine && (sh.theme || sh.lang);
+  var theme = urlTheme() || hubTheme() || (useShared && sh.theme) || (THEMES[p.theme] ? p.theme : "ocean");
+  var lang  = urlLang()  || hubLang()  || (useShared && sh.lang)  || (I18N[p.lang] ? p.lang : guess);
   return {
-    theme: THEMES[(useShared && sh.theme) || p.theme] ? ((useShared && sh.theme) || p.theme) : "ocean",
-    lang:  I18N[(useShared && sh.lang) || p.lang] ? ((useShared && sh.lang) || p.lang) : guess,
+    theme: THEMES[theme] ? theme : "ocean",
+    lang:  I18N[lang] ? lang : guess,
     updatedAt: Math.max(mine, useShared ? sh.updatedAt : 0),
     view: p.view === "list" ? "list" : "tiles"
   };
@@ -1784,7 +1798,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "0.9.2-beta.1";
+var VER = "0.9.2-beta.2";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -2166,6 +2180,17 @@ $("langs").addEventListener("click", function(e){
 /* Eine Schwesterseite (FPV-Guide, Autotuner, weiteres FlowState-Projekt) hat
    umgeschaltet: sofort übernehmen, ohne Neuladen. */
 window.addEventListener("storage", function(e){
+  if(e.key === HUB_THEME_KEY || e.key === HUB_LANG_KEY){
+    var t = e.key === HUB_THEME_KEY ? hubTheme() : null;
+    var l = e.key === HUB_LANG_KEY ? hubLang() : null;
+    var hit = false;
+    if(t && t !== prefs.theme){ prefs.theme = t; hit = true; }
+    if(l && l !== prefs.lang ){ prefs.lang  = l; hit = true; }
+    if(!hit) return;
+    prefs.updatedAt = Date.now();
+    applyTheme(); applyLang(); render();
+    return;
+  }
   if(e.key !== FS_KEY) return;
   var sh = readShared();
   if(!sh.updatedAt || sh.updatedAt <= (prefs.updatedAt || 0)) return;
