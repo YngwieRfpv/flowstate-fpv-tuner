@@ -99,14 +99,14 @@ Stand zu sehen, dort gibt es nichts zu ersetzen.
 
 ## Sprachen
 
-| Sprache | Übersicht | HangarDeck Lite | FlowState Tuner | FPV Guide |
-|---|---|---|---|---|
-| Deutsch | vollständig integriert | vollständig integriert | vollständig integriert | vollständig integriert |
-| Englisch | vollständig integriert | vollständig integriert | vollständig integriert | vollständig integriert |
-| Spanisch | nicht geprüft | nicht geprüft | nicht geprüft | nicht geprüft |
+| Sprache | Stand |
+|---|---|
+| Deutsch | vollständig integriert, in der Übersicht und in allen drei Programmen |
+| Englisch | vollständig integriert, in der Übersicht und in allen drei Programmen |
+| Spanisch | überall wählbar, nicht geprüft |
 
-Spanisch ist in allen drei Programmen und in der Übersicht wählbar, aber nirgends
-durchgesehen. HangarDeck Lite ist später dazugekommen.
+Spanisch ist übersetzt, aber in keinem Bereich durchgesehen; offene Stellen erscheinen
+auf Englisch.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer

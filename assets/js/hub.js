@@ -29,24 +29,12 @@
       'nav.versions': 'Versionen',
       'nav.langs': 'Sprachen',
       'langs.eyebrow': 'Sprachen',
-      'langs.title': 'Deutsch und Englisch vollständig, Spanisch überall wählbar und ungeprüft',
+      'langs.title': 'Deutsch und Englisch vollständig, Spanisch ungeprüft',
       'langs.lede': 'Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist überall auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch.',
-      'langs.notYet': 'noch nicht',
       'langs.h.language': 'Sprache',
       'langs.h.status': 'Stand',
-      'langs.h.checked': 'Geprüft',
-      'langs.h.overview': 'Übersicht',
-      'langs.status.full': 'vollständig integriert',
-      'langs.status.unverified': 'nicht geprüft',
-      'langs.status.preview': 'Vorschau, nicht geprüft',
-      'langs.yes': 'ja',
-      'langs.no': 'nein',
-      'langs.open': 'Tuner öffnen',
-      'langs.openGuide': 'Guide öffnen',
-      'langs.openHangar': 'HangarDeck öffnen',
-      'langs.openHub': 'Übersicht öffnen',
-      'langs.none': 'kein Link',
-      'langs.hangar': 'HangarDeck Lite ist jetzt auch auf Spanisch dabei, dort aber so wenig durchgesehen wie im Tuner und im Guide.',
+      'langs.status.full': 'vollständig',
+      'langs.status.open': 'wählbar, nicht geprüft',
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
@@ -191,6 +179,7 @@
       'report.copy': 'Bericht kopieren',
       'report.sendDiscord': 'Discord',
       'report.telegramTip': 'Im Telegram-Fenster den Bot @{bot} auswählen',
+      'report.telegramCopied': 'Bericht ist kopiert. Im Telegram-Fenster den Bot {bot} auswählen und einfügen (Strg+V).',
       'report.close': 'Schließen',
       'report.hint': 'Angehangen werden Programm-Version, Datum und Browser-Kennung, sonst nichts.',
       'report.lbl.program': 'Programm',
@@ -200,7 +189,6 @@
       'report.lbl.page': 'Seite',
       'report.lbl.browser': 'Browser',
       'report.status.needText': 'Bitte kurz beschreiben, was passiert ist.',
-      'report.status.telegram': 'Telegram-Fenster geöffnet. Dort den Bot @{bot} auswählen.',
       'report.status.telegramBlocked': 'Das Fenster wurde blockiert. Pop-ups erlauben oder Bericht kopieren.',
       'report.status.mail': 'E-Mail-Fenster geöffnet. Senden nicht vergessen.',
       'report.status.copied': 'Bericht kopiert.',
@@ -224,24 +212,12 @@
       'nav.versions': 'Versiones',
       'nav.langs': 'Idiomas',
       'langs.eyebrow': 'Idiomas',
-      'langs.title': 'Alemán e inglés completos, español disponible en todas partes y sin revisar',
+      'langs.title': 'Alemán e inglés completos, español sin revisar',
       'langs.lede': 'El alemán y el inglés están completos en los tres programas y en esta vista general. El español se puede elegir en todas partes, pero no está revisado en ningún área; los pasajes sin revisar aparecen en inglés.',
-      'langs.notYet': 'todavía no',
       'langs.h.language': 'Idioma',
       'langs.h.status': 'Estado',
-      'langs.h.checked': 'Revisado',
-      'langs.h.overview': 'Vista general',
-      'langs.status.full': 'integrado por completo',
-      'langs.status.unverified': 'sin revisar',
-      'langs.status.preview': 'vista previa, sin revisar',
-      'langs.yes': 'sí',
-      'langs.no': 'no',
-      'langs.open': 'Abrir el Tuner',
-      'langs.openGuide': 'Abrir la Guía',
-      'langs.openHangar': 'Abrir HangarDeck',
-      'langs.openHub': 'Abrir la vista general',
-      'langs.none': 'sin enlace',
-      'langs.hangar': 'HangarDeck Lite ya está también en español, aunque tan poco revisado como en el tuner y en la guía.',
+      'langs.status.full': 'completo',
+      'langs.status.open': 'elegible, sin revisar',
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
       'hero.eyebrow': 'FlowState FPV',
@@ -405,6 +381,7 @@
       'report.copy': 'Copiar el informe',
       'report.sendDiscord': 'Discord',
       'report.telegramTip': 'En la ventana de Telegram elige el bot @{bot}',
+      'report.telegramCopied': 'El informe está copiado. Elige el bot {bot} en la ventana de Telegram y pégalo (Ctrl+V).',
       'report.close': 'Cerrar',
       'report.hint': 'Se adjuntan la versión del programa, la fecha y el identificador del navegador, nada más.',
       'report.lbl.program': 'Programa',
@@ -414,7 +391,6 @@
       'report.lbl.page': 'Página',
       'report.lbl.browser': 'Navegador',
       'report.status.needText': 'Describe brevemente lo que ha pasado.',
-      'report.status.telegram': 'Ventana de Telegram abierta. Allí elige el bot @{bot}.',
       'report.status.telegramBlocked': 'La ventana fue bloqueada. Permite las ventanas emergentes o copia el informe.',
       'report.status.mail': 'Ventana de correo abierta. No olvides enviarlo.',
       'report.status.copied': 'Informe copiado.',
@@ -438,24 +414,12 @@
       'nav.versions': 'Versions',
       'nav.langs': 'Languages',
       'langs.eyebrow': 'Languages',
-      'langs.title': 'German and English complete, Spanish selectable everywhere and unverified',
+      'langs.title': 'German and English complete, Spanish unverified',
       'langs.lede': 'German and English are complete in all three programs and on this page. Spanish is selectable everywhere but verified in no area; unrevised passages appear in English.',
-      'langs.notYet': 'not yet',
       'langs.h.language': 'Language',
       'langs.h.status': 'State',
-      'langs.h.checked': 'Verified',
-      'langs.h.overview': 'Overview',
-      'langs.status.full': 'fully integrated',
-      'langs.status.unverified': 'not verified',
-      'langs.status.preview': 'preview, not verified',
-      'langs.yes': 'yes',
-      'langs.no': 'no',
-      'langs.open': 'Open tuner',
-      'langs.openGuide': 'Open guide',
-      'langs.openHangar': 'Open HangarDeck',
-      'langs.openHub': 'Open the overview',
-      'langs.none': 'no link',
-      'langs.hangar': 'HangarDeck Lite now ships Spanish too, though as little reviewed there as in the tuner and the guide.',
+      'langs.status.full': 'complete',
+      'langs.status.open': 'selectable, not verified',
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
@@ -600,6 +564,7 @@
       'report.copy': 'Copy report',
       'report.sendDiscord': 'Discord',
       'report.telegramTip': 'In the Telegram window pick the bot @{bot}',
+      'report.telegramCopied': 'Report copied. Pick the bot {bot} in the Telegram window and paste it (Ctrl+V).',
       'report.close': 'Close',
       'report.hint': 'Program version, date and browser ID are attached, nothing else.',
       'report.lbl.program': 'Program',
@@ -609,7 +574,6 @@
       'report.lbl.page': 'Page',
       'report.lbl.browser': 'Browser',
       'report.status.needText': 'Please describe briefly what happened.',
-      'report.status.telegram': 'Telegram window opened. Pick the bot @{bot} there.',
       'report.status.telegramBlocked': 'The window was blocked. Allow pop-ups or copy the report.',
       'report.status.mail': 'Mail window opened. Do not forget to send.',
       'report.status.copied': 'Report copied.',
@@ -1771,18 +1735,32 @@
     fail();
   }
 
-  // Telegram nimmt den Text über den Teilen-Link. Im Fenster wird der Bot gewählt.
+  // Telegram nimmt den Text über den Teilen-Link. Ist die App nicht installiert,
+  // landet man auf der Website: der Bericht liegt dann in der Zwischenablage und
+  // lässt sich im Bot-Chat einfügen.
   function sendTelegram() {
     if (reportBlocked()) return;
     if (!reportReady()) return;
-    var text = buildReportText();
-    if (text.length > 3500) text = text.slice(0, 3500);
-    var url = 'https://t.me/share/url?text=' + encodeURIComponent(text);
-    var win = null;
-    try { win = window.open(url, '_blank', 'noopener'); } catch (e) { win = null; }
-    reportStatus(win
-      ? t('report.status.telegram', { bot: REPORT_CONFIG.telegramBot })
-      : t('report.status.telegramBlocked'), win ? 'ok' : 'warn');
+    var full = buildReportText();
+    var share = 'https://t.me/share/url?text=' + encodeURIComponent(String(full).slice(0, 3500));
+    // Erst das Fenster öffnen (bleibt aus dem Klick heraus erlaubt), dann kopieren.
+    try {
+      window.open(share, '_blank', 'noopener');
+    } catch (e) {
+      reportStatus(t('report.status.telegramBlocked'), 'warn');
+      return;
+    }
+    var bot = '@' + REPORT_CONFIG.telegramBot;
+    function copied() { reportStatus(t('report.telegramCopied', { bot: bot }), 'ok'); }
+    function fallback() {
+      if (legacyCopy(full)) { copied(); return; }
+      reportStatus(t('report.status.copyFail'), 'warn');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(full).then(copied, fallback);
+      return;
+    }
+    fallback();
   }
 
   function sendMail() {
