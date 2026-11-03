@@ -13,26 +13,29 @@
         "es": "Llevar los copter en una lista"
       },
       "description": {
-        "de": "Eine Liste pro Copter mit Größe, Zellen, KV, ESC, Props und Status. Export als PDF-Tabelle, CSV, Druck oder JSON, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
-        "en": "One list for your quads with size, cells, KV, ESC, props and status. Export as a PDF table, CSV, print or JSON, plus a sync with your own repository. Everything runs from a single file in the browser.",
-        "es": "Una lista por copter con tamaño, celdas, KV, ESC, hélices y estado. Exportación como tabla PDF, CSV, impresión o JSON, además de una sincronización con tu propio repositorio. Todo funciona en un solo archivo en el navegador."
+        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, dazu ein Abgleich mit dem eigenen Repository. Alles läuft in einer Datei im Browser.",
+        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Export as a PDF table, CSV, print, JSON and an HTML backup, plus a sync with your own repository. Everything runs from a single file in the browser.",
+        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML, además de una sincronización con tu propio repositorio. Todo funciona en un solo archivo en el navegador."
       },
       "highlights": {
         "de": [
-          "Name und Größe reichen, weitere Felder bleiben optional",
-          "Export als PDF-Tabelle, CSV, Druck oder JSON",
+          "Name und Größe reichen, Bild und weitere Felder bleiben optional",
+          "Flight Controller über USB auslesen oder CLI-Text einfügen",
+          "Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup",
           "Abgleich über das eigene Repository, Lesen ohne Token",
           "Deutsch, Englisch und Spanisch, Ozean, Leinen und Dunkelrot"
         ],
         "en": [
-          "Name and size are enough, further fields stay optional",
-          "Export as a PDF table, CSV, print or JSON",
+          "Name and size are enough, picture and further fields stay optional",
+          "Read the flight controller over USB or paste CLI text",
+          "Export as a PDF table, CSV, print, JSON and an HTML backup",
           "Sync through your own repository, reading needs no token",
           "German, English and Spanish, Ocean, Sand and Drakn"
         ],
         "es": [
-          "El nombre y el tamaño bastan, los demás campos son opcionales",
-          "Exportación como tabla PDF, CSV, impresión o JSON",
+          "El nombre y el tamaño bastan, la imagen y los demás campos son opcionales",
+          "Leer la controladora por USB o pegar texto CLI",
+          "Exportación como tabla PDF, CSV, impresión, JSON y copia HTML",
           "Sincronización con tu propio repositorio, lectura sin token",
           "Alemán, inglés y español, océano, lino y rojo oscuro"
         ]
@@ -216,6 +219,14 @@
             "es": "Idioma DE/EN"
           },
           "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Spanisch",
+            "en": "Spanish",
+            "es": "Español"
+          },
+          "state": "pending"
         },
         {
           "label": {
