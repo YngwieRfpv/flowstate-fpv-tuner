@@ -13,14 +13,15 @@
         "es": "Llevar los copter en una lista"
       },
       "description": {
-        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt. Alles läuft in einer Datei im Browser.",
-        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in. Everything runs from a single file in the browser.",
-        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML que se puede volver a cargar. Todo funciona en un solo archivo en el navegador."
+        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Die Liste lässt sich als Code oder Link weitergeben. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt. Alles läuft in einer Datei im Browser.",
+        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. The list can be passed on as a code or a link. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in. Everything runs from a single file in the browser.",
+        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. La lista se puede pasar como código o enlace. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML que se puede volver a cargar. Todo funciona en un solo archivo en el navegador."
       },
       "highlights": {
         "de": [
           "Name und Größe reichen, Bild und weitere Felder bleiben optional",
           "Flight Controller über USB auslesen oder CLI-Text einfügen",
+          "Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät",
           "Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup",
           "Sicherung als JSON oder HTML lässt sich wieder einlesen",
           "Deutsch, Englisch und Spanisch, Ozean, Leinen und Dunkelrot"
@@ -28,6 +29,7 @@
         "en": [
           "Name and size are enough, picture and further fields stay optional",
           "Read the flight controller over USB or paste CLI text",
+          "Pass the list on as a code or link, photos stay on the device",
           "Export as a PDF table, CSV, print, JSON and an HTML backup",
           "A JSON or HTML backup can be read back in",
           "German, English and Spanish, Ocean, Sand and Drakn"
@@ -35,6 +37,7 @@
         "es": [
           "El nombre y el tamaño bastan, la imagen y los demás campos son opcionales",
           "Leer la controladora por USB o pegar texto CLI",
+          "Pasar la lista como código o enlace, las fotos se quedan en el dispositivo",
           "Exportación como tabla PDF, CSV, impresión, JSON y copia HTML",
           "La copia en JSON o HTML se puede volver a cargar",
           "Alemán, inglés y español, océano, lino y rojo oscuro"
@@ -42,17 +45,17 @@
       },
       "meta": {
         "de": [
-          "1 Datei · 110 KB",
+          "1 Datei · 132 KB",
           "Bild, FC-Auslese, Exporte",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 110 KB",
+          "1 file · 132 KB",
           "picture, controller read, exports",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 110 KB",
+          "1 archivo · 132 KB",
           "imagen, lectura de la FC, exportaciones",
           "cualquier navegador actual"
         ]
@@ -167,26 +170,26 @@
   ],
   "releases": [
     {
-      "id": "hangar-0.9.2-beta.2",
+      "id": "hangar-0.9.5-beta.1",
       "program": "hangar",
-      "version": "v0.9.2-beta.2",
+      "version": "v0.9.5-beta.1",
       "channel": "beta",
       "released": "2026-11-03",
       "title": {
-        "de": "Neuer Stand aus der App, Farbe und Sprache kommen jetzt an.",
-        "en": "New app build, colour and language now arrive.",
-        "es": "Nueva versión de la aplicación, el color y el idioma llegan."
+        "de": "Neuer Stand: Liste weitergeben, CLI-Datei ablegen",
+        "en": "New build: pass the list on, drop in a CLI file",
+        "es": "Nueva versión: pasar la lista y soltar un archivo CLI"
       },
       "summary": {
-        "de": "HangarDeck Lite übernimmt den aktuellen Stand der App: Copter mit Bild, Auslesen des Flight Controllers über USB, CLI-Text, Betaflight-Backup pro Modell, Empfänger, Videosystem und Akku. Spanisch ist jetzt dabei. Farbe und Sprache kommen aus der Adresse und aus der Übersichtsseite und werden dorthin zurückgemeldet.",
-        "en": "HangarDeck Lite takes the current app build: quads with a picture, reading the flight controller over USB, CLI text, a Betaflight backup per model, receiver, video system and battery. Spanish is in. Colour and language come from the address and from the overview page, and are reported back there.",
-        "es": "HangarDeck Lite adopta la versión actual de la aplicación: copter con imagen, lectura de la controladora por USB, texto CLI, copia de Betaflight por modelo, receptor, sistema de vídeo y batería. El español ya está incluido. El color y el idioma llegan desde la dirección y desde la vista general, y se devuelven allí."
+        "de": "HangarDeck Lite übernimmt den Stand 0.9.5. Neu ist das Übertragen: Die Liste geht als Code oder Link an ein anderes Gerät, Copter und Betaflight-Sicherungen sind enthalten, Bilder bleiben hier. Eine CLI-Datei lässt sich direkt auf die Karte ziehen. Unverändert dabei: Flight Controller über USB auslesen, Betaflight-Backup je Modell, Export als PDF, CSV, Druck, JSON und HTML, Farbe und Sprache aus der Adresse und aus der Übersichtsseite.",
+        "en": "HangarDeck Lite takes the 0.9.5 build. New is the transfer: the list goes to another device as a code or a link, quads and Betaflight backups included, photos stay here. A CLI file can be dropped straight onto the card. Unchanged: reading the flight controller over USB, a Betaflight backup per model, export as PDF, CSV, print, JSON and HTML, colour and language from the address and from the overview page.",
+        "es": "HangarDeck Lite adopta la versión 0.9.5. Lo nuevo es el traspaso: la lista pasa a otro dispositivo como código o enlace, con los copter y las copias de Betaflight, las fotos se quedan aquí. Un archivo CLI se puede soltar directamente en la tarjeta. Sin cambios: lectura de la controladora por USB, copia de Betaflight por modelo, exportación como PDF, CSV, impresión, JSON y HTML, color e idioma desde la dirección y desde la vista general."
       },
       "file": "hangar/index.html",
-      "size_bytes": 112243,
-      "sha256": "0ec1c6c6f97375e092f136d644c7b96af4d2754befd46746cde02502badb2709",
+      "size_bytes": 131966,
+      "sha256": "603b54b6f1b8354308e8130a0ef85a6e0412566f9a711f56af451e7a9f3a5728",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.2-beta.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.5-beta.1",
       "signals": [
         {
           "label": {
@@ -242,19 +245,25 @@
           "Copter mit Bild, Bild wird vor dem Speichern verkleinert und bleibt lokal",
           "FC auslesen über USB oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung",
           "Export als PDF, CSV, Druck, JSON und HTML-Backup",
-          "Sicherung als JSON oder HTML, die sich wieder einlesen lässt"
+          "Sicherung als JSON oder HTML, die sich wieder einlesen lässt",
+          "Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät",
+          "CLI-Datei direkt auf die Karte ziehen"
         ],
         "en": [
           "Quads with a picture, shrunk before saving and kept local",
           "Read the flight controller over USB or paste CLI text, with a target check before the backup",
           "Export as PDF, CSV, print, JSON and HTML backup",
-          "A JSON or HTML backup that can be read back in"
+          "A JSON or HTML backup that can be read back in",
+          "Pass the list on as a code or link, photos stay on the device",
+          "Drop a CLI file straight onto the card"
         ],
         "es": [
           "Copter con imagen, reducida antes de guardar y guardada en local",
           "Leer la controladora por USB o pegar texto CLI, con comprobación del target antes de la copia",
           "Exportación como PDF, CSV, impresión, JSON y copia HTML",
-          "Copia en JSON o HTML que se puede volver a cargar"
+          "Copia en JSON o HTML que se puede volver a cargar",
+          "Pasar la lista como código o enlace, las fotos se quedan en el dispositivo",
+          "Soltar un archivo CLI directamente en la tarjeta"
         ]
       },
       "limits": {
@@ -262,19 +271,22 @@
           "Auslesen am Flight Controller setzt Chrome, Edge oder Opera voraus",
           "Daten liegen im localStorage dieses Browsers",
           "Spanisch ist übersetzt, aber nicht durchgesehen",
-          "Kein Abgleich zwischen Geräten, jede Datei führt ihre eigene Liste"
+          "Kein Abgleich zwischen Geräten, jede Datei führt ihre eigene Liste",
+          "Weitergeben per Link geht nur über http(s), nicht bei einer Datei aus dem Ordner"
         ],
         "en": [
           "Reading the controller requires Chrome, Edge or Opera",
           "Data lives in this browser's localStorage",
           "Spanish is translated but not reviewed",
-          "No sync between devices, each file keeps its own list"
+          "No sync between devices, each file keeps its own list",
+          "Passing the list on by link needs http(s), not a file from a folder"
         ],
         "es": [
           "Leer la controladora requiere Chrome, Edge u Opera",
           "Los datos están en el localStorage de este navegador",
           "El español está traducido, pero sin revisar",
-          "Sin sincronización entre dispositivos, cada archivo lleva su propia lista"
+          "Sin sincronización entre dispositivos, cada archivo lleva su propia lista",
+          "Pasar la lista por enlace requiere http(s), no un archivo de la carpeta"
         ]
       }
     },

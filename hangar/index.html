@@ -240,6 +240,20 @@ footer .ver{font-size:11px;color:var(--dim);letter-spacing:.02em;display:inline-
 .menu button small{color:var(--dim);font-size:11px;white-space:nowrap}
 .menu button>span{white-space:nowrap}
 
+/* Übertragen: ein Bereich zum Geben, einer zum Nehmen */
+.trsec{border:1px solid var(--line);background:var(--panel2);padding:12px 13px;margin-bottom:12px;
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge)}
+.trsec:last-child{margin-bottom:0}
+.trsec h3{margin:0 0 3px;font-size:13px;font-weight:620;color:var(--text)}
+.trsec .hint{margin:0 0 9px}
+#trCode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.45;
+  min-height:74px;max-height:120px;color:var(--muted);word-break:break-all}
+#trIn{min-height:74px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px}
+#trSize{font-size:11px;color:var(--dim);margin:6px 0 0}
+.dlgclose{appearance:none;background:transparent;border:0;color:var(--dim);font:inherit;font-size:13px;
+  cursor:pointer;padding:6px 8px;border-radius:var(--r-sm)}
+.dlgclose:hover{color:var(--text)}
+
 /* Druckansicht: nur die Tabelle kommt aufs Papier */
 #printArea{display:none}
 @media print{
@@ -352,6 +366,16 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
 .linkbtn{border:0;background:none;padding:2px;color:var(--dim);font:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .linkbtn:hover{color:var(--bad)}
 .fcstate{font-size:12px;color:var(--muted);margin-top:8px;min-height:1px}
+/* Sicherung im Hangar: erst der Zustand, dann die Knöpfe */
+.bfcard{border:1px solid var(--line2);background:var(--panel2);padding:10px 12px;margin-top:8px;
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);display:grid;gap:8px;transition:.15s}
+.bfcard.drag{border-color:var(--accent);background:var(--accent-soft)}
+.bfline{font-size:12.5px;color:var(--text);display:flex;gap:8px;align-items:baseline;line-height:1.4}
+.bfline::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dim);flex:none;transform:translateY(-1px)}
+.bfline.ok::before{background:var(--ok)}
+.bfline.warn::before{background:var(--warn)}
+.bfsrc{margin-top:10px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
 .fcstate.ok{color:var(--ok)}
 .fcstate.warn{color:var(--bad)}
 
@@ -398,7 +422,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
         </div>
       </div>
       <div class="io">
-      <span class="expwrap">
+      <div class="expwrap">
         <button class="btn ghost sm" id="btnExport" type="button" aria-haspopup="true" aria-expanded="false">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19h14"/></svg>
           <span data-i18n="export">Export</span><span class="caret" aria-hidden="true">▾</span>
@@ -415,8 +439,8 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
           <button type="button" data-exp="html" role="menuitem">
             <span data-i18n="expHtml">HTML-Backup</span> <small data-i18n="expHtmlHint">App + Daten</small></button>
         </div>
-      </span>
-      <span class="expwrap">
+      </div>
+      <div class="expwrap">
         <button class="btn ghost sm" id="btnImport" type="button" aria-haspopup="true" aria-expanded="false"
                 data-i18n-title="importWhat" title="Liest nur Sicherungen ein: JSON oder HTML-Backup">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19h14"/></svg>
@@ -429,8 +453,12 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
           <button type="button" data-imp="html" role="menuitem">
             <span data-i18n="impHtml">HTML-Backup</span> <small data-i18n="impHtmlHint">ersetzt die Liste</small></button>
         </div>
-      </span>
       </div>
+      </div>
+      <button class="btn ghost sm" id="btnTransfer" type="button" data-i18n-title="trTitle" title="Liste übertragen">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13m0 0-3.5-3.5M17 8l-3.5 3.5M20 16H7m0 0 3.5-3.5M7 16l3.5 3.5"/></svg>
+        <span data-i18n="trBtn">Übertragen</span>
+      </button>
       <button class="btn primary" id="btnNew" type="button" data-i18n="add">+ Copter</button>
     </div>
   </div>
@@ -452,9 +480,40 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">FlowState Hangar · v0.9.2-beta.2</span>
+    <span class="ver">FlowState Hangar · v0.9.5-beta.1</span>
   </footer>
 </div>
+
+<dialog id="trDlg">
+  <div class="card">
+    <header>
+      <h2 data-i18n="trTitle">Liste übertragen</h2>
+      <button class="dlgclose" type="button" id="btnTrClose" data-i18n-aria="trClose" data-i18n="trClose">Schließen</button>
+    </header>
+    <div class="body">
+      <div class="trsec">
+        <h3 data-i18n="trSend">Senden</h3>
+        <p class="hint" data-i18n="trSendHint">Code weitergeben – per Chat, Mail oder Zettel. Copter und Betaflight-Sicherungen sind enthalten, Bilder bleiben auf diesem Gerät.</p>
+        <textarea id="trCode" readonly spellcheck="false" data-i18n-aria="trCodeAria"></textarea>
+        <p id="trSize"></p>
+        <div class="btnrow">
+          <button class="btn sm primary" type="button" id="btnTrCopyCode" data-i18n="trCopyCode">Code kopieren</button>
+          <button class="btn sm" type="button" id="btnTrCopyLink" data-i18n="trLink">Link kopieren</button>
+        </div>
+        <p class="hint" id="trLinkHint" data-i18n="trLinkHint">Der Link funktioniert nur, wenn diese Seite über http(s) läuft – nicht bei einer Datei aus dem Ordner.</p>
+      </div>
+      <div class="trsec">
+        <h3 data-i18n="trRecv">Empfangen</h3>
+        <p class="hint" data-i18n="trRecvHint">Code oder Link einfügen. Feld leer lassen, um die Zwischenablage zu lesen.</p>
+        <textarea id="trIn" spellcheck="false" data-i18n-ph="trInPh" placeholder="HDL1.… oder Link mit #h=HDL1.…"></textarea>
+        <div class="btnrow">
+          <button class="btn sm primary" type="button" id="btnTrMerge" data-i18n="trMerge">Einfügen &amp; zusammenführen</button>
+        </div>
+        <p class="fcstate" id="trState" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</dialog>
 
 <dialog id="dlg">
   <form method="dialog" class="card" id="form">
@@ -475,11 +534,11 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
         </div>
         <div>
           <label for="f_kv"><span data-i18n="kv">Motor KV</span> <span class="opt" data-i18n="opt">optional</span></label>
-          <input type="number" id="f_kv" min="400" max="40000" step="10" placeholder="1800">
+          <input type="text" inputmode="numeric" autocomplete="off" id="f_kv" placeholder="1800">
         </div>
         <div>
           <label for="f_esc">ESC <span class="opt" data-i18n="opt">optional</span></label>
-          <input type="number" id="f_esc" min="1" max="200" step="1" placeholder="45">
+          <input type="text" inputmode="numeric" autocomplete="off" id="f_esc" placeholder="45">
           <p class="hint" data-i18n="escHint">Dauerstrom in Ampere</p>
         </div>
         <div>
@@ -520,7 +579,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
                   <span data-i18n="fcRead">FC auslesen (USB)</span></button>
                 <button class="btn sm ghost" type="button" id="btnFcPaste" data-i18n="fcPaste">CLI-Text einfügen</button>
               </div>
-              <p class="hint" id="fcHint" data-i18n="fcHint">Chrome/Edge: FC per USB anstecken, Configurator schließen. Der FC startet danach neu – gespeichert wird nichts.</p>
+              <p class="hint" id="fcHint" data-i18n="fcHint">1) FC per USB anstecken, Configurator schließen. 2) „FC auslesen“ – Target und Sicherung landen unten. 3) Speichern. Ohne USB: CLI-Text einfügen.</p>
               <div id="fcPasteBox" hidden>
                 <textarea id="f_cli" spellcheck="false" data-i18n-ph="fcPastePh" placeholder="Ausgabe von version und status aus dem CLI hier einfügen …"></textarea>
                 <div class="btnrow" style="margin-top:8px"><button class="btn sm" type="button" id="btnFcParse" data-i18n="fcParse">Übernehmen</button></div>
@@ -531,19 +590,26 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
           </div>
           <div class="full">
             <label><span data-i18n="bfTitle">Betaflight-Backup</span> <span class="opt" data-i18n="bfPro">pro Modell</span></label>
-            <div class="fcbox">
+            <div class="bfcard" id="bfCard">
+              <p class="bfline" id="bfHave" role="status" aria-live="polite"></p>
+              <div class="btnrow">
+                <button class="btn sm primary" type="button" id="btnBfPick" data-i18n="bfPick">Datei ablegen (.txt)</button>
+                <button class="btn sm ghost" type="button" id="btnBfSave" data-i18n="bfExport">Sicherung (.txt)</button>
+                <button class="btn sm ghost danger" type="button" id="btnBfDrop" data-i18n="bfRemove">Entfernen</button>
+              </div>
+              <p class="hint" data-i18n="bfDropHint">Bleibt im Modell – kein Download nötig. Datei hierher ziehen oder über „Datei ablegen“ wählen.</p>
+            </div>
+            <div class="bfsrc">
               <label for="f_bftarget"><span data-i18n="bfTarget">Target der FC</span> <span class="opt" data-i18n="opt">optional</span></label>
               <input type="text" id="f_bftarget" spellcheck="false" placeholder="SPEEDYBEEF405V4">
               <label for="f_bfdiff" style="margin-top:10px"><span data-i18n="bfDiff">CLI-Diff (diff all)</span> <span class="opt" data-i18n="bfDiffOpt">aus dem CLI eingefügt</span></label>
               <textarea id="f_bfdiff" spellcheck="false" style="min-height:88px" data-i18n-ph="bfDiffPh" placeholder="Aus dem CLI: diff all …"></textarea>
               <div class="btnrow" style="margin-top:8px">
-                <button class="btn sm" type="button" id="btnBfFile" data-i18n="bfLoad">Datei laden</button>
                 <button class="btn sm" type="button" id="btnBfCheck" data-i18n="bfCheck">Prüfen</button>
-                <button class="btn sm ghost" type="button" id="btnBfSave" data-i18n="bfExport">Sicherung (.txt)</button>
               </div>
               <p class="fcstate" id="bfState" role="status" aria-live="polite"></p>
-              <p class="hint" data-i18n="bfHint">Die Sicherung wird erst geschrieben, wenn das Target hier zum FC-Target passt (aus „FC auslesen“ oder `board_name`).</p>
             </div>
+            <p class="hint" data-i18n="bfHint">Die Sicherung wird erst geschrieben, wenn das Target hier zum FC-Target passt (aus „FC auslesen“ oder `board_name`).</p>
           </div>
           <div>
             <label for="f_rx"><span data-i18n="receiver">Empfänger</span> <span class="opt" data-i18n="opt">optional</span></label>
@@ -555,12 +621,12 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
           </div>
           <div>
             <label for="f_mah"><span data-i18n="mah">Akku</span> <span class="opt" data-i18n="opt">optional</span></label>
-            <input type="number" id="f_mah" min="50" max="30000" step="50" placeholder="1300">
+            <input type="text" inputmode="numeric" autocomplete="off" id="f_mah" placeholder="1300">
             <p class="hint">mAh</p>
           </div>
           <div>
             <label for="f_weight"><span data-i18n="weight">Abfluggewicht</span> <span class="opt" data-i18n="opt">optional</span></label>
-            <input type="number" id="f_weight" min="10" max="25000" step="1" placeholder="680">
+            <input type="text" inputmode="decimal" autocomplete="off" id="f_weight" placeholder="680">
             <p class="hint" data-i18n="gram">Gramm</p>
           </div>
           <div class="full">
@@ -595,6 +661,10 @@ var PREFS_KEY = "flowstate.hangar.prefs";
 /* Seitenübergreifend: alle FlowState-Seiten derselben Herkunft teilen sich
    Farbschema und Sprache über diesen einen Schlüssel. Kein Profil, kein Konto. */
 var FS_KEY = "flowstate.prefs";
+/* Diese beiden Schlüssel schreibt die Übersichtsseite selbst; sie werden hier
+   nur gelesen, damit Farbe und Sprache beim Öffnen schon stimmen. */
+var HUB_THEME_KEY = "flowstate-theme";
+var HUB_LANG_KEY = "flowstate-lang";
 /* Die Schwesterseiten heißen intern anders: FPV-Guide ocean/linen/crimson,
    Tuner dark/light/cream. Hier wird auf unsere Namen abgebildet. */
 var THEME_ALIAS = { ocean:"ocean", sand:"sand", drakn:"drakn",
@@ -621,7 +691,7 @@ var I18N = {
     copter:"Copter", copter1:"Copter", of:"von",
     emptyH:"Noch nichts im Hangar", emptyP:"Leg deinen ersten Copter an. Name und Größe reichen.", emptyBtn:"+ Copter anlegen",
     noneH:"Nichts gefunden", noneP:"Versuch eine andere Suche.",
-    exampleTag:"Beispiel",
+    exampleTag:"Beispiel", kept:"so gespeichert", numBad:"Bitte eine Zahl eintragen – Komma ist erlaubt.",
     inch:"zoll", noName:"Name fehlt", saved:"Gespeichert", created:"Angelegt", deleted:"Gelöscht",
     confirmDel:function(n){ return "„" + n + "“ löschen?"; },
     exported:"Export erstellt", exportFail:"Export nicht möglich",
@@ -646,7 +716,7 @@ var I18N = {
     photoSaved:"Bild gespeichert",
     fcRead:"FC auslesen (USB)", fcPaste:"CLI-Text einfügen", fcParse:"Übernehmen",
     fcPastePh:"Ausgabe von version und status aus dem CLI hier einfügen …",
-    fcHint:"Chrome/Edge: FC per USB anstecken und den Configurator schließen. Danach startet der FC neu, gespeichert wird nichts.",
+    fcHint:"1) FC per USB anstecken, Configurator schließen. 2) „FC auslesen“ – Target und Sicherung landen unten. 3) Speichern. Ohne USB: CLI-Text einfügen.",
     fcNoSerial:"Per USB lesen geht nur in Chrome und Edge. CLI-Text einfügen klappt in jedem Browser.",
     fcReading:"Lese FC …", fcOk:"FC ausgelesen", fcNone:"Nichts erkannt. Füg auch version und status mit ein.",
     fcFail:"Der FC antwortet nicht. Vielleicht ist der Port belegt (Configurator offen?) oder es ist der falsche.",
@@ -670,7 +740,7 @@ var I18N = {
     copter:"quads", copter1:"quad", of:"of",
     emptyH:"Your hangar is empty", emptyP:"Add your first quad. Name and size are all it takes.", emptyBtn:"+ Add quad",
     noneH:"Nothing found", noneP:"Try a different search.",
-    exampleTag:"Example",
+    exampleTag:"Example", kept:"as saved", numBad:"Please enter a number – a comma is fine.",
     inch:"inch", noName:"Name is missing", saved:"Saved", created:"Added", deleted:"Deleted",
     confirmDel:function(n){ return "Delete \u201C" + n + "\u201D?"; },
     exported:"Export created", exportFail:"Export failed",
@@ -695,7 +765,7 @@ var I18N = {
     photoSaved:"Photo saved",
     fcRead:"Read FC (USB)", fcPaste:"Paste CLI text", fcParse:"Apply",
     fcPastePh:"Paste the version and status output from the CLI here …",
-    fcHint:"Chrome/Edge: plug the FC in over USB and close the Configurator. It reboots afterwards, nothing is written.",
+    fcHint:"1) Plug the FC in over USB, close the Configurator. 2) “Read FC” – target and backup land below. 3) Save. Without USB: paste the CLI text.",
     fcNoSerial:"Reading over USB only works in Chrome and Edge. Pasting CLI text works in any browser.",
     fcReading:"Reading FC …", fcOk:"FC read", fcNone:"Nothing recognised. Include version and status too.",
     fcFail:"The FC is not answering. The port may be busy (Configurator open?) or it is the wrong one.",
@@ -719,7 +789,7 @@ var I18N = {
     copter:"drones", copter1:"dron", of:"de",
     emptyH:"Tu hangar está vacío", emptyP:"Añade tu primer dron. Con el nombre y el tamaño basta.", emptyBtn:"+ Añadir dron",
     noneH:"No se encontró nada", noneP:"Prueba con otra búsqueda.",
-    exampleTag:"Ejemplo",
+    exampleTag:"Ejemplo", kept:"sin cambios", numBad:"Escribe un número – la coma está permitida.",
     inch:"pulg", noName:"Falta el nombre", saved:"Guardado", created:"Creado", deleted:"Eliminado",
     confirmDel:function(n){ return "¿Eliminar «" + n + "»?"; },
     exported:"Exportación creada", exportFail:"No se pudo exportar",
@@ -744,7 +814,7 @@ var I18N = {
     photoSaved:"Foto guardada",
     fcRead:"Leer controladora (USB)", fcPaste:"Pegar texto CLI", fcParse:"Aplicar",
     fcPastePh:"Pega aquí la salida de version y status del CLI …",
-    fcHint:"Chrome/Edge: conecta la controladora por USB y cierra el Configurator. Después se reinicia; no se guarda nada.",
+    fcHint:"1) Conecta la FC por USB y cierra el Configurator. 2) “Leer FC” – el target y la copia aparecen abajo. 3) Guardar. Sin USB: pega el texto del CLI.",
     fcNoSerial:"Leer por USB solo funciona en Chrome y Edge. Pegar el texto CLI funciona en cualquier navegador.",
     fcReading:"Leyendo controladora …", fcOk:"Controladora leída", fcNone:"No se reconoció nada. Pega también version y status.",
     fcFail:"La controladora no responde. Puede que el puerto esté ocupado (¿Configurator abierto?) o sea el equivocado.",
@@ -765,7 +835,13 @@ var BF_I18N = {
     bfMismatch:function(w,h){ return "Target passt nicht: Modell " + w + ", FC " + h; },
     bfNoDiff:"Keine CLI-Sicherung hinterlegt.",
     bfFromFc:"Target und CLI-Diff aus der FC übernommen.", bfDiffFail:"CLI-Diff konnte nicht gelesen werden – bitte unten einfügen.", bfSaved:"Betaflight-Sicherung erstellt", bfLoaded:"CLI-Text übernommen",
-    bfFileBad:"Datei nicht lesbar" },
+    bfFileBad:"Datei nicht lesbar",
+    bfPick:"Datei ablegen (.txt)", bfRemove:"Entfernen",
+    bfDropHint:"Bleibt im Modell – kein Download nötig. Datei hierher ziehen oder über „Datei ablegen“ wählen.",
+    bfEmpty:"Noch keine Sicherung im Hangar. Datei ablegen oder FC auslesen.",
+    bfEmptySaved:"Sicherung ist im Modell gespeichert – Feld unten ist leer. Datei ablegen, um sie zu sehen.",
+    bfInHangar:"Sicherung im Hangar", bfLines:"Zeilen", bfUnsaved:"noch nicht gespeichert",
+    bfTaken:"Sicherung gelesen – mit „Speichern“ übernehmen.", bfRemoved:"Sicherung entfernt" },
   en:{ bfTitle:"Betaflight backup", bfPro:"per model", bfTarget:"FC target",
     bfDiff:"CLI diff (diff all)", bfDiffOpt:"pasted from the CLI",
     bfDiffPh:"From the CLI: diff all …", bfLoad:"Load file", bfCheck:"Check",
@@ -777,7 +853,13 @@ var BF_I18N = {
     bfMismatch:function(w,h){ return "Target does not match: model " + w + ", FC " + h; },
     bfNoDiff:"No CLI backup stored.",
     bfFromFc:"Target and CLI diff taken from the FC.", bfDiffFail:"CLI diff could not be read – please paste it below.", bfSaved:"Betaflight backup created", bfLoaded:"CLI text applied",
-    bfFileBad:"File could not be read" },
+    bfFileBad:"File could not be read",
+    bfPick:"Store file (.txt)", bfRemove:"Remove",
+    bfDropHint:"Stays in the model – no download needed. Drag the file here or use “Store file”.",
+    bfEmpty:"No backup in the hangar yet. Store a file or read the FC.",
+    bfEmptySaved:"A backup is stored in this model – the field below is empty. Store the file to see it.",
+    bfInHangar:"Backup in hangar", bfLines:"lines", bfUnsaved:"not saved yet",
+    bfTaken:"Backup read – apply it with “Save”.", bfRemoved:"Backup removed" },
   es:{ bfTitle:"Copia de Betaflight", bfPro:"por modelo", bfTarget:"Target de la FC",
     bfDiff:"Diff CLI (diff all)", bfDiffOpt:"pegado del CLI",
     bfDiffPh:"Desde el CLI: diff all …", bfLoad:"Cargar archivo", bfCheck:"Comprobar",
@@ -789,11 +871,59 @@ var BF_I18N = {
     bfMismatch:function(w,h){ return "El target no coincide: modelo " + w + ", FC " + h; },
     bfNoDiff:"No hay copia CLI guardada.",
     bfFromFc:"Target y diff CLI tomados de la FC.", bfDiffFail:"No se pudo leer el diff CLI: pégalo abajo.", bfSaved:"Copia de Betaflight creada", bfLoaded:"Texto CLI aplicado",
-    bfFileBad:"No se pudo leer el archivo" }
+    bfFileBad:"No se pudo leer el archivo",
+    bfPick:"Guardar archivo (.txt)", bfRemove:"Quitar",
+    bfDropHint:"Se queda en el modelo – sin descarga. Arrastra el archivo aquí o usa “Guardar archivo”.",
+    bfEmpty:"Todavía no hay copia en el hangar. Guarda un archivo o lee la FC.",
+    bfEmptySaved:"Hay una copia guardada en el modelo, pero el campo de abajo está vacío. Guarda el archivo para verla.",
+    bfInHangar:"Copia en el hangar", bfLines:"líneas", bfUnsaved:"sin guardar",
+    bfTaken:"Copia leída – aplícala con “Guardar”.", bfRemoved:"Copia quitada" }
 };
-Object.keys(BF_I18N).forEach(function(lg){
-  if(!I18N[lg]) return;
-  for(var k in BF_I18N[lg]){ if(Object.prototype.hasOwnProperty.call(BF_I18N[lg],k)) I18N[lg][k] = BF_I18N[lg][k]; }
+/* Texte der Übertrag-Funktion - wird wie BF_I18N in I18N gemischt. */
+var TR_I18N = {
+  de:{ trBtn:"Übertragen", trTitle:"Liste übertragen", trClose:"Schließen",
+    trSend:"Senden", trRecv:"Empfangen",
+    trSendHint:"Code weitergeben – per Chat, Mail oder Zettel. Copter und Betaflight-Sicherungen sind enthalten, Bilder bleiben auf diesem Gerät.",
+    trCodeAria:"Übertragungscode", trCopyCode:"Code kopieren", trLink:"Link kopieren",
+    trLinkHint:"Der Link funktioniert nur, wenn diese Seite über http(s) läuft – nicht bei einer Datei aus dem Ordner.",
+    trRecvHint:"Code oder Link einfügen. Feld leer lassen, um die Zwischenablage zu lesen.",
+    trInPh:"HDL1.… oder Link mit #h=HDL1.…", trMerge:"Einfügen & zusammenführen",
+    trCopied:"Kopiert", trLinkCopied:"Link kopiert", trCopyFail:"Kopieren ging nicht – Code bitte von Hand markieren.",
+    trClipFail:"Zwischenablage nicht lesbar – Code ins Feld einfügen.",
+    trSize:function(n,kb){ return n + " Zeichen · " + String(kb).replace(".",",") + " KB"; },
+    trTaken:function(n){ return n + " Copter übernommen"; },
+    trNone:"Nichts Neues", trBad:"Code nicht lesbar" },
+  en:{ trBtn:"Transfer", trTitle:"Transfer list", trClose:"Close",
+    trSend:"Send", trRecv:"Receive",
+    trSendHint:"Pass the code on – via chat, mail or on paper. Quads and Betaflight backups are included, photos stay on this device.",
+    trCodeAria:"Transfer code", trCopyCode:"Copy code", trLink:"Copy link",
+    trLinkHint:"The link only works when this page runs over http(s) – not from a file in a folder.",
+    trRecvHint:"Paste a code or link. Leave the field empty to read the clipboard.",
+    trInPh:"HDL1.… or a link with #h=HDL1.…", trMerge:"Paste & merge",
+    trCopied:"Copied", trLinkCopied:"Link copied", trCopyFail:"Copy failed – please select the code by hand.",
+    trClipFail:"Clipboard not readable – paste the code into the field.",
+    trSize:function(n,kb){ return n + " characters · " + kb + " KB"; },
+    trTaken:function(n){ return n + (n === 1 ? " quad taken over" : " quads taken over"); },
+    trNone:"Nothing new", trBad:"Code not readable" },
+  es:{ trBtn:"Transferir", trTitle:"Transferir lista", trClose:"Cerrar",
+    trSend:"Enviar", trRecv:"Recibir",
+    trSendHint:"Pasa el código – por chat, correo o en papel. Incluye drones y copias de Betaflight; las fotos se quedan en este dispositivo.",
+    trCodeAria:"Código de transferencia", trCopyCode:"Copiar código", trLink:"Copiar enlace",
+    trLinkHint:"El enlace solo funciona si esta página corre en http(s), no desde un archivo de la carpeta.",
+    trRecvHint:"Pega un código o enlace. Deja el campo vacío para leer el portapapeles.",
+    trInPh:"HDL1.… o un enlace con #h=HDL1.…", trMerge:"Pegar y combinar",
+    trCopied:"Copiado", trLinkCopied:"Enlace copiado", trCopyFail:"No se pudo copiar – selecciona el código a mano.",
+    trClipFail:"No se puede leer el portapapeles – pega el código en el campo.",
+    trSize:function(n,kb){ return n + " caracteres · " + String(kb).replace(".",",") + " KB"; },
+    trTaken:function(n){ return n + (n === 1 ? " dron transferido" : " drones transferidos"); },
+    trNone:"Nada nuevo", trBad:"Código ilegible" }
+};
+
+[BF_I18N, TR_I18N].forEach(function(src){
+  Object.keys(src).forEach(function(lg){
+    if(!I18N[lg]) return;
+    for(var k in src[lg]){ if(Object.prototype.hasOwnProperty.call(src[lg],k)) I18N[lg][k] = src[lg][k]; }
+  });
 });
 
 var THEMES = { ocean:"#093840", sand:"#f4f6f5", drakn:"#140a25" };
@@ -840,7 +970,6 @@ var VIDEO_OPTIONS = [
 var seed = [
   {id:"c1", example:true, name:"Fünfzöller Freestyle", size:"5",  cells:"6S", kv:1800, esc:50, props:"5.1x4.6x3", status:"ready", fc:"SpeedyBee F405 V4", rx:"elrs24", video:"dji-o3", mah:1300, weight:680, notes:"",
    fcInfo:{fw:"Betaflight 4.5.1", target:"STM32F405", board:"SPEEDYBEEF405V4", mfr:"SPBE", mcu:"F405 · 168 MHz", gyro:"ICM42688P", baro:"", osd:"MAX7456", at:0}},
-  {id:"c2", example:true, name:'Cinewhoop 3"',         size:"3",  cells:"4S", kv:3000, esc:35, props:"3x2x3",     status:"ready", fc:"", rx:"elrs24", video:"walksnail", mah:850, weight:null, notes:"Indoor, Duct"},
   {id:"c3", example:true, name:"Tiny Whoop",           size:"65", cells:"1S", kv:19000, esc:null, props:"", status:"maint", fc:"", rx:"elrs24", video:"analog", mah:300, weight:null, notes:"Canopy gerissen"},
   {id:"c4", example:true, name:"Langstrecke 7\"",      size:"7",  cells:"6S", kv:1300, esc:60, props:"7x4.5x3", status:"down", fc:"Matek H743-SLIM V3", rx:"crossfire", video:"dji-o3", mah:4000, weight:1450, notes:"Arm gebrochen",
    fcInfo:{fw:"Betaflight 4.5.1", target:"STM32H743", board:"MATEKH743", mfr:"MTKS", mcu:"H743 · 480 MHz", gyro:"ICM42688P", baro:"DPS310", osd:"MAX7456", at:0}}
@@ -865,11 +994,11 @@ function seedFor(){
   return seed.map(function(c){
     var x = {}; for(var k in c) x[k] = c[k];
     if(lg === "en"){
-      x.name = {c1:'5" Freestyle', c2:'3" Cinewhoop', c3:"Tiny Whoop", c4:'7" Long Range'}[c.id] || c.name;
-      x.notes = {c2:"Indoor, ducts", c3:"Canopy cracked", c4:"Broken arm"}[c.id] || "";
+      x.name = {c1:'5" Freestyle', c3:"Tiny Whoop", c4:'7" Long Range'}[c.id] || c.name;
+      x.notes = {c3:"Canopy cracked", c4:"Broken arm"}[c.id] || "";
     } else if(lg === "es"){
-      x.name = {c1:'Freestyle 5"', c2:'Cinewhoop 3"', c3:"Tiny Whoop", c4:'Larga distancia 7"'}[c.id] || c.name;
-      x.notes = {c2:"Interior, ductos", c3:"Canopy rajado", c4:"Brazo roto"}[c.id] || "";
+      x.name = {c1:'Freestyle 5"', c3:"Tiny Whoop", c4:'Larga distancia 7"'}[c.id] || c.name;
+      x.notes = {c3:"Canopy rajado", c4:"Brazo roto"}[c.id] || "";
     }
     return x;
   });
@@ -878,8 +1007,6 @@ function normTheme(name){ return THEME_ALIAS[name] || null; }
 /* Farbe und Sprache kommen zusaetzlich aus der Adresse (?theme=, ?lang=) und aus
    den Schluesseln, die die Uebersichtsseite schreibt. Reihenfolge: Adresse,
    Uebersichtsseite, gemeinsamer Schluessel, eigene Wahl, Browsersprache. */
-var HUB_THEME_KEY = "flowstate-theme";
-var HUB_LANG_KEY = "flowstate-lang";
 function urlTheme(){ try{ return normTheme(new URLSearchParams(location.search).get("theme")); }catch(e){ return null; } }
 function urlLang(){ try{ var q = new URLSearchParams(location.search).get("lang"); return I18N[q] ? q : null; }catch(e){ return null; } }
 function hubTheme(){ var t = normTheme(LS.get(HUB_THEME_KEY)); return t && THEMES[t] ? t : null; }
@@ -1132,13 +1259,13 @@ function render(){
     return '<div class="row">'
       + '<div class="size"><div><b>' + esc(b.big) + '</b><span>' + b.small + '</span></div></div>'
       + '<div class="main">'
-      +   '<div class="name"><span class="dot ' + esc(c.status || "ready") + '"></span>'
-      +     esc(c.name) + ' <span class="st">' + esc(T("st_" + (c.status || "ready")))
+      +   '<div class="name"><span class="dot ' + esc(statusKnown(c.status) ? (c.status || "ready") : "ready") + '"></span>'
+      +     esc(c.name) + ' <span class="st">' + esc(statusLabel(c.status))
       +     (c.example ? '<span class="exmark">' + esc(T("exampleTag")) + '</span>' : '') + '</span></div>'
       +   '<div class="specs">' + specs.join("<span></span>") + '</div>'
       + '</div>'
       + '<div class="acts">'
-      +   (c.bf && bfDiffLines(c.bf.diff).length ? '<button class="btn sm ghost bf" type="button" data-bf="' + esc(c.id) + '" aria-label="' + esc(T("bfRowTitle")) + '" title="' + esc(T("bfRowTitle")) + '">BF</button>' : '')
+      +   (c.bf && bfDiffLines(c.bf.diff).length ? '<button class="btn sm ghost bf" type="button" data-bf="' + esc(c.id) + '" aria-label="' + esc(bfRowTitleFor(c)) + '" title="' + esc(bfRowTitleFor(c)) + '">' + esc(bfRowLabel()) + '</button>' : '')
       +   '<button class="btn sm" type="button" data-edit="' + esc(c.id) + '">' + esc(T("edit")) + '</button>'
       +   '<button class="btn sm danger" type="button" data-del="' + esc(c.id) + '" aria-label="' + esc(T("del")) + '" title="' + esc(T("del")) + '">✕</button>'
       + '</div>'
@@ -1146,6 +1273,17 @@ function render(){
   }).join("");
 }
 
+/* Unbekannter Status (z. B. aus einem alten Import) zeigt den Rohwert,
+   statt eine leere Stelle zu hinterlassen. */
+function statusLabel(st){
+  var v = st || "ready";
+  var t = T("st_" + v);
+  return t != null ? t : v;
+}
+function statusKnown(st){
+  var v = st || "ready";
+  return ["ready","maint","down"].indexOf(v) > -1;
+}
 function fcShort(c){
   var fi = c && c.fcInfo;
   if(!fi) return "";
@@ -1173,18 +1311,137 @@ function tileHtml(c){
     + '</button>'
     + '<span class="tbadge">' + esc(compactSize(c.size)) + '</span>'
     + '<div class="tbody">'
-    +   '<div class="name"><span class="dot ' + esc(st) + '"></span>' + esc(c.name)
-    +     ' <span class="st">' + esc(T("st_" + st))
+    +   '<div class="name"><span class="dot ' + esc(statusKnown(st) ? st : "ready") + '"></span>' + esc(c.name)
+    +     ' <span class="st">' + esc(statusLabel(st))
     +     (c.example ? '<span class="exmark">' + esc(T("exampleTag")) + '</span>' : '') + '</span></div>'
     +   (specs.length ? '<div class="specs">' + specs.join("<span></span>") + '</div>' : '')
     +   (chips.length ? '<div class="chips">' + chips.join("") + '</div>' : '')
     + '</div>'
     + '<div class="tacts">'
-    +   (c.bf && bfDiffLines(c.bf.diff).length ? '<button class="btn sm ghost bf" type="button" data-bf="' + id + '" aria-label="' + esc(T("bfRowTitle")) + '" title="' + esc(T("bfRowTitle")) + '">BF</button>' : '')
+    +   (c.bf && bfDiffLines(c.bf.diff).length ? '<button class="btn sm ghost bf" type="button" data-bf="' + id + '" aria-label="' + esc(bfRowTitleFor(c)) + '" title="' + esc(bfRowTitleFor(c)) + '">' + esc(bfRowLabel()) + '</button>' : '')
     +   '<button class="btn sm" type="button" data-edit="' + id + '">' + esc(T("edit")) + '</button>'
     +   '<button class="btn sm danger" type="button" data-del="' + id + '" aria-label="' + esc(T("del")) + '" title="' + esc(T("del")) + '">✕</button>'
     + '</div>'
     + '</article>';
+}
+
+/* ---------- Übertragen: Gerät A -> Gerät B, ohne Server ---------- */
+/* Code = "HDL1." + base64url(JSON). base64url statt +/=, damit der Code in
+   Links und in Chats heil bleibt. Alles bleibt in dieser Datei. */
+var TR_PREFIX = "HDL1.";
+function b64uEncode(str){
+  var bytes = new TextEncoder().encode(str), bin = "";
+  for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function b64uDecode(code){
+  var b = String(code).replace(/-/g,"+").replace(/_/g,"/").replace(/=+$/,"");
+  while(b.length % 4) b += "=";
+  var bin = atob(b), bytes = new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+/* Die ganze Liste, Grabsteine inklusive - so bleibt eine Löschung übertragbar. */
+function trPayload(){
+  return JSON.stringify({ app:"FlowState Hangar", kind:"transfer", at:Date.now(), fleet:data });
+}
+function trCode(){ return TR_PREFIX + b64uEncode(trPayload()); }
+/* Aus beliebigem Text (Chat-Nachricht, Link) den Code heraussuchen. */
+function trFind(text){
+  var t = String(text || ""), i = t.indexOf(TR_PREFIX);
+  if(i < 0) return "";
+  var m = t.slice(i + TR_PREFIX.length).match(/^[A-Za-z0-9\-_]+/);
+  return m ? TR_PREFIX + m[0] : "";
+}
+function trDecode(code){
+  var doc = JSON.parse(b64uDecode(String(code).slice(TR_PREFIX.length)));
+  var list = Array.isArray(doc) ? doc : (doc && Array.isArray(doc.fleet) ? doc.fleet : null);
+  if(!list) throw new Error("Format");
+  return list.filter(function(c){ return c && c.id; });
+}
+/* Zusammenführen: pro ID gewinnt der neuere updatedAt, Grabsteine wandern mit,
+   nichts wird doppelt. */
+function trMergeList(list){
+  var byId = {}, added = 0, updated = 0;
+  data.forEach(function(c){ byId[c.id] = c; });
+  list.forEach(function(c){
+    var have = byId[c.id];
+    if(!have){ data.push(c); byId[c.id] = c; added++; return; }
+    if((c.updatedAt || 0) > (have.updatedAt || 0)){
+      for(var i=0;i<data.length;i++){ if(data[i].id === c.id){ data[i] = c; break; } }
+      byId[c.id] = c; updated++;
+    }
+  });
+  return { added:added, updated:updated, total:added + updated };
+}
+function trApply(list){
+  var r = trMergeList(list);
+  pruneTombstones();
+  save(); render();
+  return r;
+}
+/* Kopieren mit Rückfallebene: navigator.clipboard fehlt bei file:// und in
+   manchen Browsern - dann markieren und den alten Weg nehmen. */
+function copyText(txt, okMsg){
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = txt; ta.setAttribute("readonly","");
+    ta.style.position = "fixed"; ta.style.top = "-1000px";
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try{ ok = document.execCommand("copy"); }catch(e){ ok = false; }
+    document.body.removeChild(ta);
+    toast(ok ? okMsg : T("trCopyFail"), ok ? "ok" : "bad");
+    return ok;
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(txt).then(function(){ toast(okMsg, "ok"); return true; },
+                                                 function(){ return fallback(); });
+  }
+  return fallback();
+}
+function trOpen(){
+  $("trCode").value = trCode();
+  var kb = Math.round($("trCode").value.length / 1024 * 10) / 10;
+  $("trSize").textContent = T("trSize")($("trCode").value.length, kb);
+  var canLink = (location.protocol === "http:" || location.protocol === "https:");
+  $("btnTrCopyLink").hidden = !canLink;
+  $("trLinkHint").hidden = canLink;
+  $("trState").textContent = ""; $("trState").className = "fcstate";
+  $("trIn").value = "";
+  $("trDlg").showModal();
+  setTimeout(function(){ $("trIn").focus(); }, 40);
+}
+function trReport(r){
+  var msg = r.total > 0 ? T("trTaken")(r.total) : T("trNone");
+  $("trState").textContent = msg;
+  $("trState").className = "fcstate " + (r.total > 0 ? "ok" : "");
+  toast(msg, r.total > 0 ? "ok" : "");
+}
+function trDoMergeText(txt){
+  var code = trFind(txt), list = null;
+  if(code){ try{ list = trDecode(code); }catch(e){ list = null; } }
+  if(!list){
+    $("trState").textContent = T("trBad"); $("trState").className = "fcstate warn";
+    toast(T("trBad"), "bad");
+    return;
+  }
+  trReport(trApply(list));
+  $("trIn").value = "";
+}
+function trDoMerge(){
+  var raw = $("trIn").value.trim();
+  if(!raw && navigator.clipboard && navigator.clipboard.readText){
+    navigator.clipboard.readText().then(trDoMergeText, function(){
+      $("trState").textContent = T("trClipFail"); $("trState").className = "fcstate warn";
+    });
+    return;
+  }
+  if(!raw){
+    $("trState").textContent = T("trClipFail"); $("trState").className = "fcstate warn";
+    return;
+  }
+  trDoMergeText(raw);
 }
 
 /* ---------- Formular ---------- */
@@ -1203,6 +1460,18 @@ function optionMarkup(list, current){
   /* Importierte Sonderwerte bleiben sichtbar, statt beim Bearbeiten verloren zu gehen. */
   if(current && !found) html += '<option value="' + esc(current) + '">' + esc(current) + '</option>';
   return html;
+}
+/* Ein importierter Wert, den die Liste nicht kennt (z. B. Größe 11 oder 5S),
+   bekommt eine eigene Option - sonst wählt das Select still "" und Speichern
+   würde den Wert löschen. */
+function keepValue(sel, value, label){
+  if(!value) return;
+  var opts = sel.options;
+  for(var i=0;i<opts.length;i++){ if(opts[i].value === String(value)) return; }
+  var o = document.createElement("option");
+  o.value = String(value);
+  o.textContent = label || String(value);
+  sel.appendChild(o);
 }
 function fillSelects(){
   var sv = $("f_size").value, cv = $("f_cells").value;
@@ -1228,6 +1497,11 @@ function open(id){
   $("f_name").value   = c ? (c.name || "") : "";
   $("f_size").value   = c ? (c.size || "5") : "5";
   $("f_cells").value  = c ? (c.cells || "") : "";
+  /* Werte außerhalb der Listen sichtbar machen, statt sie still zu verlieren. */
+  if(c && c.size)  keepValue($("f_size"),  c.size,  String(c.size) + " (" + T("kept") + ")");
+  if(c && c.cells) keepValue($("f_cells"), c.cells, String(c.cells) + " (" + T("kept") + ")");
+  $("f_size").value   = c ? (c.size || "5") : "5";
+  $("f_cells").value  = c ? (c.cells || "") : "";
   $("f_kv").value     = c && c.kv ? c.kv : "";
   $("f_esc").value    = c && c.esc ? c.esc : "";
   $("f_props").value  = c ? (c.props || "") : "";
@@ -1251,6 +1525,7 @@ function open(id){
   $("f_bftarget").value = formBf ? formBf.target : "";
   $("f_bfdiff").value   = formBf ? formBf.diff : "";
   $("bfState").textContent = ""; $("bfState").className = "fcstate";
+  bfPanel();
   $("fcPasteBox").hidden = true; $("f_cli").value = ""; $("fcState").textContent = "";
   renderFcInfo();
 
@@ -1260,14 +1535,31 @@ function open(id){
   setTimeout(function(){ $("f_name").focus(); }, 40);
 }
 
+/* Liefert true, wenn das Feld leer oder eine brauchbare Zahl ist.
+   "680,5" ist in Ordnung, "abc" nicht - das soll nicht still zu leer werden. */
+function numOk(id){
+  var raw = $(id).value.trim();
+  return raw === "" || num(raw) !== null;
+}
 function num(v){
-  var n = parseInt(v, 10);
-  return isNaN(n) ? null : n;
+  if(v === null || v === undefined) return null;
+  var t = String(v).trim().replace(",", ".");
+  if(!t) return null;
+  var n = Number(t);
+  return isFinite(n) ? n : null;   /* 1800,5 bleibt 1800,5 statt 1800 */
 }
 
 function saveForm(){
   var name = $("f_name").value.trim();
   if(!name){ $("f_name").focus(); toast(T("noName"),"bad"); return; }
+  var numFields = ["f_kv","f_esc","f_mah","f_weight"];
+  for(var nf=0; nf<numFields.length; nf++){
+    if(!numOk(numFields[nf])){
+      $(numFields[nf]).focus();
+      toast(T("numBad"), "bad");
+      return;
+    }
+  }
 
   var rec = {
     id: editId || ("c" + Date.now().toString(36)),
@@ -1392,6 +1684,66 @@ function bfExport(name, bf, fi){
 function bfFormValues(){
   return { target: $("f_bftarget").value.trim(), diff: $("f_bfdiff").value.replace(/\r/g, "") };
 }
+/* Datum kurz und in der Sprache der Oberfläche */
+function bfDate(ts){
+  if(!ts) return "";
+  try{ return new Date(ts).toLocaleDateString(locTag()); }catch(e){ return ""; }
+}
+/* Kopfzeile der Sicherung: liegt eine im Modell, welche, und ist sie gespeichert? */
+function bfPanel(){
+  var v = bfFormValues();
+  var lines = bfDiffLines(v.diff);
+  var has = lines.length > 0;
+  var box = $("bfHave");
+  var st = has ? bfCheckState(v.target, bfFcTarget(formFc), lines.length) : null;
+  var bits = [];
+  if(has){
+    bits.push(T("bfInHangar"));
+    if(v.target) bits.push(v.target);
+    var when = bfDate(formBf && formBf.savedAt);
+    if(when) bits.push(when);
+    bits.push(lines.length + " " + T("bfLines"));
+    var unchanged = formBf && formBf.diff === v.diff && (formBf.target || "") === v.target;
+    if(editId && !unchanged) bits.push(T("bfUnsaved"));
+  } else {
+    bits.push(bfEmptyText());
+  }
+  box.textContent = bits.join(" · ");
+  box.className = "bfline" + (has ? (st && !st.ok ? " warn" : " ok") : "");
+  $("btnBfSave").disabled = !has;
+  $("btnBfDrop").disabled = !has;
+  if(has) bfShowState(); else $("bfState").textContent = "";
+  return has;
+}
+function bfEmptyText(){
+  if(editId && formBf && formBf.savedAt) return T("bfEmptySaved");   /* im Modell, aber Feld leer */
+  return T("bfEmpty");
+}
+/* Datei (.txt) in das Modell legen - ohne Download */
+function bfTakeFile(file){
+  if(!file) return;
+  var r = new FileReader();
+  r.onload = function(){
+    var txt = String(r.result || "");
+    var pure = bfExtractDiff(txt);
+    if(!pure){ toast(T("bfFileBad"), "bad"); return; }
+    $("f_bfdiff").value = pure;
+    var m = txt.match(/^#\s*Target[^:]*:\s*([A-Za-z0-9_\-]+)/mi);
+    if(m && !$("f_bftarget").value.trim()) $("f_bftarget").value = m[1].toUpperCase();
+    bfPanel();
+    toast(T("bfTaken"), "ok");
+  };
+  r.onerror = function(){ toast(T("bfFileBad"), "bad"); };
+  r.readAsText(file);
+}
+function bfRowLabel(){ return "BF ✓"; }
+function bfRowTitleFor(c){
+  var d = c && c.bf ? bfDate(c.bf.savedAt) : "";
+  var t = T("bfRowTitle");
+  if(d) t += " · " + d;
+  if(c && c.bf && c.bf.target) t += " · " + c.bf.target;
+  return t;
+}
 function bfShowState(){
   var v = bfFormValues();
   var st = bfCheckState(v.target, bfFcTarget(formFc), bfDiffLines(v.diff).length);
@@ -1415,7 +1767,7 @@ function tableCols(compact){
     { k:"kv",     key:"colKv",     w:40,  align:"r" },
     { k:"esc",    key:"colEsc",    w:40,  align:"r" },
     { k:"props",  key:"colProps",  w:84,  align:"l" },
-    { k:"status", key:"colStatus", w:68,  align:"l", fmt:function(c){ return T("st_" + (c.status || "ready")); } },
+    { k:"status", key:"colStatus", w:68,  align:"l", fmt:function(c){ return statusLabel(c.status); } },
     { k:"fc",     key:"colFc",     w:90,  align:"l" },
     { k:"fw",     key:"colFw",     w:96,  align:"l", fmt:function(c){ return fcShort(c); } },
     { k:"rx",     key:"colRx",     w:82,  align:"l", fmt:function(c){ return choiceLabel(RX_OPTIONS, c.rx); } },
@@ -1740,6 +2092,7 @@ function restoreHtmlBackup(doc){
   }
   /* Die wiederhergestellte Optik soll auch für die anderen FlowState-Seiten gelten. */
   savePrefs(true);
+  pruneTombstones();
   save({ sync:false });
   applyTheme(); applyLang(); render();
   toast(T("htmlRestored"), "ok");
@@ -1789,6 +2142,7 @@ function doImport(file){
       var pics = cleanImgs(p.images);
       for(var pid in pics){ if(byId[pid]) IMG[pid] = pics[pid]; }
       if(Object.keys(pics).length && saveImgs() === "full") toast(T("photoFull"), "bad");
+      pruneTombstones();
       save(); render();
       toast(T("imported")(added, updated), "ok");
     }catch(e){
@@ -1798,7 +2152,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "0.9.2-beta.2";
+var VER = "0.9.5-beta.1";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -2006,7 +2360,7 @@ $("btnFcParse").addEventListener("click", function(){
     $("f_bfdiff").value = diff;
     var fcTarget = bfFcTarget(formFc);
     if(fcTarget) $("f_bftarget").value = fcTarget;
-    bfShowState();
+    bfPanel();
   }
   $("f_cli").value = ""; $("fcPasteBox").hidden = true;
 });
@@ -2048,27 +2402,47 @@ $("btnBfSave").addEventListener("click", function(){
   var name = $("f_name").value.trim() || "copter";
   bfExport(name, v, formFc);
 });
-$("btnBfFile").addEventListener("click", function(){ $("bfFile").click(); });
+$("btnBfPick").addEventListener("click", function(){ $("bfFile").click(); });
 $("bfFile").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
-  if(!f) return;
-  var r = new FileReader();
-  r.onload = function(){
-    var txt = String(r.result || "");
-    $("f_bfdiff").value = txt;
-    /* Steht in der Datei ein Target-Kommentar, uebernehmen wir ihn gleich mit. */
-    var m = txt.match(/^#\s*Target[^:]*:\s*([A-Za-z0-9_\-]+)/mi);
-    if(m && !$("f_bftarget").value.trim()) $("f_bftarget").value = m[1].toUpperCase();
-    bfShowState(); toast(T("bfLoaded"), "ok");
-  };
-  r.onerror = function(){ toast(T("bfFileBad"), "bad"); };
-  r.readAsText(f);
+  bfTakeFile(f);
 });
-$("f_bftarget").addEventListener("input", function(){ $("bfState").textContent = ""; $("bfState").className = "fcstate"; });
-$("f_bfdiff").addEventListener("input", function(){ $("bfState").textContent = ""; $("bfState").className = "fcstate"; });
+/* Datei direkt auf die Karte ziehen */
+(function(){
+  var card = $("bfCard");
+  ["dragenter","dragover"].forEach(function(ev){
+    card.addEventListener(ev, function(e){ e.preventDefault(); card.classList.add("drag"); });
+  });
+  ["dragleave","dragend"].forEach(function(ev){
+    card.addEventListener(ev, function(e){ e.preventDefault(); card.classList.remove("drag"); });
+  });
+  card.addEventListener("drop", function(e){
+    e.preventDefault(); card.classList.remove("drag");
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    bfTakeFile(f);
+  });
+})();
+$("btnBfDrop").addEventListener("click", function(){
+  $("f_bfdiff").value = "";
+  formBf = { target: $("f_bftarget").value.trim(), diff: "", savedAt: 0 };
+  bfPanel();
+  toast(T("bfRemoved"));
+});
+$("f_bftarget").addEventListener("input", function(){ bfPanel(); });
+$("f_bfdiff").addEventListener("input", function(){ bfPanel(); });
 
 $("btnNew").addEventListener("click", function(){ open(null); });
 $("btnSave").addEventListener("click", saveForm);
+/* Übertragen */
+$("btnTransfer").addEventListener("click", trOpen);
+$("btnTrClose").addEventListener("click", function(){ $("trDlg").close(); });
+$("btnTrCopyCode").addEventListener("click", function(){ copyText($("trCode").value, T("trCopied")); });
+$("btnTrCopyLink").addEventListener("click", function(){
+  var url = location.origin + location.pathname + "#h=" + $("trCode").value;
+  copyText(url, T("trLinkCopied"));
+});
+$("btnTrMerge").addEventListener("click", trDoMerge);
+
 /* Exportmenü */
 function closeExpMenu(){
   var m = $("expMenu");
@@ -2210,6 +2584,23 @@ seedShared();
 applyTheme();
 applyLang();
 render();
+/* Übertragung per Link: #h=HDL1.… beim Start und bei jedem neuen Hash
+   übernehmen, danach aus der Adresszeile nehmen - sonst importiert ein
+   Neuladen dieselbe Liste noch einmal. */
+function trFromHash(){
+  var h = location.hash || "";
+  if(h.indexOf("#h=" + TR_PREFIX) !== 0) return;
+  var list = null;
+  try{ list = trDecode(trFind(h.slice(3))); }catch(e){ list = null; }
+  try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
+  if(!list){ toast(T("trBad"), "bad"); return; }
+  var r = trApply(list);
+  toast(r.total > 0 ? T("trTaken")(r.total) : T("trNone"), r.total > 0 ? "ok" : "");
+}
+trFromHash();
+/* Wer den Link in die Adresszeile einer bereits offenen Seite einfügt,
+   bekommt ihn ebenfalls übernommen (Hashwechsel lädt die Seite nicht neu). */
+window.addEventListener("hashchange", trFromHash);
 var startupBackup = embeddedBackup();
 if(startupBackup && confirm(T("htmlRestore"))){
   try{ restoreHtmlBackup(startupBackup); }catch(e){ toast(T("badFile"), "bad"); }
