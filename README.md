@@ -48,8 +48,9 @@ braucht es nicht. Quellen und Lizenzangaben bleiben im Dokument stehen.
 
 ## Öffnen und herunterladen
 
-Herunterladen ist freiwillig. Alle drei Programme laufen auch direkt auf der Übersichtsseite,
-im Rahmen unter der Kopfzeile, ohne Server und ohne Internet.
+Herunterladen ist freiwillig. Die drei Programme laufen auch direkt auf der Übersichtsseite, im
+Rahmen unter der Kopfzeile. Die Seite selbst kommt aus dem Netz, ohne Verbindung laufen die
+Programme nur aus dem entpackten Paket.
 
 Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner/),
 [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/),
@@ -77,8 +78,8 @@ Hintergrund fragt die Seite nichts ab.
 
 Die eigenen Daten bleiben dabei: Copter-Liste und Tuner-Stand liegen im localStorage des
 Browsers, nicht in den HTML-Dateien. Wer die neue Fassung im selben Ordner über die alte
-legt, behält beides. Vorher sichern schadet trotzdem nicht: in HangarDeck als JSON
-exportieren, im Tuner Plan und Manifest. Über GitHub Pages ist ohnehin immer der letzte
+legt, behält beides, eine Sicherung ist dafür nicht nötig. Nur wenn der Ordner wandert, vorher
+exportieren: in HangarDeck als JSON, im Tuner Plan und Manifest. Über GitHub Pages ist ohnehin immer der letzte
 Stand zu sehen, dort gibt es nichts zu ersetzen.
 
 ## Sprachen
@@ -88,6 +89,9 @@ Stand zu sehen, dort gibt es nichts zu ersetzen.
 | Deutsch | vollständig integriert | vollständig integriert | vollständig integriert | vollständig integriert |
 | Englisch | vollständig integriert | vollständig integriert | vollständig integriert | vollständig integriert |
 | Spanisch | nicht geprüft | nicht angelegt | nicht geprüft | nicht geprüft |
+
+Für HangarDeck Lite ist Spanisch nicht vorgesehen, die Oberfläche bleibt bei Deutsch und
+Englisch.
 
 Die Sprache steht in der Adresse: `?lang=de`, `?lang=en` oder `?lang=es`. Ohne Angabe
 entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
@@ -133,8 +137,9 @@ install, an account or an internet connection.
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 
-Downloading is optional. All three programs also run right on the overview page, in the frame
-below the header, without a server and without internet.
+Downloading is optional. The three programs also run right on the overview page, in the frame
+below the header. The page itself comes from the network; without a connection the programs
+only run from the unpacked package.
 
 *Download everything* on the overview page packs a ZIP with the overview page, the three
 programs, `README.md`, `README.html`, `LICENSE` and `LIESMICH.txt`. The same package sits as
@@ -142,6 +147,8 @@ programs, `README.md`, `README.html`, `LICENSE` and `LIESMICH.txt`. The same pac
 release row packs the same content and names the program in the file name. Unzip it and open
 `index.html`. Over `file://` the programs open in their own tab, over a server they sit in
 the frame below the header.
+
+Spanish is not planned for HangarDeck Lite, its interface stays German and English.
 
 Language lives in the address: `?lang=de`, `?lang=en` or `?lang=es`. Without it the browser
 language decides, otherwise German. A missing string falls back to English. Spanish is
@@ -154,8 +161,9 @@ Without a connection it says so and nothing else. The check runs on click only, 
 requested in the background.
 
 Your own data stays: the quad list and the tuner state live in the browser's localStorage,
-not in the HTML files. Dropping a new version over the old one in the same folder keeps
-both. A backup still helps: export JSON in HangarDeck, plan and manifest in the tuner. Over
+not in the HTML files. Dropping a new version over the old one in the same folder keeps both,
+no backup needed. Only if the folder moves, export first: JSON in HangarDeck, plan and
+manifest in the tuner. Over
 GitHub Pages you always get the latest state, so there is nothing to replace.
 
 The tuner is an alpha: writing over Web Serial is untested on real hardware and in flight,

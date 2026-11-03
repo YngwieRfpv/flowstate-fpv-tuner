@@ -47,6 +47,7 @@
       'langs.openHangar': 'HangarDeck öffnen',
       'langs.openHub': 'Übersicht öffnen',
       'langs.none': 'kein Link',
+      'langs.hangar': 'Für HangarDeck Lite ist Spanisch nicht vorgesehen, die Oberfläche bleibt bei Deutsch und Englisch.',
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
@@ -54,7 +55,7 @@
       'hero.title1': 'Drei Programme,',
       'hero.title2': 'je eine HTML-Datei,',
       'hero.accent': 'kein Server',
-      'hero.lede': 'HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Öffnen genügt: Installation, Konto und Internet braucht keines der drei.',
+      'hero.lede': 'HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Keines der drei braucht eine Installation oder ein Konto, und einmal geladen läuft es ohne Verbindung weiter.',
       'hero.cta4': 'Versionen',
       'programs.eyebrow': 'Programme',
       'programs.title': 'Was die drei Programme machen',
@@ -191,13 +192,13 @@
       'bundle.item.programs': 'Die drei Programme als je eine HTML-Datei, mit Vorschau und dem Startbestand für den HangarDeck-Abgleich',
       'bundle.item.readme': 'README.md als Text und dieselbe Beschreibung als lesbare Seite README.html',
       'bundle.item.legal': 'LICENSE und LIESMICH.txt mit den ersten Schritten',
-      'bundle.optional': 'Herunterladen ist freiwillig. Alle drei Programme laufen auch hier auf der Seite, im Rahmen unter der Kopfzeile, und brauchen dabei weder Server noch Internet.',
+      'bundle.optional': 'Herunterladen ist freiwillig: die drei Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick. Diese Seite selbst kommt aus dem Netz. Ohne Verbindung laufen die Programme nur aus dem entpackten Paket, dann ohne Server.',
       'update.title': 'Stand prüfen',
       'update.checking': 'Wird geprüft …',
       'update.current': 'Alles auf dem neuesten Stand. Geprüft gegen die veröffentlichte Fassung.',
       'update.newer': 'Neuere Fassungen verfügbar:',
       'update.offline': 'Keine Verbindung. Die Prüfung braucht Internet, die Programme nicht.',
-      'update.keep': 'Deine Daten liegen im Browser, nicht in den Dateien. Ersetzt du die Dateien am selben Ort, bleiben Copter-Liste und Tuner-Stand erhalten. Vorher sichern: HangarDeck als JSON, im Tuner Plan und Manifest exportieren.',
+      'update.keep': 'Eine Sicherung ist nicht nötig. Copter-Liste und Tuner-Stand liegen im Browser, nicht in den Dateien, und bleiben erhalten, wenn du die neue Fassung am selben Ort über die alte legst. Nur wenn du den Ordner verschiebst, nimm vorher die Exporte: in HangarDeck JSON, im Tuner Plan und Manifest.',
       'update.download': 'Zum Download',
       'update.close': 'Schließen'
     },
@@ -234,6 +235,7 @@
       'langs.openHangar': 'Abrir HangarDeck',
       'langs.openHub': 'Abrir la vista general',
       'langs.none': 'sin enlace',
+      'langs.hangar': 'Para HangarDeck Lite no hay español previsto, la interfaz se queda en alemán e inglés.',
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
       'hero.eyebrow': 'FlowState FPV',
@@ -241,7 +243,7 @@
       'hero.title1': 'Tres programas,',
       'hero.title2': 'cada uno un archivo HTML,',
       'hero.accent': 'sin servidor',
-      'hero.lede': 'HangarDeck Lite lleva la lista de copter y la imprime como tabla. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Basta con abrir el archivo: ninguno necesita instalación, cuenta ni conexión.',
+      'hero.lede': 'HangarDeck Lite lleva la lista de copter y la imprime como tabla. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Ninguno necesita instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
       'hero.cta4': 'Versiones',
       'programs.eyebrow': 'Programas',
       'programs.title': 'Qué hacen los tres programas',
@@ -397,13 +399,13 @@
       'bundle.item.programs': 'Los tres programas, cada uno en un archivo HTML, con la vista previa y el contenido inicial para la sincronización de HangarDeck',
       'bundle.item.readme': 'README.md como texto y la misma descripción como página legible README.html',
       'bundle.item.legal': 'LICENSE y LIESMICH.txt con los primeros pasos',
-      'bundle.optional': 'Descargar es opcional. Los tres programas también funcionan aquí en la página, en el marco bajo la cabecera, y no necesitan servidor ni internet.',
+      'bundle.optional': 'Descargar es opcional: los tres programas están aquí en el marco bajo la cabecera y arrancan con un clic. Esta página llega desde la red. Sin conexión, los programas solo funcionan desde el paquete descomprimido, sin servidor.',
       'update.title': 'Comprobar el estado',
       'update.checking': 'Comprobando …',
       'update.current': 'Todo está al día. Comprobado con la versión publicada.',
       'update.newer': 'Hay versiones más recientes:',
       'update.offline': 'Sin conexión. La comprobación necesita internet, los programas no.',
-      'update.keep': 'Tus datos están en el navegador, no en los archivos. Si sustituyes los archivos en el mismo sitio, la lista de copter y el estado del tuner se mantienen. Antes conviene guardar: en HangarDeck la exportación JSON, en el tuner el plan y el manifiesto.',
+      'update.keep': 'No hace falta una copia de seguridad. La lista de copter y el estado del tuner están en el navegador, no en los archivos, y se mantienen si sustituyes los archivos en el mismo sitio. Solo si mueves la carpeta, exporta antes: en HangarDeck JSON, en el tuner el plan y el manifiesto.',
       'update.download': 'Ir a las descargas',
       'update.close': 'Cerrar'
     },
@@ -440,6 +442,7 @@
       'langs.openHangar': 'Open HangarDeck',
       'langs.openHub': 'Open the overview',
       'langs.none': 'no link',
+      'langs.hangar': 'Spanish is not planned for HangarDeck Lite, the interface stays German and English.',
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
@@ -447,7 +450,7 @@
       'hero.title1': 'Three programs,',
       'hero.title2': 'each a single HTML file,',
       'hero.accent': 'no server',
-      'hero.lede': 'HangarDeck Lite keeps the quad list and prints it as a table. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV Guide explains workflow, filters and terms. Opening the file is enough: none of them needs an install, an account or an internet connection.',
+      'hero.lede': 'HangarDeck Lite keeps the quad list and prints it as a table. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV guide explains the workflow, the filters and the terms. None of them needs an install or an account, and once loaded each keeps running without a connection.',
       'hero.cta4': 'Versions',
       'programs.eyebrow': 'Programs',
       'programs.title': 'What the three programs do',
@@ -584,13 +587,13 @@
       'bundle.item.programs': 'The three programs, each one HTML file, with the previews and the starting set for the HangarDeck sync',
       'bundle.item.readme': 'README.md as text and the same description as a readable page, README.html',
       'bundle.item.legal': 'LICENSE and LIESMICH.txt with the first steps',
-      'bundle.optional': 'Downloading is optional. All three programs also run right here on this page, in the frame below the header, and need neither server nor internet.',
+      'bundle.optional': 'Downloading is optional: the three programs sit in the frame below the header and start with a click. This page itself comes from the network. Without a connection the programs only run from the unpacked package, then with no server.',
       'update.title': 'Check for updates',
       'update.checking': 'Checking …',
       'update.current': 'Everything is up to date. Checked against the published version.',
       'update.newer': 'Newer releases available:',
       'update.offline': 'No connection. The check needs internet, the programs do not.',
-      'update.keep': 'Your data sits in the browser, not in the files. Replacing the files in the same place keeps the quad list and the tuner state. Back up first: HangarDeck as JSON, plan and manifest in the tuner.',
+      'update.keep': 'No backup needed. The quad list and the tuner state live in the browser, not in the files, and survive when you drop the new version over the old one in the same place. Only if you move the folder, take the exports first: JSON in HangarDeck, plan and manifest in the tuner.',
       'update.download': 'Go to downloads',
       'update.close': 'Close'
     }
@@ -1053,8 +1056,8 @@
             '<span class="tile-name">' + esc(program.name) + '</span>' +
             '<span class="tile-kind">' + esc(pick(program.kind)) + '</span>' +
           '</span>' +
-          '<span class="tile-meta">' + esc(version) +
-            (size ? '<span class="tile-size">' + esc(size) + '</span>' : '') +
+          '<span class="tile-meta"><span class="tile-version">' + esc(version) + '</span>' +
+            (size ? ' <span class="tile-size">' + esc(size) + '</span>' : '') +
           '</span>' +
           '<svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>' +
@@ -1440,6 +1443,7 @@
   ];
   var RELEASES_URL = 'https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases';
   var updateBusy = false;
+  var updateSeq = 0;
 
   function localVersions() {
     var data = (state && state.data) || window.FLOWSTATE_DATA || { releases: [], programs: [] };
@@ -1485,10 +1489,12 @@
   function checkUpdate() {
     if (updateBusy) return;
     updateBusy = true;
+    var seq = ++updateSeq;
     showUpdate('<p class="update-line">' + esc(t('update.checking')) + '</p>');
 
     fetchVersions(0)
       .then(function (remote) {
+        if (seq !== updateSeq) return;
         updateBusy = false;
         var here = localVersions();
         var rows = [];
@@ -1517,27 +1523,45 @@
           '" target="_blank" rel="noopener">' + esc(t('update.download')) + '</a></p>');
       })
       .catch(function () {
+        if (seq !== updateSeq) return;
         updateBusy = false;
         showUpdate('<p class="update-line">' + esc(t('update.offline')) + '</p>');
       });
   }
 
+  function closeUpdate() {
+    updateSeq++;
+    updateBusy = false;
+    var dialog = $('#update-dialog');
+    if (!dialog) return;
+    if (dialog.open && typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+  }
+
   function initUpdate() {
     var button = $('#update-check');
-    var dialog = $('#update-dialog');
     if (button) button.addEventListener('click', checkUpdate);
-    if (!dialog) return;
 
-    function close() {
-      if (dialog.close) dialog.close();
-      else dialog.removeAttribute('open');
-    }
-
-    var closeButton = $('#update-close');
-    if (closeButton) closeButton.addEventListener('click', close);
-    dialog.addEventListener('click', function (event) {
-      if (event.target === dialog) close();
+    // Schliessen laeuft ueber das Dokument: Kreuz, Escape und Klick daneben.
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || !target.closest) return;
+      if (target.closest('#update-close')) {
+        event.preventDefault();
+        closeUpdate();
+        return;
+      }
+      if (target.closest('#update-dialog') === target) closeUpdate();
     });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape') return;
+      var dialog = $('#update-dialog');
+      if (dialog && (dialog.open || dialog.hasAttribute('open'))) closeUpdate();
+    });
+
+    var dialog = $('#update-dialog');
+    if (dialog) dialog.addEventListener('cancel', function () { closeUpdate(); });
   }
 
   function initDownloads() {

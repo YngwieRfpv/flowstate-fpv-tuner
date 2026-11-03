@@ -132,7 +132,7 @@
         <span data-i18n="hero.title2">je eine HTML-Datei,</span>
         <span class="accent" data-i18n="hero.accent">kein Server</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Öffnen genügt: Installation, Konto und Internet braucht keines der drei.</p>
+      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste und gibt sie als Tabelle aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Keines der drei braucht eine Installation oder ein Konto, und einmal geladen läuft es ohne Verbindung weiter.</p>
       <div class="overview-actions">
         <button class="btn btn--primary" type="button" data-bundle="all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5"/></svg>
@@ -148,7 +148,7 @@
           <li data-i18n="bundle.item.readme">README.md als Text und dieselbe Beschreibung als lesbare Seite README.html</li>
           <li data-i18n="bundle.item.legal">LICENSE und LIESMICH.txt mit den ersten Schritten</li>
         </ul>
-        <p class="bundle-info__note" data-i18n="bundle.optional">Herunterladen ist freiwillig. Alle drei Programme laufen auch hier auf der Seite, im Rahmen unter der Kopfzeile, und brauchen dabei weder Server noch Internet.</p>
+        <p class="bundle-info__note" data-i18n="bundle.optional">Herunterladen ist freiwillig: die drei Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick. Diese Seite selbst kommt aus dem Netz. Ohne Verbindung laufen die Programme nur aus dem entpackten Paket, dann ohne Server.</p>
       </div>
     </div>
 
@@ -321,6 +321,7 @@
           </tr>
         </tbody>
       </table>
+      <p class="lang-note" data-i18n="langs.hangar">Für HangarDeck Lite ist Spanisch nicht vorgesehen, die Oberfläche bleibt bei Deutsch und Englisch.</p>
       <p class="lang-note" data-i18n="langs.note">Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.</p>
     </div>
   </div>
@@ -453,10 +454,6 @@
   </div>
 </footer>
 
-<script src="assets/data/versions.js"></script>
-<script src="assets/js/markdown.js"></script>
-<script src="assets/js/hub.js"></script>
-
 <dialog class="update-dialog" id="update-dialog" aria-labelledby="update-heading">
   <div class="update-dialog__head">
     <h2 id="update-heading" data-i18n="update.title">Stand prüfen</h2>
@@ -465,7 +462,11 @@
     </button>
   </div>
   <div class="update-dialog__body" id="update-body"></div>
-  <p class="update-dialog__keep" data-i18n="update.keep">Deine Daten liegen im Browser, nicht in den Dateien.</p>
+  <p class="update-dialog__keep" data-i18n="update.keep">Eine Sicherung ist nicht nötig. Copter-Liste und Tuner-Stand liegen im Browser, nicht in den Dateien, und bleiben erhalten, wenn du die neue Fassung am selben Ort über die alte legst.</p>
 </dialog>
+
+<script src="assets/data/versions.js"></script>
+<script src="assets/js/markdown.js"></script>
+<script src="assets/js/hub.js"></script>
 </body>
 </html>
