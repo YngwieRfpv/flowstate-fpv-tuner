@@ -29,10 +29,9 @@
       'nav.versions': 'Versionen',
       'nav.langs': 'Sprachen',
       'langs.eyebrow': 'Sprachen',
-      'langs.title': 'Deutsch und Englisch vollständig, Spanisch übersetzt und ungeprüft',
-      'langs.lede': 'Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist hier, im Tuner und im Guide auswählbar, in keinem Bereich aber geprüft; offene Stellen erscheinen auf Englisch. HangarDeck Lite kennt nur Deutsch und Englisch.',
+      'langs.title': 'Deutsch und Englisch vollständig, Spanisch überall wählbar und ungeprüft',
+      'langs.lede': 'Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist überall auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch.',
       'langs.notYet': 'noch nicht',
-      'langs.notPlanned': 'nicht angelegt',
       'langs.h.language': 'Sprache',
       'langs.h.status': 'Stand',
       'langs.h.checked': 'Geprüft',
@@ -47,7 +46,7 @@
       'langs.openHangar': 'HangarDeck öffnen',
       'langs.openHub': 'Übersicht öffnen',
       'langs.none': 'kein Link',
-      'langs.hangar': 'Für HangarDeck Lite ist Spanisch nicht vorgesehen, die Oberfläche bleibt bei Deutsch und Englisch.',
+      'langs.hangar': 'HangarDeck Lite ist jetzt auch auf Spanisch dabei, dort aber so wenig durchgesehen wie im Tuner und im Guide.',
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'hero.eyebrow': 'FlowState FPV',
@@ -217,10 +216,9 @@
       'nav.versions': 'Versiones',
       'nav.langs': 'Idiomas',
       'langs.eyebrow': 'Idiomas',
-      'langs.title': 'Alemán e inglés completos, español traducido y sin revisar',
-      'langs.lede': 'El alemán y el inglés están completos en los tres programas y en esta vista general. El español se puede elegir aquí, en el Tuner y en la Guía, pero no está revisado en ninguna parte; los pasajes sin revisar aparecen en inglés. HangarDeck Lite solo tiene alemán e inglés.',
+      'langs.title': 'Alemán e inglés completos, español disponible en todas partes y sin revisar',
+      'langs.lede': 'El alemán y el inglés están completos en los tres programas y en esta vista general. El español se puede elegir en todas partes, pero no está revisado en ningún área; los pasajes sin revisar aparecen en inglés.',
       'langs.notYet': 'todavía no',
-      'langs.notPlanned': 'no disponible',
       'langs.h.language': 'Idioma',
       'langs.h.status': 'Estado',
       'langs.h.checked': 'Revisado',
@@ -235,7 +233,7 @@
       'langs.openHangar': 'Abrir HangarDeck',
       'langs.openHub': 'Abrir la vista general',
       'langs.none': 'sin enlace',
-      'langs.hangar': 'Para HangarDeck Lite no hay español previsto, la interfaz se queda en alemán e inglés.',
+      'langs.hangar': 'HangarDeck Lite ya está también en español, aunque tan poco revisado como en el tuner y en la guía.',
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
       'hero.eyebrow': 'FlowState FPV',
@@ -424,10 +422,9 @@
       'nav.versions': 'Versions',
       'nav.langs': 'Languages',
       'langs.eyebrow': 'Languages',
-      'langs.title': 'German and English complete, Spanish translated and unverified',
-      'langs.lede': 'German and English are complete in all three programs and on this page. Spanish is selectable here, in the tuner and in the guide, but verified in no area; unrevised passages fall back to English. HangarDeck Lite ships in German and English only.',
+      'langs.title': 'German and English complete, Spanish selectable everywhere and unverified',
+      'langs.lede': 'German and English are complete in all three programs and on this page. Spanish is selectable everywhere but verified in no area; unrevised passages appear in English.',
       'langs.notYet': 'not yet',
-      'langs.notPlanned': 'not built',
       'langs.h.language': 'Language',
       'langs.h.status': 'State',
       'langs.h.checked': 'Verified',
@@ -442,7 +439,7 @@
       'langs.openHangar': 'Open HangarDeck',
       'langs.openHub': 'Open the overview',
       'langs.none': 'no link',
-      'langs.hangar': 'Spanish is not planned for HangarDeck Lite, the interface stays German and English.',
+      'langs.hangar': 'HangarDeck Lite now ships Spanish too, though as little reviewed there as in the tuner and the guide.',
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'hero.eyebrow': 'FlowState FPV',
@@ -1300,6 +1297,11 @@
   }
 
   // README.md und LICENSE kommen mit ins Paket, wenn sie sich holen lassen.
+  // Bilder, die der Guide aus seinem eigenen Ordner lädt.
+  var GUIDE_ASSETS = [
+    { path: 'guide/assets/flowstate-guide-wordmark.png', name: 'guide/assets/flowstate-guide-wordmark.png' },
+    { path: 'guide/assets/yngwierfpv-footer.png', name: 'guide/assets/yngwierfpv-footer.png' }
+  ];
   var BUNDLE_EXTRA = [
     { path: 'README.md', name: 'README.md' },
     { path: 'LICENSE', name: 'LICENSE' }
@@ -1311,6 +1313,7 @@
       files.push({ path: APPS[id] + 'index.html', name: id + '/index.html' });
     });
     files.push({ path: 'hangar/data/hangardeck.json', name: 'hangar/data/hangardeck.json' });
+    GUIDE_ASSETS.forEach(function (file) { files.push(file); });
 
     var releases = (state.data && state.data.releases) || [];
 
