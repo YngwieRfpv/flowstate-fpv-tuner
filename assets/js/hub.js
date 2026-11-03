@@ -179,7 +179,35 @@
       'update.offline': 'Keine Verbindung. Die Prüfung braucht Internet, die Programme nicht.',
       'update.keep': 'Eine Sicherung ist nicht nötig. Copter-Liste und Tuner-Stand liegen im Browser, nicht in den Dateien, und bleiben erhalten, wenn du die neue Fassung am selben Ort über die alte legst. Nur wenn du den Ordner verschiebst, nimm vorher die Exporte: in HangarDeck JSON, im Tuner Plan und Manifest.',
       'update.download': 'Zum Download',
-      'update.close': 'Schließen'
+      'update.close': 'Schließen',
+      'report.title': 'Fehler melden',
+      'report.program': 'Programm',
+      'report.what': 'Was ist passiert?',
+      'report.whatPh': 'Was hast du gemacht, was ist passiert, was hast du erwartet?',
+      'report.contact': 'Kontakt (freiwillig)',
+      'report.contactPh': 'Mail oder Name, wenn eine Rückfrage erlaubt ist',
+      'report.sendTelegram': 'Mit Telegram senden',
+      'report.sendMail': 'E-Mail schreiben',
+      'report.copy': 'Bericht kopieren',
+      'report.sendDiscord': 'Discord',
+      'report.telegramTip': 'Im Telegram-Fenster den Bot @{bot} auswählen',
+      'report.close': 'Schließen',
+      'report.hint': 'Angehangen werden Programm-Version, Datum und Browser-Kennung, sonst nichts.',
+      'report.lbl.program': 'Programm',
+      'report.lbl.contact': 'Kontakt',
+      'report.lbl.date': 'Datum',
+      'report.lbl.lang': 'Sprache',
+      'report.lbl.page': 'Seite',
+      'report.lbl.browser': 'Browser',
+      'report.status.needText': 'Bitte kurz beschreiben, was passiert ist.',
+      'report.status.telegram': 'Telegram-Fenster geöffnet. Dort den Bot @{bot} auswählen.',
+      'report.status.telegramBlocked': 'Das Fenster wurde blockiert. Pop-ups erlauben oder Bericht kopieren.',
+      'report.status.mail': 'E-Mail-Fenster geöffnet. Senden nicht vergessen.',
+      'report.status.copied': 'Bericht kopiert.',
+      'report.status.copyFail': 'Kopieren ging nicht. Den Text im Feld markieren und von Hand kopieren.',
+      'report.status.discord': 'Bericht an Discord übergeben.',
+      'report.status.fail': 'Senden ging nicht. Bericht kopieren und den Text selbst schicken.',
+      'report.status.thanks': 'Danke, der Bericht ist unterwegs.'
     },
     es: {
       'theme.label': 'Colores',
@@ -365,7 +393,35 @@
       'update.offline': 'Sin conexión. La comprobación necesita internet, los programas no.',
       'update.keep': 'No hace falta una copia de seguridad. La lista de copter y el estado del tuner están en el navegador, no en los archivos, y se mantienen si sustituyes los archivos en el mismo sitio. Solo si mueves la carpeta, exporta antes: en HangarDeck JSON, en el tuner el plan y el manifiesto.',
       'update.download': 'Ir a las descargas',
-      'update.close': 'Cerrar'
+      'update.close': 'Cerrar',
+      'report.title': 'Informar de un fallo',
+      'report.program': 'Programa',
+      'report.what': '¿Qué ha pasado?',
+      'report.whatPh': '¿Qué hiciste, qué pasó y qué esperabas?',
+      'report.contact': 'Contacto (opcional)',
+      'report.contactPh': 'Correo o nombre, si se puede preguntar',
+      'report.sendTelegram': 'Enviar por Telegram',
+      'report.sendMail': 'Escribir un correo',
+      'report.copy': 'Copiar el informe',
+      'report.sendDiscord': 'Discord',
+      'report.telegramTip': 'En la ventana de Telegram elige el bot @{bot}',
+      'report.close': 'Cerrar',
+      'report.hint': 'Se adjuntan la versión del programa, la fecha y el identificador del navegador, nada más.',
+      'report.lbl.program': 'Programa',
+      'report.lbl.contact': 'Contacto',
+      'report.lbl.date': 'Fecha',
+      'report.lbl.lang': 'Idioma',
+      'report.lbl.page': 'Página',
+      'report.lbl.browser': 'Navegador',
+      'report.status.needText': 'Describe brevemente lo que ha pasado.',
+      'report.status.telegram': 'Ventana de Telegram abierta. Allí elige el bot @{bot}.',
+      'report.status.telegramBlocked': 'La ventana fue bloqueada. Permite las ventanas emergentes o copia el informe.',
+      'report.status.mail': 'Ventana de correo abierta. No olvides enviarlo.',
+      'report.status.copied': 'Informe copiado.',
+      'report.status.copyFail': 'No se pudo copiar. Selecciona el texto en el campo y cópialo a mano.',
+      'report.status.discord': 'Informe entregado a Discord.',
+      'report.status.fail': 'No se pudo enviar. Copia el informe y manda el texto tú mismo.',
+      'report.status.thanks': 'Gracias, el informe está en camino.'
     },
     en: {
       'theme.label': 'Colours',
@@ -532,7 +588,35 @@
       'update.offline': 'No connection. The check needs internet, the programs do not.',
       'update.keep': 'No backup needed. The quad list and the tuner state live in the browser, not in the files, and survive when you drop the new version over the old one in the same place. Only if you move the folder, take the exports first: JSON in HangarDeck, plan and manifest in the tuner.',
       'update.download': 'Go to downloads',
-      'update.close': 'Close'
+      'update.close': 'Close',
+      'report.title': 'Report a bug',
+      'report.program': 'Program',
+      'report.what': 'What happened?',
+      'report.whatPh': 'What did you do, what happened, what did you expect?',
+      'report.contact': 'Contact (optional)',
+      'report.contactPh': 'Mail or name, if a question back is fine',
+      'report.sendTelegram': 'Send with Telegram',
+      'report.sendMail': 'Write an email',
+      'report.copy': 'Copy report',
+      'report.sendDiscord': 'Discord',
+      'report.telegramTip': 'In the Telegram window pick the bot @{bot}',
+      'report.close': 'Close',
+      'report.hint': 'Program version, date and browser ID are attached, nothing else.',
+      'report.lbl.program': 'Program',
+      'report.lbl.contact': 'Contact',
+      'report.lbl.date': 'Date',
+      'report.lbl.lang': 'Language',
+      'report.lbl.page': 'Page',
+      'report.lbl.browser': 'Browser',
+      'report.status.needText': 'Please describe briefly what happened.',
+      'report.status.telegram': 'Telegram window opened. Pick the bot @{bot} there.',
+      'report.status.telegramBlocked': 'The window was blocked. Allow pop-ups or copy the report.',
+      'report.status.mail': 'Mail window opened. Do not forget to send.',
+      'report.status.copied': 'Report copied.',
+      'report.status.copyFail': 'Copy failed. Select the text in the field and copy it by hand.',
+      'report.status.discord': 'Report handed to Discord.',
+      'report.status.fail': 'Sending failed. Copy the report and send the text yourself.',
+      'report.status.thanks': 'Thanks, the report is on its way.'
     }
   };
 
@@ -923,6 +1007,7 @@
     $$('[data-lang-btn]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang-btn') === state.lang));
     });
+    refreshReportTexts();
     if (typeof syncThemeState === 'function') syncThemeState();
     syncAppLinks();
     document.documentElement.setAttribute('lang', state.lang);
@@ -1444,6 +1529,23 @@
   var updateBusy = false;
   var updateSeq = 0;
 
+  // ---- Fehler melden: Kanäle ----
+  // Leere Einträge blenden den zugehörigen Knopf im Bericht-Dialog aus.
+  var REPORT_CONFIG = {
+    discordWebhook: '',
+    telegramBot: 'flowstate_fpv_feedback_bot',
+    mail: 'yngwierfpv@gmail.com',
+    senderName: 'FlowState-Feedback'
+  };
+  // Name und Eintrag in den Versionsdaten. Die Übersicht selbst hat keinen
+  // eigenen Versionssatz, dort bleibt die Version leer.
+  var REPORT_PROGRAMS = [
+    { id: 'hub', name: 'FlowState FPV' },
+    { id: 'tuner', name: 'FlowState Tuner' },
+    { id: 'guide', name: 'FPV Guide' },
+    { id: 'hangar', name: 'HangarDeck Lite' }
+  ];
+
   function localVersions() {
     var data = (state && state.data) || window.FLOWSTATE_DATA || { releases: [], programs: [] };
     var map = {};
@@ -1561,6 +1663,235 @@
 
     var dialog = $('#update-dialog');
     if (dialog) dialog.addEventListener('cancel', function () { closeUpdate(); });
+  }
+
+  // ---- Fehler melden ----
+  // Kein Konto, kein Endpunkt im Projekt: der Bericht geht über Telegram,
+  // per Mailprogramm oder in die Zwischenablage. Alles andere bleibt weg.
+
+  function reportProgram() {
+    var select = $('#report-program');
+    var id = select ? select.value : 'hub';
+    for (var i = 0; i < REPORT_PROGRAMS.length; i++) {
+      if (REPORT_PROGRAMS[i].id === id) return REPORT_PROGRAMS[i];
+    }
+    return REPORT_PROGRAMS[0];
+  }
+
+  function reportVersion(id) {
+    var data = (state && state.data) || window.FLOWSTATE_DATA || null;
+    if (!data || !data.releases) return '';
+    for (var i = 0; i < data.releases.length; i++) {
+      if (data.releases[i].program === id) return String(data.releases[i].version || '');
+    }
+    return '';
+  }
+
+  function reportPage() {
+    try { return String(location.href).split('#')[0]; } catch (e) { return ''; }
+  }
+
+  function buildReportText() {
+    var program = reportProgram();
+    var version = reportVersion(program.id);
+    var what = $('#report-text') ? String($('#report-text').value || '').replace(/\s+$/, '') : '';
+    var contact = $('#report-contact') ? String($('#report-contact').value || '').replace(/^\s+|\s+$/g, '') : '';
+    var lines = [];
+    lines.push(what);
+    if (contact) lines.push(t('report.lbl.contact') + ': ' + contact);
+    lines.push('');
+    lines.push(t('report.lbl.program') + ': ' + program.name + (version ? ' ' + version : ''));
+    lines.push(t('report.lbl.date') + ': ' + new Date().toISOString());
+    lines.push(t('report.lbl.lang') + ': ' + state.lang);
+    lines.push(t('report.lbl.page') + ': ' + reportPage());
+    lines.push(t('report.lbl.browser') + ': ' + (navigator.userAgent || '—'));
+    return lines.join('\n');
+  }
+
+  function reportStatus(text, kind) {
+    var line = $('#report-status');
+    if (!line) return;
+    line.textContent = text || '';
+    line.className = 'report-status' + (kind ? ' is-' + kind : '');
+  }
+
+  // Beschreibung ist Pflicht, alles andere nicht.
+  function reportReady() {
+    var field = $('#report-text');
+    var what = field ? String(field.value || '').replace(/\s/g, '') : '';
+    if (what) return true;
+    reportStatus(t('report.status.needText'), 'warn');
+    if (field && field.focus) field.focus();
+    return false;
+  }
+
+  // Bots füllen das versteckte Feld. Dann gibt es eine freundliche Antwort und nichts weiter.
+  function reportTrapFilled() {
+    var trap = $('#report-hp');
+    return !!(trap && String(trap.value || '').length);
+  }
+
+  function reportBlocked() {
+    if (!reportTrapFilled()) return false;
+    reportStatus(t('report.status.thanks'), 'ok');
+    return true;
+  }
+
+  function legacyCopy(text) {
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', 'readonly');
+    area.style.position = 'absolute';
+    area.style.left = '-9999px';
+    document.body.appendChild(area);
+    var ok = false;
+    try {
+      area.select();
+      ok = document.execCommand('copy');
+    } catch (e) {
+      ok = false;
+    }
+    document.body.removeChild(area);
+    return ok;
+  }
+
+  function copyReport() {
+    if (reportBlocked()) return;
+    if (!reportReady()) return;
+    var text = buildReportText();
+    function done() { reportStatus(t('report.status.copied'), 'ok'); }
+    function fail() {
+      if (legacyCopy(text)) { done(); return; }
+      reportStatus(t('report.status.copyFail'), 'warn');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fail);
+      return;
+    }
+    fail();
+  }
+
+  // Telegram nimmt den Text über den Teilen-Link. Im Fenster wird der Bot gewählt.
+  function sendTelegram() {
+    if (reportBlocked()) return;
+    if (!reportReady()) return;
+    var text = buildReportText();
+    if (text.length > 3500) text = text.slice(0, 3500);
+    var url = 'https://t.me/share/url?text=' + encodeURIComponent(text);
+    var win = null;
+    try { win = window.open(url, '_blank', 'noopener'); } catch (e) { win = null; }
+    reportStatus(win
+      ? t('report.status.telegram', { bot: REPORT_CONFIG.telegramBot })
+      : t('report.status.telegramBlocked'), win ? 'ok' : 'warn');
+  }
+
+  function sendMail() {
+    if (reportBlocked()) return;
+    if (!reportReady()) return;
+    var program = reportProgram();
+    var version = reportVersion(program.id);
+    var subject = 'Bug-Report: ' + program.name + (version ? ' ' + version : '');
+    var href = 'mailto:' + REPORT_CONFIG.mail +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(buildReportText());
+    try { location.href = href; } catch (e) {
+      reportStatus(t('report.status.fail'), 'warn');
+      return;
+    }
+    reportStatus(t('report.status.mail'), 'ok');
+  }
+
+  // Discord ist vorbereitet, aber ohne Webhook in der Konfiguration bleibt der Knopf weg.
+  function sendDiscord() {
+    if (reportBlocked()) return;
+    if (!reportReady()) return;
+    if (!REPORT_CONFIG.discordWebhook) return;
+    var text = buildReportText();
+    if (text.length > 1900) text = text.slice(0, 1900);
+    if (typeof fetch !== 'function') { reportStatus(t('report.status.fail'), 'warn'); return; }
+    fetch(REPORT_CONFIG.discordWebhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: REPORT_CONFIG.senderName, content: text })
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        reportStatus(t('report.status.thanks'), 'ok');
+      })
+      .catch(function () { reportStatus(t('report.status.fail'), 'warn'); });
+  }
+
+  function refreshReportTexts() {
+    var telegram = $('#report-telegram');
+    if (telegram) {
+      telegram.hidden = !REPORT_CONFIG.telegramBot;
+      telegram.setAttribute('title', t('report.telegramTip', { bot: REPORT_CONFIG.telegramBot }));
+    }
+    var mail = $('#report-mail');
+    if (mail) mail.hidden = !REPORT_CONFIG.mail;
+    var discord = $('#report-discord');
+    if (discord) discord.hidden = !REPORT_CONFIG.discordWebhook;
+  }
+
+  function openReport() {
+    var dialog = $('#report-dialog');
+    if (!dialog) return;
+    reportStatus('');
+    // Steht ein Programm im Rahmen, ist es vorgewählt.
+    var select = $('#report-program');
+    var current = currentAppId();
+    if (select && current) select.value = current;
+    if (dialog.showModal) {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      dialog.setAttribute('open', 'open');
+    }
+    var field = $('#report-text');
+    if (field && field.focus) field.focus();
+  }
+
+  function closeReport() {
+    var dialog = $('#report-dialog');
+    if (!dialog) return;
+    reportStatus('');
+    if (dialog.open && typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+  }
+
+  function initReport() {
+    refreshReportTexts();
+
+    var button = $('#report-check');
+    if (button) button.addEventListener('click', openReport);
+    var telegram = $('#report-telegram');
+    if (telegram) telegram.addEventListener('click', sendTelegram);
+    var mail = $('#report-mail');
+    if (mail) mail.addEventListener('click', sendMail);
+    var copy = $('#report-copy');
+    if (copy) copy.addEventListener('click', copyReport);
+    var discord = $('#report-discord');
+    if (discord) discord.addEventListener('click', sendDiscord);
+
+    // Schliessen laeuft ueber das Dokument: Kreuz, Escape und Klick daneben.
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || !target.closest) return;
+      if (target.closest('#report-close')) {
+        event.preventDefault();
+        closeReport();
+        return;
+      }
+      if (target.closest('#report-dialog') === target) closeReport();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape') return;
+      var dialog = $('#report-dialog');
+      if (dialog && (dialog.open || dialog.hasAttribute('open'))) closeReport();
+    });
+
+    var dialog = $('#report-dialog');
+    if (dialog) dialog.addEventListener('cancel', function () { closeReport(); });
   }
 
   function initDownloads() {
@@ -1762,6 +2093,10 @@
     initTheme();
     initAppSwitch();
     initControls();
+    // Alle Dialoge stehen im HTML hinter der Kopfzeile: erst hier verdrahten.
+    initDownloads();
+    initUpdate();
+    initReport();
 
     var start = document.documentElement.getAttribute('data-lang');
     state.lang = LANGS.indexOf(start) === -1 ? 'de' : start;
@@ -1823,8 +2158,6 @@
       });
   }
 
-  initDownloads();
-  initUpdate();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });

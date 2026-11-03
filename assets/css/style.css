@@ -659,13 +659,14 @@ body.app-open .site-header {
   }
 }
 
-/* Auf schmalen Schirmen weicht der GitHub-Verweis, die Prüfung bleibt erreichbar. */
+/* Auf schmalen Schirmen weicht der GitHub-Verweis, Prüfung und Meldung bleiben erreichbar. */
 @media (max-width: 480px) {
-  .header-inner .header-actions .icon-btn:not(.update-btn) {
+  .header-inner .header-actions .icon-btn:not(.update-btn):not(.report-btn) {
     display: none;
   }
 
-  .header-inner .header-actions .icon-btn.update-btn {
+  .header-inner .header-actions .icon-btn.update-btn,
+  .header-inner .header-actions .icon-btn.report-btn {
     width: 32px;
     height: 32px;
   }
@@ -2546,4 +2547,87 @@ details.notes > summary:hover {
   font-size: 12.5px;
   line-height: 1.55;
   color: var(--muted);
+}
+
+/* Fehler melden: gleicher Rahmen wie Stand prüfen, darunter ein kleines Formular. */
+
+.report-dialog {
+  width: min(92vw, 34rem);
+}
+
+.report-body {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 14px;
+}
+
+.report-field {
+  display: grid;
+  gap: 6px;
+}
+
+.report-label {
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.report-field select,
+.report-field input,
+.report-field textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+}
+
+.report-field textarea {
+  min-height: 96px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.report-field select:focus-visible,
+.report-field input:focus-visible,
+.report-field textarea:focus-visible {
+  outline: 2px solid var(--mint-line);
+  outline-offset: 1px;
+  border-color: var(--mint-line);
+}
+
+/* Für Bots sichtbar, für Menschen nicht. */
+.report-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 0;
+}
+
+.report-status {
+  min-height: 18px;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.report-status.is-ok {
+  color: var(--mint);
+}
+
+.report-status.is-warn {
+  color: var(--amber);
 }
