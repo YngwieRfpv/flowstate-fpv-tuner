@@ -732,6 +732,27 @@
   function appUrl(path, lang) {
     return path + '?lang=' + lang + '&theme=' + themeValue();
   }
+
+  // Ein Verweis auf ein Programm trägt Sprache und Farbe in der Adresse. Erkannt wird
+  // das Ziel an der Adresse selbst, damit auch angehängte Angaben nicht stören.
+  function appTarget(href) {
+    var raw = String(href || '');
+    if (raw.indexOf('://') !== -1) return null;
+    var cut = raw.indexOf('#');
+    if (cut !== -1) raw = raw.slice(0, cut);
+    var lang = '';
+    var mark = raw.indexOf('?');
+    if (mark !== -1) {
+      raw.slice(mark + 1).split('&').forEach(function (part) {
+        var pair = part.split('=');
+        if (pair[0] === 'lang' && LANGS.indexOf(pair[1]) !== -1) lang = pair[1];
+      });
+      raw = raw.slice(0, mark);
+    }
+    var m = /(?:^|\/)(hangar|tuner|guide)\/?$/.exec(raw);
+    if (!m) return null;
+    return { id: m[1], lang: lang };
+  }
   var stageScroll = 0;
   var stageTimer = null;
 
@@ -874,11 +895,10 @@
       var link = event.target && event.target.closest ? event.target.closest('a') : null;
       if (!link || link.hasAttribute('download')) return;
       if (link.target && link.target !== '_self') return;
-      var href = link.getAttribute('href') || '';
-      var m = /^(?:\.\/)?(guide|tuner)\/?(?:\?lang=(de|en|es))?$/.exec(href);
-      if (!m) return;
+      var target = appTarget(link.getAttribute('href'));
+      if (!target) return;
       event.preventDefault();
-      openApp(m[1], { lang: m[2] });
+      openApp(target.id, { lang: target.lang });
     });
 
     routeApp();
@@ -970,7 +990,7 @@
       if (!base) {
         var href = link.getAttribute('href') || '';
         if (href.indexOf('?') !== -1) return;
-        if (!/(^|\/)(guide|tuner|hangar)\/?$/.test(href)) return;
+        if (!appTarget(href)) return;
         base = href;
         link.setAttribute('data-app-base', base);
       }
@@ -1632,6 +1652,18 @@
       '</article>';
   }
 
+  // RC steht nur im Filter, solange ihn kein Eintrag nutzt.
+  function syncChannelFilter() {
+    var releases = (state.data && state.data.releases) || [];
+    var used = false;
+    for (var i = 0; i < releases.length; i += 1) {
+      if (releases[i].channel === 'rc') { used = true; break; }
+    }
+    $$('[data-filter="channel"][data-value="rc"]').forEach(function (button) {
+      button.hidden = !used;
+    });
+  }
+
   function render() {
     var target = $('#release-list');
     var count = $('#result-count');
@@ -1649,6 +1681,7 @@
         esc(t('filter.reset')) + '</button></div>';
 
     if (count) count.textContent = t('count', { n: visible.length, total: all.length });
+    syncChannelFilter();
   }
 
   function initControls() {
