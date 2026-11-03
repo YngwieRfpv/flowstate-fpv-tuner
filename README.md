@@ -59,16 +59,28 @@ Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner
 [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/).
 
-*Alles herunterladen* auf der Startseite packt ein ZIP mit der Übersichtsseite, den drei
-Programmen, `README.md`, `README.html`, `LICENSE` und `LIESMICH.txt`. Dasselbe Paket liegt
-als `FlowState-FPV-mit-Hub.zip` an jedem [Release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Mit Hub
+*Alles herunterladen* auf der Startseite packt ein ZIP mit allem in einem Ordner
+`FlowState-FPV`: die Startseite, die drei Programme, `README.md`, `README.html`, `LICENSE`
+und `LIESMICH.txt`. Dasselbe Paket liegt als `FlowState-FPV-mit-Hub.zip` an jedem
+[Release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Mit Hub
 herunterladen* in einer Versionszeile packt denselben Inhalt und nennt das Programm im
 Dateinamen. Das ZIP entsteht bei jedem Klick neu, `README.html` wird dabei aus `README.md`
 erzeugt.
 
-Entpackt die `index.html` öffnen. Über `file://` starten die Programme in einem eigenen
-Tab, weil Browser dort den Rahmen blockieren. Über einen lokalen Server oder GitHub Pages
-erscheinen sie im Rahmen unter der Kopfzeile.
+Im Ordner liegt keine Datei namens `index.html`. Die Namen sagen, was läuft:
+
+| Datei | Programm |
+|---|---|
+| `FlowState-FPV.html` | Übersicht, mit der alle drei starten |
+| `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
+| `tuner/FlowState-Tuner.html` | FlowState Tuner |
+| `guide/FPV-Guide.html` | FPV Guide |
+
+Entpackt die `FlowState-FPV.html` öffnen. Jedes Programm lässt sich auch allein öffnen, ohne
+die Übersicht, und als Lesezeichen ablegen. Über `file://` starten die Programme aus der
+Übersicht in einem eigenen Tab, weil Browser dort den Rahmen blockieren. Über einen lokalen
+Server oder GitHub Pages erscheinen sie im Rahmen unter der Kopfzeile. Die Prüfung auf
+neuere Fassungen funktioniert in allen Fällen gleich.
 
 ## Aktualisieren
 
@@ -143,12 +155,25 @@ Downloading is optional. The three programs also run right on the overview page,
 below the header. The page itself comes from the network; without a connection the programs
 only run from the unpacked package.
 
-*Download everything* on the overview page packs a ZIP with the overview page, the three
-programs, `README.md`, `README.html`, `LICENSE` and `LIESMICH.txt`. The same package sits as
-`FlowState-FPV-mit-Hub.zip` on every [release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Download with hub* in a
-release row packs the same content and names the program in the file name. Unzip it and open
-`index.html`. Over `file://` the programs open in their own tab, over a server they sit in
-the frame below the header.
+*Download everything* on the overview page packs a ZIP with everything in one folder
+`FlowState-FPV`: the overview page, the three programs, `README.md`, `README.html`, `LICENSE`
+and `LIESMICH.txt`. The same package sits as `FlowState-FPV-mit-Hub.zip` on every
+[release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Download with hub* in
+a release row packs the same content and names the program in the file name.
+
+No file in the folder is called `index.html`. The names say what runs:
+
+| File | Program |
+|---|---|
+| `FlowState-FPV.html` | Overview, the way in to all three |
+| `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
+| `tuner/FlowState-Tuner.html` | FlowState Tuner |
+| `guide/FPV-Guide.html` | FPV Guide |
+
+Unzip it and open `FlowState-FPV.html`. Each program also opens on its own, without the
+overview, and can be kept as a bookmark. Over `file://` the programs start from the overview
+in their own tab, because browsers block the frame there. Over a local server they sit in the
+frame below the header. The check for newer builds works the same either way.
 
 Spanish is selectable in all three programs and on the overview page, but reviewed
 nowhere. HangarDeck Lite joined with build 0.9.2.
