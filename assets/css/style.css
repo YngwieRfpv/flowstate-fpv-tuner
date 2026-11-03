@@ -2616,6 +2616,11 @@ details.notes > summary:hover {
   margin: 2px 0 0;
 }
 
+/* .btn setzt display, sonst bleibt ein ausgeblendeter Kanal trotzdem sichtbar. */
+.report-actions .btn[hidden] {
+  display: none;
+}
+
 .report-status {
   min-height: 18px;
   margin: 0;
