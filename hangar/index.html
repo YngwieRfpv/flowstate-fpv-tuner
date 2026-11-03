@@ -3,49 +3,90 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06232a">
-<meta name="description" content="HangarDeck Lite - einfache Copter-Verwaltung. Größe in Zoll, Zellen, KV, ESC. Offline, eine HTML-Datei.">
-<title>HangarDeck Lite — Copter-Verwaltung</title>
+<meta name="theme-color" content="#093840">
+<meta name="description" content="FlowState Hangar - Copter-Verwaltung. Größe in Zoll, Zellen, KV, ESC, Receiver, Videosystem. Offline, eine HTML-Datei.">
+<title>FlowState Hangar — Copter-Verwaltung</title>
 <style>
 /* ===== Farbschemata (aus deinen Adobe-Color-Paletten) ===== */
 :root,html[data-theme="ocean"]{
-  /* Ocean: #093840 #155b5b #1e746b #258c71 #2ca387 */
-  --bg:#06232a;--glow1:#0b3d45;--glow2:#0f4a4a;
-  --panel:#093840;--panel2:#0c4048;--field:#072d34;
+  /* Ocean: #093840 #155b5b #1e746b #258c71 #2ca387
+     Flächen, Linien und Texttöne sind ausschließlich aus diesen fünf Werten gemischt. */
+  --bg:#093840;
+  --glow1:color-mix(in srgb,#155b5b 55%,#093840);
+  --glow2:color-mix(in srgb,#1e746b 42%,#093840);
+  --panel:color-mix(in srgb,#155b5b 24%,#093840);
+  --panel2:color-mix(in srgb,#155b5b 40%,#093840);
+  --field:color-mix(in srgb,#093840 82%,#000);
   --line:#155b5b;--line2:#1e746b;
-  --text:#e7f6f2;--muted:#94c4b9;--dim:#62968b;--strong:#cdebe3;
-  --accent:#2ca387;--accent-d:#1e746b;--accent-text:#4fd0ae;--on-accent:#03201b;
-  --accent-soft:rgba(44,163,135,.16);--accent-ring:rgba(44,163,135,.38);
-  --ok:#3fd0a4;--warn:#f2c46b;--bad:#ff7a7a;
-  --shadow:rgba(0,0,0,.45);--backdrop:rgba(2,16,19,.72);
+  --text:color-mix(in srgb,#fff 94%,#2ca387);
+  --muted:color-mix(in srgb,#fff 62%,#258c71);
+  --dim:color-mix(in srgb,#fff 42%,#1e746b);
+  --strong:#fff;
+  --accent:#2ca387;--accent-d:#258c71;
+  --accent-text:color-mix(in srgb,#2ca387 50%,#fff);
+  --on-accent:color-mix(in srgb,#000 70%,#093840);
+  --accent-soft:color-mix(in srgb,#2ca387 18%,transparent);
+  --accent-ring:color-mix(in srgb,#2ca387 42%,transparent);
+  /* Signalfarben bleiben schemefremd: ein Zustand muss in jedem Schema gleich lesbar sein. */
+  --ok:#2ca387;--warn:#e0a33c;--bad:color-mix(in srgb,#d82828 78%,#fff);
+  --shadow:rgba(0,0,0,.45);--backdrop:color-mix(in srgb,#093840 72%,transparent);
+  --r-xl:20px;--r-lg:16px;--r-md:11px;--r-sm:7px;--r-edge:4px;--r-tile:12px;
+  --logo-a:#2ca387;--logo-b:#1e746b;
   color-scheme:dark;
 }
 html[data-theme="sand"]{
-  /* Sand (hell): #c9e0f0 #f4f6f5 #c4b69c #f0e6cb #ecbda9 */
-  --bg:#f4f6f5;--glow1:#e3eef6;--glow2:#f6eedb;
-  --panel:#ffffff;--panel2:#fbf8f0;--field:#ffffff;
-  --line:#e6dfcf;--line2:#c4b69c;
-  --text:#2f2b24;--muted:#6e6553;--dim:#9b9079;--strong:#3d382f;
-  --accent:#ecbda9;--accent-d:#dea38a;--accent-text:#a85a3c;--on-accent:#3f2216;
-  --accent-soft:#c9e0f0;--accent-ring:rgba(201,224,240,.9);
-  --ok:#4c9a73;--warn:#c98a1c;--bad:#c84a3c;
-  --shadow:rgba(80,64,40,.18);--backdrop:rgba(60,52,40,.35);
+  /* Sand (hell): #c9e0f0 #f4f6f5 #c4b69c #f0e6cb #ecbda9
+     Karten liegen als warmer Cremeton auf hellem Grund, Eingaben kühl blau. */
+  --bg:#f4f6f5;
+  --glow1:color-mix(in srgb,#c9e0f0 60%,#f4f6f5);
+  --glow2:color-mix(in srgb,#f0e6cb 72%,#f4f6f5);
+  --panel:color-mix(in srgb,#f0e6cb 32%,#f4f6f5);
+  --panel2:color-mix(in srgb,#f0e6cb 52%,#f4f6f5);
+  --field:color-mix(in srgb,#c9e0f0 22%,#f4f6f5);
+  --line:color-mix(in srgb,#c4b69c 50%,#f4f6f5);--line2:#c4b69c;
+  --text:color-mix(in srgb,#000 80%,#c4b69c);
+  --muted:color-mix(in srgb,#000 52%,#c4b69c);
+  --dim:color-mix(in srgb,#000 42%,#c4b69c);
+  --strong:color-mix(in srgb,#000 90%,#c4b69c);
+  --accent:#ecbda9;--accent-d:color-mix(in srgb,#ecbda9 55%,#c4b69c);
+  --accent-text:color-mix(in srgb,#000 40%,#ecbda9);
+  --on-accent:color-mix(in srgb,#000 76%,#c4b69c);
+  --accent-soft:color-mix(in srgb,#c9e0f0 60%,#f4f6f5);
+  --accent-ring:color-mix(in srgb,#c4b69c 65%,transparent);
+  --ok:color-mix(in srgb,#258c71 78%,#000);--warn:#a9751a;--bad:color-mix(in srgb,#d82828 88%,#000);
+  --shadow:rgba(80,64,40,.18);--backdrop:color-mix(in srgb,#c4b69c 55%,transparent);
+  --r-xl:17px;--r-lg:14px;--r-md:10px;--r-sm:6px;--r-edge:3px;--r-tile:11px;
+  --logo-a:color-mix(in srgb,#000 40%,#ecbda9);--logo-b:#ecbda9;
   color-scheme:light;
 }
 html[data-theme="drakn"]{
   /* Drakn: #d82828 #8e1e2c #5a152a #390c2b #140a25 */
-  --bg:#140a25;--glow1:#390c2b;--glow2:#2a0b2c;
-  --panel:#1f0c29;--panel2:#2a0e2c;--field:#170923;
-  --line:#3f132f;--line2:#5a152a;
-  --text:#f8eaee;--muted:#c79fae;--dim:#8d6879;--strong:#f0d3dc;
-  --accent:#d82828;--accent-d:#8e1e2c;--accent-text:#ff5c5c;--on-accent:#ffffff;
-  --accent-soft:rgba(216,40,40,.16);--accent-ring:rgba(216,40,40,.4);
-  --ok:#46d39a;--warn:#f5b84f;--bad:#ff6b6b;
-  --shadow:rgba(0,0,0,.55);--backdrop:rgba(10,4,20,.75);
+  --bg:#140a25;
+  --glow1:color-mix(in srgb,#390c2b 90%,#140a25);
+  --glow2:color-mix(in srgb,#5a152a 42%,#140a25);
+  --panel:color-mix(in srgb,#390c2b 45%,#140a25);
+  --panel2:color-mix(in srgb,#390c2b 70%,#140a25);
+  --field:color-mix(in srgb,#140a25 86%,#000);
+  --line:#5a152a;--line2:#8e1e2c;
+  --text:color-mix(in srgb,#fff 95%,#d82828);
+  --muted:color-mix(in srgb,#fff 58%,#8e1e2c);
+  --dim:color-mix(in srgb,#fff 46%,#5a152a);
+  --strong:#fff;
+  --accent:#d82828;--accent-d:#8e1e2c;
+  --accent-text:color-mix(in srgb,#d82828 42%,#fff);
+  --on-accent:#fff;
+  --accent-soft:color-mix(in srgb,#d82828 18%,transparent);
+  --accent-ring:color-mix(in srgb,#d82828 45%,transparent);
+  --ok:#2ca387;--warn:#e0a33c;--bad:color-mix(in srgb,#d82828 72%,#fff);
+  --shadow:rgba(0,0,0,.55);--backdrop:color-mix(in srgb,#140a25 78%,transparent);
+  --r-xl:13px;--r-lg:10px;--r-md:8px;--r-sm:5px;--r-edge:2px;--r-tile:8px;
+  --logo-a:#d82828;--logo-b:#8e1e2c;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{margin:0;padding:0}
+html{background:var(--bg)}
 body{
   background:
     radial-gradient(1100px 620px at 12% -8%, var(--glow1) 0%, transparent 62%),
@@ -59,19 +100,36 @@ body{
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .wrap{max-width:1020px;margin:0 auto;padding:26px 18px 90px}
 
-/* Kopf */
-.top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.logo{width:40px;height:40px;border-radius:11px;flex:none;
-  background:linear-gradient(145deg,var(--accent),var(--accent-d));
-  display:grid;place-items:center;box-shadow:0 8px 22px var(--accent-soft)}
-.logo svg{width:22px;height:22px;display:block}
-h1{font-size:19px;margin:0;letter-spacing:-.2px;font-weight:650}
-.sub{margin:1px 0 0;color:var(--muted);font-size:12.5px}
+/* Formsprache: Bedienelemente (Buttons, Felder, Suche) gleichmaessig gerundet;
+   tragende Flaechen (Top-Bar, Zeilen, Dialoge, Menues) diagonal gemischt:
+   grosse Rundung (--r-lg/--r-xl) gegenueber kleine Kante (--r-edge) im selben Element.
+   Statuspunkte bleiben Kreise. Je Schema dosiert: Ocean weich, Sand mittel, Drakn straff. */
+/* FlowState masterbrand: unboxed emblem + wordmark, project name subordinate */
+.top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
+  margin-bottom:22px;background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);padding:15px 18px;
+  position:relative}
+/* Der Farbstreifen links folgt der Rundung selbst - frueher beschnitt overflow:hidden
+   die ganze Leiste und damit auch das Exportmenue. */
+.top::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--logo-a),var(--logo-b));
+  border-radius:var(--r-xl) 0 0 var(--r-edge)}
+.brand{display:flex;align-items:center;gap:15px;min-width:0;padding-left:3px}
+.logo{width:53px;height:48px;flex:none;display:grid;place-items:center}
+.logo svg{width:53px;height:48px;display:block;filter:drop-shadow(0 3px 6px var(--shadow))}
+.brand-copy{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.brandline{margin:0;color:var(--text);font-size:24px;font-weight:640;
+  letter-spacing:-1.35px;line-height:1.12;white-space:nowrap}
+.brandline span{font-weight:370}
+.projectline{display:flex;align-items:center;gap:9px;margin-top:5px}
+.projectline::before{content:"";height:1px;width:18px;background:var(--accent);flex:none}
+h1{font-size:11px;margin:0;letter-spacing:1.9px;font-weight:700;line-height:1.35;text-transform:uppercase;color:var(--accent-text)}
+.sub{margin:0;color:var(--muted);font-size:11px;white-space:nowrap}
+.btn.primary{border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge)}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 
 .btn{appearance:none;border:1px solid var(--line2);background:var(--panel2);color:var(--text);
-  padding:9px 14px;border-radius:10px;font:inherit;font-size:13.5px;cursor:pointer;
+  padding:9px 14px;border-radius:var(--r-md);font:inherit;font-size:13.5px;cursor:pointer;
   display:inline-flex;align-items:center;gap:7px;transition:.14s}
 .btn:hover{border-color:var(--accent);color:var(--text)}
 .btn:active{transform:translateY(1px)}
@@ -79,13 +137,15 @@ h1{font-size:19px;margin:0;letter-spacing:-.2px;font-weight:650}
 .btn.primary:hover{filter:brightness(1.07);color:var(--on-accent)}
 .btn.ghost{background:transparent}
 .btn.danger:hover{border-color:var(--bad);color:var(--bad)}
-.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:8px}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:var(--r-sm)}
+.btn.cta{padding:12px 22px;font-size:14.5px;box-shadow:0 0 0 5px var(--accent-soft)}
+.btn.cta:hover{box-shadow:0 0 0 7px var(--accent-soft)}
 
 /* Suchzeile */
 .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
 input[type=search],input[type=text],input[type=number],input[type=date],input[type=password],input[type=email],input[type=url],select,textarea{
   background:var(--field);border:1px solid var(--line);color:var(--text);
-  border-radius:10px;padding:9px 11px;font:inherit;font-size:14px;width:100%;transition:.14s}
+  border-radius:var(--r-md);padding:9px 11px;font:inherit;font-size:14px;width:100%;transition:.14s}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
 input::placeholder,textarea::placeholder{color:var(--dim)}
 .search{flex:1 1 240px;min-width:190px;position:relative}
@@ -97,11 +157,11 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .list{display:grid;gap:10px}
 .row{
   background:linear-gradient(180deg,var(--panel),var(--panel2));
-  border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  border:1px solid var(--line);border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);padding:14px 16px;
   display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;transition:.15s}
 .row:hover{border-color:var(--line2);transform:translateY(-1px)}
 .size{
-  width:52px;height:52px;flex:none;border-radius:12px;display:grid;place-items:center;
+  width:52px;height:52px;flex:none;border-radius:var(--r-tile) var(--r-edge) var(--r-tile) var(--r-edge);display:grid;place-items:center;
   background:var(--accent-soft);border:1px solid var(--line2);line-height:1}
 .size b{font-size:17px;font-weight:700;color:var(--accent-text);letter-spacing:-.4px}
 .size span{display:block;font-size:9.5px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
@@ -115,20 +175,27 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .dot.maint{background:var(--warn)}
 .dot.down{background:var(--bad)}
 .st{font-size:11.5px;color:var(--muted)}
+.st .exmark{margin-left:6px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent-ink);background:color-mix(in srgb, var(--accent) 18%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius:4px 2px 4px 2px;padding:1px 5px;vertical-align:1px}
 
-.empty{border:1px dashed var(--line2);border-radius:14px;padding:46px 20px;text-align:center;color:var(--muted)}
+.empty{border:1px dashed var(--line2);background:color-mix(in srgb,var(--accent) 6%,transparent);border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);padding:46px 20px;text-align:center;color:var(--muted)}
 .empty h3{margin:0 0 6px;color:var(--text);font-size:16px;font-weight:600}
 .empty p{margin:0 0 16px;font-size:13.5px}
 
 /* Dialog */
 dialog{border:none;padding:0;background:transparent;max-width:min(620px,94vw);width:100%}
 dialog::backdrop{background:var(--backdrop);backdrop-filter:blur(3px)}
-.card{background:var(--panel);border:1px solid var(--line2);border-radius:16px;overflow:hidden;
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);overflow:hidden;
   box-shadow:0 24px 70px var(--shadow)}
 .card header{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
 .card header h2{margin:0;font-size:16px;font-weight:620}
 .body{padding:18px 20px;max-height:min(66vh,600px);overflow:auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px}
+.grid>*{min-width:0}
+.grid input,.grid select,.grid textarea{min-width:0}
+.grid .hint{margin:5px 0 0;font-size:11.5px;line-height:1.35}
 label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.2px}
 label .opt{color:var(--dim);font-size:11px}
 .full{grid-column:1/-1}
@@ -145,33 +212,43 @@ details .grid{margin-top:14px}
 .hint{color:var(--dim);font-size:11.5px;margin-top:5px}
 
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;
-  background:var(--panel2);border:1px solid var(--line2);border-radius:11px;padding:11px 17px;font-size:13.5px;
+  background:var(--panel2);border:1px solid var(--line2);border-radius:var(--r-md);padding:11px 17px;font-size:13.5px;
   box-shadow:0 14px 40px var(--shadow);transition:.2s;z-index:99;max-width:90vw}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .toast.ok{border-color:var(--accent)}
 .toast.bad{border-color:var(--bad)}
 
+.foot-sep{color:var(--dim)}
+@media(max-width:760px){.projectline .sub{display:none}.top{align-items:flex-start}.brandline{font-size:22px}}
+@media(max-width:480px){.brand{gap:9px}.logo,.logo svg{width:42px;height:40px}.brandline{font-size:20px}}
 footer .ver{font-size:11px;color:var(--dim);letter-spacing:.02em;display:inline-block;margin-top:2px}
 .foot{margin-top:30px;color:var(--dim);font-size:12px;text-align:center;line-height:1.7}
 
 /* Export-Auswahl */
 .expwrap{position:relative;display:inline-block}
-.menu{position:absolute;right:0;top:calc(100% + 6px);z-index:40;min-width:210px;
-  background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+.menu{position:fixed;left:0;top:0;z-index:1000;
+  width:max-content;min-width:236px;max-width:min(340px,calc(100vw - 20px));
+  max-height:min(70vh,340px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line2);border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);
   box-shadow:0 18px 44px var(--shadow);padding:6px;display:flex;flex-direction:column;gap:2px}
 .menu[hidden]{display:none}
+.menu .mcap{margin:2px 4px 4px;padding:0 6px 6px;font-size:11px;line-height:1.35;color:var(--dim);border-bottom:1px solid var(--line)}
 .menu button{appearance:none;background:transparent;border:0;color:var(--text);text-align:left;
-  font:inherit;font-size:13px;padding:8px 10px;border-radius:8px;cursor:pointer;display:flex;
+  font:inherit;font-size:13px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;display:flex;
   align-items:center;justify-content:space-between;gap:10px}
 .menu button:hover{background:var(--accent-soft);color:var(--text)}
-.menu button small{color:var(--dim);font-size:11px}
+.menu button small{color:var(--dim);font-size:11px;white-space:nowrap}
+.menu button>span{white-space:nowrap}
 
 /* Druckansicht: nur die Tabelle kommt aufs Papier */
 #printArea{display:none}
 @media print{
+  :root,html[data-theme]{--bg:#fff;--panel:#fff;--panel2:#fff;--field:#fff;
+    --line:#bbb;--line2:#999;--text:#000;--strong:#000;--muted:#444;--dim:#666;
+    --accent-soft:transparent;--shadow:none;--backdrop:transparent}
   body{background:#fff;color:#000}
   .wrap{max-width:none;padding:0}
-  .top,.bar,.list,.foot,dialog,.menu,.toast,.expwrap,button{display:none!important}
+  .top,.bar,.list,.foot,dialog,.menu,.toast,.expwrap,.io,button{display:none!important}
   #printArea{display:block!important}
   #printArea h1{font-size:15pt;margin:0 0 2pt}
   #printArea .meta{font-size:9pt;color:#555;margin:0 0 8pt}
@@ -185,23 +262,15 @@ footer .ver{font-size:11px;color:var(--dim);letter-spacing:.02em;display:inline-
   @page{size:A4 landscape;margin:12mm}
 }
 
-/* GitHub-Sync */
-.sync{position:relative;padding-left:26px}
-.sync .sdot{position:absolute;left:11px;top:50%;transform:translateY(-50%);
-  width:8px;height:8px;border-radius:50%;background:var(--dim);transition:.2s}
-.sync[data-state="ok"] .sdot{background:var(--ok);box-shadow:0 0 8px var(--ok)}
-.sync[data-state="busy"] .sdot{background:var(--warn);animation:pulse 1s infinite}
-.sync[data-state="err"] .sdot{background:var(--bad);box-shadow:0 0 8px var(--bad)}
-@keyframes pulse{50%{opacity:.35}}
 dialog{max-height:92vh}
 dialog .card{max-height:92vh;display:flex;flex-direction:column}
 dialog .body{flex:1 1 auto;min-height:0;max-height:none}
 dialog footer{flex:none}
 dialog.wide{max-width:640px}
-dialog .sec{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--panel)}
+dialog .sec{border:1px solid var(--line);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);padding:14px;margin-bottom:12px;background:var(--panel)}
 dialog .sec h3{margin:0 0 4px;font-size:14px;font-weight:640}
 dialog .sec p{margin:0 0 10px;color:var(--muted);font-size:12.5px;line-height:1.55}
-dialog .sec code{background:var(--field);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12px}
+dialog .sec code{background:var(--field);border:1px solid var(--line);border-radius:var(--r-edge);padding:1px 5px;font-size:12px}
 dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 dialog .chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);margin-top:8px}
 dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
@@ -209,17 +278,82 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
 
 /* Einstellungen: Farbschema + Sprache */
 .prefs{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.seg{display:inline-flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden;background:var(--panel2)}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:var(--r-md);overflow:hidden;background:var(--panel2)}
 .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12.5px;
   font-weight:600;padding:6px 10px;cursor:pointer;letter-spacing:.3px}
 .seg button+button{border-left:1px solid var(--line2)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
-.swatches{display:inline-flex;gap:5px;padding:4px;border:1px solid var(--line2);border-radius:10px;background:var(--panel2)}
-.sw{appearance:none;border:2px solid transparent;border-radius:7px;padding:0;width:30px;height:22px;cursor:pointer;
+.swatches{display:inline-flex;gap:5px;padding:4px;border:1px solid var(--line2);border-radius:var(--r-md);background:var(--panel2)}
+.sw{appearance:none;border:2px solid transparent;border-radius:var(--r-sm);padding:0;width:30px;height:22px;cursor:pointer;
   display:flex;overflow:hidden;background:none}
 .sw i{flex:1;display:block}
 .sw[aria-pressed="true"]{border-color:var(--text)}
 .sw:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Export + Import: immer gleich breit und gleich hoch */
+.io{display:inline-grid;grid-template-columns:1fr 1fr;gap:8px}
+.io .expwrap{display:flex}
+.io .btn{width:100%;height:100%;justify-content:center;line-height:1.2}
+.ic{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.caret{font-size:9px;opacity:.65}
+
+/* Ansicht: Liste | Kacheln */
+.viewseg button{display:inline-flex;align-items:center;gap:6px;padding:6px 10px}
+.viewseg .ic{width:13px;height:13px}
+
+/* Kacheln */
+.list.tiles{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.list.tiles .empty{grid-column:1/-1}
+.tile{position:relative;display:flex;flex-direction:column;overflow:hidden;transition:.15s;
+  background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+  border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge)}
+.tile:hover{border-color:var(--line2);transform:translateY(-2px)}
+.tile.drop{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+.ph{appearance:none;border:0;border-bottom:1px solid var(--line);padding:0;margin:0;display:block;width:100%;
+  aspect-ratio:4/3;background:var(--field);cursor:pointer;position:relative;overflow:hidden;color:var(--dim);font:inherit}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .noimg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  font-size:12px;background:repeating-linear-gradient(135deg,transparent 0 11px,var(--accent-soft) 11px 12px)}
+.ph .noimg svg{width:70px;height:70px;stroke:var(--line2);fill:none;stroke-width:1.6}
+.ph:hover .noimg,.ph:focus-visible .noimg{color:var(--accent-text)}
+.ph:hover .noimg svg{stroke:var(--accent)}
+.ph:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.ph .chg{position:absolute;right:8px;bottom:8px;background:var(--backdrop);color:#fff;font-size:11px;
+  padding:3px 8px;border-radius:var(--r-sm);opacity:0;transition:.15s}
+.ph:hover .chg,.ph:focus-visible .chg{opacity:1}
+.tbadge{position:absolute;left:10px;top:10px;pointer-events:none;background:var(--panel);border:1px solid var(--line2);
+  color:var(--accent-text);font-weight:700;font-size:12.5px;letter-spacing:-.2px;padding:3px 9px;
+  border-radius:var(--r-tile) var(--r-edge) var(--r-tile) var(--r-edge);box-shadow:0 4px 12px var(--shadow)}
+.tbody{padding:12px 14px 2px;flex:1;min-width:0}
+.tbody .name{font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.chip{font-size:11px;line-height:1.5;padding:1px 7px;border-radius:var(--r-sm);border:1px solid var(--line);color:var(--muted);background:var(--field)}
+.chip.fw{border-color:var(--line2);color:var(--strong)}
+.tacts{display:flex;justify-content:flex-end;gap:6px;padding:10px 12px 12px}
+
+/* Bild im Formular */
+.imgpick{display:flex;gap:14px;align-items:center}
+.thumb{width:88px;height:66px;flex:none;border:1px dashed var(--line2);background:var(--field);overflow:hidden;
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);display:grid;place-items:center;color:var(--dim)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:1.6}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+
+/* FC auslesen */
+.fcbox{border:1px solid var(--line);background:var(--panel2);padding:12px 13px;margin-top:10px;
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge)}
+.fcbox .btnrow{margin-bottom:2px}
+.fcbox textarea{margin-top:10px;min-height:96px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+.fcinfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px 14px;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line)}
+.fcinfo div{min-width:0}
+.fcinfo dt{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.6px}
+.fcinfo dd{margin:1px 0 0;font-size:13px;color:var(--strong);font-weight:600;overflow-wrap:anywhere}
+.fcmeta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--dim)}
+.linkbtn{border:0;background:none;padding:2px;color:var(--dim);font:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--bad)}
+.fcstate{font-size:12px;color:var(--muted);margin-top:8px;min-height:1px}
+.fcstate.ok{color:var(--ok)}
+.fcstate.warn{color:var(--bad)}
 
 @media (max-width:560px){
   .row{grid-template-columns:auto 1fr;gap:12px}
@@ -234,15 +368,20 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <div class="top">
     <div class="brand">
       <div class="logo" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--on-accent)" stroke-width="2.1" stroke-linecap="round">
-          <circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/>
-          <circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/>
-          <path d="M8.3 8.3 15.7 15.7M15.7 8.3 8.3 15.7"/>
+        <svg viewBox="0 0 64 56" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="fsgrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" style="stop-color:var(--logo-a)"/>
+            <stop offset="1" style="stop-color:var(--logo-b)"/>
+          </linearGradient></defs>
+          <g fill="url(#fsgrad)">
+            <path d="M3 34.8C12.2 16.5 23 6.1 42 3.9c5.4-.6 12.3-.4 19-.4-2.7 9.7-9.5 14.2-19.9 14.6-15.1.5-25 5.6-38.1 16.7Z"/>
+            <path d="M1.5 54C9.6 38.1 20.8 29 35.8 27.2c5.4-.6 11.6-.4 17.5-.4-3.7 8.7-10.2 12.1-19.1 12.7C22.4 40.2 14.4 45.3 1.5 54Z"/>
+          </g>
         </svg>
       </div>
-      <div>
-        <h1>HangarDeck</h1>
-        <p class="sub" data-i18n="sub">Copter-Verwaltung · lokal im Browser</p>
+      <div class="brand-copy">
+        <p class="brandline">Flow<span>State</span></p>
+        <div class="projectline"><h1>Hangar</h1><p class="sub" data-i18n="sub">Copter-Verwaltung · lokal im Browser</p></div>
       </div>
     </div>
     <div class="tools">
@@ -255,15 +394,14 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
         <div class="seg" role="group" id="langs" data-i18n-aria="lang" aria-label="Sprache">
           <button type="button" data-lang="de">DE</button>
           <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="es">ES</button>
         </div>
       </div>
-      <button class="btn ghost sm sync" id="btnSync" type="button" data-sync="off"
-              title="GitHub-Sync" aria-haspopup="dialog">
-        <span class="sdot" aria-hidden="true"></span><span id="syncLabel">GitHub</span>
-      </button>
+      <div class="io">
       <span class="expwrap">
         <button class="btn ghost sm" id="btnExport" type="button" aria-haspopup="true" aria-expanded="false">
-          <span data-i18n="export">Export</span> ▾
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19h14"/></svg>
+          <span data-i18n="export">Export</span><span class="caret" aria-hidden="true">▾</span>
         </button>
         <div class="menu" id="expMenu" hidden role="menu">
           <button type="button" data-exp="pdf" role="menuitem">
@@ -274,9 +412,25 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
             <span data-i18n="expPrint">Drucken</span> <small data-i18n="expPrintHint">Papier / PDF</small></button>
           <button type="button" data-exp="json" role="menuitem">
             <span data-i18n="expJson">JSON</span> <small data-i18n="expJsonHint">Sicherung</small></button>
+          <button type="button" data-exp="html" role="menuitem">
+            <span data-i18n="expHtml">HTML-Backup</span> <small data-i18n="expHtmlHint">App + Daten</small></button>
         </div>
       </span>
-      <button class="btn ghost sm" id="btnImport" type="button" data-i18n="import">Import</button>
+      <span class="expwrap">
+        <button class="btn ghost sm" id="btnImport" type="button" aria-haspopup="true" aria-expanded="false"
+                data-i18n-title="importWhat" title="Liest nur Sicherungen ein: JSON oder HTML-Backup">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19h14"/></svg>
+          <span data-i18n="import">Import</span><span class="caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="menu" id="impMenu" hidden role="menu">
+          <p class="mcap" data-i18n="impOnly">Liest nur Sicherungen ein – keine Fremddateien.</p>
+          <button type="button" data-imp="json" role="menuitem">
+            <span data-i18n="impJson">JSON-Sicherung</span> <small data-i18n="impJsonHint">fügt hinzu</small></button>
+          <button type="button" data-imp="html" role="menuitem">
+            <span data-i18n="impHtml">HTML-Backup</span> <small data-i18n="impHtmlHint">ersetzt die Liste</small></button>
+        </div>
+      </span>
+      </div>
       <button class="btn primary" id="btnNew" type="button" data-i18n="add">+ Copter</button>
     </div>
   </div>
@@ -284,17 +438,21 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <div class="bar">
     <div class="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input type="search" id="q" placeholder="Suchen …" aria-label="Copter suchen" data-i18n-ph="search" data-i18n-aria="search">
+      <input type="search" id="q" placeholder="Suchen …" aria-label="Copter suchen" data-i18n-ph="search" data-i18n-aria="searchAria">
     </div>
     <span class="count" id="count"></span>
+    <div class="seg viewseg" role="group" id="views" data-i18n-aria="view" aria-label="Ansicht">
+      <button type="button" data-view="tiles"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span data-i18n="viewTiles">Kacheln</span></button>
+      <button type="button" data-view="list"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="viewList">Liste</span></button>
+    </div>
   </div>
 
   <div class="list" id="list"></div>
 
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
-    <span data-i18n="foot2">Für Backup oder Umzug den Export nutzen.</span><br>
-    <span class="ver">HangarDeck Lite · v0.4.0-beta.3</span>
+    <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
+    <span class="ver">FlowState Hangar · v0.9.2-beta.1</span>
   </footer>
 </div>
 
@@ -333,17 +491,67 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
           </select>
         </div>
         <div>
-          <label for="f_props">Props <span class="opt" data-i18n="opt">optional</span></label>
+          <label for="f_props"><span data-i18n="props">Props</span> <span class="opt" data-i18n="opt">optional</span></label>
           <input type="text" id="f_props" placeholder="5.1x4.6x3">
+        </div>
+        <div class="full imgpick">
+          <div class="thumb" id="f_thumb"></div>
+          <div>
+            <label><span data-i18n="photo">Bild</span> <span class="opt" data-i18n="opt">optional</span></label>
+            <div class="btnrow">
+              <button class="btn sm" type="button" id="btnImg" data-i18n="photoPick">Bild wählen</button>
+              <button class="btn sm ghost danger" type="button" id="btnImgDel" data-i18n="photoDel">Entfernen</button>
+            </div>
+            <p class="hint" data-i18n="photoHint">Wird verkleinert und bleibt lokal – im JSON- und HTML-Backup enthalten.</p>
+          </div>
         </div>
       </div>
 
       <details id="more">
         <summary data-i18n="more">Mehr Details</summary>
         <div class="grid">
-          <div>
-            <label for="f_fc">Flight Controller <span class="opt" data-i18n="opt">optional</span></label>
+          <div class="full">
+            <label for="f_fc"><span data-i18n="fc">Flight Controller</span> <span class="opt" data-i18n="opt">optional</span></label>
             <input type="text" id="f_fc" placeholder="SpeedyBee F405 V4">
+            <div class="fcbox">
+              <div class="btnrow">
+                <button class="btn sm" type="button" id="btnFcRead">
+                  <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v4M15 3v4M7 7h10v5a5 5 0 0 1-10 0V7ZM12 17v4"/></svg>
+                  <span data-i18n="fcRead">FC auslesen (USB)</span></button>
+                <button class="btn sm ghost" type="button" id="btnFcPaste" data-i18n="fcPaste">CLI-Text einfügen</button>
+              </div>
+              <p class="hint" id="fcHint" data-i18n="fcHint">Chrome/Edge: FC per USB anstecken, Configurator schließen. Der FC startet danach neu – gespeichert wird nichts.</p>
+              <div id="fcPasteBox" hidden>
+                <textarea id="f_cli" spellcheck="false" data-i18n-ph="fcPastePh" placeholder="Ausgabe von version und status aus dem CLI hier einfügen …"></textarea>
+                <div class="btnrow" style="margin-top:8px"><button class="btn sm" type="button" id="btnFcParse" data-i18n="fcParse">Übernehmen</button></div>
+              </div>
+              <p class="fcstate" id="fcState" role="status" aria-live="polite"></p>
+              <div id="fcInfo"></div>
+            </div>
+          </div>
+          <div class="full">
+            <label><span data-i18n="bfTitle">Betaflight-Backup</span> <span class="opt" data-i18n="bfPro">pro Modell</span></label>
+            <div class="fcbox">
+              <label for="f_bftarget"><span data-i18n="bfTarget">Target der FC</span> <span class="opt" data-i18n="opt">optional</span></label>
+              <input type="text" id="f_bftarget" spellcheck="false" placeholder="SPEEDYBEEF405V4">
+              <label for="f_bfdiff" style="margin-top:10px"><span data-i18n="bfDiff">CLI-Diff (diff all)</span> <span class="opt" data-i18n="bfDiffOpt">aus dem CLI eingefügt</span></label>
+              <textarea id="f_bfdiff" spellcheck="false" style="min-height:88px" data-i18n-ph="bfDiffPh" placeholder="Aus dem CLI: diff all …"></textarea>
+              <div class="btnrow" style="margin-top:8px">
+                <button class="btn sm" type="button" id="btnBfFile" data-i18n="bfLoad">Datei laden</button>
+                <button class="btn sm" type="button" id="btnBfCheck" data-i18n="bfCheck">Prüfen</button>
+                <button class="btn sm ghost" type="button" id="btnBfSave" data-i18n="bfExport">Sicherung (.txt)</button>
+              </div>
+              <p class="fcstate" id="bfState" role="status" aria-live="polite"></p>
+              <p class="hint" data-i18n="bfHint">Die Sicherung wird erst geschrieben, wenn das Target hier zum FC-Target passt (aus „FC auslesen“ oder `board_name`).</p>
+            </div>
+          </div>
+          <div>
+            <label for="f_rx"><span data-i18n="receiver">Empfänger</span> <span class="opt" data-i18n="opt">optional</span></label>
+            <select id="f_rx"></select>
+          </div>
+          <div>
+            <label for="f_video"><span data-i18n="video">Videosystem</span> <span class="opt" data-i18n="opt">optional</span></label>
+            <select id="f_video"></select>
           </div>
           <div>
             <label for="f_mah"><span data-i18n="mah">Akku</span> <span class="opt" data-i18n="opt">optional</span></label>
@@ -369,169 +577,230 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   </form>
 </dialog>
 
-<dialog id="ghDlg" class="wide">
-  <div class="card">
-    <header><h2 id="ghTitle" data-i18n="ghTitle">GitHub-Sync</h2></header>
-    <div class="body">
-      <div class="sec">
-        <h3 data-i18n="ghHowH">So funktioniert es</h3>
-        <p data-i18n="ghHowP">Die App liest und schreibt eine JSON-Datei in deinem Repository. Damit ist dieselbe Liste auf jedem Gerät und auf der GitHub-Pages-Seite identisch. Ohne Token funktioniert nur das Lesen (öffentliches Repo).</p>
-        <p><span data-i18n="ghTokenHint">Token: fein abgestuftes persönliches Token, nur für dieses Repository, Recht</span>
-           <code>Contents: Read and write</code>.</p>
-      </div>
-
-      <div class="two">
-        <div>
-          <label for="g_repo" data-i18n="ghRepo">Repository (owner/repo)</label>
-          <input type="text" id="g_repo" placeholder="yngwier/hangardeck" autocomplete="off" spellcheck="false">
-        </div>
-        <div>
-          <label for="g_branch" data-i18n="ghBranch">Branch</label>
-          <input type="text" id="g_branch" placeholder="main" autocomplete="off" spellcheck="false">
-        </div>
-      </div>
-      <div>
-        <label for="g_path" data-i18n="ghPath">Dateipfad im Repository</label>
-        <input type="text" id="g_path" placeholder="hangar/data/hangardeck.json" autocomplete="off" spellcheck="false">
-        <p class="hint" data-i18n="ghPathHint">Muss nicht existieren – wird beim ersten Hochladen angelegt.</p>
-      </div>
-      <div>
-        <label for="g_token"><span data-i18n="ghToken">Token</span> <span class="opt" data-i18n="opt">optional</span></label>
-        <input type="password" id="g_token" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
-        <p class="hint" data-i18n="ghTokenHint2">Wird nur lokal in diesem Browser gespeichert und ausschließlich an api.github.com gesendet.</p>
-      </div>
-      <label class="chk"><input type="checkbox" id="g_auto" checked> <span data-i18n="ghAuto">Automatisch synchronisieren</span></label>
-
-      <div class="sec" style="margin-top:14px;margin-bottom:0">
-        <h3 data-i18n="ghStateH">Status</h3>
-        <p id="g_state" style="margin:0" data-i18n="ghNotSet">Noch nicht eingerichtet.</p>
-      </div>
-    </div>
-    <footer>
-      <button class="btn ghost" type="button" data-gh="close" data-i18n="close">Schließen</button>
-      <button class="btn ghost" type="button" data-gh="file" data-i18n="ghFile">JSON herunterladen</button>
-      <button class="btn" type="button" data-gh="pull" data-i18n="ghPull">Jetzt laden</button>
-      <button class="btn primary" type="button" data-gh="push" data-i18n="ghPush">Jetzt hochladen</button>
-    </footer>
-  </div>
-</dialog>
-
 <div id="printArea"></div>
 
-<input type="file" id="file" accept="application/json,.json" hidden>
+<input type="file" id="file" accept="application/json,.json,text/html,.html" hidden>
+<input type="file" id="imgFile" accept="image/*" hidden>
+<input type="file" id="bfFile" accept=".txt,text/plain" hidden>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script type="text/javascript">
+<!-- In ein HTML-Backup wird hier ausschließlich die Sicherung eingebettet. -->
+<script id="flowstate-hangar-backup" type="application/json"></script>
+<script>
 (function(){
 "use strict";
 
-var KEY = "hangardeck.lite.v1";
-var PREFS_KEY = "hangardeck.lite.prefs";
+var KEY = "flowstate.hangar.v1";
+var PREFS_KEY = "flowstate.hangar.prefs";
+/* Seitenübergreifend: alle FlowState-Seiten derselben Herkunft teilen sich
+   Farbschema und Sprache über diesen einen Schlüssel. Kein Profil, kein Konto. */
+var FS_KEY = "flowstate.prefs";
+/* Die Schwesterseiten heißen intern anders: FPV-Guide ocean/linen/crimson,
+   Tuner dark/light/cream. Hier wird auf unsere Namen abgebildet. */
+var THEME_ALIAS = { ocean:"ocean", sand:"sand", drakn:"drakn",
+                    dark:"ocean", light:"sand", cream:"drakn",
+                    linen:"sand", crimson:"drakn" };
+
 
 /* ---------- Sprache ---------- */
 var I18N = {
   de:{
     sub:"Copter-Verwaltung · lokal im Browser", theme:"Farbschema", lang:"Sprache",
-    export:"Export", import:"Import", add:"+ Copter", search:"Suchen …",
-    foot1:"Alles bleibt in diesem Browser. Kein Server, kein Konto.", foot2:"Für Backup oder Umzug den Export nutzen.",
+    export:"Export", import:"Import", add:"+ Copter", search:"Suchen …", searchAria:"Copter suchen",
+    importWhat:"Liest nur Sicherungen ein: JSON oder HTML-Backup",
+    impOnly:"Liest nur Sicherungen ein – keine Fremddateien.",
+    impJson:"JSON-Sicherung", impJsonHint:"fügt hinzu", impHtml:"HTML-Backup", impHtmlHint:"ersetzt die Liste",
+    foot1:"Alles bleibt in diesem Browser. Kein Server, kein Konto.",
+    foot2:"Zum Aufheben oder Umziehen: HTML-Backup oder Export.",
     name:"Name", namePh:"z. B. Fünfzöller Freestyle", size:"Größe", cells:"Spannung", kv:"Motor KV",
+    props:"Props", fc:"Flight Controller",
     escHint:"Dauerstrom in Ampere", status:"Status", st_ready:"Flugbereit", st_maint:"In Arbeit", st_down:"Defekt / Lager",
-    more:"Mehr Details", mah:"Akku", weight:"Abfluggewicht", gram:"Gramm", notes:"Notiz",
+    more:"Mehr Details", receiver:"Empfänger", video:"Videosystem", other:"Andere", mah:"Akku", weight:"Abfluggewicht", gram:"Gramm", notes:"Notiz",
     notesPh:"Was zuletzt getauscht wurde, Besonderheiten …", cancel:"Abbrechen", save:"Speichern", opt:"optional",
     newTitle:"Neuer Copter", editTitle:"Copter bearbeiten", edit:"Bearbeiten", del:"Löschen",
-    copter:"Copter", of:"von", emptyH:"Noch nichts im Hangar", emptyP:"Leg deinen ersten Copter an — Name und Größe reichen.",
-    emptyBtn:"+ Copter anlegen", noneH:"Nichts gefunden", noneP:"Andere Suche versuchen.",
+    copter:"Copter", copter1:"Copter", of:"von",
+    emptyH:"Noch nichts im Hangar", emptyP:"Leg deinen ersten Copter an. Name und Größe reichen.", emptyBtn:"+ Copter anlegen",
+    noneH:"Nichts gefunden", noneP:"Versuch eine andere Suche.",
+    exampleTag:"Beispiel",
     inch:"zoll", noName:"Name fehlt", saved:"Gespeichert", created:"Angelegt", deleted:"Gelöscht",
     confirmDel:function(n){ return "„" + n + "“ löschen?"; },
     exported:"Export erstellt", exportFail:"Export nicht möglich",
-    imported:function(a,u){ return a + " neu, " + u + " aktualisiert"; }, badFile:"Datei nicht lesbar",
-    noStore:"Kein Speicherzugriff — Änderungen gelten nur für diese Sitzung.",
+    imported:function(a,u){ return a + " neu, " + u + " aktualisiert"; },
+    badFile:"Datei nicht lesbar",
+    noStore:"Kein Speicherzugriff. Änderungen gelten nur für diese Sitzung.",
     close:"Schließen",
-    ghTitle:"GitHub-Sync",
-    ghHowH:"So funktioniert es",
-    ghHowP:"Die App liest und schreibt eine JSON-Datei in deinem Repository. Damit ist dieselbe Liste auf jedem Gerät und auf der GitHub-Pages-Seite identisch. Ohne Token funktioniert nur das Lesen (öffentliches Repo).",
-    ghTokenHint:"Token: fein abgestuftes persönliches Token, nur für dieses Repository, Recht",
-    ghTokenHint2:"Wird nur lokal in diesem Browser gespeichert und ausschließlich an api.github.com gesendet.",
-    ghRepo:"Repository (owner/repo)", ghBranch:"Branch", ghPath:"Dateipfad im Repository",
-    ghPathHint:"Muss nicht existieren – wird beim ersten Hochladen angelegt.",
-    ghToken:"Token", ghAuto:"Automatisch synchronisieren",
-    ghStateH:"Status", ghNotSet:"Noch nicht eingerichtet.",
-    ghPull:"Jetzt laden", ghPush:"Jetzt hochladen", ghFile:"Datei herunterladen",
-    ghNeedRepo:"Repository fehlt (owner/repo).", ghNeedToken:"Für das Hochladen wird ein Token benötigt.",
-    ghPulling:"Lade von GitHub …", ghPushing:"Lade zu GitHub hoch …",
-    ghPullOk:function(n){ return "Geladen – " + n + " Datensätze geprüft."; },
-    ghPushOk:"Auf GitHub gespeichert.",
-    ghNoRemote:"Auf GitHub liegt noch keine Datei – wird beim ersten Hochladen erzeugt.",
-    ghAuthFail:"Token abgelehnt oder ohne Schreibrecht (Contents: Read and write).",
-    ghRate:"GitHub meldet zu viele Anfragen – kurz warten.",
-    ghNet:"GitHub nicht erreichbar (Netzwerk, CORS oder offline).",
-    ghConf:"Datei wurde auf GitHub zwischenzeitlich geändert – neu geladen und erneut hochgeladen.",
-    ghReadOnly:"Nur Lesezugriff (kein Token) – Änderungen bleiben lokal.",
-    ghOff:"GitHub einrichten", ghSave:"Gespeichert",
-    ghStateOk:function(t){ return "Verbunden · letzter Abgleich " + t; },
-    ghStateErr:function(m){ return "Fehler: " + m; },
-    syncBusy:"Sync …", syncOk:function(t){ return "Sync " + t; },
-    export:"Export", expPdf:"PDF-Tabelle", expCsv:"CSV-Tabelle", expPrint:"Drucken",
-    expPrintHint:"Papier / PDF", expJson:"JSON", expJsonHint:"Sicherung",
-    expPdfDone:"PDF erstellt", expCsvDone:"CSV erstellt", expEmpty:"Nichts zu exportieren",
+    expPdf:"PDF-Tabelle", expCsv:"CSV-Tabelle", expPrint:"Drucken", expPrintHint:"Papier / PDF",
+    expJson:"JSON", expJsonHint:"Sicherung", expHtml:"HTML-Backup", expHtmlHint:"App + Daten",
+    expPdfDone:"PDF erstellt", expCsvDone:"CSV erstellt", expHtmlDone:"HTML-Backup erstellt",
+    htmlRestore:"HTML-Backup erkannt. Ersetzt es die aktuelle Copter-Liste?", htmlRestored:"Backup wiederhergestellt",
+    expEmpty:"Nichts zu exportieren",
     colName:"Copter", colSize:"Größe", colCells:"Spannung", colKv:"KV", colEsc:"ESC (A)",
-    colProps:"Props", colStatus:"Status", colFc:"Flight Controller", colMah:"Akku (mAh)",
-    colWeight:"Gewicht (g)", colNotes:"Notiz",
+    colProps:"Props", colStatus:"Status", colFc:"Flight Controller", colRx:"Empfänger", colVideo:"Videosystem",
+    colMah:"Akku (mAh)", colWeight:"Gewicht (g)", colNotes:"Notiz", colFw:"Firmware / Gyro",
     pdfTitle:"Copterliste", pdfCount:function(n){ return n + " Copter"; },
-    pdfPage:"Seite", pdfOf:"von", pdfCreated:"erstellt"
+    pdfPage:"Seite", pdfOf:"von", pdfCreated:"erstellt",
+    view:"Ansicht", viewTiles:"Kacheln", viewList:"Liste",
+    photo:"Bild", photoPick:"Bild wählen", photoDel:"Entfernen", photoAdd:"Bild hinzufügen", photoChange:"Bild ändern",
+    photoHint:"Wird verkleinert und bleibt im Browser. JSON- und HTML-Backup haben es mit drin.",
+    photoFull:"Speicher voll. Das Bild wurde nicht gespeichert.", photoBad:"Das Bild ließ sich nicht lesen.",
+    photoSaved:"Bild gespeichert",
+    fcRead:"FC auslesen (USB)", fcPaste:"CLI-Text einfügen", fcParse:"Übernehmen",
+    fcPastePh:"Ausgabe von version und status aus dem CLI hier einfügen …",
+    fcHint:"Chrome/Edge: FC per USB anstecken und den Configurator schließen. Danach startet der FC neu, gespeichert wird nichts.",
+    fcNoSerial:"Per USB lesen geht nur in Chrome und Edge. CLI-Text einfügen klappt in jedem Browser.",
+    fcReading:"Lese FC …", fcOk:"FC ausgelesen", fcNone:"Nichts erkannt. Füg auch version und status mit ein.",
+    fcFail:"Der FC antwortet nicht. Vielleicht ist der Port belegt (Configurator offen?) oder es ist der falsche.",
+    fcClear:"FC-Daten entfernen", fcAt:"ausgelesen",
+    fw:"Firmware", board:"Board", mcu:"MCU", gyro:"Gyro", baro:"Baro", osd:"OSD"
   },
   en:{
-    sub:"Quad manager · stored in your browser", theme:"Colour scheme", lang:"Language",
-    export:"Export", import:"Import", add:"+ Quad", search:"Search …",
-    foot1:"Everything stays in this browser. No server, no account.", foot2:"Use Export for backups or moving devices.",
-    name:"Name", namePh:"e.g. 5\" Freestyle", size:"Size", cells:"Voltage", kv:"Motor KV",
+    sub:"Quad manager · runs in your browser", theme:"Colour scheme", lang:"Language",
+    export:"Export", import:"Import", add:"+ Quad", search:"Search …", searchAria:"Search quads",
+    importWhat:"Only reads backups: JSON or HTML backup",
+    impOnly:"Reads backups only – no foreign files.",
+    impJson:"JSON backup", impJsonHint:"adds to the list", impHtml:"HTML backup", impHtmlHint:"replaces the list",
+    foot1:"Everything stays in this browser. No server, no account.",
+    foot2:"To keep a copy or move to another device, use the HTML backup or Export.",
+    name:"Name", namePh:"e.g. 5\" freestyle", size:"Size", cells:"Voltage", kv:"Motor KV",
+    props:"Props", fc:"Flight controller",
     escHint:"Continuous current in amps", status:"Status", st_ready:"Ready to fly", st_maint:"Work in progress", st_down:"Broken / stored",
-    more:"More details", mah:"Battery", weight:"All-up weight", gram:"grams", notes:"Note",
-    notesPh:"Last part swapped, quirks …", cancel:"Cancel", save:"Save", opt:"optional",
+    more:"More details", receiver:"Receiver", video:"Video system", other:"Other", mah:"Battery", weight:"All-up weight", gram:"grams", notes:"Note",
+    notesPh:"What you swapped last, anything odd …", cancel:"Cancel", save:"Save", opt:"optional",
     newTitle:"New quad", editTitle:"Edit quad", edit:"Edit", del:"Delete",
-    copter:"quads", copter1:"quad", of:"of", emptyH:"Your hangar is empty", emptyP:"Add your first quad — name and size are enough.",
-    emptyBtn:"+ Add quad", noneH:"Nothing found", noneP:"Try a different search.",
+    copter:"quads", copter1:"quad", of:"of",
+    emptyH:"Your hangar is empty", emptyP:"Add your first quad. Name and size are all it takes.", emptyBtn:"+ Add quad",
+    noneH:"Nothing found", noneP:"Try a different search.",
+    exampleTag:"Example",
     inch:"inch", noName:"Name is missing", saved:"Saved", created:"Added", deleted:"Deleted",
     confirmDel:function(n){ return "Delete \u201C" + n + "\u201D?"; },
-    exported:"Export created", exportFail:"Export not possible",
-    imported:function(a,u){ return a + " new, " + u + " updated"; }, badFile:"File could not be read",
-    noStore:"No storage access — changes only last for this session.",
+    exported:"Export created", exportFail:"Export failed",
+    imported:function(a,u){ return a + " new, " + u + " updated"; },
+    badFile:"That file could not be read",
+    noStore:"No storage access. Changes only last for this session.",
     close:"Close",
-    ghTitle:"GitHub sync",
-    ghHowH:"How it works",
-    ghHowP:"The app reads and writes one JSON file inside your repository. That keeps the same list on every device and on the GitHub Pages site. Without a token it is read-only (public repo).",
-    ghTokenHint:"Token: fine-grained personal token, this repository only, permission",
-    ghTokenHint2:"Stored locally in this browser only and sent to api.github.com and nowhere else.",
-    ghRepo:"Repository (owner/repo)", ghBranch:"Branch", ghPath:"File path in the repository",
-    ghPathHint:"Does not have to exist — created on the first upload.",
-    ghToken:"Token", ghAuto:"Sync automatically",
-    ghStateH:"Status", ghNotSet:"Not configured yet.",
-    ghPull:"Pull now", ghPush:"Push now", ghFile:"Download file",
-    ghNeedRepo:"Repository missing (owner/repo).", ghNeedToken:"A token is required for uploading.",
-    ghPulling:"Pulling from GitHub …", ghPushing:"Pushing to GitHub …",
-    ghPullOk:function(n){ return "Pulled — " + n + " records checked."; },
-    ghPushOk:"Saved to GitHub.",
-    ghNoRemote:"No file on GitHub yet — created on the first upload.",
-    ghAuthFail:"Token rejected or missing write permission (Contents: Read and write).",
-    ghRate:"GitHub rate limit hit — wait a moment.",
-    ghNet:"GitHub unreachable (network, CORS or offline).",
-    ghConf:"File changed on GitHub in the meantime — reloaded and pushed again.",
-    ghReadOnly:"Read-only (no token) — changes stay local.",
-    ghOff:"Set up GitHub", ghSave:"Saved",
-    ghStateOk:function(t){ return "Connected · last sync " + t; },
-    ghStateErr:function(m){ return "Error: " + m; },
-    syncBusy:"Syncing …", syncOk:function(t){ return "Sync " + t; },
-    export:"Export", expPdf:"PDF table", expCsv:"CSV table", expPrint:"Print",
-    expPrintHint:"paper / PDF", expJson:"JSON", expJsonHint:"backup",
-    expPdfDone:"PDF created", expCsvDone:"CSV created", expEmpty:"Nothing to export",
+    expPdf:"PDF table", expCsv:"CSV table", expPrint:"Print", expPrintHint:"paper / PDF",
+    expJson:"JSON", expJsonHint:"backup", expHtml:"HTML backup", expHtmlHint:"app + data",
+    expPdfDone:"PDF created", expCsvDone:"CSV created", expHtmlDone:"HTML backup created",
+    htmlRestore:"HTML backup found. Should it replace the current quad list?", htmlRestored:"Backup restored",
+    expEmpty:"Nothing to export",
     colName:"Quad", colSize:"Size", colCells:"Voltage", colKv:"KV", colEsc:"ESC (A)",
-    colProps:"Props", colStatus:"Status", colFc:"Flight controller", colMah:"Battery (mAh)",
-    colWeight:"Weight (g)", colNotes:"Note",
+    colProps:"Props", colStatus:"Status", colFc:"Flight controller", colRx:"Receiver", colVideo:"Video system",
+    colMah:"Battery (mAh)", colWeight:"Weight (g)", colNotes:"Note", colFw:"Firmware / gyro",
     pdfTitle:"Quad list", pdfCount:function(n){ return n + " quads"; },
-    pdfPage:"Page", pdfOf:"of", pdfCreated:"created"
+    pdfPage:"Page", pdfOf:"of", pdfCreated:"created",
+    view:"View", viewTiles:"Tiles", viewList:"List",
+    photo:"Photo", photoPick:"Choose photo", photoDel:"Remove", photoAdd:"Add photo", photoChange:"Change photo",
+    photoHint:"Scaled down and kept in the browser. JSON and HTML backups carry it too.",
+    photoFull:"Storage is full. The photo was not saved.", photoBad:"That image could not be read.",
+    photoSaved:"Photo saved",
+    fcRead:"Read FC (USB)", fcPaste:"Paste CLI text", fcParse:"Apply",
+    fcPastePh:"Paste the version and status output from the CLI here …",
+    fcHint:"Chrome/Edge: plug the FC in over USB and close the Configurator. It reboots afterwards, nothing is written.",
+    fcNoSerial:"Reading over USB only works in Chrome and Edge. Pasting CLI text works in any browser.",
+    fcReading:"Reading FC …", fcOk:"FC read", fcNone:"Nothing recognised. Include version and status too.",
+    fcFail:"The FC is not answering. The port may be busy (Configurator open?) or it is the wrong one.",
+    fcClear:"Remove FC data", fcAt:"read",
+    fw:"Firmware", board:"Board", mcu:"MCU", gyro:"Gyro", baro:"Baro", osd:"OSD"
+  },
+  es:{
+    sub:"Gestión de drones · local en el navegador", theme:"Esquema de color", lang:"Idioma",
+    export:"Exportar", import:"Importar", add:"+ Dron", search:"Buscar …", searchAria:"Buscar drones",
+    importWhat:"Solo lee copias: JSON o copia HTML",
+    impOnly:"Solo lee copias de seguridad, no archivos ajenos.",
+    impJson:"Copia JSON", impJsonHint:"se añade", impHtml:"Copia HTML", impHtmlHint:"sustituye la lista",
+    foot1:"Todo se queda en este navegador. Sin servidor y sin cuenta.",
+    foot2:"Para guardar una copia o cambiar de dispositivo, usa la copia HTML o Exportar.",
+    name:"Nombre", namePh:"p. ej. Freestyle 5\"", size:"Tamaño", cells:"Voltaje", kv:"KV del motor",
+    props:"Hélices", fc:"Controladora",
+    escHint:"Corriente continua en amperios", status:"Estado", st_ready:"Listo para volar", st_maint:"En mantenimiento", st_down:"Averiado / guardado",
+    more:"Más detalles", receiver:"Receptor", video:"Sistema de vídeo", other:"Otro", mah:"Batería", weight:"Peso al despegue", gram:"gramos", notes:"Nota",
+    notesPh:"Lo último que cambiaste, detalles sueltos …", cancel:"Cancelar", save:"Guardar", opt:"opcional",
+    newTitle:"Nuevo dron", editTitle:"Editar dron", edit:"Editar", del:"Eliminar",
+    copter:"drones", copter1:"dron", of:"de",
+    emptyH:"Tu hangar está vacío", emptyP:"Añade tu primer dron. Con el nombre y el tamaño basta.", emptyBtn:"+ Añadir dron",
+    noneH:"No se encontró nada", noneP:"Prueba con otra búsqueda.",
+    exampleTag:"Ejemplo",
+    inch:"pulg", noName:"Falta el nombre", saved:"Guardado", created:"Creado", deleted:"Eliminado",
+    confirmDel:function(n){ return "¿Eliminar «" + n + "»?"; },
+    exported:"Exportación creada", exportFail:"No se pudo exportar",
+    imported:function(a,u){ return a + " nuevos, " + u + " actualizados"; },
+    badFile:"No se pudo leer el archivo",
+    noStore:"Sin acceso al almacenamiento. Los cambios solo valen para esta sesión.",
+    close:"Cerrar",
+    expPdf:"Tabla PDF", expCsv:"Tabla CSV", expPrint:"Imprimir", expPrintHint:"papel / PDF",
+    expJson:"JSON", expJsonHint:"copia de seguridad", expHtml:"Copia HTML", expHtmlHint:"app + datos",
+    expPdfDone:"PDF creado", expCsvDone:"CSV creado", expHtmlDone:"Copia HTML creada",
+    htmlRestore:"Se encontró una copia HTML. ¿Sustituye a la lista actual de drones?", htmlRestored:"Copia restaurada",
+    expEmpty:"Nada que exportar",
+    colName:"Dron", colSize:"Tamaño", colCells:"Voltaje", colKv:"KV", colEsc:"ESC (A)",
+    colProps:"Hélices", colStatus:"Estado", colFc:"Controladora", colRx:"Receptor", colVideo:"Sistema de vídeo",
+    colMah:"Batería (mAh)", colWeight:"Peso (g)", colNotes:"Nota", colFw:"Firmware / giro",
+    pdfTitle:"Lista de drones", pdfCount:function(n){ return n + " drones"; },
+    pdfPage:"Página", pdfOf:"de", pdfCreated:"creado",
+    view:"Vista", viewTiles:"Mosaico", viewList:"Lista",
+    photo:"Foto", photoPick:"Elegir foto", photoDel:"Quitar", photoAdd:"Añadir foto", photoChange:"Cambiar foto",
+    photoHint:"Se reduce y se queda en el navegador. La copia JSON y la HTML la incluyen.",
+    photoFull:"Almacenamiento lleno. La foto no se guardó.", photoBad:"Esa imagen no se pudo leer.",
+    photoSaved:"Foto guardada",
+    fcRead:"Leer controladora (USB)", fcPaste:"Pegar texto CLI", fcParse:"Aplicar",
+    fcPastePh:"Pega aquí la salida de version y status del CLI …",
+    fcHint:"Chrome/Edge: conecta la controladora por USB y cierra el Configurator. Después se reinicia; no se guarda nada.",
+    fcNoSerial:"Leer por USB solo funciona en Chrome y Edge. Pegar el texto CLI funciona en cualquier navegador.",
+    fcReading:"Leyendo controladora …", fcOk:"Controladora leída", fcNone:"No se reconoció nada. Pega también version y status.",
+    fcFail:"La controladora no responde. Puede que el puerto esté ocupado (¿Configurator abierto?) o sea el equivocado.",
+    fcClear:"Borrar datos de la controladora", fcAt:"leída",
+    fw:"Firmware", board:"Placa", mcu:"MCU", gyro:"Giroscopio", baro:"Barómetro", osd:"OSD"
   }
 };
-var THEMES = { ocean:"#06232a", sand:"#f4f6f5", drakn:"#140a25" };
+/* ---------- Betaflight-Backup: Texte (DE / EN / ES) ---------- */
+var BF_I18N = {
+  de:{ bfTitle:"Betaflight-Backup", bfPro:"pro Modell", bfTarget:"Target der FC",
+    bfDiff:"CLI-Diff (diff all)", bfDiffOpt:"aus dem CLI eingefügt",
+    bfDiffPh:"Aus dem CLI: diff all …", bfLoad:"Datei laden", bfCheck:"Prüfen",
+    bfExport:"Sicherung (.txt)", bfRowTitle:"Betaflight-Sicherung (.txt)",
+    bfHint:"Die Sicherung wird erst geschrieben, wenn das Target hier zum FC-Target passt (aus „FC auslesen“ oder board_name).",
+    bfOk:function(t){ return "Target passt: " + t; },
+    bfNoFc:"Kein FC-Target hinterlegt – geprüft wird nur das Feld oben.",
+    bfNoTarget:"Target fehlt. Trag das Target der FC ein.",
+    bfMismatch:function(w,h){ return "Target passt nicht: Modell " + w + ", FC " + h; },
+    bfNoDiff:"Keine CLI-Sicherung hinterlegt.",
+    bfFromFc:"Target und CLI-Diff aus der FC übernommen.", bfDiffFail:"CLI-Diff konnte nicht gelesen werden – bitte unten einfügen.", bfSaved:"Betaflight-Sicherung erstellt", bfLoaded:"CLI-Text übernommen",
+    bfFileBad:"Datei nicht lesbar" },
+  en:{ bfTitle:"Betaflight backup", bfPro:"per model", bfTarget:"FC target",
+    bfDiff:"CLI diff (diff all)", bfDiffOpt:"pasted from the CLI",
+    bfDiffPh:"From the CLI: diff all …", bfLoad:"Load file", bfCheck:"Check",
+    bfExport:"Backup (.txt)", bfRowTitle:"Betaflight backup (.txt)",
+    bfHint:"The file is only written when the target above matches the FC target (from \u201cRead FC\u201d or board_name).",
+    bfOk:function(t){ return "Target matches: " + t; },
+    bfNoFc:"No FC target stored – only the field above is checked.",
+    bfNoTarget:"Target missing. Enter the FC target.",
+    bfMismatch:function(w,h){ return "Target does not match: model " + w + ", FC " + h; },
+    bfNoDiff:"No CLI backup stored.",
+    bfFromFc:"Target and CLI diff taken from the FC.", bfDiffFail:"CLI diff could not be read – please paste it below.", bfSaved:"Betaflight backup created", bfLoaded:"CLI text applied",
+    bfFileBad:"File could not be read" },
+  es:{ bfTitle:"Copia de Betaflight", bfPro:"por modelo", bfTarget:"Target de la FC",
+    bfDiff:"Diff CLI (diff all)", bfDiffOpt:"pegado del CLI",
+    bfDiffPh:"Desde el CLI: diff all …", bfLoad:"Cargar archivo", bfCheck:"Comprobar",
+    bfExport:"Copia (.txt)", bfRowTitle:"Copia de Betaflight (.txt)",
+    bfHint:"El archivo solo se crea si el target de arriba coincide con el de la FC (de \u201cLeer FC\u201d o board_name).",
+    bfOk:function(t){ return "Target correcto: " + t; },
+    bfNoFc:"No hay target de FC guardado: solo se comprueba el campo de arriba.",
+    bfNoTarget:"Falta el target. Escribe el target de la FC.",
+    bfMismatch:function(w,h){ return "El target no coincide: modelo " + w + ", FC " + h; },
+    bfNoDiff:"No hay copia CLI guardada.",
+    bfFromFc:"Target y diff CLI tomados de la FC.", bfDiffFail:"No se pudo leer el diff CLI: pégalo abajo.", bfSaved:"Copia de Betaflight creada", bfLoaded:"Texto CLI aplicado",
+    bfFileBad:"No se pudo leer el archivo" }
+};
+Object.keys(BF_I18N).forEach(function(lg){
+  if(!I18N[lg]) return;
+  for(var k in BF_I18N[lg]){ if(Object.prototype.hasOwnProperty.call(BF_I18N[lg],k)) I18N[lg][k] = BF_I18N[lg][k]; }
+});
+
+var THEMES = { ocean:"#093840", sand:"#f4f6f5", drakn:"#140a25" };
+/* Sprache: Datumsformat und Fenstertitel je Sprache */
+var LOCALES = { de:"de-DE", en:"en-GB", es:"es-ES" };
+var TITLES  = { de:"FlowState Hangar — Copter-Verwaltung", en:"FlowState Hangar — Quad manager", es:"FlowState Hangar — Gestión de drones" };
+function locTag(){ return LOCALES[prefs.lang] || "de-DE"; }
 
 /* Speicher kann blockiert sein (private Modi, Sandbox-Vorschau) -> dann flüchtig weiterarbeiten */
 var LS = {
@@ -555,49 +824,99 @@ var SIZES = [
   {v:"10",  l:'10"'}
 ];
 var CELLS = ["","1S","2S","3S","4S","6S","8S","12S"];
-
-var seed = [
-  {id:"c1", name:"Fünfzöller Freestyle", size:"5",  cells:"6S", kv:1800, esc:50, props:"5.1x4.6x3", status:"ready", fc:"SpeedyBee F405 V4", mah:1300, weight:680, notes:""},
-  {id:"c2", name:'Cinewhoop 3"',         size:"3",  cells:"4S", kv:3000, esc:35, props:"3x2x3",     status:"ready", fc:"", mah:850, weight:null, notes:"Indoor, Duct"},
-  {id:"c3", name:"Tiny Whoop",           size:"65", cells:"1S", kv:19000, esc:null, props:"", status:"maint", fc:"", mah:300, weight:null, notes:"Canopy gerissen"},
-  {id:"c4", name:"Langstrecke 7\"",      size:"7",  cells:"6S", kv:1300, esc:60, props:"7x4.5x3", status:"down", fc:"Matek H743-SLIM V3", mah:4000, weight:1450, notes:"Arm gebrochen"}
+/* Bewusst kurz: Auswahl statt einer großen Komponentenbibliothek. */
+var RX_OPTIONS = [
+  {v:"", l:"—"}, {v:"elrs24", l:"ELRS 2.4 GHz"}, {v:"elrs9", l:"ELRS 868/915 MHz"},
+  {v:"crossfire", l:"TBS Crossfire"}, {v:"tracer", l:"TBS Tracer"},
+  {v:"frsky", l:"FrSky ACCST / ACCESS"}, {v:"spektrum", l:"Spektrum DSMX"},
+  {v:"flysky", l:"FlySky AFHDS"}, {v:"other", i:"other"}
+];
+var VIDEO_OPTIONS = [
+  {v:"", l:"—"}, {v:"analog", l:"Analog 5.8 GHz"}, {v:"dji-o3", l:"DJI O3 Air Unit"},
+  {v:"dji-vista", l:"DJI Vista / Air Unit"}, {v:"walksnail", l:"Walksnail Avatar"},
+  {v:"hdzero", l:"HDZero"}, {v:"openipc", l:"OpenIPC"}, {v:"other", i:"other"}
 ];
 
-var FLOWSTATE_ALIAS = { ocean:"ocean", sand:"sand", drakn:"drakn", dark:"ocean", light:"sand", cream:"drakn" };
-function urlTheme(){ try{ var q = new URLSearchParams(location.search).get("theme"); return FLOWSTATE_ALIAS[q] || null; }catch(e){ return null; } }
-function sharedTheme(){ try{ var v = urlTheme() || LS.get("flowstate-theme"); return FLOWSTATE_ALIAS[v] || null; }catch(e){ return null; } }
-function urlLang(){ try{ var q = new URLSearchParams(location.search).get("lang"); return I18N[q] ? q : null; }catch(e){ return null; } }
+var seed = [
+  {id:"c1", example:true, name:"Fünfzöller Freestyle", size:"5",  cells:"6S", kv:1800, esc:50, props:"5.1x4.6x3", status:"ready", fc:"SpeedyBee F405 V4", rx:"elrs24", video:"dji-o3", mah:1300, weight:680, notes:"",
+   fcInfo:{fw:"Betaflight 4.5.1", target:"STM32F405", board:"SPEEDYBEEF405V4", mfr:"SPBE", mcu:"F405 · 168 MHz", gyro:"ICM42688P", baro:"", osd:"MAX7456", at:0}},
+  {id:"c2", example:true, name:'Cinewhoop 3"',         size:"3",  cells:"4S", kv:3000, esc:35, props:"3x2x3",     status:"ready", fc:"", rx:"elrs24", video:"walksnail", mah:850, weight:null, notes:"Indoor, Duct"},
+  {id:"c3", example:true, name:"Tiny Whoop",           size:"65", cells:"1S", kv:19000, esc:null, props:"", status:"maint", fc:"", rx:"elrs24", video:"analog", mah:300, weight:null, notes:"Canopy gerissen"},
+  {id:"c4", example:true, name:"Langstrecke 7\"",      size:"7",  cells:"6S", kv:1300, esc:60, props:"7x4.5x3", status:"down", fc:"Matek H743-SLIM V3", rx:"crossfire", video:"dji-o3", mah:4000, weight:1450, notes:"Arm gebrochen",
+   fcInfo:{fw:"Betaflight 4.5.1", target:"STM32H743", board:"MATEKH743", mfr:"MTKS", mcu:"H743 · 480 MHz", gyro:"ICM42688P", baro:"DPS310", osd:"MAX7456", at:0}}
+];
+
+/* Umzug v0.8.0: alte "HangarDeck Lite"-Schlüssel einmalig übernehmen */
+(function migrateOld(){
+  try{
+    var pairs = [["hangardeck.lite.v1", KEY], ["hangardeck.lite.prefs", PREFS_KEY], ["hangardeck.lite.img", IMG_KEY]];
+    pairs.forEach(function(pr){
+      var old = localStorage.getItem(pr[0]);
+      if(old == null) return;
+      if(localStorage.getItem(pr[1]) == null) localStorage.setItem(pr[1], old);
+      localStorage.removeItem(pr[0]);
+    });
+  }catch(e){}
+})();
 var prefs = loadPrefs();
 function T(k){ var d = I18N[prefs.lang] || I18N.de; return d[k] != null ? d[k] : I18N.de[k]; }
 function seedFor(){
-  var en = prefs.lang === "en";
+  var lg = prefs.lang;
   return seed.map(function(c){
     var x = {}; for(var k in c) x[k] = c[k];
-    if(en){
+    if(lg === "en"){
       x.name = {c1:'5" Freestyle', c2:'3" Cinewhoop', c3:"Tiny Whoop", c4:'7" Long Range'}[c.id] || c.name;
       x.notes = {c2:"Indoor, ducts", c3:"Canopy cracked", c4:"Broken arm"}[c.id] || "";
+    } else if(lg === "es"){
+      x.name = {c1:'Freestyle 5"', c2:'Cinewhoop 3"', c3:"Tiny Whoop", c4:'Larga distancia 7"'}[c.id] || c.name;
+      x.notes = {c2:"Interior, ductos", c3:"Canopy rajado", c4:"Brazo roto"}[c.id] || "";
     }
     return x;
   });
 }
+function normTheme(name){ return THEME_ALIAS[name] || null; }
+function readShared(){
+  var f = {};
+  try{ f = JSON.parse(LS.get(FS_KEY) || "{}") || {}; }catch(e){ f = {}; }
+  var th = normTheme(f.theme);
+  return {
+    theme: th && THEMES[th] ? th : null,
+    lang:  I18N[f.lang]     ? f.lang : null,
+    updatedAt: typeof f.updatedAt === "number" ? f.updatedAt : 0
+  };
+}
+function writeShared(){
+  // nur die geteilten Felder - die App-Daten bleiben bei dieser Seite
+  LS.set(FS_KEY, JSON.stringify({
+    theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0, by: "hangar"
+  }));
+}
 function loadPrefs(){
   var p = {};
   try{ p = JSON.parse(LS.get(PREFS_KEY) || "{}") || {}; }catch(e){ p = {}; }
-  var navDe = /^de/i.test((navigator.language || "de"));
-  var gh = (p.gh && typeof p.gh === "object") ? p.gh : {};
+  var nav = String(navigator.language || "de").toLowerCase();
+  var guess = /^de/.test(nav) ? "de" : (/^es/.test(nav) ? "es" : "en");
+  var sh = readShared();           // was eine Schwesterseite zuletzt gesetzt hat
+  var mine = typeof p.updatedAt === "number" ? p.updatedAt : 0;
+  var useShared = sh.updatedAt >= mine && (sh.theme || sh.lang);
   return {
-    theme: sharedTheme() || (THEMES[p.theme] ? p.theme : "ocean"),
-    lang: urlLang() || (I18N[p.lang] ? p.lang : (navDe ? "de" : "en")),
-    gh: {
-      repo:   String(gh.repo   || ""),
-      branch: String(gh.branch || "main"),
-      path:   String(gh.path   || "hangar/data/hangardeck.json"),
-      token:  String(gh.token  || ""),
-      auto:   gh.auto !== false
-    }
+    theme: THEMES[(useShared && sh.theme) || p.theme] ? ((useShared && sh.theme) || p.theme) : "ocean",
+    lang:  I18N[(useShared && sh.lang) || p.lang] ? ((useShared && sh.lang) || p.lang) : guess,
+    updatedAt: Math.max(mine, useShared ? sh.updatedAt : 0),
+    view: p.view === "list" ? "list" : "tiles"
   };
 }
-function savePrefs(){ LS.set(PREFS_KEY, JSON.stringify(prefs)); }
+function seedShared(){
+  // Nur wenn es noch keine gemeinsame Wahl gibt, die eigene einmal veroeffentlichen.
+  if(LS.get(FS_KEY)) return;
+  writeShared();
+}
+function savePrefs(bump){
+  // bump = true: eigene Änderung -> Zeitstempel setzen (Grundlage für die Übernahme auf anderen FlowState-Seiten)
+  if(bump) prefs.updatedAt = Date.now();
+  LS.set(PREFS_KEY, JSON.stringify(prefs));
+  writeShared();
+}
 
 function applyTheme(){
   document.documentElement.setAttribute("data-theme", prefs.theme);
@@ -607,13 +926,13 @@ function applyTheme(){
     if(b.tagName === "BUTTON") b.setAttribute("aria-pressed", b.getAttribute("data-theme") === prefs.theme ? "true" : "false");
   });
 }
-window.addEventListener("storage", function(e){ if(e.key !== "flowstate-theme" || !e.newValue) return; var m = FLOWSTATE_ALIAS[e.newValue]; if(!m || m === prefs.theme) return; prefs.theme = m; applyTheme(); });
 function applyLang(){
   document.documentElement.lang = prefs.lang;
-  document.title = prefs.lang === "en" ? "HangarDeck — Quad manager" : "HangarDeck — Copter-Verwaltung";
+  document.title = TITLES[prefs.lang] || TITLES.de;
   [].forEach.call(document.querySelectorAll("[data-i18n]"), function(el){ el.textContent = T(el.getAttribute("data-i18n")); });
   [].forEach.call(document.querySelectorAll("[data-i18n-ph]"), function(el){ el.placeholder = T(el.getAttribute("data-i18n-ph")); });
   [].forEach.call(document.querySelectorAll("[data-i18n-aria]"), function(el){ el.setAttribute("aria-label", T(el.getAttribute("data-i18n-aria"))); });
+  [].forEach.call(document.querySelectorAll("[data-i18n-title]"), function(el){ el.setAttribute("title", T(el.getAttribute("data-i18n-title"))); });
   [].forEach.call(document.querySelectorAll("[data-lang]"), function(b){
     b.setAttribute("aria-pressed", b.getAttribute("data-lang") === prefs.lang ? "true" : "false");
   });
@@ -622,6 +941,69 @@ function applyLang(){
 
 var data = load();
 var editId = null;
+
+/* ---------- Bilder: eigener Schlüssel, verkleinert ---------- */
+var IMG_KEY = "flowstate.hangar.img";
+
+var IMG_RE = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/;
+function cleanImgs(obj){
+  var out = {};
+  if(!obj || typeof obj !== "object") return out;
+  for(var k in obj){
+    if(Object.prototype.hasOwnProperty.call(obj,k) && typeof obj[k] === "string"
+       && obj[k].length < 2000000 && IMG_RE.test(obj[k])) out[k] = obj[k];
+  }
+  return out;
+}
+function loadImgs(){
+  try{ return cleanImgs(JSON.parse(LS.get(IMG_KEY) || "{}")); }catch(e){ return {}; }
+}
+var IMG = loadImgs();
+/* "ok" | "full" (Kontingent erschöpft) | "mem" (Speicher blockiert -> nur diese Sitzung) */
+function saveImgs(){
+  try{ localStorage.setItem(IMG_KEY, JSON.stringify(IMG)); return "ok"; }
+  catch(e){
+    var full = e && (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED" || e.code === 22);
+    return full ? "full" : "mem";
+  }
+}
+function setImg(id, url){
+  var prev = IMG[id];
+  if(url) IMG[id] = url; else delete IMG[id];
+  if(saveImgs() === "full"){
+    if(prev) IMG[id] = prev; else delete IMG[id];
+    toast(T("photoFull"), "bad");
+    return false;
+  }
+  return true;
+}
+function imgsFor(list){
+  var out = {}, n = 0;
+  list.forEach(function(c){ if(IMG[c.id]){ out[c.id] = IMG[c.id]; n++; } });
+  return n ? out : null;
+}
+/* Foto auf max. 640 px verkleinern -> JPEG (~40–90 kB) */
+function fileToThumb(file){
+  return new Promise(function(resolve, reject){
+    if(!file || !/^image\//.test(file.type)) return reject(new Error("type"));
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){
+      var max = 640, sc = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+      var w = Math.max(1, Math.round(im.naturalWidth * sc)), h = Math.max(1, Math.round(im.naturalHeight * sc));
+      var cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+      var cx = cv.getContext("2d");
+      cx.fillStyle = "#1b1b1b"; cx.fillRect(0, 0, w, h);   // PNG-Transparenz
+      cx.drawImage(im, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      try{ resolve(cv.toDataURL("image/jpeg", 0.8)); }catch(e){ reject(e); }
+    };
+    im.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("decode")); };
+    im.src = url;
+  });
+}
+var QUAD_SVG = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="15" cy="15" r="9"/><circle cx="49" cy="15" r="9"/>'
+  + '<circle cx="15" cy="49" r="9"/><circle cx="49" cy="49" r="9"/><path d="M21 21l22 22M43 21 21 43"/>'
+  + '<rect x="25" y="25" width="14" height="14" rx="3"/></svg>';
 
 var $ = function(id){ return document.getElementById(id); };
 
@@ -645,7 +1027,6 @@ function save(opts){
     LS.warned = true;
     toast(T("noStore"),"bad");
   }
-  if(!opts || opts.sync !== false) schedulePush();
 }
 
 function esc(s){
@@ -673,13 +1054,26 @@ function toast(msg, kind){
   tTimer = setTimeout(function(){ t.className = "toast"; }, 2800);
 }
 
+/* Hilfszugriffe auf den Bestand (Sicht = alles ohne Grabstein) */
+function liveRecords(){ return data.filter(function(c){ return !c.deleted; }); }
+function pruneTombstones(){
+  var dead = data.filter(function(c){ return c.deleted; })
+                 .sort(function(a,b){ return (b.updatedAt||0)-(a.updatedAt||0); });
+  for(var i=200;i<dead.length;i++){
+    var id = dead[i].id;
+    data = data.filter(function(c){ return c.id !== id; });
+  }
+}
+
 /* ---------- Liste ---------- */
 function render(){
   var q = $("q").value.trim().toLowerCase();
   var live = data.filter(function(c){ return !c.deleted; });
   var rows = live.filter(function(c){
     if(!q) return true;
-    return [c.name, sizeLabel(c.size), c.cells, c.props, c.fc, c.notes]
+    var fi = c.fcInfo || {};
+    return [c.name, sizeLabel(c.size), c.cells, c.props, c.fc, choiceLabel(RX_OPTIONS, c.rx), choiceLabel(VIDEO_OPTIONS, c.video), c.notes,
+            fi.fw, fi.board, fi.gyro, fi.mcu]
       .join(" ").toLowerCase().indexOf(q) > -1;
   });
 
@@ -688,17 +1082,24 @@ function render(){
     : rows.length + " " + T("of") + " " + live.length;
 
   var list = $("list");
+  var tiles = prefs.view === "tiles";
+  list.className = "list" + (tiles ? " tiles" : "");
+  [].forEach.call(document.querySelectorAll("[data-view]"), function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-view") === prefs.view ? "true" : "false");
+  });
 
   if(!live.length){
     list.innerHTML = '<div class="empty"><h3>' + esc(T("emptyH")) + '</h3>'
       + '<p>' + esc(T("emptyP")) + '</p>'
-      + '<button class="btn primary" type="button" data-new>' + esc(T("emptyBtn")) + '</button></div>';
+      + '<button class="btn primary cta" type="button" data-new>' + esc(T("emptyBtn")) + '</button></div>';
     return;
   }
   if(!rows.length){
     list.innerHTML = '<div class="empty"><h3>' + esc(T("noneH")) + '</h3><p>' + esc(T("noneP")) + '</p></div>';
     return;
   }
+
+  if(tiles){ list.innerHTML = rows.map(tileHtml).join(""); return; }
 
   list.innerHTML = rows.map(function(c){
     var b = sizeBadge(c.size);
@@ -708,6 +1109,9 @@ function render(){
     if(c.esc)    specs.push("<b>" + esc(c.esc) + "</b> A ESC");
     if(c.props)  specs.push(esc(c.props));
     if(c.fc)     specs.push(esc(c.fc));
+    if(fcShort(c)) specs.push(esc(fcShort(c)));
+    if(c.rx)     specs.push(esc(choiceLabel(RX_OPTIONS, c.rx)));
+    if(c.video)  specs.push(esc(choiceLabel(VIDEO_OPTIONS, c.video)));
     if(c.mah)    specs.push(esc(c.mah) + " mAh");
     if(c.weight) specs.push(esc(c.weight) + " g");
 
@@ -715,10 +1119,12 @@ function render(){
       + '<div class="size"><div><b>' + esc(b.big) + '</b><span>' + b.small + '</span></div></div>'
       + '<div class="main">'
       +   '<div class="name"><span class="dot ' + esc(c.status || "ready") + '"></span>'
-      +     esc(c.name) + ' <span class="st">' + esc(T("st_" + (c.status || "ready"))) + '</span></div>'
+      +     esc(c.name) + ' <span class="st">' + esc(T("st_" + (c.status || "ready")))
+      +     (c.example ? '<span class="exmark">' + esc(T("exampleTag")) + '</span>' : '') + '</span></div>'
       +   '<div class="specs">' + specs.join("<span></span>") + '</div>'
       + '</div>'
       + '<div class="acts">'
+      +   (c.bf && bfDiffLines(c.bf.diff).length ? '<button class="btn sm ghost bf" type="button" data-bf="' + esc(c.id) + '" aria-label="' + esc(T("bfRowTitle")) + '" title="' + esc(T("bfRowTitle")) + '">BF</button>' : '')
       +   '<button class="btn sm" type="button" data-edit="' + esc(c.id) + '">' + esc(T("edit")) + '</button>'
       +   '<button class="btn sm danger" type="button" data-del="' + esc(c.id) + '" aria-label="' + esc(T("del")) + '" title="' + esc(T("del")) + '">✕</button>'
       + '</div>'
@@ -726,16 +1132,78 @@ function render(){
   }).join("");
 }
 
+function fcShort(c){
+  var fi = c && c.fcInfo;
+  if(!fi) return "";
+  return [fi.fw, fi.gyro].filter(Boolean).join(" · ");
+}
+function tileHtml(c){
+  var img = IMG[c.id], id = esc(c.id), st = c.status || "ready";
+  var specs = [];
+  if(c.cells) specs.push("<b>" + esc(c.cells) + "</b>");
+  if(c.kv)    specs.push("<b>" + esc(c.kv) + "</b> KV");
+  if(c.esc)   specs.push("<b>" + esc(c.esc) + "</b> A");
+  if(c.props) specs.push(esc(c.props));
+  var chips = [];
+  var fi = c.fcInfo || {};
+  if(fi.fw)   chips.push('<span class="chip fw">' + esc(fi.fw) + '</span>');
+  if(fi.gyro) chips.push('<span class="chip fw">' + esc(fi.gyro) + '</span>');
+  if(c.fc && !fi.fw) chips.push('<span class="chip">' + esc(c.fc) + '</span>');
+  if(c.rx)    chips.push('<span class="chip">' + esc(choiceLabel(RX_OPTIONS, c.rx)) + '</span>');
+  if(c.video) chips.push('<span class="chip">' + esc(choiceLabel(VIDEO_OPTIONS, c.video)) + '</span>');
+  var lbl = (img ? T("photoChange") : T("photoAdd")) + " – " + (c.name || "");
+  return '<article class="tile" data-tile="' + id + '">'
+    + '<button class="ph" type="button" data-pic="' + id + '" aria-label="' + esc(lbl) + '" title="' + esc(lbl) + '">'
+    +   (img ? '<img src="' + img + '" alt="">' + '<span class="chg">' + esc(T("photoChange")) + '</span>'
+             : '<span class="noimg">' + QUAD_SVG + '<span>' + esc(T("photoAdd")) + '</span></span>')
+    + '</button>'
+    + '<span class="tbadge">' + esc(compactSize(c.size)) + '</span>'
+    + '<div class="tbody">'
+    +   '<div class="name"><span class="dot ' + esc(st) + '"></span>' + esc(c.name)
+    +     ' <span class="st">' + esc(T("st_" + st))
+    +     (c.example ? '<span class="exmark">' + esc(T("exampleTag")) + '</span>' : '') + '</span></div>'
+    +   (specs.length ? '<div class="specs">' + specs.join("<span></span>") + '</div>' : '')
+    +   (chips.length ? '<div class="chips">' + chips.join("") + '</div>' : '')
+    + '</div>'
+    + '<div class="tacts">'
+    +   (c.bf && bfDiffLines(c.bf.diff).length ? '<button class="btn sm ghost bf" type="button" data-bf="' + id + '" aria-label="' + esc(T("bfRowTitle")) + '" title="' + esc(T("bfRowTitle")) + '">BF</button>' : '')
+    +   '<button class="btn sm" type="button" data-edit="' + id + '">' + esc(T("edit")) + '</button>'
+    +   '<button class="btn sm danger" type="button" data-del="' + id + '" aria-label="' + esc(T("del")) + '" title="' + esc(T("del")) + '">✕</button>'
+    + '</div>'
+    + '</article>';
+}
+
 /* ---------- Formular ---------- */
+function choiceLabel(list, value){
+  for(var i=0;i<list.length;i++){
+    if(list[i].v === value) return list[i].i ? T(list[i].i) : list[i].l;
+  }
+  return value || "";
+}
+function optionMarkup(list, current){
+  var found = false;
+  var html = list.map(function(o){
+    if(o.v === current) found = true;
+    return '<option value="' + esc(o.v) + '">' + esc(o.i ? T(o.i) : o.l) + '</option>';
+  }).join("");
+  /* Importierte Sonderwerte bleiben sichtbar, statt beim Bearbeiten verloren zu gehen. */
+  if(current && !found) html += '<option value="' + esc(current) + '">' + esc(current) + '</option>';
+  return html;
+}
 function fillSelects(){
   var sv = $("f_size").value, cv = $("f_cells").value;
+  var rv = $("f_rx").value, vv = $("f_video").value;
   $("f_size").innerHTML  = SIZES.map(function(s){ return '<option value="' + s.v + '">' + s.l + '</option>'; }).join("");
   $("f_cells").innerHTML = CELLS.map(function(c){
     if(!c) return '<option value="">—</option>';
     return '<option value="' + c + '">' + c + ' · ' + (parseInt(c,10) * 3.7).toFixed(1).replace(/\.0$/,"") + ' V</option>';
   }).join("");
+  $("f_rx").innerHTML = optionMarkup(RX_OPTIONS, rv);
+  $("f_video").innerHTML = optionMarkup(VIDEO_OPTIONS, vv);
   if(sv) $("f_size").value = sv;
   if(cv) $("f_cells").value = cv;
+  if(rv) $("f_rx").value = rv;
+  if(vv) $("f_video").value = vv;
 }
 
 function open(id){
@@ -751,11 +1219,28 @@ function open(id){
   $("f_props").value  = c ? (c.props || "") : "";
   $("f_status").value = c ? (c.status || "ready") : "ready";
   $("f_fc").value     = c ? (c.fc || "") : "";
+  var rxValue = c ? (c.rx || "") : "";
+  var videoValue = c ? (c.video || "") : "";
+  /* Auch ein älterer, freier Importwert bleibt beim Bearbeiten erhalten. */
+  if(rxValue && $("f_rx").value !== rxValue) $("f_rx").innerHTML = optionMarkup(RX_OPTIONS, rxValue);
+  if(videoValue && $("f_video").value !== videoValue) $("f_video").innerHTML = optionMarkup(VIDEO_OPTIONS, videoValue);
+  $("f_rx").value     = rxValue;
+  $("f_video").value  = videoValue;
   $("f_mah").value    = c && c.mah ? c.mah : "";
   $("f_weight").value = c && c.weight ? c.weight : "";
   $("f_notes").value  = c ? (c.notes || "") : "";
 
-  $("more").open = !!(c && (c.fc || c.mah || c.weight || c.notes));
+  pendingImg = undefined;
+  showThumb(c ? IMG[c.id] : null);
+  formFc = c && c.fcInfo ? JSON.parse(JSON.stringify(c.fcInfo)) : null;
+  formBf = c && c.bf ? { target: c.bf.target || "", diff: c.bf.diff || "", savedAt: c.bf.savedAt || 0 } : null;
+  $("f_bftarget").value = formBf ? formBf.target : "";
+  $("f_bfdiff").value   = formBf ? formBf.diff : "";
+  $("bfState").textContent = ""; $("bfState").className = "fcstate";
+  $("fcPasteBox").hidden = true; $("f_cli").value = ""; $("fcState").textContent = "";
+  renderFcInfo();
+
+  $("more").open = !!(c && (c.fc || c.fcInfo || c.rx || c.video || c.mah || c.weight || c.notes || c.bf));
 
   $("dlg").showModal();
   setTimeout(function(){ $("f_name").focus(); }, 40);
@@ -782,10 +1267,20 @@ function saveForm(){
     props: $("f_props").value.trim(),
     status: $("f_status").value,
     fc: $("f_fc").value.trim(),
+    rx: $("f_rx").value,
+    video: $("f_video").value,
     mah: num($("f_mah").value),
     weight: num($("f_weight").value),
-    notes: $("f_notes").value.trim()
+    notes: $("f_notes").value.trim(),
+    fcInfo: formFc || null,
+    bf: (function(){
+      var v = bfFormValues();
+      if(!v.target && !v.diff.trim()) return null;
+      var stamp = (formBf && formBf.diff === v.diff && formBf.savedAt) ? formBf.savedAt : Date.now();
+      return { target: v.target, diff: v.diff, savedAt: stamp };
+    })()
   };
+  if(pendingImg !== undefined) setImg(rec.id, pendingImg);
 
   if(editId){
     for(var i=0;i<data.length;i++){ if(data[i].id === editId) data[i] = rec; }
@@ -813,6 +1308,85 @@ function download(name, text, type){
   }catch(e){ return false; }
 }
 
+/* ---------- Betaflight-Sicherung pro Modell ---------- */
+var formBf = null;
+
+function bfDiffLines(txt){
+  /* Nur Zeilen, die im CLI etwas tun - Kommentare und Leerzeilen fliegen raus. */
+  return String(txt || "").replace(/\r/g, "").split("\n")
+    .map(function(l){ return l.replace(/\s+$/, ""); })
+    .filter(function(l){ return l && l.charAt(0) !== "#"; });
+}
+function bfFcTarget(fi){
+  if(!fi) return "";
+  return String(fi.board || (fi.target && !/^STM32|^AT32|^APM32|^RP2/i.test(fi.target) ? fi.target : "") || "").toUpperCase();
+}
+function bfCheckState(want, have, diff){
+  want = String(want || "").trim().toUpperCase();
+  have = String(have || "").trim().toUpperCase();
+  if(!want) return { ok:false, msg:T("bfNoTarget") };
+  if(!diff) return { ok:false, msg:T("bfNoDiff") };
+  if(have && want !== have) return { ok:false, msg:T("bfMismatch")(want, have) };
+  if(!have) return { ok:true, msg:T("bfNoFc") };
+  return { ok:true, msg:T("bfOk")(want) };
+}
+/* Betaflight gibt bei "diff all" einen Block zwischen "batch start" und "batch end" aus.
+   Genau der ist einspielbar; fehlt der Rahmen, nehmen wir die set-Zeilen selbst. */
+function bfExtractDiff(raw){
+  var t = String(raw || "").replace(/\r/g, "");
+  var i = t.indexOf("batch start");
+  var j = t.lastIndexOf("batch end");
+  var body;
+  if(i >= 0 && j > i){
+    body = t.slice(i, j + "batch end".length);
+  }else{
+    var lines = t.split("\n").filter(function(l){
+      return /^(set |board_name |feature |resource |aux |serial |beep |map |led |profile |rateprofile )/.test(l);
+    });
+    if(!lines.length) return "";
+    body = "batch start\n" + lines.join("\n") + "\nbatch end";
+  }
+  body = body.replace(/^\s*batch start\s*$/m, "batch start").replace(/\s+$/, "");
+  if(!/^save\s*$/m.test(body)) body += "\nsave";
+  return body;
+}
+function bfFileName(name, target){
+  var slug = String(name || "copter").toLowerCase()
+    .replace(/[äöüß]/g, function(m){ return ({ "ä":"ae","ö":"oe","ü":"ue","ß":"ss" })[m]; })
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "copter";
+  return "bf_" + slug + (target ? "_" + String(target).toLowerCase() : "") + ".txt";
+}
+function bfText(name, bf, fi){
+  var d = new Date();
+  var stamp = d.toLocaleDateString(locTag()) + " " + ("0"+d.getHours()).slice(-2) + ":" + ("0"+d.getMinutes()).slice(-2);
+  var head = "# FlowState Hangar - Betaflight-Sicherung\n"
+    + "# Modell: " + (name || "") + "\n"
+    + "# Target (Modell): " + (bf.target || "-") + "\n"
+    + "# Target (FC): " + (bfFcTarget(fi) || "-") + "\n"
+    + "# Erstellt: " + stamp + "\n"
+    + "# Einspielen: Betaflight Configurator > CLI > Zeilen unten einfuegen > save\n";
+  return head + "\n" + String(bf.diff || "").replace(/\r/g, "").trim() + "\n";
+}
+function bfExport(name, bf, fi){
+  var lines = bfDiffLines(bf && bf.diff);
+  var state = bfCheckState(bf && bf.target, bfFcTarget(fi), lines.length);
+  if(!state.ok){ toast(state.msg, "bad"); return false; }
+  var ok = download(bfFileName(name, bf.target), bfText(name, bf, fi), "text/plain;charset=utf-8");
+  toast(ok ? T("bfSaved") : T("exportFail"), ok ? "ok" : "bad");
+  return ok;
+}
+function bfFormValues(){
+  return { target: $("f_bftarget").value.trim(), diff: $("f_bfdiff").value.replace(/\r/g, "") };
+}
+function bfShowState(){
+  var v = bfFormValues();
+  var st = bfCheckState(v.target, bfFcTarget(formFc), bfDiffLines(v.diff).length);
+  var box = $("bfState");
+  box.textContent = st.msg;
+  box.className = "fcstate " + (st.ok ? "ok" : "warn");
+  return st;
+}
+
 /* ---------- Tabelle: gemeinsame Spalten für CSV, PDF und Druck ---------- */
 function compactSize(v){
   var n = parseFloat(v);
@@ -828,10 +1402,13 @@ function tableCols(compact){
     { k:"esc",    key:"colEsc",    w:40,  align:"r" },
     { k:"props",  key:"colProps",  w:84,  align:"l" },
     { k:"status", key:"colStatus", w:68,  align:"l", fmt:function(c){ return T("st_" + (c.status || "ready")); } },
-    { k:"fc",     key:"colFc",     w:104, align:"l" },
+    { k:"fc",     key:"colFc",     w:90,  align:"l" },
+    { k:"fw",     key:"colFw",     w:96,  align:"l", fmt:function(c){ return fcShort(c); } },
+    { k:"rx",     key:"colRx",     w:82,  align:"l", fmt:function(c){ return choiceLabel(RX_OPTIONS, c.rx); } },
+    { k:"video",  key:"colVideo",  w:92,  align:"l", fmt:function(c){ return choiceLabel(VIDEO_OPTIONS, c.video); } },
     { k:"mah",    key:"colMah",    w:48,  align:"r" },
     { k:"weight", key:"colWeight", w:46,  align:"r" },
-    { k:"notes",  key:"colNotes",  w:98,  align:"l" }
+    { k:"notes",  key:"colNotes",  w:90,  align:"l" }
   ];
 }
 function cellText(c, col){
@@ -851,7 +1428,7 @@ function doExportCsv(){
     lines.push(cols.map(function(col){ return q(cellText(c, col)); }).join(";"));
   });
   var stamp = new Date().toISOString().slice(0,10);
-  var ok = download("hangardeck-" + stamp + ".csv", "\uFEFF" + lines.join("\r\n"), "text/csv;charset=utf-8");
+  var ok = download("flowstate-hangar-" + stamp + ".csv", "\uFEFF" + lines.join("\r\n"), "text/csv;charset=utf-8");
   toast(ok ? T("expCsvDone") : T("exportFail"), ok ? "ok" : "bad");
 }
 
@@ -873,9 +1450,9 @@ function doExportPrint(){
   $("printArea").innerHTML =
     "<h1>" + esc(T("pdfTitle")) + "</h1>" +
     '<p class="meta">' + esc(T("pdfCount")(rows.length)) + " · " + esc(T("pdfCreated")) + " " +
-      new Date().toLocaleDateString(prefs.lang === "en" ? "en-GB" : "de-DE") + " · HangarDeck Lite v" + VER + "</p>" +
+      new Date().toLocaleDateString(locTag()) + " · FlowState Hangar v" + VER + "</p>" +
     "<table><thead><tr>" + head + "</tr></thead><tbody>" + body + "</tbody></table>" +
-    '<p class="ft">HangarDeck Lite v' + VER + " · " + esc(location.host || "lokal") + "</p>";
+    '<p class="ft">FlowState Hangar v' + VER + " · " + esc(location.host || "lokal") + "</p>";
   window.print();
 }
 
@@ -939,13 +1516,13 @@ function buildPdf(){
 
   function header(){
     var d = new Date();
-    var stamp = d.toLocaleDateString(prefs.lang === "en" ? "en-GB" : "de-DE") + " " +
+    var stamp = d.toLocaleDateString(locTag()) + " " +
       ("0"+d.getHours()).slice(-2) + ":" + ("0"+d.getMinutes()).slice(-2);
     stream += "0.10 0.16 0.20 rg\n";
     stream += "BT /F2 15 Tf " + PDFPAGE.m + " " + (PDFPAGE.h - 40) + " Td (" + pdfEsc(T("pdfTitle")) + ") Tj ET\n";
     stream += "0.35 0.40 0.45 rg\n";
     stream += "BT /F1 8 Tf " + PDFPAGE.m + " " + (PDFPAGE.h - 54) + " Td (" +
-              pdfEsc(T("pdfCount")(rows.length) + " · " + T("pdfCreated") + " " + stamp + " · HangarDeck Lite v" + VER) + ") Tj ET\n";
+              pdfEsc(T("pdfCount")(rows.length) + " · " + T("pdfCreated") + " " + stamp + " · FlowState Hangar v" + VER) + ") Tj ET\n";
     /* Kopfzeile der Tabelle */
     var top = PDFPAGE.h - 74;
     stream += "0.90 0.93 0.94 rg\n";
@@ -965,12 +1542,7 @@ function buildPdf(){
   }
 
   function footer(){
-    var label = T("pdfPage") + " " + pageNo;
-    stream += "0.45 0.50 0.55 rg\n";
-    stream += "BT /F1 7.5 Tf " + PDFPAGE.m + " 20 Td (" + pdfEsc("HangarDeck Lite v" + VER) + ") Tj ET\n";
-    stream += "BT /F1 7.5 Tf " + (PDFPAGE.w - PDFPAGE.m - textWidth(label, 7.5)) + " 20 Td (" +
-              pdfEsc(label) + ") Tj ET\n";
-    pages.push(stream);
+    pages.push({ body: stream, no: pageNo });
   }
 
   y = header();
@@ -1017,6 +1589,18 @@ function buildPdf(){
   });
   footer();
 
+  /* Fußzeilen erst jetzt, damit die Gesamtzahl der Seiten bekannt ist */
+  var total = pages.length;
+  pages = pages.map(function(pg){
+    var label = T("pdfPage") + " " + pg.no + " " + T("pdfOf") + " " + total;
+    var out = pg.body;
+    out += "0.45 0.50 0.55 rg\n";
+    out += "BT /F1 7.5 Tf " + PDFPAGE.m + " 20 Td (" + pdfEsc("FlowState Hangar v" + VER) + ") Tj ET\n";
+    out += "BT /F1 7.5 Tf " + (PDFPAGE.w - PDFPAGE.m - textWidth(label, 7.5)) + " 20 Td (" +
+           pdfEsc(label) + ") Tj ET\n";
+    return out;
+  });
+
   /* --- Datei zusammensetzen --- */
   var objCount = 4 + pages.length * 2;
   var objs = new Array(objCount + 1);
@@ -1059,7 +1643,7 @@ function doExportPdf(){
     var blob = buildPdf();
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
-    a.href = url; a.download = "hangardeck-" + stamp + ".pdf";
+    a.href = url; a.download = "flowstate-hangar-" + stamp + ".pdf";
     document.body.appendChild(a); a.click();
     setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 800);
     toast(T("expPdfDone"), "ok");
@@ -1069,16 +1653,93 @@ function doExportPdf(){
 }
 
 function doExport(){
+  // gleicher Aufbau wie die Sync-Datei: Flotte + Farbschema/Sprache
   var stamp = new Date().toISOString().slice(0,10);
-  var ok = download("hangardeck-" + stamp + ".json", JSON.stringify(liveRecords(), null, 2));
+  var doc = {
+    app: "FlowState Hangar", schema: 2, version: VER,
+    updated: new Date().toISOString(),
+    prefs: { theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0 },
+    fleet: liveRecords()
+  };
+  var pics = imgsFor(doc.fleet);
+  if(pics) doc.images = pics;
+  var ok = download("flowstate-hangar-" + stamp + ".json", JSON.stringify(doc, null, 2));
   toast(ok ? T("exported") : T("exportFail"), ok ? "ok" : "bad");
+}
+
+/* Eine Sicherung, die zugleich die komplette Offline-App ist:
+   App-Code plus Daten als JSON-Block direkt in der Datei. */
+function htmlBackupPayload(){
+  return {
+    app: "FlowState Hangar HTML Backup", backup: "html", schema: 2, version: VER,
+    exported: new Date().toISOString(),
+    prefs: { theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0 },
+    fleet: data,
+    images: imgsFor(data) || {}
+  };
+}
+function doExportHtml(){
+  var slot = $("flowstate-hangar-backup"), before = slot.textContent;
+  var stamp = new Date().toISOString().slice(0,10);
+  var ok = false;
+  try{
+    /* < neutralisieren, damit Notizen kein schließendes Skript-Tag erzeugen können. */
+    slot.textContent = JSON.stringify(htmlBackupPayload()).replace(/</g, "\\u003c");
+    /* Kopie ohne gerenderte Liste: Bilder stehen nur einmal (im Payload) in der Datei. */
+    var root = document.documentElement.cloneNode(true);
+    ["list","printArea"].forEach(function(k){ var el = root.querySelector("#" + k); if(el) el.innerHTML = ""; });
+    var html = "<!doctype html>\n" + root.outerHTML;
+    ok = download("flowstate-hangar-backup-" + stamp + ".html", html, "text/html;charset=utf-8");
+  }catch(e){ ok = false; }
+  slot.textContent = before;
+  toast(ok ? T("expHtmlDone") : T("exportFail"), ok ? "ok" : "bad");
+}
+function embeddedBackup(){
+  var slot = $("flowstate-hangar-backup"), raw = slot ? slot.textContent.trim() : "";
+  if(!raw) return null;
+  try{
+    var doc = JSON.parse(raw);
+    return doc && doc.backup === "html" && Array.isArray(doc.fleet) ? doc : null;
+  }catch(e){ return null; }
+}
+function readImportDoc(text){
+  try{ return JSON.parse(text); }
+  catch(jsonErr){
+    var dom = new DOMParser().parseFromString(text, "text/html");
+    var slot = dom.getElementById("flowstate-hangar-backup");
+    if(!slot || !slot.textContent.trim()) throw jsonErr;
+    return JSON.parse(slot.textContent);
+  }
+}
+function restoreHtmlBackup(doc){
+  if(!doc || !Array.isArray(doc.fleet)) throw new Error("Format");
+  data = doc.fleet.filter(function(c){ return c && c.id && (c.name || c.deleted); }).map(function(c){
+    var copy = {}; for(var k in c){ if(Object.prototype.hasOwnProperty.call(c,k)) copy[k] = c[k]; }
+    if(typeof copy.updatedAt !== "number") copy.updatedAt = 0;
+    return copy;
+  });
+  IMG = cleanImgs(doc.images);
+  if(saveImgs() === "full") toast(T("photoFull"), "bad");
+  if(doc.prefs){
+    if(THEMES[doc.prefs.theme]) prefs.theme = doc.prefs.theme;
+    if(I18N[doc.prefs.lang]) prefs.lang = doc.prefs.lang;
+  }
+  /* Die wiederhergestellte Optik soll auch für die anderen FlowState-Seiten gelten. */
+  savePrefs(true);
+  save({ sync:false });
+  applyTheme(); applyLang(); render();
+  toast(T("htmlRestored"), "ok");
 }
 
 function doImport(file){
   var r = new FileReader();
   r.onload = function(){
     try{
-      var p = JSON.parse(String(r.result));
+      var p = readImportDoc(String(r.result));
+      if(p && p.backup === "html" && Array.isArray(p.fleet)){
+        if(confirm(T("htmlRestore"))) restoreHtmlBackup(p);
+        return;
+      }
       var incoming = Array.isArray(p) ? p : (Array.isArray(p.fleet) ? p.fleet : null);
       if(!incoming) throw new Error("Format");
 
@@ -1099,6 +1760,21 @@ function doImport(file){
         }
       });
 
+      /* Farbschema und Sprache reisen mit der Sicherung - aber nur, wenn sie dort
+         neuer sind als die eigene Wahl. Eine fremde Datei soll nichts umstellen. */
+      var tookPrefs = false;
+      if(p.prefs && typeof p.prefs === "object"){
+        var theirs = typeof p.prefs.updatedAt === "number" ? p.prefs.updatedAt : 0;
+        if(theirs > (prefs.updatedAt || 0)){
+          if(THEMES[p.prefs.theme]){ prefs.theme = p.prefs.theme; tookPrefs = true; }
+          if(I18N[p.prefs.lang]){ prefs.lang = p.prefs.lang; tookPrefs = true; }
+          if(tookPrefs){ prefs.updatedAt = theirs; savePrefs(true); applyTheme(); applyLang(); }
+        }
+      }
+
+      var pics = cleanImgs(p.images);
+      for(var pid in pics){ if(byId[pid]) IMG[pid] = pics[pid]; }
+      if(Object.keys(pics).length && saveImgs() === "full") toast(T("photoFull"), "bad");
       save(); render();
       toast(T("imported")(added, updated), "ok");
     }catch(e){
@@ -1108,276 +1784,232 @@ function doImport(file){
   r.readAsText(file);
 }
 
+var VER = "0.9.2-beta.1";
+
 /* =====================================================================
-   GitHub-Sync
-   Liest und schreibt eine JSON-Datei im Repository. Ohne Token nur lesend.
-   Datenhoheit liegt beim Repo: Merge über updatedAt pro Datensatz,
-   Löschungen werden als Grabstein (deleted:true) übertragen.
+   Bilder im Formular und auf den Kacheln
    ===================================================================== */
-var VER = "0.4.0-beta.3";
-var SYNC = { state:"off", remoteSha:null, last:0, msg:"", busy:false, timer:null };
-
-function ghCfg(){
-  var g = prefs.gh || {};
-  return {
-    repo:   (g.repo || "").trim(),
-    branch: (g.branch || "main").trim() || "main",
-    path:   (g.path || "hangar/data/hangardeck.json").replace(/^\/+/, ""),
-    token:  g.token || "",
-    auto:   g.auto !== false
-  };
+var pendingImg;          // undefined = unverändert, null = entfernen, String = neues Bild
+var picTarget = null;    // "__form" oder Copter-ID (Kachel)
+function showThumb(url){
+  $("f_thumb").innerHTML = url ? '<img src="' + url + '" alt="">' : QUAD_SVG;
+  $("btnImgDel").hidden = !url;
 }
-function ghReady(){ return !!ghCfg().repo; }
-function liveRecords(){ return data.filter(function(c){ return !c.deleted; }); }
-function pruneTombstones(){
-  var dead = data.filter(function(c){ return c.deleted; })
-                 .sort(function(a,b){ return (b.updatedAt||0)-(a.updatedAt||0); });
-  for(var i=200;i<dead.length;i++){
-    var id = dead[i].id;
-    data = data.filter(function(c){ return c.id !== id; });
-  }
+function takeImage(file, target){
+  fileToThumb(file).then(function(url){
+    if(target === "__form"){ pendingImg = url; showThumb(url); return; }
+    if(setImg(target, url)){ render(); toast(T("photoSaved"), "ok"); }
+  }).catch(function(){ toast(T("photoBad"), "bad"); });
 }
-
-/* UTF-8 sicher nach base64 und zurück */
-function b64encode(str){
-  var bytes = new TextEncoder().encode(str), bin = "";
-  for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
-  return btoa(bin);
-}
-function b64decode(b64){
-  var bin = atob(String(b64).replace(/\s+/g,"")), bytes = new Uint8Array(bin.length);
-  for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
-  return new TextDecoder("utf-8").decode(bytes);
-}
-
-function ghHeaders(withToken){
-  var h = { "Accept":"application/vnd.github+json", "X-GitHub-Api-Version":"2022-11-28" };
-  var t = ghCfg().token;
-  if(withToken !== false && t) h["Authorization"] = "Bearer " + t;
-  return h;
-}
-function ghError(res, body){
-  if(res.status === 401 || res.status === 403){
-    var msg = String((body && body.message) || "");
-    return /rate limit/i.test(msg) ? T("ghRate") : T("ghAuthFail");
-  }
-  if(res.status === 404) return "404";
-  return "HTTP " + res.status;
-}
-
-/* --- Lesen: GitHub-API (mit/ohne Token) --- */
-function ghPullFromApi(){
-  var c = ghCfg();
-  var url = "https://api.github.com/repos/" + c.repo + "/contents/"
-          + encodeURIComponent(c.path).replace(/%2F/g,"/") + "?ref=" + encodeURIComponent(c.branch);
-  return fetch(url, { headers: ghHeaders(), cache:"no-store" })
-    .then(function(res){
-      if(res.status === 404) return { missing:true };
-      return res.json().catch(function(){ return null; }).then(function(body){
-        if(!res.ok) throw new Error(ghError(res, body));
-        if(!body || !body.content) throw new Error(T("ghNoRemote"));
-        SYNC.remoteSha = body.sha || null;
-        return { text: b64decode(body.content) };
-      });
-    });
-}
-
-/* --- Lesen: statische Datei (GitHub Pages, ohne API, ohne Token) --- */
-function ghPullFromStatic(){
-  var c = ghCfg();
-  if(!c.path) return Promise.resolve({ missing:true });
-  var base = location.protocol === "file:" ? "" : location.href.replace(/[^/]*$/, "");
-  return fetch(base + c.path, { cache:"no-store" })
-    .then(function(res){ return res.ok ? res.text().then(function(t){ return { text:t }; }) : { missing:true }; })
-    .catch(function(){ return { missing:true }; });
-}
-
-function parseRemote(text){
-  var p = JSON.parse(text);
-  var list = Array.isArray(p) ? p : (Array.isArray(p.fleet) ? p.fleet : []);
-  return list.filter(function(c){ return c && c.id; });
-}
-
-/* Konfliktarm zusammenführen: pro id gewinnt der neuere updatedAt */
-function mergeRemote(list){
-  var map = {};
-  data.forEach(function(c){ map[c.id] = c; });
-  var changed = 0;
-  list.forEach(function(r){
-    if(typeof r.updatedAt !== "number") r.updatedAt = 0;
-    var l = map[r.id];
-    if(!l){ data.push(r); changed++; return; }
-    if((r.updatedAt||0) > (l.updatedAt||0)){
-      for(var k in l){ if(Object.prototype.hasOwnProperty.call(l,k)) delete l[k]; }
-      for(var k2 in r){ if(Object.prototype.hasOwnProperty.call(r,k2)) l[k2] = r[k2]; }
-      changed++;
-    }
-  });
-  return changed;
-}
-
-function ghState(){
-  var el = $("btnSync"), lab = $("syncLabel");
-  if(!el) return;
-  el.setAttribute("data-state", SYNC.state);
-  var text = T("ghOff");
-  if(SYNC.state === "busy") text = T("syncBusy");
-  else if(SYNC.state === "ok") text = T("syncOk")(hhmm(SYNC.last));
-  else if(SYNC.state === "err") text = "Sync !";
-  else if(ghReady()) text = "GitHub";
-  lab.textContent = text;
-  el.setAttribute("title", SYNC.msg || (ghReady() ? ghCfg().repo : T("ghOff")));
-
-  var st = $("g_state");
-  if(st){
-    if(SYNC.state === "busy") st.textContent = SYNC.msg || T("syncBusy");
-    else if(SYNC.state === "err") st.textContent = T("ghStateErr")(SYNC.msg);
-    else if(SYNC.state === "ok") st.textContent = T("ghStateOk")(hhmm(SYNC.last)) + " · " + ghCfg().repo;
-    else if(ghReady()) st.textContent = T("ghStateOk")(hhmm(SYNC.last) || "—") + " · " + ghCfg().repo;
-    else st.textContent = T("ghNotSet");
-  }
-}
-function hhmm(ts){
-  if(!ts) return "";
-  var d = new Date(ts);
-  return ("0"+d.getHours()).slice(-2) + ":" + ("0"+d.getMinutes()).slice(-2);
-}
-
-function pull(silent){
-  if(!ghReady()){ if(!silent) toast(T("ghNeedRepo"),"bad"); return Promise.resolve(false); }
-  SYNC.state = "busy"; SYNC.msg = T("ghPulling"); ghState();
-
-  var req = ghCfg().token ? ghPullFromApi() : ghPullFromStatic();
-  return req.then(function(r){
-    if(!r || r.missing){
-      SYNC.state = "off"; SYNC.msg = T("ghNoRemote"); ghState();
-      if(!silent) toast(T("ghNoRemote"));
-      return false;
-    }
-    var changed = mergeRemote(parseRemote(r.text));
-    save({ sync:false });
-    render();
-    SYNC.state = "ok"; SYNC.last = Date.now();
-    SYNC.msg = T("ghPullOk")(changed);
-    ghState();
-    if(!silent) toast(T("ghPullOk")(changed), "ok");
-    return true;
-  }).catch(function(e){
-    SYNC.state = "err"; SYNC.msg = (e && e.message) || T("ghNet"); ghState();
-    if(!silent) toast(SYNC.msg, "bad");
-    return false;
-  });
-}
-
-function ghPayload(){
-  return JSON.stringify({
-    app: "HangarDeck Lite", schema: 2, version: VER,
-    updated: new Date().toISOString(),
-    fleet: data
-  }, null, 2);
-}
-
-function push(silent, retried){
-  var c = ghCfg();
-  if(!ghReady()){ if(!silent) toast(T("ghNeedRepo"),"bad"); return Promise.resolve(false); }
-  if(!c.token){
-    SYNC.state = "err"; SYNC.msg = T("ghReadOnly"); ghState();
-    if(!silent) toast(T("ghReadOnly"), "bad");
-    return Promise.resolve(false);
-  }
-  SYNC.state = "busy"; SYNC.msg = T("ghPushing"); ghState();
-
-  var body = ghPayload();
-  var url  = "https://api.github.com/repos/" + c.repo + "/contents/"
-           + encodeURIComponent(c.path).replace(/%2F/g,"/");
-
-  function put(sha){
-    var payload = { message: "HangarDeck sync " + new Date().toISOString(), content: b64encode(body), branch: c.branch };
-    if(sha) payload.sha = sha;
-    return fetch(url, {
-      method: "PUT",
-      headers: (function(){ var h = ghHeaders(); h["Content-Type"] = "application/json"; return h; })(),
-      body: JSON.stringify(payload)
-    });
-  }
-
-  // aktuellen SHA holen (nötig für Updates), dann schreiben
-  return fetch(url + "?ref=" + encodeURIComponent(c.branch), { headers: ghHeaders(), cache:"no-store" })
-    .then(function(res){
-      if(res.status === 404) return put(null);
-      return res.json().catch(function(){ return null; }).then(function(j){
-        if(!res.ok) throw new Error(ghError(res, j));
-        var sha = j && j.sha ? j.sha : null;
-        return put(sha);
-      });
-    })
-    .then(function(res){
-      return res.json().catch(function(){ return null; }).then(function(j){
-        if(res.status === 409 && !retried){
-          // Datei wurde zwischenzeitlich geändert: laden, mischen, einmal erneut schreiben
-          return pull(true).then(function(){ SYNC.msg = T("ghConf"); return push(true, true); });
-        }
-        if(!res.ok) throw new Error(ghError(res, j));
-        SYNC.remoteSha = (j && j.content && j.content.sha) || SYNC.remoteSha;
-        SYNC.state = "ok"; SYNC.last = Date.now(); SYNC.msg = T("ghPushOk"); ghState();
-        if(!silent) toast(T("ghPushOk"), "ok");
-        return true;
-      });
-    })
-    .catch(function(e){
-      SYNC.state = "err"; SYNC.msg = (e && e.message) || T("ghNet"); ghState();
-      if(!silent) toast(SYNC.msg, "bad");
-      return false;
-    });
-}
-
-function schedulePush(){
-  if(!ghReady() || !ghCfg().token || !ghCfg().auto) return;
-  clearTimeout(SYNC.timer);
-  SYNC.timer = setTimeout(function(){ push(true); }, 2500);
-}
-
-/* --- Dialog --- */
-function openGh(){
-  var c = ghCfg();
-  $("g_repo").value   = c.repo;
-  $("g_branch").value = c.branch;
-  $("g_path").value   = c.path;
-  $("g_token").value  = c.token;
-  $("g_auto").checked = c.auto;
-  ghState();
-  $("ghDlg").showModal();
-}
-function readGhForm(){
-  prefs.gh = {
-    repo:   $("g_repo").value.trim(),
-    branch: $("g_branch").value.trim() || "main",
-    path:   $("g_path").value.trim() || "hangar/data/hangardeck.json",
-    token:  $("g_token").value.trim(),
-    auto:   $("g_auto").checked
-  };
-  savePrefs();
-}
-
-$("btnSync").addEventListener("click", openGh);
-$("ghDlg").addEventListener("click", function(e){
-  var b = e.target.closest("[data-gh]"); if(!b) return;
-  var act = b.getAttribute("data-gh");
-  if(act === "close") return $("ghDlg").close();
-  readGhForm();
-  if(act === "pull"){ pull(false); }
-  if(act === "push"){ push(false); }
-  if(act === "file"){
-    download("hangardeck.json", ghPayload());
-    toast(T("exported"), "ok");
-  }
+$("btnImg").addEventListener("click", function(){ picTarget = "__form"; $("imgFile").click(); });
+$("btnImgDel").addEventListener("click", function(){ pendingImg = null; showThumb(null); });
+$("imgFile").addEventListener("change", function(e){
+  var f = e.target.files && e.target.files[0];
+  if(f && picTarget) takeImage(f, picTarget);
+  e.target.value = "";
 });
-$("ghDlg").addEventListener("change", function(e){
-  if(e.target.closest("#ghDlg")) readGhForm();
+$("list").addEventListener("click", function(e){
+  var b = e.target.closest && e.target.closest("[data-pic]");
+  if(!b) return;
+  picTarget = b.getAttribute("data-pic");
+  $("imgFile").click();
+});
+/* Foto direkt auf eine Kachel ziehen */
+$("list").addEventListener("dragover", function(e){
+  var t = e.target.closest && e.target.closest("[data-tile]");
+  if(!t || !e.dataTransfer || [].indexOf.call(e.dataTransfer.types || [], "Files") < 0) return;
+  e.preventDefault(); t.classList.add("drop");
+});
+$("list").addEventListener("dragleave", function(e){
+  var t = e.target.closest && e.target.closest("[data-tile]");
+  if(t && !t.contains(e.relatedTarget)) t.classList.remove("drop");
+});
+$("list").addEventListener("drop", function(e){
+  var t = e.target.closest && e.target.closest("[data-tile]");
+  if(!t) return;
+  e.preventDefault(); t.classList.remove("drop");
+  var f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f) takeImage(f, t.getAttribute("data-tile"));
+});
+$("views").addEventListener("click", function(e){
+  var b = e.target.closest("[data-view]"); if(!b) return;
+  prefs.view = b.getAttribute("data-view");
+  savePrefs(false);       // reine Geräte-Einstellung, nicht geteilt, nicht im Sync
+  render();
+});
+
+/* =====================================================================
+   FC auslesen – Betaflight / INAV / Emuflight CLI
+   Ein Parser für beide Wege: USB (Web Serial) und eingefügter CLI-Text.
+   Gelesen werden nur `version` und `status`; es wird nichts geschrieben.
+   ===================================================================== */
+var formFc = null;
+function parseFcText(txt){
+  var t = String(txt || "").replace(/\r/g, ""), m, info = {};
+  m = t.match(/(Betaflight|INAV|EmuFlight|Rotorflight|Cleanflight)\s*\/\s*([A-Z0-9_\-]+)(?:\s+\(([A-Z0-9_\-]+)\))?\s+v?(\d+\.\d+(?:\.\d+)?)/i);
+  if(m){
+    var names = { betaflight:"Betaflight", inav:"INAV", emuflight:"EmuFlight", rotorflight:"Rotorflight", cleanflight:"Cleanflight" };
+    info.fw = (names[m[1].toLowerCase()] || m[1]) + " " + m[4];
+    info.target = m[2];
+  }
+  m = t.match(/board_name[:\s=]+([A-Z0-9_\-]+)/i);         if(m) info.board = m[1].toUpperCase();
+  m = t.match(/manufacturer_id[:\s=]+([A-Z0-9_\-]+)/i);    if(m) info.mfr = m[1].toUpperCase();
+  if(!info.board && info.target && !/^STM32|^AT32|^APM32|^RP2/i.test(info.target)) info.board = info.target;
+  m = t.match(/\bMCU\s+([A-Z0-9]+)\s+Clock\s*=\s*(\d+)\s*MHz/i);
+  if(m) info.mcu = m[1] + " · " + m[2] + " MHz";
+  else if(info.target && /^(STM32|AT32|APM32)/i.test(info.target)) info.mcu = info.target.replace(/^(STM32|AT32|APM32)/i, "");
+  var bad = /^(OK|NONE|NO|N\/A|UNAVAILABLE|NOT|DEFAULT|AUTO|FAKE)$/i;
+  /* INAV meldet erst "GYRO=OK", danach das Modell -> ersten echten Namen nehmen */
+  function first(re){
+    var r, g = new RegExp(re.source, "gi");
+    while((r = g.exec(t))){ if(!bad.test(r[1])) return r[1].toUpperCase(); }
+    return "";
+  }
+  info.gyro = first(/\bGYRO\s*=\s*([A-Z0-9_]+)/);
+  info.baro = first(/\bBARO\s*=\s*([A-Z0-9_]+)/);
+  info.osd  = first(/\bOSD:\s*([A-Z0-9_]+)/);
+  if(!info.fw && !info.gyro && !info.board) return null;
+  info.at = Date.now();
+  return info;
+}
+function renderFcInfo(){
+  var box = $("fcInfo");
+  if(!formFc){ box.innerHTML = ""; return; }
+  var rows = [["fw", formFc.fw], ["board", formFc.board || formFc.target], ["mcu", formFc.mcu],
+              ["gyro", formFc.gyro], ["baro", formFc.baro], ["osd", formFc.osd]];
+  var at = formFc.at ? new Date(formFc.at).toLocaleString(locTag(), { dateStyle:"short", timeStyle:"short" }) : "";
+  box.innerHTML = '<dl class="fcinfo">' + rows.filter(function(r){ return r[1]; }).map(function(r){
+      return '<div><dt>' + esc(T(r[0])) + '</dt><dd class="mono">' + esc(r[1]) + '</dd></div>';
+    }).join("") + '</dl>'
+    + '<div class="fcmeta"><span>' + esc([at ? T("fcAt") + " " + at : "", formFc.mfr || ""].filter(Boolean).join(" · ")) + '</span>'
+    + '<button class="linkbtn" type="button" id="btnFcClear">' + esc(T("fcClear")) + '</button></div>';
+}
+function applyFc(info){
+  formFc = info;
+  if(!$("f_fc").value.trim()) $("f_fc").value = info.board || info.target || "";
+  /* Das FC-Target ist genau das, was in der Sicherung stehen muss. */
+  if(!$("f_bftarget").value.trim() && bfFcTarget(info)) $("f_bftarget").value = bfFcTarget(info);
+  renderFcInfo();
+  $("fcState").textContent = "";
+  toast(T("fcOk"), "ok");
+}
+function readFcUsb(){
+  if(!("serial" in navigator)){
+    $("fcState").textContent = T("fcNoSerial");
+    $("fcPasteBox").hidden = false; $("f_cli").focus();
+    return;
+  }
+  var port, reader, writer, buf = "", stopped = false, diffFrom = 0;
+  var enc = new TextEncoder(), dec = new TextDecoder();
+  var btn = $("btnFcRead");
+  function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+  /* wartet, bis nach `from` der CLI-Prompt "# " am Ende steht */
+  function prompt(from, ms){
+    var t0 = Date.now();
+    return new Promise(function(res){
+      (function chk(){
+        if(/\n# ?$/.test(buf.slice(from))) return res(true);
+        if(Date.now() - t0 > ms) return res(false);
+        setTimeout(chk, 40);
+      })();
+    });
+  }
+  function pump(){
+    return reader.read().then(function(r){
+      if(r.done || stopped) return;
+      buf += dec.decode(r.value, { stream:true });
+      return pump();
+    }).catch(function(){});
+  }
+  function send(str){ return writer.write(enc.encode(str)); }
+  function cmd(str, ms){ var from = buf.length; return send(str + "\n").then(function(){ return prompt(from, ms); }); }
+  function cleanup(){
+    stopped = true;
+    var p = Promise.resolve();
+    if(reader) p = p.then(function(){ return reader.cancel().catch(function(){}); }).then(function(){ try{ reader.releaseLock(); }catch(e){} });
+    if(writer) p = p.then(function(){ try{ writer.releaseLock(); }catch(e){} });
+    if(port)   p = p.then(function(){ return port.close().catch(function(){}); });
+    return p;
+  }
+  btn.disabled = true;
+  navigator.serial.requestPort().then(function(pt){
+    port = pt;
+    $("fcState").textContent = T("fcReading");
+    return port.open({ baudRate:115200 });
+  }).then(function(){
+    writer = port.writable.getWriter();
+    reader = port.readable.getReader();
+    pump();
+    return send("#").then(function(){ return prompt(0, 2500); });
+  }).then(function(ok){
+    if(!ok) throw new Error("nocli");
+    return cmd("version", 2500);
+  }).then(function(){
+    return cmd("status", 2500);
+  }).then(function(){
+    diffFrom = buf.length;                    // ab hier steht der Diff im Puffer
+    return cmd("diff all", 15000);            // liefert den einspielbaren Block
+  }).then(function(){
+    return send("exit\n").then(function(){ return wait(150); });   // verlässt das CLI (Neustart, ohne Speichern)
+  }).then(cleanup).then(function(){
+    var info = parseFcText(buf.slice(0, diffFrom || buf.length));   // Metadaten nur aus version/status
+    if(info) applyFc(info);
+    else { $("fcState").textContent = T("fcNone"); }
+    /* Das Backup gehoert zum ausgewaehlten Modell: Target und Diff direkt einsetzen. */
+    var diff = bfExtractDiff(buf.slice(diffFrom));
+    if(diff){
+      $("f_bfdiff").value = diff;
+      var fcTarget = bfFcTarget(formFc);
+      if(fcTarget) $("f_bftarget").value = fcTarget;
+      bfShowState();
+      toast(T("bfFromFc"), "ok");
+    }else{
+      $("bfState").textContent = T("bfDiffFail");
+      $("bfState").className = "fcstate warn";
+    }
+  }).catch(function(e){
+    return cleanup().then(function(){
+      if(e && e.name === "NotFoundError"){ $("fcState").textContent = ""; return; }   // Auswahl abgebrochen
+      $("fcState").textContent = T("fcFail");
+      toast(T("fcFail"), "bad");
+    });
+  }).then(function(){ btn.disabled = false; });
+}
+$("btnFcRead").addEventListener("click", readFcUsb);
+$("btnFcPaste").addEventListener("click", function(){
+  var box = $("fcPasteBox");
+  box.hidden = !box.hidden;
+  if(!box.hidden) $("f_cli").focus();
+});
+$("btnFcParse").addEventListener("click", function(){
+  var txt = $("f_cli").value || "";
+  var info = parseFcText(txt);
+  if(!info){ $("fcState").textContent = T("fcNone"); return; }
+  applyFc(info);
+  /* Steckt in der Einfügung auch ein "diff all", gehoert er zum Backup dieses Modells. */
+  var diff = bfExtractDiff(txt);
+  if(diff){
+    $("f_bfdiff").value = diff;
+    var fcTarget = bfFcTarget(formFc);
+    if(fcTarget) $("f_bftarget").value = fcTarget;
+    bfShowState();
+  }
+  $("f_cli").value = ""; $("fcPasteBox").hidden = true;
+});
+$("fcInfo").addEventListener("click", function(e){
+  if(e.target.id !== "btnFcClear") return;
+  formFc = null; renderFcInfo();
 });
 
 /* ---------- Events ---------- */
 document.addEventListener("click", function(e){
+  var bf = e.target.closest ? e.target.closest("[data-bf]") : null;
+  if(bf){
+    var bid = bf.getAttribute("data-bf");
+    var bc = data.filter(function(x){ return x.id === bid; })[0];
+    if(bc) bfExport(bc.name, bc.bf || {}, bc.fcInfo);
+    return;
+  }
   var t = e.target.closest ? e.target.closest("[data-edit],[data-del],[data-new]") : null;
   if(!t) return;
   if(t.hasAttribute("data-new")) return open(null);
@@ -1389,10 +2021,37 @@ document.addEventListener("click", function(e){
     if(!confirm(T("confirmDel")(c.name))) return;
     c.deleted = true;
     c.updatedAt = Date.now();
+    if(IMG[id]){ delete IMG[id]; saveImgs(); }
     pruneTombstones();
     save(); render(); toast(T("deleted"));
   }
 });
+
+/* Betaflight-Backup im Dialog */
+$("btnBfCheck").addEventListener("click", function(){ bfShowState(); });
+$("btnBfSave").addEventListener("click", function(){
+  var v = bfFormValues();
+  var name = $("f_name").value.trim() || "copter";
+  bfExport(name, v, formFc);
+});
+$("btnBfFile").addEventListener("click", function(){ $("bfFile").click(); });
+$("bfFile").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = "";
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    var txt = String(r.result || "");
+    $("f_bfdiff").value = txt;
+    /* Steht in der Datei ein Target-Kommentar, uebernehmen wir ihn gleich mit. */
+    var m = txt.match(/^#\s*Target[^:]*:\s*([A-Za-z0-9_\-]+)/mi);
+    if(m && !$("f_bftarget").value.trim()) $("f_bftarget").value = m[1].toUpperCase();
+    bfShowState(); toast(T("bfLoaded"), "ok");
+  };
+  r.onerror = function(){ toast(T("bfFileBad"), "bad"); };
+  r.readAsText(f);
+});
+$("f_bftarget").addEventListener("input", function(){ $("bfState").textContent = ""; $("bfState").className = "fcstate"; });
+$("f_bfdiff").addEventListener("input", function(){ $("bfState").textContent = ""; $("bfState").className = "fcstate"; });
 
 $("btnNew").addEventListener("click", function(){ open(null); });
 $("btnSave").addEventListener("click", saveForm);
@@ -1406,7 +2065,7 @@ $("btnExport").addEventListener("click", function(e){
   e.stopPropagation();
   var m = $("expMenu");
   var open = m.hidden;
-  m.hidden = !open;
+  if(open) placeMenu($("btnExport"), m); else m.hidden = true;
   $("btnExport").setAttribute("aria-expanded", open ? "true" : "false");
 });
 $("expMenu").addEventListener("click", function(e){
@@ -1417,14 +2076,68 @@ $("expMenu").addEventListener("click", function(e){
   if(kind === "csv")   doExportCsv();
   if(kind === "print") doExportPrint();
   if(kind === "json")  doExport();
+  if(kind === "html")  doExportHtml();
 });
+$("btnExport").addEventListener("click", function(){ if(!$("impMenu").hidden) closeImpMenu(); });
 document.addEventListener("click", function(e){
-  if(!e.target.closest || !e.target.closest(".expwrap")) closeExpMenu();
+  if(!e.target.closest || !e.target.closest(".expwrap")){ closeExpMenu(); closeImpMenu(); }
 });
-document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeExpMenu(); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape"){ closeExpMenu(); closeImpMenu(); } });
+/* Pfeiltasten: im offenen Menü weiterblättern, Enter/Space klickt wie gewohnt */
+document.addEventListener("keydown", function(e){
+  if(e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+  var m = !$("expMenu").hidden ? $("expMenu") : (!$("impMenu").hidden ? $("impMenu") : null);
+  if(!m) return;
+  var items = [].slice.call(m.querySelectorAll("button[role=menuitem]"));
+  if(!items.length) return;
+  e.preventDefault();
+  var i = items.indexOf(document.activeElement);
+  var next = e.key === "ArrowDown" ? (i + 1) % items.length : (i <= 0 ? items.length - 1 : i - 1);
+  items[next].focus();
+});
 
-/* GitHub-Dialog-Tastenkürzel bleibt; Export über Menü */
-$("btnImport").addEventListener("click", function(){ $("file").click(); });
+/* Beide Menüs werden am Knopf ausgerichtet, aber immer innerhalb des Fensters gehalten -
+   nach unten aufklappen, wenn unten kein Platz ist, dann nach oben. */
+function placeMenu(btn, menu){
+  menu.hidden = false;
+  var r = btn.getBoundingClientRect();
+  var mw = menu.offsetWidth, mh = menu.offsetHeight, pad = 8;
+  var left = Math.min(Math.max(pad, Math.round(r.right - mw)), window.innerWidth - mw - pad);
+  var top = Math.round(r.bottom + 6);
+  if(top + mh > window.innerHeight - pad){
+    var up = Math.round(r.top - 6 - mh);
+    top = up > pad ? up : Math.max(pad, window.innerHeight - mh - pad);
+  }
+  menu.style.left = Math.max(pad, left) + "px";
+  menu.style.top  = top + "px";
+}
+function keepMenusPlaced(){
+  if(!$("expMenu").hidden) placeMenu($("btnExport"), $("expMenu"));
+  if(!$("impMenu").hidden) placeMenu($("btnImport"), $("impMenu"));
+}
+window.addEventListener("resize", keepMenusPlaced);
+window.addEventListener("scroll", keepMenusPlaced, { passive:true, capture:true });
+
+/* Importmenü: zwei Wege, damit klar ist, was eingelesen wird */
+function closeImpMenu(){
+  $("impMenu").hidden = true;
+  $("btnImport").setAttribute("aria-expanded", "false");
+}
+$("btnImport").addEventListener("click", function(e){
+  e.stopPropagation();
+  var m = $("impMenu");
+  var open = m.hidden;
+  closeExpMenu();
+  if(open) placeMenu($("btnImport"), m); else m.hidden = true;
+  $("btnImport").setAttribute("aria-expanded", open ? "true" : "false");
+});
+$("impMenu").addEventListener("click", function(e){
+  var b = e.target.closest("[data-imp]"); if(!b) return;
+  closeImpMenu();
+  var kind = b.getAttribute("data-imp");
+  $("file").setAttribute("accept", kind === "html" ? "text/html,.html" : "application/json,.json");
+  $("file").click();
+});
 $("file").addEventListener("change", function(e){
   if(e.target.files && e.target.files[0]) doImport(e.target.files[0]);
   e.target.value = "";
@@ -1437,19 +2150,45 @@ $("form").addEventListener("keydown", function(e){
 
 $("themes").addEventListener("click", function(e){
   var b = e.target.closest("[data-theme]"); if(!b) return;
-  prefs.theme = b.getAttribute("data-theme"); LS.set("flowstate-theme", prefs.theme); savePrefs(); applyTheme();
+  var th = b.getAttribute("data-theme");
+  if(th === prefs.theme) return;
+  prefs.theme = th; savePrefs(true); applyTheme();
 });
 $("langs").addEventListener("click", function(e){
   var b = e.target.closest("[data-lang]"); if(!b) return;
-  prefs.lang = b.getAttribute("data-lang"); savePrefs(); applyLang(); render();
+  var lg = b.getAttribute("data-lang");
+  if(lg === prefs.lang) return;
+  prefs.lang = lg; savePrefs(true); applyLang(); render();
   if($("dlg").open) $("dlgTitle").textContent = editId ? T("editTitle") : T("newTitle");
+  if($("dlg").open) renderFcInfo();
 });
 
+/* Eine Schwesterseite (FPV-Guide, Autotuner, weiteres FlowState-Projekt) hat
+   umgeschaltet: sofort übernehmen, ohne Neuladen. */
+window.addEventListener("storage", function(e){
+  if(e.key !== FS_KEY) return;
+  var sh = readShared();
+  if(!sh.updatedAt || sh.updatedAt <= (prefs.updatedAt || 0)) return;
+  var changed = false;
+  if(sh.theme && sh.theme !== prefs.theme){ prefs.theme = sh.theme; changed = true; }
+  if(sh.lang  && sh.lang  !== prefs.lang ){ prefs.lang  = sh.lang;  changed = true; }
+  if(!changed) return;
+  prefs.updatedAt = sh.updatedAt;
+  LS.set(PREFS_KEY, JSON.stringify(prefs));
+  applyTheme(); applyLang(); render();
+});
+
+/* Beim Start wird nichts in flowstate.prefs geschrieben: sonst ueberschreibt jede
+   geoeffnete Seite die zuletzt getroffene Wahl der anderen. Geschrieben wird nur bei
+   einer echten Aenderung (applyTheme/applyLang ueber die Farbfelder und DE|EN|ES). */
+seedShared();
 applyTheme();
 applyLang();
 render();
-ghState();
-if(ghReady()) pull(true);   // beim Start einmal vom Repo lesen
+var startupBackup = embeddedBackup();
+if(startupBackup && confirm(T("htmlRestore"))){
+  try{ restoreHtmlBackup(startupBackup); }catch(e){ toast(T("badFile"), "bad"); }
+}
 })();
 </script>
 </body>
