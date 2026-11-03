@@ -131,11 +131,11 @@ auf Deutsch und Englisch in [`LICENSE`](LICENSE).
 ## English
 
 Three programs for your quads, each a single HTML file that runs in the browser without an
-install, an account or an internet connection.
+install and without an account. Once loaded they work offline.
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
-| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 65 KB | Keep the quad list, export it as a table |
+| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 110 KB | Keep the quad list, read the flight controller |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 
@@ -154,9 +154,7 @@ Spanish is selectable in all three programs and on the overview page, but review
 nowhere. HangarDeck Lite joined with build 0.9.2.
 
 Language lives in the address: `?lang=de`, `?lang=en` or `?lang=es`. Without it the browser
-language decides, otherwise German. A missing string falls back to English. Spanish is
-selectable on the overview page, in the tuner and in the guide, but verified nowhere;
-HangarDeck Lite ships in German and English only.
+language decides, otherwise German. A missing string falls back to English.
 
 To check for a newer release, use the arrow button in the header of the overview page. It
 reads the published `assets/data/versions.json` and lists every program row that is ahead.
