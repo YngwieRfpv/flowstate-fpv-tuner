@@ -1605,7 +1605,7 @@
         '  README.html    dieselbe Beschreibung als lesbare Seite',
         '  LICENSE        Lizenz auf Deutsch und Englisch',
         '',
-        'Hinweis: Der FPV Guide ist rund 7,6 MB groß, der erste Aufruf dauert kurz.',
+        'Hinweis: Der FPV Guide ist rund 7,7 MB groß, der erste Aufruf dauert kurz.',
         ''
       ]).join('\n')
     };
@@ -1662,8 +1662,9 @@
     var all = state.data && state.data.releases ? state.data.releases : [];
     all.forEach(function (r) { if (r.program === programId) release = r; });
 
+    var platformVersion = (state.data && state.data.platform && state.data.platform.version) || '';
     var zipName = complete
-      ? 'FlowState-FPV-mit-Hub.zip'
+      ? 'FlowState-FPV-mit-Hub' + (platformVersion ? '-' + platformVersion : '') + '.zip'
       : (program ? program.name.replace(/\s+/g, '-') : programId) +
         (release ? '-' + release.version : '') + '-mit-Hub.zip';
 
