@@ -906,20 +906,6 @@ body.app-open .site-header {
   color: var(--text-soft);
 }
 
-.bundle-info__list {
-  display: grid;
-  gap: 5px;
-  margin: 0 0 12px;
-  padding-left: 18px;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--muted);
-}
-
-.bundle-info__list li::marker {
-  color: var(--mint);
-}
-
 .bundle-info__note {
   margin: 0;
   font-size: 13.5px;
@@ -965,7 +951,7 @@ body.app-open .site-header {
 
 .tile {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 16px;
   padding: 15px 17px;
@@ -989,11 +975,6 @@ body.app-open .site-header {
   outline-offset: 2px;
 }
 
-.tile-index {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--faint);
-}
 
 .tile-text {
   display: grid;
@@ -2349,23 +2330,6 @@ details.notes > summary:hover {
   max-width: 780px;
 }
 
-.detail-index {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--mint);
-  border: 1px solid var(--line-strong);
-  border-radius: 9px;
-  padding: 7px 10px;
-  flex-shrink: 0;
-  background: var(--panel);
-}
-
-#guide .detail-index {
-  color: var(--sky);
-}
-
 .detail-head h2 {
   font-size: clamp(24px, 3vw, 34px);
   margin-bottom: 10px;
@@ -2604,13 +2568,4 @@ details.notes > summary:hover {
 
 .report-status.is-warn {
   color: var(--amber);
-}
-
-/* Dateinamen in der Paketliste: nur der Name, kein Satz drumherum. */
-.bundle-info__list code {
-  color: var(--text-soft);
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  padding: 1px 5px;
 }

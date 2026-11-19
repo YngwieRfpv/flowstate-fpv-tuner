@@ -79,9 +79,7 @@ nicht geladen sind). Daraus entstehen automatisch:
 | Programmlinks über der Startansicht | `renderModuleLinks()` |
 | Programmliste in der Fußzeile | `renderModuleLinks()` |
 | Kacheln der Startansicht | `renderOverview()` |
-| Versionsfilter | `renderFilters()` |
 | Auswahl im Meldedialog | `renderReportPrograms()` |
-| Paketliste auf der Startseite | `renderBundleList()` |
 | Detailabschnitt, falls im Markup keiner steht | `renderModuleDetails()` |
 | ZIP-Inhalt im Browser | `bundleEntries()` |
 | ZIP-Inhalt in Node | `tools/paket.mjs` |
@@ -91,7 +89,8 @@ nicht geladen sind). Daraus entstehen automatisch:
 
 Alle Aufrufe laufen in `renderModules()`, das nach dem Laden der Daten und bei jedem
 Sprachwechsel einmal durchläuft. `initAppSwitch()` und `bindFilter()` binden neu gezeichnete
-Elemente, ohne bestehende doppelt zu verdrahten.
+Elemente, ohne bestehende doppelt zu verdrahten. Der Kanal- und der Versionsfilter bleiben,
+die Programmschalter sind entfallen.
 
 Die drei vorhandenen Detailabschnitte (`#hangar`, `#tuner`, `#guide`) stehen weiter im Markup:
 sie haben eigenen Aufbau (Bereichsraster, Logos, Beispiele), und dieser Text soll nicht in JSON
@@ -107,9 +106,12 @@ und setzt die `id` auf die Programm-ID; der generische Abschnitt entfällt dann 
    Release-Eintrag mit Version, Größe und SHA-256.
 3. `versions.js` neu erzeugen (Abschnitt 2), `node tools/paket.mjs` laufen lassen.
 
-Danach erscheint das Programm in Kopfzeile, Startansicht, Fußzeile, Versionsfilter,
-Meldedialog, Paketliste und ZIP, und `#/presets` öffnet es im Rahmen. Plattform-Code wird
-nicht angefasst.
+Danach erscheint das Programm in Kopfzeile, Startansicht, Fußzeile, Meldedialog und ZIP, und
+`#/presets` öffnet es im Rahmen. Plattform-Code wird nicht angefasst.
+
+Die Startseite zeigt bewusst weder Nummern noch Programmliste noch Programmschalter: nach
+außen ist das ein Werkzeug mit drei Bereichen. Register und Abschnitte bleiben trotzdem
+getrennt, damit ein viertes ohne Umbau dazukommt.
 
 Prüfen:
 

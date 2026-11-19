@@ -113,15 +113,12 @@
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
       'details.areas': 'Was drin ist',
-      'filter.prog.hangar': 'Hangar',
-      'filter.prog.tuner': 'Tuner',
-      'filter.prog.guide': 'Guide',
       'hero.eyebrow': 'FlowState FPV',
       'overview.sections': 'Mehr zu den Programmen',
-      'hero.title1': 'Alle Programme,',
-      'hero.title2': 'je eine HTML-Datei,',
-      'hero.accent': 'kein Server',
-      'hero.lede': 'HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Jedes Programm ist eine einzelne HTML-Datei, braucht keine Installation und kein Konto, und einmal geladen läuft es ohne Verbindung weiter.',
+      'hero.title1': 'Copter verwalten,',
+      'hero.title2': 'Logs auswerten,',
+      'hero.accent': 'Werte nachschlagen',
+      'hero.lede': 'HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Alles läuft im Browser, ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.',
       'hero.cta4': 'Versionen',
       'programs.eyebrow': 'Programme',
       'programs.title': 'Was die Programme machen',
@@ -163,7 +160,6 @@
       'versions.lede': 'Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Oben lässt sich alles auf einmal laden, in der Zeile dasselbe Paket mit dem Programmnamen im Dateinamen.',
       'search.label': 'Versionen durchsuchen',
       'search.placeholder': 'Version, Programm oder Stichwort …',
-      'filter.all': 'Alle',
       'filter.anyChannel': 'Jeder Kanal',
       'filter.reset': 'Filter zurücksetzen',
       'empty': 'Keine Version passt zu dieser Auswahl.',
@@ -233,7 +229,7 @@
       'area.glossary.t': 'Glossar', 'area.glossary.d': '95 Begriffe, direkt im Text aufrufbar.',
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.',
       'bundle.all': 'Alles herunterladen',
-      'bundle.what': 'Im Paket liegt alles im Ordner FlowState-FPV:',
+      'bundle.what': 'Im Paket liegt der Ordner FlowState-FPV mit der Startseite, den Programmen, der Beschreibung und der Lizenz.',
       'bundle.optional': 'Herunterladen ist freiwillig: die Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.',
       'bundle.storage': 'Was du hier anlegst, liegt im Speicher dieser Seite, das Paket führt seinen eigenen. Über file:// kann der Browser den Speicher sperren, dann gilt alles nur für die Sitzung.',
       'update.title': 'Stand prüfen',
@@ -297,15 +293,12 @@
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
       'details.areas': 'Qué incluye',
-      'filter.prog.hangar': 'Hangar',
-      'filter.prog.tuner': 'Tuner',
-      'filter.prog.guide': 'Guía',
       'hero.eyebrow': 'FlowState FPV',
       'overview.sections': 'Más sobre los programas',
-      'hero.title1': 'Todos los programas,',
-      'hero.title2': 'cada uno un archivo HTML,',
-      'hero.accent': 'sin servidor',
-      'hero.lede': 'HangarDeck Lite lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Cada programa es un solo archivo HTML, no necesita instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
+      'hero.title1': 'Gestionar copters,',
+      'hero.title2': 'leer registros,',
+      'hero.accent': 'consultar valores',
+      'hero.lede': 'HangarDeck Lite lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Todo funciona en el navegador, sin instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
       'hero.cta4': 'Versiones',
       'programs.eyebrow': 'Programas',
       'programs.title': 'Qué hacen los programas',
@@ -353,7 +346,6 @@
       'versions.lede': 'Para cada versión: canal, fecha, tamaño y suma de comprobación, además del estado en la tarjeta. Arriba se descarga todo de una vez; en la fila es el mismo paquete con el nombre del programa en el archivo.',
       'search.label': 'Buscar versiones',
       'search.placeholder': 'Versión, programa o palabra …',
-      'filter.all': 'Todos',
       'filter.anyChannel': 'Cualquier canal',
       'filter.reset': 'Quitar los filtros',
       'empty': 'Ninguna versión encaja con esta selección.',
@@ -436,7 +428,7 @@
       'area.sources.t': 'Fuentes y enlaces',
       'area.sources.d': 'Manuales originales, documentación, herramientas.',
       'bundle.all': 'Descargar todo',
-      'bundle.what': 'Todo el paquete va en la carpeta FlowState-FPV:',
+      'bundle.what': 'El paquete trae la carpeta FlowState-FPV con la portada, los programas, la descripción y la licencia.',
       'bundle.optional': 'Descargar es opcional: los programas están aquí en el marco bajo la cabecera y arrancan con un clic, y cada archivo del paquete también se abre por separado. Esta página llega desde la red, sin conexión los programas solo funcionan desde el paquete descomprimido.',
       'bundle.storage': 'Lo que creas aquí queda en el almacenamiento de esta página, el paquete lleva el suyo. Con file:// el navegador puede bloquear el almacenamiento y entonces todo vale solo para la sesión.',
       'update.title': 'Comprobar el estado',
@@ -500,15 +492,12 @@
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
       'details.areas': 'What is in it',
-      'filter.prog.hangar': 'Hangar',
-      'filter.prog.tuner': 'Tuner',
-      'filter.prog.guide': 'Guide',
       'hero.eyebrow': 'FlowState FPV',
       'overview.sections': 'More on the programs',
-      'hero.title1': 'Every program,',
-      'hero.title2': 'each a single HTML file,',
-      'hero.accent': 'no server',
-      'hero.lede': 'HangarDeck Lite keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV guide explains the workflow, the filters and the terms. Each program is a single HTML file, needs no install and no account, and once loaded it keeps running without a connection.',
+      'hero.title1': 'Manage copters,',
+      'hero.title2': 'read logs,',
+      'hero.accent': 'look up values',
+      'hero.lede': 'HangarDeck Lite keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV guide explains the workflow, the filters and the terms. Everything runs in the browser, needs no install and no account, and once loaded it keeps running without a connection.',
       'hero.cta4': 'Versions',
       'programs.eyebrow': 'Programs',
       'programs.title': 'What the programs do',
@@ -550,7 +539,6 @@
       'versions.lede': 'For each version: channel, date, size and checksum, plus the state right on the card. Above the list the whole package is one click away, in a row it is the same ZIP named after the program.',
       'search.label': 'Search versions',
       'search.placeholder': 'Version, program or keyword …',
-      'filter.all': 'All',
       'filter.anyChannel': 'Any channel',
       'filter.reset': 'Reset filters',
       'empty': 'No version matches this selection.',
@@ -620,7 +608,7 @@
       'area.glossary.t': 'Glossary', 'area.glossary.d': '95 terms, openable straight from the text.',
       'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.',
       'bundle.all': 'Download everything',
-      'bundle.what': 'Everything in the package sits in the folder FlowState-FPV:',
+      'bundle.what': 'The package holds the folder FlowState-FPV with the start page, the programs, the description and the licence.',
       'bundle.optional': 'Downloading is optional: the programs sit in the frame below the header and start with a click, and every file in the package also opens on its own. This page comes from the network, without a connection the programs only run from the unpacked package.',
       'bundle.storage': 'What you create here lives in the storage of this page, the package keeps its own. Over file:// the browser may block storage, then everything only lasts for the session.',
       'update.title': 'Check for updates',
@@ -1144,43 +1132,14 @@
     select.value = keep ? current : 'hub';
   }
 
-  function renderFilters() {
-    var group = $('#project-filter');
-    if (!group) return;
-    var html = '<button type="button" data-filter="project" data-value="all" aria-pressed="' +
-      (state.project === 'all' ? 'true' : 'false') + '">' + esc(t('filter.all')) + '</button>';
-    moduleList().forEach(function (item) {
-      var key = 'filter.prog.' + item.id;
-      var label = t(key);
-      html += '<button type="button" data-filter="project" data-value="' + esc(item.id) + '" aria-pressed="' +
-        (state.project === item.id ? 'true' : 'false') + '">' +
-        esc(label === key ? item.name : label) + '</button>';
-    });
-    group.innerHTML = html;
-    $$('[data-filter]').forEach(bindFilter);
-  }
-
-  function renderBundleList() {
-    var holder = $('#bundle-list');
-    if (!holder) return;
-    var html = '<li><code>' + esc(PACK_HUB) + '</code></li>';
-    moduleList().forEach(function (item) {
-      html += '<li><code>' + esc(modulePackName(item)) + '</code></li>';
-    });
-    html += '<li><code>README.md</code> <code>README.html</code> <code>LICENSE</code> <code>LIESMICH.txt</code></li>';
-    holder.innerHTML = html;
-  }
-
   // Abschnitte fuer Werkzeuge, die im Markup noch keinen eigenen haben.
   // Vorhandene Abschnitte bleiben, wie sie sind.
   function renderModuleDetails() {
     var holder = $('#program-details');
     if (!holder) return;
     holder.innerHTML = '';
-    var index = document.querySelectorAll('.section--detail').length;
     moduleList().forEach(function (item) {
       if (document.getElementById(item.id)) return;
-      index += 1;
       var features = list(item.highlights).map(function (text) {
         return '<li>' + esc(text) + '</li>';
       }).join('');
@@ -1190,7 +1149,6 @@
       holder.innerHTML += '<section class="section section--detail" id="' + esc(item.id) + '">' +
         '<div class="wrap">' +
           '<div class="detail-head">' +
-            '<span class="detail-index">' + ('0' + index).slice(-2) + '</span>' +
             '<div>' +
               '<p class="eyebrow">' + esc(pick(item.kind)) + '</p>' +
               '<h2>' + esc(item.name) + '</h2>' +
@@ -1211,9 +1169,7 @@
     if (!state.data) return;
     renderModuleSwitch();
     renderModuleLinks();
-    renderFilters();
     renderReportPrograms();
-    renderBundleList();
     renderModuleDetails();
     syncAppLinks();
   }
@@ -1280,7 +1236,7 @@
 
     var releases = state.data.releases || [];
 
-    holder.innerHTML = state.data.programs.map(function (program, index) {
+    holder.innerHTML = state.data.programs.map(function (program) {
       var release = null;
       releases.forEach(function (r) { if (r.program === program.id) release = r; });
       var version = release ? release.version : '';
@@ -1288,7 +1244,6 @@
 
       return '' +
         '<a class="tile" href="' + esc(modulePage(program.id) || program.path) + '" data-app-open="' + esc(program.id) + '">' +
-          '<span class="tile-index">' + ('0' + (index + 1)).slice(-2) + '</span>' +
           '<span class="tile-text">' +
             '<span class="tile-name">' + esc(program.name) + '</span>' +
             '<span class="tile-kind">' + esc(pick(program.kind)) + '</span>' +
