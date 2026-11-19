@@ -60,8 +60,8 @@ node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('assets/data/
 | `accent` | nein | Farbton der Karte: `mint` oder `sky` |
 
 Ein Werkzeug bekommt im Register eine eigene Release-Reihe. Der Tag trägt seit den beiden
-Werkzeugen von November 2026 den Programmnamen davor (`presets-v0.2.0-beta.1`,
-`osd-v0.1.0-beta.1`), weil GitHub Tags nicht nach Programm trennt und `v0.1.0-beta.1` schon
+Werkzeugen von November 2026 den Programmnamen davor (`presets-v0.2.0-beta.3`,
+`osd-v0.1.0-beta.2`), weil GitHub Tags nicht nach Programm trennt und `v0.1.0-beta.1` schon
 von einem früheren Hangar-Stand belegt ist. Die drei älteren Tags bleiben unverändert.
 
 Fehlt eine Sprache, greift Englisch, danach die erste vorhandene. Das macht `pick()` in

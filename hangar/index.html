@@ -106,14 +106,17 @@ body{
    Statuspunkte bleiben Kreise. Je Schema dosiert: Ocean weich, Sand mittel, Drakn straff. */
 /* FlowState masterbrand: unboxed emblem + wordmark, project name subordinate */
 .top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
-  margin-bottom:22px;background:linear-gradient(180deg,var(--panel),var(--panel2));
+  margin-bottom:22px;
+  /* Der Farbstreifen links ist eine Hintergrundlage des Kopfs, kein gelegtes Kind:
+     die Eckrundung schneidet ihn automatisch exakt ab, damit er an allen Radien
+     buendig ist. Ein eigenes Element mit eigener border-radius stand dagegen immer
+     um ein paar Pixel aus der Rundung heraus. */
+  background:
+    linear-gradient(180deg,var(--logo-a),var(--logo-b)) left top / 3px 100% no-repeat,
+    linear-gradient(180deg,var(--panel),var(--panel2));
+  background-origin:border-box;
   border:1px solid var(--line);border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);padding:15px 18px;
   position:relative}
-/* Der Farbstreifen links folgt der Rundung selbst - frueher beschnitt overflow:hidden
-   die ganze Leiste und damit auch das Exportmenue. */
-.top::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--logo-a),var(--logo-b));
-  border-radius:var(--r-xl) 0 0 var(--r-edge)}
 .brand{display:flex;align-items:center;gap:15px;min-width:0;padding-left:3px}
 .logo{width:53px;height:48px;flex:none;display:grid;place-items:center}
 .logo svg{width:53px;height:48px;display:block;filter:drop-shadow(0 3px 6px var(--shadow))}
@@ -516,7 +519,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">FlowState Hangar · v0.9.6-beta.1</span>
+    <span class="ver">FlowState Hangar · v0.9.6-beta.2</span>
   </footer>
 </div>
 
@@ -757,6 +760,9 @@ var FS_KEY = "flowstate.prefs";
    nur gelesen, damit Farbe und Sprache beim Öffnen schon stimmen. */
 var HUB_THEME_KEY = "flowstate-theme";
 var HUB_LANG_KEY = "flowstate-lang";
+/* Der Preset-Bauer legt sein zuletzt fertiges Preset hier ab (flowstate.shared.preset).
+   Diese Seite liest es nur; die Datei dort bleibt die einzige Quelle. */
+var SHARE_KEY = "flowstate.shared.preset";
 /* Die Schwesterseiten heißen intern anders: FPV-Guide ocean/linen/crimson,
    Tuner dark/light/cream. Hier wird auf unsere Namen abgebildet. */
 var THEME_ALIAS = { ocean:"ocean", sand:"sand", drakn:"drakn",
@@ -1021,6 +1027,7 @@ var PR_I18N = {
     prTaken:"übernommen", prIgnored:"übergangen", prIgnoredHint:"Alles andere wird nicht übernommen – bewusst.",
     prEmpty:"Noch kein Preset gewählt.", prClear:"Feld leeren",
     prSrcPreset:"Vorlage", prSrcOwn:"eigenes Preset", prSrcCopter:"aus diesem Copter",
+    prSrcShared:"aus dem Preset-Bauer", prSharedNew:"Preset aus dem Preset-Bauer ist angekommen",
     prVideo:"Video", prNothing:"Keine passenden Zeilen im Feld.",
     prCsvSw:"Schalter", prCsvBeep:"Beeper", prCsvOsd:"OSD", prCsvNoBf:"Noch keine Betaflight-Sicherung an diesem Modell.",
     prOsdTitle:"OSD-Positionen", prOsdHint:"Gelesen aus dem gespeicherten diff all. 53 Spalten brauchen ein breites Fenster – am Handy seitlich schieben.",
@@ -1034,6 +1041,7 @@ var PR_I18N = {
     prTaken:"taken", prIgnored:"skipped", prIgnoredHint:"Everything else is left out – on purpose.",
     prEmpty:"No preset selected yet.", prClear:"Clear the field",
     prSrcPreset:"Template", prSrcOwn:"own preset", prSrcCopter:"from this quad",
+    prSrcShared:"from the preset builder", prSharedNew:"A preset from the preset builder arrived",
     prVideo:"Video", prNothing:"No matching lines in the field.",
     prCsvSw:"Switch", prCsvBeep:"Beeper", prCsvOsd:"OSD", prCsvNoBf:"No Betaflight backup on this quad yet.",
     prOsdTitle:"OSD positions", prOsdHint:"Read from the stored diff all. 53 columns need a wide window – pan sideways on a phone.",
@@ -1047,6 +1055,7 @@ var PR_I18N = {
     prTaken:"aplicadas", prIgnored:"omitidas", prIgnoredHint:"Todo lo demás no se aplica, a propósito.",
     prEmpty:"Aún no hay preset elegido.", prClear:"Vaciar el campo",
     prSrcPreset:"Plantilla", prSrcOwn:"preset propio", prSrcCopter:"de este dron",
+    prSrcShared:"del creador de presets", prSharedNew:"Llegó un preset del creador",
     prVideo:"Vídeo", prNothing:"No hay líneas adecuadas en el campo.",
     prCsvSw:"Interruptor", prCsvBeep:"Beeper", prCsvOsd:"OSD", prCsvNoBf:"Este dron aún no tiene copia de Betaflight.",
     prOsdTitle:"Posiciones OSD", prOsdHint:"Leído del diff all guardado. 53 columnas necesitan una ventana ancha – en el móvil, desplaza.",
@@ -1658,11 +1667,32 @@ function prByName(id){
   return null;
 }
 /* Eine Quelle ist "b:<vorlage>", "u:<eigenes>" oder "c:bf" (Sicherung des Modells). */
+/* Was der Preset-Bauer zuletzt bereitgestellt hat. Nur Schalter, Beeper und OSD,
+   weil er selbst nichts anderes schreibt. */
+function prShared(){
+  var raw = LS.get(SHARE_KEY);
+  if(!raw) return null;
+  var p;
+  try{ p = JSON.parse(raw); }catch(e){ return null; }
+  if(!p || typeof p.cli !== "string" || !p.cli.trim()) return null;
+  return { name:(p.name || "").slice(0, 80), cli:p.cli, copter:p.copter || "", updatedAt:p.updatedAt || 0 };
+}
+function prSharedLabel(p){
+  var when = "";
+  if(p.updatedAt){
+    var d = new Date(p.updatedAt);
+    if(!isNaN(d.getTime())){
+      when = " · " + ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth() + 1)).slice(-2) + "." + d.getFullYear();
+    }
+  }
+  return (p.name || T("prSrcShared")) + when;
+}
 function prSourceText(id, diffText){
   if(!id) return "";
   /* "aus diesem Copter" heißt: die im Modell gespeicherte Sicherung.
      Das Textfeld ist das Ziel, nicht die Quelle - sonst überschriebe sich das Preset selbst. */
   if(id === "c:bf") return diffText != null ? diffText : (formBf && formBf.diff ? formBf.diff : "");
+  if(id === "s:live") { var sh = prShared(); return sh ? sh.cli : ""; }
   var p = prByName(id.slice(2));
   return p ? (p.lines || []).join("\n") : "";
 }
@@ -1688,6 +1718,12 @@ function prFillSelect(diffText){
   if(own.length){
     parts.push('<optgroup label="' + esc(T("prSrcOwn")) + '">');
     own.forEach(function(o){ parts.push('<option value="u:' + esc(o.id) + '">' + esc(o.name || o.id) + "</option>"); });
+    parts.push("</optgroup>");
+  }
+  var fromBuilder = prShared();
+  if(fromBuilder){
+    parts.push('<optgroup label="' + esc(T("prSrcShared")) + '">');
+    parts.push('<option value="s:live">' + esc(prSharedLabel(fromBuilder)) + "</option>");
     parts.push("</optgroup>");
   }
   if(has){
@@ -1749,6 +1785,12 @@ function prDlgFill(sel){
   if(own.length){
     parts.push('<optgroup label="' + esc(T("prSrcOwn")) + '">');
     own.forEach(function(o){ parts.push('<option value="u:' + esc(o.id) + '">' + esc(o.name || o.id) + "</option>"); });
+    parts.push("</optgroup>");
+  }
+  var fromBuilder = prShared();
+  if(fromBuilder){
+    parts.push('<optgroup label="' + esc(T("prSrcShared")) + '">');
+    parts.push('<option value="s:live">' + esc(prSharedLabel(fromBuilder)) + "</option>");
     parts.push("</optgroup>");
   }
   sel.innerHTML = parts.join("");
@@ -2574,7 +2616,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "0.9.6-beta.1";
+var VER = "0.9.6-beta.2";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -3000,6 +3042,13 @@ $("langs").addEventListener("click", function(e){
 /* Eine Schwesterseite (FPV-Guide, Autotuner, weiteres FlowState-Projekt) hat
    umgeschaltet: sofort übernehmen, ohne Neuladen. */
 window.addEventListener("storage", function(e){
+  /* Der Preset-Bauer hat ein neues Preset bereitgestellt: Auswahllisten nachziehen. */
+  if(e.key === SHARE_KEY){
+    prDlgFill($("prSel"));
+    if(formBf) prFillSelect();
+    if(prShared()) toast(T("prSharedNew"), "ok");
+    return;
+  }
   if(e.key === HUB_THEME_KEY || e.key === HUB_LANG_KEY){
     var t = e.key === HUB_THEME_KEY ? hubTheme() : null;
     var l = e.key === HUB_LANG_KEY ? hubLang() : null;

@@ -2,7 +2,7 @@
   "app": "FlowState Hangar",
   "example": true,
   "schema": 2,
-  "version": "0.9.6-beta.1",
+  "version": "0.9.6-beta.2",
   "updated": "2026-11-03T12:00:00.000Z",
   "note": "Beispieldaten – keine echten Copter. Dient als Startbestand und zeigt das Dateiformat.",
   "prefs": {
