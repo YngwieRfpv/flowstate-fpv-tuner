@@ -8,7 +8,7 @@ Verbindung.
 
 ## [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-[`hangar/index.html`](hangar/index.html) · 156 KB · Copter mit Bild führen, Presets, Flight Controller auslesen
+[`hangar/index.html`](hangar/index.html) · 158 KB · Copter mit Bild führen, Presets, Flight Controller auslesen
 
 Führt die Copter-Liste, wahlweise als Kacheln oder als Tabelle. Name, Größe, Spannung, KV,
 ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem, Abfluggewicht
@@ -51,7 +51,7 @@ braucht es nicht. Quellen und Lizenzangaben bleiben im Dokument stehen.
 
 ## [FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)
 
-[`presets/index.html`](presets/index.html) · 218 KB · Schalter, Beeper, OSD, Raten und Anpassungen als CLI
+[`presets/index.html`](presets/index.html) · 223 KB · Schalter, Beeper, OSD, Raten und Anpassungen als CLI
 
 Sammelt die Bereiche, die man gefahrlos weitergeben kann: Schalterbelegung, Beeper,
 OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit `save`.
@@ -201,10 +201,10 @@ in the browser, without an install and without an account, and once loaded it wo
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
-| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 154 KB | Keep the quad list, presets, read the flight controller |
+| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 158 KB | Keep the quad list, presets, read the flight controller |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
-| **[FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 218 KB | Switches, beeper, OSD, rates and adjustments as CLI |
+| **[FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 223 KB | Switches, beeper, OSD, rates and adjustments as CLI |
 | **[OSD Customizer](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)** | [`osd/index.html`](osd/index.html) | 4.3 MB | Fonts, startup logo and layout for the Betaflight OSD |
 
 Hangar and Presets share their data in both directions: the preset builder lists the hangar's
