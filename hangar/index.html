@@ -384,6 +384,38 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   .acts{grid-column:1/-1;justify-content:flex-end}
   .wrap{padding:20px 14px 70px}
 }
+
+/* Presets für Schalter, Beeper und OSD */
+.prsec{border:1px solid var(--line);background:var(--panel2);padding:12px 13px;margin-top:10px;
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);display:grid;gap:10px}
+.prow{display:flex;gap:8px;align-items:center;flex-wrap:nowrap}
+.prow select,.prow input{flex:1 1 auto;min-width:0}
+.prow .btn{flex:none;white-space:nowrap}
+@media (max-width:480px){ .prow{flex-wrap:wrap} .prow .btn{flex:1 1 100%} }
+.psrc{font-size:12.5px;color:var(--text);display:flex;gap:8px;align-items:baseline;line-height:1.4}
+.psrc::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dim);flex:none;transform:translateY(-1px)}
+.psrc.ok::before{background:var(--ok)}
+.psrc.warn::before{background:var(--warn)}
+.plist{margin:0;padding:0;list-style:none;display:grid;gap:5px;max-height:180px;overflow:auto}
+.plist li{display:flex;gap:8px;justify-content:space-between;align-items:center;
+  font-size:12.5px;color:var(--text);border-bottom:1px solid var(--line);padding:4px 0 5px}
+.plist li:last-child{border-bottom:0}
+.plist .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+  color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.plist b{font-weight:650;color:var(--strong)}
+.psw{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:3px 0;border-bottom:1px solid var(--line)}
+.psw:last-child{border-bottom:0}
+.psw span:last-child{color:var(--strong);font-weight:600;font-variant-numeric:tabular-nums}
+.psw span:first-child{color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px}
+.osdgrid{display:grid;gap:2px;background:var(--field);border:1px solid var(--line2);padding:6px;
+  border-radius:var(--r-sm);width:max-content;grid-auto-rows:16px}
+.osdgrid div{font-size:8.5px;line-height:1.05;display:grid;place-items:center;text-align:center;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;
+  color:var(--strong);background:color-mix(in srgb,var(--accent) 16%,transparent);
+  border-radius:var(--r-edge);overflow:hidden;padding:1px;min-height:10px}
+.osdgrid div.off{background:transparent;color:transparent}
+.osdwrap{max-height:300px;overflow:auto;border-radius:var(--r-sm)}
+.pnote{font-size:12px;color:var(--muted);margin:0;line-height:1.45}
 </style>
 </head>
 <body>
@@ -459,6 +491,10 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
         <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13m0 0-3.5-3.5M17 8l-3.5 3.5M20 16H7m0 0 3.5-3.5M7 16l3.5 3.5"/></svg>
         <span data-i18n="trBtn">Übertragen</span>
       </button>
+      <button class="btn ghost sm" id="btnPreset" type="button" data-i18n-title="prTitle" title="Presets: Schalter, Beeper, OSD">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M4 12h16M4 17h7"/><circle cx="18" cy="7" r="2.4"/><circle cx="15" cy="17" r="2.4"/></svg>
+        <span data-i18n="prTitle">Preset</span>
+      </button>
       <button class="btn primary" id="btnNew" type="button" data-i18n="add">+ Copter</button>
     </div>
   </div>
@@ -480,7 +516,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">FlowState Hangar · v0.9.5-beta.1</span>
+    <span class="ver">FlowState Hangar · v0.9.6-beta.1</span>
   </footer>
 </div>
 
@@ -510,6 +546,39 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
           <button class="btn sm primary" type="button" id="btnTrMerge" data-i18n="trMerge">Einfügen &amp; zusammenführen</button>
         </div>
         <p class="fcstate" id="trState" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Presets: Schalter, Beeper und OSD – nur diese drei Bereiche. -->
+<dialog id="prDlg">
+  <div class="card">
+    <header>
+      <h2 data-i18n="prTitle">Preset</h2>
+      <button class="dlgclose" type="button" id="btnPrClose" data-i18n-aria="trClose" data-i18n="trClose">Schließen</button>
+    </header>
+    <div class="body">
+      <div class="trsec">
+        <h3 data-i18n="prSrcPreset">Vorlage</h3>
+        <p class="hint" data-i18n="prHint">Nimmt nur Schalter, Beeper und OSD an – keine PID, Filter oder Motoren.</p>
+        <div class="prow">
+          <select id="prSel" aria-label="Preset wählen"></select>
+          <button class="btn sm primary" type="button" id="btnPrCopy" data-i18n="prCopy">Kopieren</button>
+        </div>
+        <p class="psrc" id="prSrcBox" role="status" aria-live="polite"></p>
+        <textarea id="prText" spellcheck="false" style="min-height:120px"></textarea>
+        <div class="btnrow">
+          <button class="btn sm ghost" type="button" id="btnPrClear" data-i18n="prClear">Feld leeren</button>
+        </div>
+      </div>
+      <div class="trsec">
+        <h3 data-i18n="prSaveTitle">Eigenes Preset</h3>
+        <div class="prow">
+          <input type="text" id="prName" data-i18n-ph="prNamePh" placeholder="z. B. Werkstatt-Setup" aria-label="Name für das Preset">
+          <button class="btn sm" type="button" id="btnPrSave" data-i18n="prSaveGo">Sichern</button>
+        </div>
+        <p class="fcstate" id="prState" role="status" aria-live="polite"></p>
       </div>
     </div>
   </div>
@@ -610,6 +679,29 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
               <p class="fcstate" id="bfState" role="status" aria-live="polite"></p>
             </div>
             <p class="hint" data-i18n="bfHint">Die Sicherung wird erst geschrieben, wenn das Target hier zum FC-Target passt (aus „FC auslesen“ oder `board_name`).</p>
+          </div>
+          <div class="full">
+            <label><span data-i18n="prTitle">Preset</span> <span class="opt" data-i18n="prOpt">nur Schalter, Beeper, OSD</span></label>
+            <div class="prsec">
+              <div class="prow">
+                <select id="f_presetsel" aria-label="Preset wählen"></select>
+                <button class="btn sm" type="button" id="btnPreApply" data-i18n="prApply">Einlesen</button>
+              </div>
+              <p class="hint" id="prSrc"></p>
+              <div class="prow">
+                <input type="text" id="f_preName" data-i18n-ph="prNamePh" placeholder="z. B. Werkstatt-Setup" aria-label="Name für das Preset">
+                <button class="btn sm ghost" type="button" id="btnPreSave" data-i18n="prSaveGo">Sichern</button>
+              </div>
+              <p class="fcstate" id="prState" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="full">
+            <label><span data-i18n="prOsdTitle">OSD-Positionen</span> <span class="opt" data-i18n="prOsdOpt">aus dem gespeicherten Diff</span></label>
+            <div class="prsec">
+              <div class="prow"><button class="btn sm ghost" type="button" id="btnOsdShow" data-i18n="prOsdTitle">OSD-Positionen</button></div>
+              <div class="osdwrap" id="osdWrap" hidden></div>
+              <p class="pnote" data-i18n="prOsdHint">Gelesen aus dem gespeicherten diff all.</p>
+            </div>
           </div>
           <div>
             <label for="f_rx"><span data-i18n="receiver">Empfänger</span> <span class="opt" data-i18n="opt">optional</span></label>
@@ -919,7 +1011,51 @@ var TR_I18N = {
     trNone:"Nada nuevo", trBad:"Código ilegible" }
 };
 
-[BF_I18N, TR_I18N].forEach(function(src){
+
+/* Texte der Presets (Schalter, Beeper, OSD) - wie BF_I18N und TR_I18N gemischt. */
+var PR_I18N = {
+  de:{ prTitle:"Preset",prOpt:"nur Schalter, Beeper, OSD", prOsdOpt:"aus dem gespeicherten Diff",  prHint:"Nimmt nur Schalter, Beeper und OSD an – keine PID, Filter oder Motoren.",
+    prApply:"Einlesen", prCopy:"Kopieren", prKind:"Bereich", prSave:"Als eigenes Preset sichern",
+    prName:"Name für das Preset", prNamePh:"z. B. Werkstatt-Setup", prSaveGo:"Sichern",
+    prSaved:"Preset gesichert", prSaveBad:"Dafür fehlen passende Zeilen.",
+    prTaken:"übernommen", prIgnored:"übergangen", prIgnoredHint:"Alles andere wird nicht übernommen – bewusst.",
+    prEmpty:"Noch kein Preset gewählt.", prClear:"Feld leeren",
+    prSrcPreset:"Vorlage", prSrcOwn:"eigenes Preset", prSrcCopter:"aus diesem Copter",
+    prVideo:"Video", prNothing:"Keine passenden Zeilen im Feld.",
+    prCsvSw:"Schalter", prCsvBeep:"Beeper", prCsvOsd:"OSD", prCsvNoBf:"Noch keine Betaflight-Sicherung an diesem Modell.",
+    prOsdTitle:"OSD-Positionen", prOsdHint:"Gelesen aus dem gespeicherten diff all. 53 Spalten brauchen ein breites Fenster – am Handy seitlich schieben.",
+    prOsdNone:"Keine OSD-Positionen im Diff gefunden.",
+    prBuilt:{ aux:"Schalter", beeper:"Beeper", osd:"OSD-Basis" },
+    prPreset:{ osdClean:"OSD aufgeräumt", beeperQuiet:"Beeper leise" } },
+  en:{ prTitle:"Presets",prOpt:"switches, beeper, OSD only", prOsdOpt:"from the stored diff",  prHint:"Accepts switches, beeper and OSD only – no PIDs, filters or motors.",
+    prApply:"Load", prCopy:"Copy", prKind:"Section", prSave:"Save as own preset",
+    prName:"Name for the preset", prNamePh:"e.g. workshop setup", prSaveGo:"Save",
+    prSaved:"Preset saved", prSaveBad:"No matching lines for that.",
+    prTaken:"taken", prIgnored:"skipped", prIgnoredHint:"Everything else is left out – on purpose.",
+    prEmpty:"No preset selected yet.", prClear:"Clear the field",
+    prSrcPreset:"Template", prSrcOwn:"own preset", prSrcCopter:"from this quad",
+    prVideo:"Video", prNothing:"No matching lines in the field.",
+    prCsvSw:"Switch", prCsvBeep:"Beeper", prCsvOsd:"OSD", prCsvNoBf:"No Betaflight backup on this quad yet.",
+    prOsdTitle:"OSD positions", prOsdHint:"Read from the stored diff all. 53 columns need a wide window – pan sideways on a phone.",
+    prOsdNone:"No OSD positions found in the diff.",
+    prBuilt:{ aux:"Switch", beeper:"Beeper", osd:"OSD base" },
+    prPreset:{ osdClean:"OSD tidy", beeperQuiet:"Quiet beeper" } },
+  es:{ prTitle:"Presets",prOpt:"solo interruptores, beeper, OSD", prOsdOpt:"del diff guardado",  prHint:"Solo acepta interruptores, beeper y OSD – sin PID, filtros ni motores.",
+    prApply:"Cargar", prCopy:"Copiar", prKind:"Área", prSave:"Guardar como preset propio",
+    prName:"Nombre del preset", prNamePh:"p. ej. taller", prSaveGo:"Guardar",
+    prSaved:"Preset guardado", prSaveBad:"No hay líneas adecuadas.",
+    prTaken:"aplicadas", prIgnored:"omitidas", prIgnoredHint:"Todo lo demás no se aplica, a propósito.",
+    prEmpty:"Aún no hay preset elegido.", prClear:"Vaciar el campo",
+    prSrcPreset:"Plantilla", prSrcOwn:"preset propio", prSrcCopter:"de este dron",
+    prVideo:"Vídeo", prNothing:"No hay líneas adecuadas en el campo.",
+    prCsvSw:"Interruptor", prCsvBeep:"Beeper", prCsvOsd:"OSD", prCsvNoBf:"Este dron aún no tiene copia de Betaflight.",
+    prOsdTitle:"Posiciones OSD", prOsdHint:"Leído del diff all guardado. 53 columnas necesitan una ventana ancha – en el móvil, desplaza.",
+    prOsdNone:"No se encontraron posiciones OSD en el diff.",
+    prBuilt:{ aux:"Interruptor", beeper:"Beeper", osd:"Base OSD" },
+    prPreset:{ osdClean:"OSD ordenado", beeperQuiet:"Beeper silencioso" } }
+};
+
+[BF_I18N, TR_I18N, PR_I18N].forEach(function(src){
   Object.keys(src).forEach(function(lg){
     if(!I18N[lg]) return;
     for(var k in src[lg]){ if(Object.prototype.hasOwnProperty.call(src[lg],k)) I18N[lg][k] = src[lg][k]; }
@@ -1444,6 +1580,277 @@ function trDoMerge(){
   trDoMergeText(raw);
 }
 
+/* ---------- Presets: Schalter, Beeper, OSD ---------- */
+/* Warum nur diese drei: aux, beeper und OSD lassen sich gefahrlos übertragen.
+   PID, Filter, Motoren und alles andere bleiben draußen - eine Vorlage, die für ein
+   anderes Board oder eine andere Firmware gedacht war, kann so keinen Copter kippen.
+   Alles wird beim Einlesen geprüft, nicht beim Einfügen: ein fremdes Snippet kann
+   seinen PID-Block also nicht "versehentlich" mitbringen. */
+
+/* set osd_displayport_device = MSP ist HD - dann ist das Raster 53x20. */
+var PR_HD_DP = ["MSP", "DISPLAYPORT", "HD", "MSP_DISPLAYPORT"];
+function prIsOsdLine(l){
+  if(/^set\s+osd_[a-z0-9_]*_pos\s*=/.test(l)) return true;
+  if(/^set\s+osd_displayport_device\s*=/.test(l)) return true;
+  if(/^set\s+vcd_video_system\s*=/.test(l)) return true;
+  if(/^set\s+osd_units\s*=/.test(l)) return true;
+  if(/^set\s+osd_craft_name/.test(l)) return true;
+  if(/^set\s+osd_ahi/.test(l)) return true;
+  if(/^set\s+osd_gps_sound/.test(l)) return true;
+  return false;
+}
+function prKindOf(l){
+  if(/^aux\b/.test(l) || /^feature\s+AIRMODE\b/.test(l)) return "aux";
+  if(/^beeper\s+/.test(l) || /^set\s+beep/.test(l)) return "beeper";
+  if(/^feature\s+OSD\b/.test(l) || prIsOsdLine(l)) return "osd";
+  return null;
+}
+function prFilter(text){
+  var kept = { aux: [], beeper: [], osd: [] }, ignored = [];
+  String(text || "").replace(/\r/g, "").split("\n").forEach(function(raw){
+    var l = raw.replace(/\s+$/, "").trim();
+    if(!l || l.charAt(0) === "#") return;
+    var k = prKindOf(l);
+    if(k) kept[k].push(l);
+    else if(!/^(batch start|batch end|save)$/.test(l)) ignored.push(l);
+  });
+  var out = [], order = ["aux", "beeper", "osd"];
+  order.forEach(function(k){ out = out.concat(kept[k]); });
+  return { text: out.join("\n"), counts: kept, ignored: ignored };
+}
+
+/* Mitgeliefert: nur Beeper, OSD-Basis und die Schalter-Hilfe AIRMODE.
+   Keine Schalterbelegung (hängt an Sender und Empfänger), kein ARM, kein Turtle Mode. */
+var PR_BUILT = [
+  { id:"osdClean", kind:"osd", lines:[
+      "feature OSD",
+      "# Positionen für 30x16 (PAL/NTSC). Für HD (53x20) weiter außen nachziehen.",
+      "set osd_rssi_dbm_pos = 1",
+      "set osd_link_quality_pos = 6",
+      "set osd_warnings_pos = 394",
+      "set osd_vbat_pos = 897",
+      "set osd_timer_pos = 908",
+      "set osd_craft_name_pos = 970" ] },
+  { id:"beeperQuiet", kind:"beeper", lines:[
+      "beeper -RX_LOST",
+      "beeper -RX_SET",
+      "beeper -DISARM_REPEAT",
+      "beeper -ARMING",
+      "beeper -ACC_CALIBRATION",
+      "beeper -ON_USB",
+      "# Was bleibt: Batterschwelle, Warnungen, Aufschlag (Crash-Flip)." ] }
+];
+
+/* Eigene Presets liegen in den Einstellungen - reisen per HTML-Backup mit,
+   nicht per Übertrag-Code (der trägt Copter, keine Vorlagen). */
+function prUserList(){
+  return (prefs.presets || []).filter(function(x){ return x && x.id && Array.isArray(x.lines); });
+}
+function prSaveStore(list){
+  prefs.presets = list.slice(0, 40);
+  savePrefs(false);
+}
+function prByName(id){
+  var u = prUserList().filter(function(x){ return x.id === id; })[0];
+  if(u) return u;
+  var b = PR_BUILT.filter(function(x){ return x.id === id; })[0];
+  if(b) return { id: b.id, name: (T("prPreset") || {})[b.id] || b.id, kind: b.kind, lines: b.lines };
+  return null;
+}
+/* Eine Quelle ist "b:<vorlage>", "u:<eigenes>" oder "c:bf" (Sicherung des Modells). */
+function prSourceText(id, diffText){
+  if(!id) return "";
+  /* "aus diesem Copter" heißt: die im Modell gespeicherte Sicherung.
+     Das Textfeld ist das Ziel, nicht die Quelle - sonst überschriebe sich das Preset selbst. */
+  if(id === "c:bf") return diffText != null ? diffText : (formBf && formBf.diff ? formBf.diff : "");
+  var p = prByName(id.slice(2));
+  return p ? (p.lines || []).join("\n") : "";
+}
+function prCounts(res){
+  var c = res.counts, bits = [];
+  if(c.aux.length)    bits.push(c.aux.length + " " + T("prCsvSw"));
+  if(c.beeper.length) bits.push(c.beeper.length + " " + T("prCsvBeep"));
+  if(c.osd.length)    bits.push(c.osd.length + " " + T("prCsvOsd"));
+  return bits;
+}
+/* Auswahl füllen: Vorlagen, eigene Presets, dann die Sicherung dieses Modells. */
+function prFillSelect(diffText){
+  var sel = $("f_presetsel");
+  if(!sel) return;
+  var saved = formBf && formBf.diff ? formBf.diff : "";
+  var cur = sel.value, has = bfDiffLines(diffText != null ? diffText : saved).length > 0;
+  var parts = ['<optgroup label="' + esc(T("prSrcPreset")) + '">'];
+  PR_BUILT.forEach(function(b){
+    parts.push('<option value="b:' + b.id + '">' + esc((T("prPreset") || {})[b.id] || b.id) + "</option>");
+  });
+  parts.push("</optgroup>");
+  var own = prUserList();
+  if(own.length){
+    parts.push('<optgroup label="' + esc(T("prSrcOwn")) + '">');
+    own.forEach(function(o){ parts.push('<option value="u:' + esc(o.id) + '">' + esc(o.name || o.id) + "</option>"); });
+    parts.push("</optgroup>");
+  }
+  if(has){
+    parts.push('<optgroup label="' + esc(T("prSrcCopter")) + '">');
+    parts.push('<option value="c:bf">' + esc(T("prCsvSw") + " · " + T("prCsvBeep") + " · " + T("prCsvOsd")) + "</option>");
+    parts.push("</optgroup>");
+  }
+  sel.innerHTML = parts.join("");
+  var keep = false;
+  for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value === cur) keep = true; }
+  if(keep) sel.value = cur;
+}
+function prSay(el, msg, kind){
+  var box = $(el);
+  if(!box) return;
+  box.textContent = msg;
+  box.className = "fcstate" + (kind ? " " + kind : "");
+}
+/* Aus dem Dialog in die Sicherung dieses Modells übernehmen. */
+function prApplyInForm(){
+  var id = $("f_presetsel").value;
+  if(id === "c:bf" && !bfDiffLines(prSourceText("c:bf")).length){
+    prSay("prState", T("prCsvNoBf"), "warn");
+    return;
+  }
+  var res = prFilter(prSourceText(id));
+  var lines = res.text ? res.text.split("\n").length : 0;
+  if(!lines){ prSay("prState", T("prNothing"), "warn"); return; }
+  var field = $("f_bfdiff"), cur = field.value.replace(/\s+$/, "");
+  /* Was schon wortgleich dasteht, wird nicht doppelt angehängt. Eine Zeile mit
+     anderem Wert bleibt erlaubt - sie überschreibt am Ende, wie im CLI gewohnt. */
+  var have = {}, curLines = cur ? cur.split("\n") : [];
+  curLines.forEach(function(l){ have[l.trim()] = 1; });
+  var add = res.text.split("\n").filter(function(l){ return !have[l.trim()]; });
+  field.value = (cur ? cur + "\n" : "") + add.join("\n");
+  if(typeof bfPanel === "function") bfPanel();
+  prFillSelect();
+  var c = res.counts;
+  prSay("prState", add.length + " " + T("prTaken") + " · " + T("prCsvSw") + " " + c.aux.length +
+        " · " + T("prCsvBeep") + " " + c.beeper.length + " · " + T("prCsvOsd") + " " + c.osd.length +
+        (res.ignored.length ? " · " + res.ignored.length + " " + T("prIgnored") : ""), "ok");
+}
+
+/* Der eigene Dialog: alle Vorlagen und eigenen Presets als Text, zum Kopieren
+   oder Ablegen - auch ohne geöffnetes Modell. */
+function prDlgSay(msg, kind){
+  var el = $("prSrcBox");
+  if(!el) return;
+  el.textContent = msg;
+  el.className = "psrc" + (kind ? " " + kind : "");
+}
+function prDlgFill(sel){
+  var cur = sel.value, parts = ['<optgroup label="' + esc(T("prSrcPreset")) + '">'];
+  PR_BUILT.forEach(function(b){
+    parts.push('<option value="b:' + b.id + '">' + esc((T("prPreset") || {})[b.id] || b.id) + "</option>");
+  });
+  parts.push("</optgroup>");
+  var own = prUserList();
+  if(own.length){
+    parts.push('<optgroup label="' + esc(T("prSrcOwn")) + '">');
+    own.forEach(function(o){ parts.push('<option value="u:' + esc(o.id) + '">' + esc(o.name || o.id) + "</option>"); });
+    parts.push("</optgroup>");
+  }
+  sel.innerHTML = parts.join("");
+  var keep = false;
+  for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value === cur) keep = true; }
+  if(keep) sel.value = cur;
+}
+function prDlgSource(){
+  if($("prText").value.trim()) return { id:$("prSel").value, text:$("prText").value };
+  return { id:$("prSel").value, text:prSourceText($("prSel").value) };
+}
+function prDlgPick(){
+  var id = $("prSel").value, raw = prSourceText(id), res = prFilter(raw);
+  $("prText").value = res.text;
+  var bits = prCounts(res);
+  prDlgSay(bits.length ? bits.join(" · ") + (res.ignored.length ? " · " + res.ignored.length + " " + T("prIgnored") : "")
+                       : T("prNothing"), bits.length ? "ok" : "warn");
+}
+/* Vor dem Öffnen: Auswahl aus dem Modell übernehmen, wenn es eines gibt. */
+function prDlgSync(){
+  var src = $("f_presetsel").value;
+  $("prSel").value = "";
+  prDlgFill($("prSel"));
+  if(src && $("prSel").querySelector('option[value="' + src.replace(/"/g, '\\"') + '"]')) $("prSel").value = src;
+  prDlgPick();
+}
+function prOpen(){
+  prDlgSync();
+  $("prState").textContent = "";
+  $("prDlg").showModal();
+  setTimeout(function(){ $("prSel").focus(); }, 40);
+}
+/* Eigenes Preset sichern: Quelle ist der Dialog oder das Formular. */
+function prSaveUser(id, text, nameInput){
+  var res = prFilter(text);
+  if(!res.text){ prSay("prState", T("prSaveBad"), "warn"); return; }
+  var seen = {}, lines = res.text.split("\n").filter(function(l){ if(seen[l]) return false; seen[l] = 1; return true; });
+  var base = prByName(String(id || "").slice(2));
+  var name = (($(nameInput) || {}).value || "").trim() || (base && base.name) || T("prTitle");
+  var pid = "p" + Date.now().toString(36);
+  var list = prUserList();
+  list.unshift({ id:pid, name:name.slice(0, 60), kind:"mixed", at:Date.now(), lines:lines });
+  prSaveStore(list);
+  if($(nameInput)) $(nameInput).value = "";
+  prFillSelect();
+  $("f_presetsel").value = "u:" + pid;
+  prDlgFill($("prSel"));
+  if($("prSel").querySelector('option[value="u:' + pid + '"]')){ $("prSel").value = "u:" + pid; $("prText").value = lines.join("\n"); }
+  prDlgSay(lines.length + " " + T("prTaken") + " · " + T("prSaved"), "ok");
+  prSay("prState", T("prSaved") + ": " + name, "ok");
+  toast(T("prSaved"), "ok");
+}
+
+/* OSD aus dem Diff lesen: x = pos & 63, y = (pos & 2047) >> 6, Profil = pos >> 11.
+   Elementname ohne "set ", ohne "_pos" und ohne führendes "osd_". 0 = aus. */
+function prOsdGrid(diffText, videoValue){
+  var lines = bfDiffLines(diffText), els = [], hdFlag = null, res = null;
+  lines.forEach(function(l){
+    var m = l.match(/^set\s+osd_([a-z0-9_]+?)_pos\s*=\s*(\d+)\s*$/);
+    if(m){
+      var raw = parseInt(m[2], 10);
+      if(!isFinite(raw) || raw === 0) return;
+      els.push({ name:m[1], x: raw & 63, y: (raw & 2047) >> 6, prof: raw >> 11 });
+      return;
+    }
+    var d = l.match(/^set\s+osd_displayport_device\s*=\s*([A-Za-z0-9_]+)/);
+    if(d) hdFlag = PR_HD_DP.indexOf(String(d[1]).toUpperCase()) > -1;
+    var v = l.match(/^set\s+vcd_video_system\s*=\s*([A-Za-z]+)/);
+    if(v) res = String(v[1]).toUpperCase();
+  });
+  var hd = hdFlag === null
+    ? (videoValue === "dji-o3" || videoValue === "walksnail" || videoValue === "hdzero")
+    : hdFlag;
+  return { els:els, hd:hd, cols: hd ? 53 : 30, rows: hd ? 20 : (res === "NTSC" ? 13 : 16), res:res };
+}
+function prOsdDraw(){
+  var box = $("osdWrap");
+  if(!box) return;
+  var diff = $("f_bfdiff").value;
+  if(!bfDiffLines(diff).length){ box.hidden = true; prSay("prState", T("prCsvNoBf"), "warn"); return; }
+  var g = prOsdGrid(diff, $("f_video").value);
+  if(!g.els.length){ box.hidden = true; prSay("prState", T("prOsdNone"), "warn"); return; }
+  var cell = {}, over = 0;
+  g.els.forEach(function(e){
+    var k = e.x + ":" + e.y;
+    if(cell[k]){ over++; return; }
+    cell[k] = e.name;
+  });
+  var html = ['<div class="osdgrid" style="grid-template-columns:repeat(' + g.cols + ',var(--osdcell,22px))">'];
+  for(var y = 0; y < g.rows; y++){
+    for(var x = 0; x < g.cols; x++){
+      var n = cell[x + ":" + y];
+      html.push(n ? '<div title="' + esc(n + " · " + x + "/" + y) + '">' + esc(n) + "</div>"
+                  : '<div class="off">·</div>');
+    }
+  }
+  html.push("</div>");
+  box.innerHTML = html.join("");
+  box.hidden = false;
+  prSay("prState", g.els.length + " " + T("prCsvOsd") + " · " + g.cols + "×" + g.rows +
+        (over ? " · " + over + "× doppelt" : ""), "ok");
+}
 /* ---------- Formular ---------- */
 function choiceLabel(list, value){
   for(var i=0;i<list.length;i++){
@@ -1526,6 +1933,10 @@ function open(id){
   $("f_bfdiff").value   = formBf ? formBf.diff : "";
   $("bfState").textContent = ""; $("bfState").className = "fcstate";
   bfPanel();
+  /* Preset-Auswahl je Modell neu: die Quelle "aus diesem Copter" gibt es nur mit Sicherung. */
+  prFillSelect();
+  $("osdWrap").hidden = true; $("osdWrap").innerHTML = "";
+  prSay("prState", "", "");
   $("fcPasteBox").hidden = true; $("f_cli").value = ""; $("fcState").textContent = "";
   renderFcInfo();
 
@@ -2039,7 +2450,8 @@ function htmlBackupPayload(){
   return {
     app: "FlowState Hangar HTML Backup", backup: "html", schema: 2, version: VER,
     exported: new Date().toISOString(),
-    prefs: { theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0 },
+    prefs: { theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0,
+             presets: prUserList() },
     fleet: data,
     images: imgsFor(data) || {}
   };
@@ -2089,6 +2501,16 @@ function restoreHtmlBackup(doc){
   if(doc.prefs){
     if(THEMES[doc.prefs.theme]) prefs.theme = doc.prefs.theme;
     if(I18N[doc.prefs.lang]) prefs.lang = doc.prefs.lang;
+    /* Eigene Presets kommen mit - geprüft wie alles andere, was von außen kommt. */
+    if(Array.isArray(doc.prefs.presets)){
+      prefs.presets = doc.prefs.presets.filter(function(x){
+        return x && x.id && typeof x.name === "string" && Array.isArray(x.lines);
+      }).map(function(x){
+        return { id:String(x.id).slice(0, 40), name:String(x.name).slice(0, 60),
+                 kind:"mixed", at:Number(x.at) || Date.now(),
+                 lines:x.lines.filter(function(l){ return prKindOf(String(l).trim()) !== null; }).slice(0, 400) };
+      }).filter(function(x){ return x.lines.length; }).slice(0, 40);
+    }
   }
   /* Die wiederhergestellte Optik soll auch für die anderen FlowState-Seiten gelten. */
   savePrefs(true);
@@ -2152,7 +2574,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "0.9.5-beta.1";
+var VER = "0.9.6-beta.1";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -2442,6 +2864,30 @@ $("btnTrCopyLink").addEventListener("click", function(){
   copyText(url, T("trLinkCopied"));
 });
 $("btnTrMerge").addEventListener("click", trDoMerge);
+
+/* Presets: Dialog, Einlesen in die Sicherung des Modells, eigene Presets */
+$("btnPreset").addEventListener("click", prOpen);
+$("btnPrClose").addEventListener("click", function(){ prDlgSync(); $("prDlg").close(); });
+$("btnPrCopy").addEventListener("click", function(){ copyText($("prText").value, T("trCopied")); });
+$("btnPrClear").addEventListener("click", function(){ $("prText").value = ""; prDlgSay(T("prNothing"), "warn"); });
+$("prSel").addEventListener("change", prDlgPick);
+$("btnPrSave").addEventListener("click", function(){
+  var src = prDlgSource();
+  prSaveUser(src.id, src.text, "prName");
+});
+$("btnPreApply").addEventListener("click", prApplyInForm);
+$("btnPreSave").addEventListener("click", function(){
+  var id = $("f_presetsel").value;
+  prSaveUser(id, prSourceText(id), "f_preName");
+});
+$("f_presetsel").addEventListener("change", function(){
+  var res = prFilter(prSourceText($("f_presetsel").value));
+  var bits = prCounts(res);
+  prSay("prState", bits.length ? bits.join(" · ") : T("prEmpty"), bits.length ? "ok" : "warn");
+});
+$("btnOsdShow").addEventListener("click", prOsdDraw);
+$("f_bfdiff").addEventListener("input", function(){ prFillSelect(); });
+$("f_video").addEventListener("change", function(){ if(!$("osdWrap").hidden) prOsdDraw(); });
 
 /* Exportmenü */
 function closeExpMenu(){

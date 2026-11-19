@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlowState FPV · Tuner, Guide &amp; HangarDeck</title>
-<meta name="description" content="Drei HTML-Programme für deine Copter. HangarDeck Lite führt die Copter-Liste, der FlowState Tuner wertet Blackbox-Logs aus und schreibt einen CLI-Plan, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
+<title>FlowState FPV · Programme für FPV</title>
+<meta name="description" content="HTML-Programme für deine Copter, jedes eine einzelne Datei im Browser. HangarDeck Lite führt die Copter-Liste mit Presets und Betaflight-Sicherung, der FlowState Tuner wertet Blackbox-Logs aus und schreibt einen CLI-Plan, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
 <meta name="theme-color" content="#06232a">
 <link rel="icon" href="assets/images/favicon.png" type="image/png">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -47,7 +47,7 @@
       <img class="brand-mark" src="assets/images/mark.png" alt="" width="34" height="27" decoding="async">
       <span class="brand-text">
         <span class="brand-name">FlowState</span>
-        <span class="brand-sub">Hangar · Autotuner · Guide</span>
+        <span class="brand-sub" data-module-names>Hangar · Autotuner · Guide</span>
       </span>
     </a>
 
@@ -135,11 +135,11 @@
     <div class="overview-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV</p>
       <h1>
-        <span data-i18n="hero.title1">Drei Programme,</span><br>
+        <span data-i18n="hero.title1">Alle Programme,</span><br>
         <span data-i18n="hero.title2">je eine HTML-Datei,</span>
         <span class="accent" data-i18n="hero.accent">kein Server</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Keines der drei braucht eine Installation oder ein Konto, und einmal geladen läuft es ohne Verbindung weiter.</p>
+      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Jedes Programm ist eine einzelne HTML-Datei, braucht keine Installation und kein Konto, und einmal geladen läuft es ohne Verbindung weiter.</p>
       <div class="overview-actions">
         <button class="btn btn--primary" type="button" data-bundle="all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5"/></svg>
@@ -149,14 +149,14 @@
       </div>
       <div class="bundle-info">
         <p class="bundle-info__lead" data-i18n="bundle.what">Im Paket liegt alles im Ordner FlowState-FPV:</p>
-        <ul class="bundle-info__list">
+        <ul class="bundle-info__list" id="bundle-list">
           <li><code>FlowState-FPV.html</code></li>
           <li><code>hangar/HangarDeck-Lite.html</code></li>
           <li><code>tuner/FlowState-Tuner.html</code></li>
           <li><code>guide/FPV-Guide.html</code></li>
           <li><code>README.md</code> <code>README.html</code> <code>LICENSE</code> <code>LIESMICH.txt</code></li>
         </ul>
-        <p class="bundle-info__note" data-i18n="bundle.optional">Herunterladen ist freiwillig: die drei Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.</p>
+        <p class="bundle-info__note" data-i18n="bundle.optional">Herunterladen ist freiwillig: die Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.</p>
         <p class="bundle-info__note" data-i18n="bundle.storage">Was du hier anlegst, liegt im Speicher dieser Seite, das Paket führt seinen eigenen. Über file:// kann der Browser den Speicher sperren, dann gilt alles nur für die Sitzung.</p>
       </div>
     </div>
@@ -164,9 +164,7 @@
     <div class="overview-list reveal" id="overview-list" aria-live="polite"></div>
     <p class="overview-links reveal">
       <span data-i18n="overview.sections">Mehr zu den Programmen</span>
-      <a href="#hangar">HangarDeck Lite</a>
-      <a href="#tuner">FlowState Tuner</a>
-      <a href="#guide">FPV Guide</a>
+      <span id="overview-links"><a href="#hangar">HangarDeck Lite</a><a href="#tuner">FlowState Tuner</a><a href="#guide">FPV Guide</a></span>
     </p>
   </div>
 </section>
@@ -279,12 +277,14 @@
   </div>
 </section>
 
+<div id="program-details"></div>
+
 <section class="section" id="sprachen">
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="langs.eyebrow">Sprachen</p>
       <h2 data-i18n="langs.title">Deutsch und Englisch vollständig, Spanisch ungeprüft</h2>
-      <p class="lede" data-i18n="langs.lede">Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist überall auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch.</p>
+      <p class="lede" data-i18n="langs.lede">Deutsch und Englisch sind bei allen Programmen und in dieser Übersicht vollständig. Spanisch ist überall auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch.</p>
     </div>
 
     <div class="reveal">
@@ -330,8 +330,9 @@
         <input id="search" type="search" data-i18n-placeholder="search.placeholder" placeholder="Version, Programm oder Stichwort …" autocomplete="off" spellcheck="false">
       </label>
 
-      <div class="segmented" role="group" aria-label="Programm">
+      <div class="segmented" id="project-filter" role="group" aria-label="Programm">
         <button type="button" data-filter="project" data-value="all" aria-pressed="true" data-i18n="filter.all">Alle</button>
+        <button type="button" data-filter="project" data-value="hangar" aria-pressed="false">Hangar</button>
         <button type="button" data-filter="project" data-value="tuner" aria-pressed="false">Tuner</button>
         <button type="button" data-filter="project" data-value="guide" aria-pressed="false">Guide</button>
       </div>
@@ -402,18 +403,20 @@
           <img class="brand-mark" src="assets/images/mark.png" alt="" width="34" height="27" decoding="async">
           <span class="brand-text">
             <span class="brand-name">FlowState</span>
-            <span class="brand-sub">Hangar · Autotuner · Guide</span>
+            <span class="brand-sub" data-module-names>Hangar · Autotuner · Guide</span>
           </span>
         </a>
-        <p class="footer-note" data-i18n="footer.note">Drei HTML-Programme für deine Copter. Sie laden keine externen Skripte, Schriften oder Bilder.</p>
+        <p class="footer-note" data-i18n="footer.note">HTML-Programme für deine Copter. Sie laden keine externen Skripte, Schriften oder Bilder.</p>
       </div>
 
       <div class="footer-links">
         <div class="footer-col">
           <h4 data-i18n="footer.programs">Programme</h4>
-          <a href="hangar/">HangarDeck Lite</a>
-          <a href="tuner/">FlowState Tuner</a>
-          <a href="guide/">FPV Guide</a>
+          <div id="footer-programs">
+            <a href="hangar/">HangarDeck Lite</a>
+            <a href="tuner/">FlowState Tuner</a>
+            <a href="guide/">FPV Guide</a>
+          </div>
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer.more">Mehr</h4>
@@ -466,9 +469,9 @@
       <span class="report-label" data-i18n="report.program">Programm</span>
       <select id="report-program">
         <option value="hub" selected>FlowState FPV</option>
+        <option value="hangar">HangarDeck Lite</option>
         <option value="tuner">FlowState Tuner</option>
         <option value="guide">FPV Guide</option>
-        <option value="hangar">HangarDeck Lite</option>
       </select>
     </label>
     <label class="report-field" for="report-text">

@@ -10,9 +10,9 @@ on:
     paths:
       - 'index.html'
       - 'assets/**'
-      - 'hangar/**'
-      - 'tuner/**'
-      - 'guide/**'
+      - '*/index.html'
+      - '*/assets/**'
+      - '*/data/**'
       - 'README.md'
       - 'LICENSE'
       - 'tools/**'

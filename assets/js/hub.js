@@ -13,6 +13,81 @@
   var FALLBACK = 'en';
   var CHANNELS = ['alpha', 'beta', 'rc', 'stable'];
 
+  // Werkzeuge der Plattform. Bis die Versionsdaten geladen sind, gilt diese Liste;
+  // danach zaehlt allein der Eintrag in assets/data/versions.json. Ein neues Werkzeug
+  // braucht dort nur einen Eintrag, hier ist nichts nachzutragen.
+  var MODULES_FALLBACK = [
+    { id: 'hangar', name: 'HangarDeck Lite', path: 'hangar/', entry: 'index.html',
+      pack: 'hangar/HangarDeck-Lite.html', icon: 'hangar' },
+    { id: 'tuner', name: 'FlowState Tuner', path: 'tuner/', entry: 'index.html',
+      pack: 'tuner/FlowState-Tuner.html', icon: 'tuner' },
+    { id: 'guide', name: 'FPV Guide', path: 'guide/', entry: 'index.html',
+      pack: 'guide/FPV-Guide.html', icon: 'guide' }
+  ];
+  var ICONS = {
+    hangar: '<path d="M3 20V9.5L12 4l9 5.5V20"/><path d="M3 20h18"/><path d="M9.5 20v-5.5h5V20"/>',
+    tuner: '<path d="M4 16.5a8 8 0 1 1 16 0"/><path d="M12 16.5 16 10"/><circle cx="12" cy="16.5" r="1.6"/>',
+    guide: '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 7h8M8 10.5h5"/>',
+    tool: '<path d="M4 20V10m6 10V4m6 16v-7"/>'
+  };
+
+  function dirOf(path) {
+    var value = String(path || '');
+    return value && value.charAt(value.length - 1) !== '/' ? value + '/' : value;
+  }
+
+  function moduleList() {
+    var programs = state.data && state.data.programs;
+    if (!programs || !programs.length) return MODULES_FALLBACK;
+    return programs.filter(function (item) {
+      return item && item.id && item.enabled !== false;
+    });
+  }
+
+  function moduleOf(id) {
+    var modules = moduleList();
+    for (var i = 0; i < modules.length; i += 1) {
+      if (modules[i].id === id) return modules[i];
+    }
+    return null;
+  }
+
+  // Die Seite, die der Rahmen laedt. Im Paket heissen die Dateien anders; dort
+  // stehen die Namen in der Kopfzeile der Seite (data-app-*).
+  function modulePage(id) {
+    if (PACK_APPS[id]) return PACK_APPS[id];
+    var item = moduleOf(id);
+    if (!item) return '';
+    var entry = item.entry && item.entry !== 'index.html' ? item.entry : '';
+    return dirOf(item.path) + entry;
+  }
+
+  function moduleName(id) {
+    var item = moduleOf(id);
+    return item ? item.name : t('apps.' + id);
+  }
+
+  // Kurzform fuer den Umschalter im Kopf: eigene Texte bleiben, wo es sie gibt.
+  function moduleShort(item) {
+    var key = 'apps.' + item.id;
+    var label = t(key);
+    if (label !== key) return label;
+    return item.short ? pick(item.short) : item.name;
+  }
+
+  function moduleIcon(item) {
+    return ICONS[item.icon || item.id] || ICONS.tool;
+  }
+
+  function modulePackName(item) {
+    return item.pack || (dirOf(item.path) + (item.name || item.id) + '.html');
+  }
+
+  function platformName() {
+    var platform = state.data && state.data.platform;
+    return (platform && platform.name) || 'FlowState FPV';
+  }
+
   var UI = {
     de: {
       'theme.label': 'Farben',
@@ -30,23 +105,27 @@
       'nav.langs': 'Sprachen',
       'langs.eyebrow': 'Sprachen',
       'langs.title': 'Deutsch und Englisch vollständig, Spanisch ungeprüft',
-      'langs.lede': 'Deutsch und Englisch sind bei allen drei Programmen und in dieser Übersicht vollständig. Spanisch ist überall auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch.',
+      'langs.lede': 'Deutsch und Englisch sind bei allen Programmen und in dieser Übersicht vollständig. Spanisch ist überall auswählbar, aber in keinem Bereich geprüft; offene Stellen erscheinen auf Englisch.',
       'langs.h.language': 'Sprache',
       'langs.h.status': 'Stand',
       'langs.status.full': 'vollständig',
       'langs.status.open': 'wählbar, nicht geprüft',
       'langs.note': 'Die Sprache steht in der Adresse: ?lang=de, ?lang=en oder ?lang=es. Ohne Angabe nimmt die Seite die Browsersprache und fällt sonst auf Deutsch zurück.',
       'nav.faq': 'Fragen',
+      'details.areas': 'Was drin ist',
+      'filter.prog.hangar': 'Hangar',
+      'filter.prog.tuner': 'Tuner',
+      'filter.prog.guide': 'Guide',
       'hero.eyebrow': 'FlowState FPV',
       'overview.sections': 'Mehr zu den Programmen',
-      'hero.title1': 'Drei Programme,',
+      'hero.title1': 'Alle Programme,',
       'hero.title2': 'je eine HTML-Datei,',
       'hero.accent': 'kein Server',
-      'hero.lede': 'HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Keines der drei braucht eine Installation oder ein Konto, und einmal geladen läuft es ohne Verbindung weiter.',
+      'hero.lede': 'HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Jedes Programm ist eine einzelne HTML-Datei, braucht keine Installation und kein Konto, und einmal geladen läuft es ohne Verbindung weiter.',
       'hero.cta4': 'Versionen',
       'programs.eyebrow': 'Programme',
-      'programs.title': 'Was die drei Programme machen',
-      'programs.lede': 'Die drei sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.',
+      'programs.title': 'Was die Programme machen',
+      'programs.lede': 'Die Programme sind eigenständig. Sie teilen keinen Code und keine Daten, und du öffnest immer nur eines davon. Die Abschnitte darunter zeigen, was jeweils drin ist.',
       'programs.open': 'Starten',
       'hangar.eyebrow': 'HangarDeck',
       'hangar.title': 'Die Copter-Liste',
@@ -125,7 +204,7 @@
       'faq.safe.a': 'Nein. Der Tuner ist eine Alpha: Der Schreibpfad ist an echter Hardware und im Flug nicht getestet. Schreiben geht auf eigene Verantwortung, es gilt der Haftungsausschluss der Lizenz. Vorher sichern, Props ab, solange der Copter am USB hängt, und bei heißen Motoren, Desyncs oder unklarer Mechanik sofort aufhören.',
       'faq.license.q': 'Ist das Open Source?',
       'faq.license.a': 'Nein. Der Quelltext ist einsehbar, Bearbeitungen sind aber nicht erlaubt. Damit erfüllt die Lizenz die Open-Source-Definition nicht. Erlaubt ist die unveränderte Weitergabe mit Lizenz und Quellenverweis. Der Grund ist der Schreibzugriff auf den Flight Controller: Ungeprüfte Abwandlungen sollen nicht als fertige Fassung im Umlauf sein.',
-      'footer.note': 'Drei HTML-Programme für deine Copter. Sie laden keine externen Skripte, Schriften oder Bilder.',
+      'footer.note': 'HTML-Programme für deine Copter. Sie laden keine externen Skripte, Schriften oder Bilder.',
       'footer.programs': 'Programme',
       'footer.more': 'Mehr',
       'footer.releases': 'Releases',
@@ -155,7 +234,7 @@
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.',
       'bundle.all': 'Alles herunterladen',
       'bundle.what': 'Im Paket liegt alles im Ordner FlowState-FPV:',
-      'bundle.optional': 'Herunterladen ist freiwillig: die drei Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.',
+      'bundle.optional': 'Herunterladen ist freiwillig: die Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.',
       'bundle.storage': 'Was du hier anlegst, liegt im Speicher dieser Seite, das Paket führt seinen eigenen. Über file:// kann der Browser den Speicher sperren, dann gilt alles nur für die Sitzung.',
       'update.title': 'Stand prüfen',
       'update.checking': 'Wird geprüft …',
@@ -210,23 +289,27 @@
       'nav.langs': 'Idiomas',
       'langs.eyebrow': 'Idiomas',
       'langs.title': 'Alemán e inglés completos, español sin revisar',
-      'langs.lede': 'El alemán y el inglés están completos en los tres programas y en esta vista general. El español se puede elegir en todas partes, pero no está revisado en ningún área; los pasajes sin revisar aparecen en inglés.',
+      'langs.lede': 'El alemán y el inglés están completos en todos los programas y en esta vista general. El español se puede elegir en todas partes, pero no está revisado en ningún área; los pasajes sin revisar aparecen en inglés.',
       'langs.h.language': 'Idioma',
       'langs.h.status': 'Estado',
       'langs.status.full': 'completo',
       'langs.status.open': 'elegible, sin revisar',
       'langs.note': 'El idioma va en la dirección: ?lang=de, ?lang=en o ?lang=es. Sin indicación, la página toma el idioma del navegador y, si no lo reconoce, el alemán.',
       'nav.faq': 'Preguntas',
+      'details.areas': 'Qué incluye',
+      'filter.prog.hangar': 'Hangar',
+      'filter.prog.tuner': 'Tuner',
+      'filter.prog.guide': 'Guía',
       'hero.eyebrow': 'FlowState FPV',
       'overview.sections': 'Más sobre los programas',
-      'hero.title1': 'Tres programas,',
+      'hero.title1': 'Todos los programas,',
       'hero.title2': 'cada uno un archivo HTML,',
       'hero.accent': 'sin servidor',
-      'hero.lede': 'HangarDeck Lite lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Ninguno necesita instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
+      'hero.lede': 'HangarDeck Lite lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Cada programa es un solo archivo HTML, no necesita instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
       'hero.cta4': 'Versiones',
       'programs.eyebrow': 'Programas',
-      'programs.title': 'Qué hacen los tres programas',
-      'programs.lede': 'Los tres son independientes. No comparten código ni datos y siempre abres solo uno. Los apartados siguientes muestran qué contiene cada uno.',
+      'programs.title': 'Qué hacen los programas',
+      'programs.lede': 'Los programas son independientes. No comparten código ni datos y siempre abres solo uno. Los apartados siguientes muestran qué contiene cada uno.',
       'programs.open': 'Abrir',
       'hangar.eyebrow': 'HangarDeck',
       'hangar.title': 'La lista de copter',
@@ -311,7 +394,7 @@
       'faq.safe.a': 'No. El Tuner es un alfa: la escritura no está probada en hardware real ni en vuelo. Escribir es responsabilidad tuya y se aplica la exención de responsabilidad de la licencia. Haz copia antes, quita las hélices mientras el copter está en USB y detente en cuanto haya motores calientes, desyncs o mecánica poco clara.',
       'faq.license.q': '¿Es código abierto?',
       'faq.license.a': 'No. El código se puede leer, pero no se permite modificarlo. Por eso la licencia no cumple la definición de código abierto. Sí se permite redistribuirlo sin cambios, con la licencia y la referencia al origen. El motivo es el acceso de escritura a la controladora: las variantes sin probar no deben circular como versión acabada.',
-      'footer.note': 'Tres programas HTML para tus copter. No cargan scripts, fuentes ni imágenes externas.',
+      'footer.note': 'Programas HTML para tus copter. No cargan scripts, fuentes ni imágenes externas.',
       'footer.programs': 'Programas',
       'footer.more': 'Más',
       'footer.releases': 'Versiones',
@@ -354,7 +437,7 @@
       'area.sources.d': 'Manuales originales, documentación, herramientas.',
       'bundle.all': 'Descargar todo',
       'bundle.what': 'Todo el paquete va en la carpeta FlowState-FPV:',
-      'bundle.optional': 'Descargar es opcional: los tres programas están aquí en el marco bajo la cabecera y arrancan con un clic, y cada archivo del paquete también se abre por separado. Esta página llega desde la red, sin conexión los programas solo funcionan desde el paquete descomprimido.',
+      'bundle.optional': 'Descargar es opcional: los programas están aquí en el marco bajo la cabecera y arrancan con un clic, y cada archivo del paquete también se abre por separado. Esta página llega desde la red, sin conexión los programas solo funcionan desde el paquete descomprimido.',
       'bundle.storage': 'Lo que creas aquí queda en el almacenamiento de esta página, el paquete lleva el suyo. Con file:// el navegador puede bloquear el almacenamiento y entonces todo vale solo para la sesión.',
       'update.title': 'Comprobar el estado',
       'update.checking': 'Comprobando …',
@@ -409,23 +492,27 @@
       'nav.langs': 'Languages',
       'langs.eyebrow': 'Languages',
       'langs.title': 'German and English complete, Spanish unverified',
-      'langs.lede': 'German and English are complete in all three programs and on this page. Spanish is selectable everywhere but verified in no area; unrevised passages appear in English.',
+      'langs.lede': 'German and English are complete in all programs and on this page. Spanish is selectable everywhere but verified in no area; unrevised passages appear in English.',
       'langs.h.language': 'Language',
       'langs.h.status': 'State',
       'langs.status.full': 'complete',
       'langs.status.open': 'selectable, not verified',
       'langs.note': 'The language lives in the address: ?lang=de, ?lang=en or ?lang=es. Without it, the page reads the browser language and falls back to German.',
       'nav.faq': 'Questions',
+      'details.areas': 'What is in it',
+      'filter.prog.hangar': 'Hangar',
+      'filter.prog.tuner': 'Tuner',
+      'filter.prog.guide': 'Guide',
       'hero.eyebrow': 'FlowState FPV',
       'overview.sections': 'More on the programs',
-      'hero.title1': 'Three programs,',
+      'hero.title1': 'Every program,',
       'hero.title2': 'each a single HTML file,',
       'hero.accent': 'no server',
-      'hero.lede': 'HangarDeck Lite keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV guide explains the workflow, the filters and the terms. None of them needs an install or an account, and once loaded each keeps running without a connection.',
+      'hero.lede': 'HangarDeck Lite keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV guide explains the workflow, the filters and the terms. Each program is a single HTML file, needs no install and no account, and once loaded it keeps running without a connection.',
       'hero.cta4': 'Versions',
       'programs.eyebrow': 'Programs',
-      'programs.title': 'What the three programs do',
-      'programs.lede': 'All three are self-contained. They share no code and no data, and you only ever open one of them. The sections below show what each one contains.',
+      'programs.title': 'What the programs do',
+      'programs.lede': 'The programs are self-contained. They share no code and no data, and you only ever open one of them. The sections below show what each one contains.',
       'programs.open': 'Start',
       'hangar.eyebrow': 'HangarDeck',
       'hangar.title': 'The quad list',
@@ -504,7 +591,7 @@
       'faq.safe.a': 'No. The tuner is an alpha: the write path has not been tested on real hardware or in flight, writing is at your own risk, and the liability disclaimer of the licence applies. Back up first, remove props while the quad is on USB, and stop right away on hot motors, desyncs or unclear mechanics.',
       'faq.license.q': 'Is this open source?',
       'faq.license.a': 'No. The source is readable, but modifications are not permitted, so the licence does not meet the open source definition. Unmodified redistribution with the licence and a link to the source is allowed. The reason is the write path to the flight controller: unchecked variants should not go around posing as a finished release.',
-      'footer.note': 'Three HTML programs for your quads. They load no external scripts, fonts or images.',
+      'footer.note': 'HTML programs for your quads. They load no external scripts, fonts or images.',
       'footer.programs': 'Programs',
       'footer.more': 'More',
       'footer.releases': 'Releases',
@@ -534,7 +621,7 @@
       'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.',
       'bundle.all': 'Download everything',
       'bundle.what': 'Everything in the package sits in the folder FlowState-FPV:',
-      'bundle.optional': 'Downloading is optional: the three programs sit in the frame below the header and start with a click, and every file in the package also opens on its own. This page comes from the network, without a connection the programs only run from the unpacked package.',
+      'bundle.optional': 'Downloading is optional: the programs sit in the frame below the header and start with a click, and every file in the package also opens on its own. This page comes from the network, without a connection the programs only run from the unpacked package.',
       'bundle.storage': 'What you create here lives in the storage of this page, the package keeps its own. Over file:// the browser may block storage, then everything only lasts for the session.',
       'update.title': 'Check for updates',
       'update.checking': 'Checking …',
@@ -699,13 +786,12 @@
     if (track) track.removeAttribute('data-active');
   }
 
-  var APPS = { hangar: 'hangar/', tuner: 'tuner/', guide: 'guide/' };
-
   // Im Paket heißen die Programmdateien nach dem Programm statt alle index.html.
-  // Dort stehen die Pfade in der Kopfzeile der Seite.
-  ['hangar', 'tuner', 'guide'].forEach(function (id) {
-    var value = document.documentElement.getAttribute('data-app-' + id);
-    if (value) APPS[id] = value;
+  // Dort stehen die Pfade in der Kopfzeile der Seite. Welche Werkzeuge es gibt,
+  // entscheidet allein das Register.
+  var PACK_APPS = {};
+  [].forEach.call(document.documentElement.attributes, function (attr) {
+    if (attr.name.indexOf('data-app-') === 0) PACK_APPS[attr.name.slice(9)] = attr.value;
   });
 
   // Palette als Adressbestandteil: so kommt die Wahl auch dann an, wenn ein
@@ -735,20 +821,26 @@
       });
       raw = raw.slice(0, mark);
     }
-    var m = /(?:^|\/)(hangar|tuner|guide)\/(?:[a-z0-9.-]*\.html)?$/i.exec(raw);
-    if (!m) return null;
-    return { id: m[1].toLowerCase(), lang: lang };
+    raw = raw.replace(/\/+$/, '');
+    var found = null;
+    moduleList().forEach(function (item) {
+      if (found) return;
+      var dir = dirOf(item.path).replace(/\/+$/, '');
+      var page = String(modulePage(item.id) || '').replace(/\/+$/, '');
+      if (raw === dir || (page && raw === page)) found = { id: item.id, lang: lang };
+    });
+    return found;
   }
   var stageScroll = 0;
   var stageTimer = null;
 
   function currentAppId() {
-    var m = /^#\/(guide|tuner|hangar)$/.exec(location.hash);
-    return m ? m[1] : '';
+    var m = /^#\/([\w-]+)$/.exec(location.hash);
+    return m && moduleOf(m[1]) ? m[1] : '';
   }
 
   function openApp(id, opts) {
-    var path = APPS[id];
+    var path = modulePage(id);
     var stage = $('#app-stage');
     var frame = $('#app-frame');
     var lang = (opts && opts.lang) || state.lang;
@@ -785,8 +877,8 @@
     }, 12000);
 
     var title = $('#app-stage-title');
-    if (title) title.textContent = t('apps.' + id);
-    frame.setAttribute('title', t('apps.' + id));
+    if (title) title.textContent = moduleName(id);
+    frame.setAttribute('title', moduleName(id));
     var openLink = $('#app-stage-open');
     if (openLink) openLink.setAttribute('href', appUrl(path, lang));
 
@@ -890,21 +982,25 @@
     routeApp();
   }
 
+  // Wird beim Start und nach jedem neuen Zeichnen des Umschalters aufgerufen.
+  // Gebundene Einträge werden nicht doppelt verdrahtet.
   function initAppSwitch() {
     var track = $('#app-switch');
     if (!track) return;
-    var items = $$('.app-switch__item', track);
 
-    items.forEach(function (item) {
-      item.addEventListener('pointerenter', function () { moveAppPill(item); });
-      item.addEventListener('focus', function () { moveAppPill(item); });
-    });
-
-    track.addEventListener('pointerleave', hideAppPill);
+    if (!track.getAttribute('data-switch-track')) {
+      track.setAttribute('data-switch-track', '1');
+      track.addEventListener('pointerleave', hideAppPill);
+      window.addEventListener('resize', hideAppPill);
+    }
 
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    items.forEach(function (item) {
+    $$('.app-switch__item', track).forEach(function (item) {
+      if (item.getAttribute('data-switch-bound')) return;
+      item.setAttribute('data-switch-bound', '1');
+      item.addEventListener('pointerenter', function () { moveAppPill(item); });
+      item.addEventListener('focus', function () { moveAppPill(item); });
       if (item.tagName !== 'A') return;
       item.addEventListener('click', function (event) {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
@@ -915,8 +1011,6 @@
         window.setTimeout(function () { openApp(id); }, 120);
       });
     });
-
-    window.addEventListener('resize', hideAppPill);
   }
 
   function initTheme() {
@@ -985,6 +1079,145 @@
     });
   }
 
+  // Ein Filterknopf wird einmal verdrahtet, auch wenn er neu gezeichnet wurde.
+  function bindFilter(button) {
+    if (button.getAttribute('data-filter-bound')) return;
+    button.setAttribute('data-filter-bound', '1');
+    button.addEventListener('click', function () {
+      var group = button.getAttribute('data-filter');
+      state[group] = button.getAttribute('data-value');
+      $$('[data-filter="' + group + '"]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === button));
+      });
+      render();
+    });
+  }
+
+  // ---- Was aus dem Register kommt ----
+  // Kopfzeile, Programmliste, Fußzeile, Meldeauswahl, Filter, Paketliste und die
+  // Abschnitte, die es im Markup noch nicht gibt. Alles liest moduleList(); ein
+  // neues Werkzeug braucht nur einen Eintrag in assets/data/versions.json.
+
+  function renderModuleSwitch() {
+    var track = $('#app-switch');
+    if (!track) return;
+    var html = '<span class="app-switch__pill" aria-hidden="true"></span>';
+    moduleList().forEach(function (item) {
+      html += '<a class="app-switch__item" href="' + esc(modulePage(item.id)) + '" data-app="' + esc(item.id) + '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        moduleIcon(item) + '</svg>' +
+        '<span>' + esc(moduleShort(item)) + '</span></a>';
+    });
+    track.innerHTML = html;
+    initAppSwitch();
+  }
+
+  function renderModuleLinks() {
+    var names = moduleList().map(function (item) { return moduleShort(item); }).join(' · ');
+    $$('[data-module-names]').forEach(function (el) { el.textContent = names; });
+
+    var links = moduleList().map(function (item) {
+      return '<a href="' + esc(modulePage(item.id)) + '">' + esc(item.name) + '</a>';
+    }).join('');
+
+    var anchors = moduleList().map(function (item) {
+      return '<a href="#' + esc(item.id) + '">' + esc(item.name) + '</a>';
+    }).join('');
+    var overview = $('#overview-links');
+    if (overview) overview.innerHTML = anchors;
+
+    var footer = $('#footer-programs');
+    if (footer) footer.innerHTML = links;
+  }
+
+  function renderReportPrograms() {
+    var select = $('#report-program');
+    if (!select) return;
+    var current = select.value;
+    select.innerHTML = reportPrograms().map(function (item) {
+      return '<option value="' + esc(item.id) + '">' + esc(item.name) + '</option>';
+    }).join('');
+    var keep = false;
+    for (var i = 0; i < select.options.length; i += 1) {
+      if (select.options[i].value === current) keep = true;
+    }
+    select.value = keep ? current : 'hub';
+  }
+
+  function renderFilters() {
+    var group = $('#project-filter');
+    if (!group) return;
+    var html = '<button type="button" data-filter="project" data-value="all" aria-pressed="' +
+      (state.project === 'all' ? 'true' : 'false') + '">' + esc(t('filter.all')) + '</button>';
+    moduleList().forEach(function (item) {
+      var key = 'filter.prog.' + item.id;
+      var label = t(key);
+      html += '<button type="button" data-filter="project" data-value="' + esc(item.id) + '" aria-pressed="' +
+        (state.project === item.id ? 'true' : 'false') + '">' +
+        esc(label === key ? item.name : label) + '</button>';
+    });
+    group.innerHTML = html;
+    $$('[data-filter]').forEach(bindFilter);
+  }
+
+  function renderBundleList() {
+    var holder = $('#bundle-list');
+    if (!holder) return;
+    var html = '<li><code>' + esc(PACK_HUB) + '</code></li>';
+    moduleList().forEach(function (item) {
+      html += '<li><code>' + esc(modulePackName(item)) + '</code></li>';
+    });
+    html += '<li><code>README.md</code> <code>README.html</code> <code>LICENSE</code> <code>LIESMICH.txt</code></li>';
+    holder.innerHTML = html;
+  }
+
+  // Abschnitte fuer Werkzeuge, die im Markup noch keinen eigenen haben.
+  // Die drei vorhandenen bleiben, wie sie sind.
+  function renderModuleDetails() {
+    var holder = $('#program-details');
+    if (!holder) return;
+    holder.innerHTML = '';
+    var index = document.querySelectorAll('.section--detail').length;
+    moduleList().forEach(function (item) {
+      if (document.getElementById(item.id)) return;
+      index += 1;
+      var features = list(item.highlights).map(function (text) {
+        return '<li>' + esc(text) + '</li>';
+      }).join('');
+      var meta = list(item.meta).map(function (text) {
+        return '<span class="chip">' + esc(text) + '</span>';
+      }).join('');
+      holder.innerHTML += '<section class="section section--detail" id="' + esc(item.id) + '">' +
+        '<div class="wrap">' +
+          '<div class="detail-head">' +
+            '<span class="detail-index">' + ('0' + index).slice(-2) + '</span>' +
+            '<div>' +
+              '<p class="eyebrow">' + esc(pick(item.kind)) + '</p>' +
+              '<h2>' + esc(item.name) + '</h2>' +
+              '<p class="lede">' + esc(pick(item.description)) + '</p>' +
+            '</div>' +
+          '</div>' +
+          (features ? '<div style="margin-top:22px"><h3 class="sub-title">' + esc(t('details.areas')) +
+            '</h3><ul class="feature-list">' + features + '</ul></div>' : '') +
+          (meta ? '<div class="meta-row" style="margin-top:18px">' + meta + '</div>' : '') +
+          '<p style="margin-top:22px"><a class="btn btn--sm btn--primary" href="' + esc(modulePage(item.id)) +
+            '">' + esc(t('programs.open')) + '</a></p>' +
+        '</div>' +
+      '</section>';
+    });
+  }
+
+  function renderModules() {
+    if (!state.data) return;
+    renderModuleSwitch();
+    renderModuleLinks();
+    renderFilters();
+    renderReportPrograms();
+    renderBundleList();
+    renderModuleDetails();
+    syncAppLinks();
+  }
+
   function setLang(lang, persist) {
     var previous = state.lang;
     state.lang = LANGS.indexOf(lang) === -1 ? FALLBACK : lang;
@@ -995,6 +1228,7 @@
     if (state.data) {
       renderProjects();
       renderOverview();
+      renderModules();
       render();
     }
     // Ein offenes Programm liest die Sprache beim Laden: neu laden, damit es mitzieht.
@@ -1003,9 +1237,8 @@
 
   function projectTemplate(program) {
     var tone = program.accent === 'sky' ? 'guide' : 'tuner';
-    var icon = tone === 'tuner'
-      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17V9m4 11V5m4 14v-7m4 10V7m4 10v-5"/></svg>'
-      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 7h8M8 10.5h5"/></svg>';
+    var icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' +
+      moduleIcon(program) + '</svg>';
 
     var features = list(program.highlights).map(function (item) {
       return '<li>' + esc(item) + '</li>';
@@ -1054,7 +1287,7 @@
       var size = release && release.size_bytes ? formatBytes(release.size_bytes) : '';
 
       return '' +
-        '<a class="tile" href="' + esc(program.path) + '" data-app-open="' + esc(program.id) + '">' +
+        '<a class="tile" href="' + esc(modulePage(program.id) || program.path) + '" data-app-open="' + esc(program.id) + '">' +
           '<span class="tile-index">' + ('0' + (index + 1)).slice(-2) + '</span>' +
           '<span class="tile-text">' +
             '<span class="tile-name">' + esc(program.name) + '</span>' +
@@ -1148,21 +1381,22 @@
   // Ein Ordner um alles, und die Startseite heißt nach dem Projekt statt index.html.
   var PACK_FOLDER = 'FlowState-FPV/';
   var PACK_HUB = 'FlowState-FPV.html';
-  var PACK_PAGES = {
-    hangar: 'hangar/HangarDeck-Lite.html',
-    tuner: 'tuner/FlowState-Tuner.html',
-    guide: 'guide/FPV-Guide.html'
-  };
 
-  // Die Startseite im Paket verweist auf die Dateinamen aus PACK_PAGES und sagt der
-  // hub.js ueber data-app-* wo die Programme liegen.
+  // Die Startseite im Paket verweist auf die Dateinamen aus dem Register und sagt
+  // der hub.js ueber data-app-* wo die Programme liegen.
   function packagedHub(html) {
-    var text = String(html).replace(/href="(hangar|tuner|guide)\/(\?[^"]*)?"/g, function (all, id, query) {
-      return 'href="' + PACK_PAGES[id] + (query || '') + '"';
+    var text = String(html);
+    moduleList().forEach(function (item) {
+      var dir = dirOf(item.path).replace(/\/+$/, '');
+      var safe = dir.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      text = text.replace(new RegExp('href="' + safe + '/(\\?[^"]*)?"', 'g'), function (all, query) {
+        return 'href="' + modulePackName(item) + (query || '') + '"';
+      });
     });
-    return text.replace('<html ', '<html data-app-hangar="' + PACK_PAGES.hangar +
-      '" data-app-tuner="' + PACK_PAGES.tuner +
-      '" data-app-guide="' + PACK_PAGES.guide + '" ');
+    var attrs = moduleList().map(function (item) {
+      return 'data-app-' + item.id + '="' + modulePackName(item) + '"';
+    }).join(' ');
+    return text.replace('<html ', '<html ' + attrs + ' ');
   }
 
   var BUNDLE_BASE = [
@@ -1324,11 +1558,6 @@
   }
 
   // README.md und LICENSE kommen mit ins Paket, wenn sie sich holen lassen.
-  // Bilder, die der Guide aus seinem eigenen Ordner lädt.
-  var GUIDE_ASSETS = [
-    { path: 'guide/assets/flowstate-guide-wordmark.png', name: 'guide/assets/flowstate-guide-wordmark.png' },
-    { path: 'guide/assets/yngwierfpv-footer.png', name: 'guide/assets/yngwierfpv-footer.png' }
-  ];
   var BUNDLE_EXTRA = [
     { path: 'README.md', name: 'README.md' },
     { path: 'LICENSE', name: 'LICENSE' }
@@ -1338,11 +1567,16 @@
     var files = BUNDLE_BASE.map(function (file) {
       return { path: file.path, name: PACK_FOLDER + file.name, hub: file.hub };
     });
-    ['hangar', 'tuner', 'guide'].forEach(function (id) {
-      files.push({ path: id + '/index.html', name: PACK_FOLDER + PACK_PAGES[id] });
+    var modules = moduleList();
+    modules.forEach(function (item) {
+      files.push({
+        path: dirOf(item.path) + (item.entry || 'index.html'),
+        name: PACK_FOLDER + modulePackName(item)
+      });
+      list(item.extra).forEach(function (rel) {
+        files.push({ path: rel, name: PACK_FOLDER + rel });
+      });
     });
-    files.push({ path: 'hangar/data/hangardeck.json', name: PACK_FOLDER + 'hangar/data/hangardeck.json' });
-    GUIDE_ASSETS.forEach(function (file) { files.push({ path: file.path, name: PACK_FOLDER + file.name }); });
 
     var releases = (state.data && state.data.releases) || [];
 
@@ -1354,13 +1588,15 @@
       return found;
     }
 
-    var programLines = ['hangar', 'tuner', 'guide'].map(function (id) {
-      var program = projectOf(id);
-      var label = program ? program.name : id;
-      var version = versionOf(id);
-      var path = '  ' + PACK_PAGES[id];
+    var programLines = modules.map(function (item) {
+      var version = versionOf(item.id);
+      var path = '  ' + modulePackName(item);
       while (path.length < 30) path += ' ';
-      return path + label + (version ? ' ' + version : '');
+      return path + item.name + (version ? ' ' + version : '');
+    });
+    var extraLines = [];
+    modules.forEach(function (item) {
+      list(item.extra).forEach(function (rel) { extraLines.push('  ' + rel); });
     });
 
     var notice = {
@@ -1370,7 +1606,9 @@
         '',
         '1. Dieses Paket entpacken, es liegt alles im Ordner FlowState-FPV.',
         '2. ' + PACK_HUB + ' im Browser öffnen.',
-        '3. Im Kopf der Seite zwischen Hangar, Autotuner und Guide wählen.',
+        '3. Im Kopf der Seite zwischen ' + modules.map(function (item) {
+          return item.name;
+        }).join(', ') + ' wählen.',
         '',
         'Jedes Programm lässt sich auch einzeln öffnen, ohne die Übersicht:',
         'einfach die jeweilige Datei doppelklicken und als Lesezeichen ablegen.',
@@ -1380,8 +1618,7 @@
         'über einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
         '',
         'Programme in diesem Paket:'
-      ].concat(programLines).concat([
-        '  hangar/data/hangardeck.json   Startbestand für die Copter-Liste',
+      ].concat(programLines).concat(extraLines.length ? [''].concat(extraLines) : []).concat([
         '',
         'Dazu:',
         '  README.md      Beschreibung des Projekts, wie auf GitHub',
@@ -1494,12 +1731,13 @@
   };
   // Name und Eintrag in den Versionsdaten. Die Übersicht selbst hat keinen
   // eigenen Versionssatz, dort bleibt die Version leer.
-  var REPORT_PROGRAMS = [
-    { id: 'hub', name: 'FlowState FPV' },
-    { id: 'tuner', name: 'FlowState Tuner' },
-    { id: 'guide', name: 'FPV Guide' },
-    { id: 'hangar', name: 'HangarDeck Lite' }
-  ];
+  function reportPrograms() {
+    var entries = [{ id: 'hub', name: platformName() }];
+    moduleList().forEach(function (item) {
+      entries.push({ id: item.id, name: item.name });
+    });
+    return entries;
+  }
 
   function localVersions() {
     var data = (state && state.data) || window.FLOWSTATE_DATA || { releases: [], programs: [] };
@@ -1627,10 +1865,11 @@
   function reportProgram() {
     var select = $('#report-program');
     var id = select ? select.value : 'hub';
-    for (var i = 0; i < REPORT_PROGRAMS.length; i++) {
-      if (REPORT_PROGRAMS[i].id === id) return REPORT_PROGRAMS[i];
+    var entries = reportPrograms();
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].id === id) return entries[i];
     }
-    return REPORT_PROGRAMS[0];
+    return entries[0];
   }
 
   function reportVersion(id) {
@@ -1887,7 +2126,7 @@
     var actions = [];
 
     if (release.available) {
-      actions.push('<a class="btn btn--sm btn--primary" href="' + esc(program.path) + '">' +
+      actions.push('<a class="btn btn--sm btn--primary" href="' + esc(modulePage(program.id) || program.path) + '">' +
         esc(t('release.open')) +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
         '</a>');
@@ -1969,16 +2208,7 @@
       });
     });
 
-    $$('[data-filter]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var group = button.getAttribute('data-filter');
-        state[group] = button.getAttribute('data-value');
-        $$('[data-filter="' + group + '"]').forEach(function (b) {
-          b.setAttribute('aria-pressed', String(b === button));
-        });
-        render();
-      });
-    });
+    $$('[data-filter]').forEach(bindFilter);
 
     var search = $('#search');
     if (search) {
@@ -2104,6 +2334,7 @@
       state.data = data;
       renderProjects();
       renderOverview();
+      renderModules();
       render();
     }
 
