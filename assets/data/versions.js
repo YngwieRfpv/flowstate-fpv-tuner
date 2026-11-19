@@ -6,7 +6,7 @@ window.FLOWSTATE_DATA = {
   "programs": [
     {
       "id": "hangar",
-      "name": "FlowState Hangar Deck",
+      "name": "Hangar",
       "accent": "mint",
       "path": "hangar/",
       "kind": {
@@ -64,7 +64,7 @@ window.FLOWSTATE_DATA = {
       },
       "enabled": true,
       "entry": "index.html",
-      "pack": "hangar/FlowState-Hangar-Deck.html",
+      "pack": "hangar/Hangar.html",
       "icon": "hangar",
       "extra": [
         "hangar/data/flowstate-hangar.json"
@@ -72,7 +72,7 @@ window.FLOWSTATE_DATA = {
     },
     {
       "id": "tuner",
-      "name": "FlowState Tuner",
+      "name": "Tuner",
       "accent": "mint",
       "path": "tuner/",
       "kind": {
@@ -127,13 +127,13 @@ window.FLOWSTATE_DATA = {
       },
       "enabled": true,
       "entry": "index.html",
-      "pack": "tuner/FlowState-Tuner.html",
+      "pack": "tuner/Tuner.html",
       "icon": "tuner",
       "extra": []
     },
     {
       "id": "guide",
-      "name": "FPV Guide",
+      "name": "Guide",
       "accent": "sky",
       "path": "guide/",
       "kind": {
@@ -185,7 +185,7 @@ window.FLOWSTATE_DATA = {
       },
       "enabled": true,
       "entry": "index.html",
-      "pack": "guide/FPV-Guide.html",
+      "pack": "guide/Guide.html",
       "icon": "guide",
       "extra": [
         "guide/assets/flowstate-guide-wordmark.png",
@@ -194,7 +194,7 @@ window.FLOWSTATE_DATA = {
     },
     {
       "id": "presets",
-      "name": "FlowState Presets",
+      "name": "Presets",
       "accent": "mint",
       "path": "presets/",
       "kind": {
@@ -252,12 +252,12 @@ window.FLOWSTATE_DATA = {
       },
       "enabled": true,
       "entry": "index.html",
-      "pack": "presets/FlowState-Presets.html",
+      "pack": "presets/Presets.html",
       "icon": "presets"
     },
     {
       "id": "osd",
-      "name": "OSD Customizer",
+      "name": "OSD",
       "accent": "sky",
       "path": "osd/",
       "kind": {
@@ -315,81 +315,41 @@ window.FLOWSTATE_DATA = {
       },
       "enabled": true,
       "entry": "index.html",
-      "pack": "osd/FlowState-OSD-Customizer.html",
+      "pack": "osd/OSD.html",
       "icon": "osd"
     }
   ],
   "releases": [
     {
-      "id": "osd-0.1.0-beta.4",
-      "program": "osd",
-      "version": "v0.1.0-beta.4",
-      "channel": "beta",
-      "released": "2026-11-19",
-      "title": {
-        "de": "Eigene Fonts bleiben im Browser",
-        "en": "Own fonts stay in the browser",
-        "es": "Las fuentes propias se quedan en el navegador"
-      },
-      "summary": {
-        "de": "Importierte .mcm-Fonts liegen jetzt in IndexedDB statt im kleinen Schlüssel-Wertspeicher. Vorher waren nach wenigen Fonts die weiteren weg, jetzt bleiben sie nach dem Neuladen da. Dazu sind zwei Statuszeilen aus der Oberfläche verschwunden, die keine Werte mehr hatten.",
-        "en": "Imported .mcm fonts now live in IndexedDB instead of the small key-value store. Before, a few fonts in and the next ones were gone, now they survive a reload. Two status rows without values have also left the interface.",
-        "es": "Las fuentes .mcm importadas ahora viven en IndexedDB en lugar del pequeño almacén clave-valor. Antes, tras pocas fuentes, las siguientes ya no estaban; ahora sobreviven a una recarga. Además han desaparecido dos filas de estado sin valores."
-      },
-      "file": "osd/index.html",
-      "size_bytes": 4273766,
-      "sha256": "60bd4b109997d26f6cf4e5352497fcdc22a8c4088851a38919907eb16528dac4",
-      "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.4",
-      "signals": [
-        {
-          "label": {
-            "de": "Import-Fonts",
-            "en": "Imported fonts",
-            "es": "Fuentes importadas"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Statuszeilen",
-            "en": "Status rows",
-            "es": "Filas de estado"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Sprachen",
-            "en": "Languages",
-            "es": "Idiomas"
-          },
-          "state": "ok"
-        }
-      ]
-    },
-    {
-      "id": "hangar-1.0.0-beta.2",
+      "id": "hangar-1.0.0-beta.3",
       "program": "hangar",
-      "version": "v1.0.0-beta.2",
+      "version": "v1.0.0-beta.3",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Preset-Dateien kommen unverändert an",
-        "en": "Preset files arrive unchanged",
-        "es": "Los archivos de presets llegan sin cambios"
+        "de": "Ein Name, klare Reihenfolge",
+        "en": "One name, clear order",
+        "es": "Un nombre, orden claro"
       },
       "summary": {
-        "de": "Preset-Dateien werden Zeile für Zeile übernommen, so wie sie geschrieben sind. Die alte Prüfung, die nur Schalter, Beeper und OSD durchließ, ist weg. Dazu liegen Copter-Bilder in IndexedDB und sind nach dem Neuladen wieder da, auch wenn der kleine Speicher voll wäre.",
-        "en": "Preset files are taken line by line, as written. The old filter that only let switches, beeper and OSD through is gone. Quad pictures now live in IndexedDB and are back after a reload, even if the small store would be full.",
-        "es": "Los archivos de presets se toman línea por línea, tal como están escritos. El filtro antiguo que solo dejaba pasar interruptores, beeper y OSD ya no está. Las imágenes de los copter viven en IndexedDB y vuelven tras una recarga, aunque el almacén pequeño estuviera lleno."
+        "de": "Das Programm heißt jetzt Hangar, ohne Zusatz im Namen. FlowState steht einmal für die Sammlung und nicht vor jedem Werkzeug. Inhaltlich bleibt alles: Copter-Liste, Preset-Dateien Zeile für Zeile, Bilder und Einträge im Browser, Export als PDF, CSV, Druck, JSON und HTML.",
+        "en": "The program is now called Hangar, with nothing appended. FlowState stands once for the collection and not in front of every tool. The content stays: quad list, preset files line by line, pictures and entries in the browser, export as PDF, CSV, print, JSON and HTML.",
+        "es": "El programa ahora se llama Hangar, sin añadidos. FlowState aparece una vez para la colección y no delante de cada herramienta. El contenido sigue igual: lista de copter, archivos de presets línea por línea, imágenes y entradas en el navegador, exportación como PDF, CSV, impresión, JSON y HTML."
       },
       "file": "hangar/index.html",
-      "size_bytes": 145797,
-      "sha256": "f2f09d61d479b1ee8be970ac8c010ddce950f26be2d2ba75ef2c53b3284e3bab",
+      "size_bytes": 145624,
+      "sha256": "161d0e173a19154c7d57db2de1dbe6444967d3f10803aba5542afd59da2f819c",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.3",
       "signals": [
+        {
+          "label": {
+            "de": "Name",
+            "en": "Name",
+            "es": "Nombre"
+          },
+          "state": "ok"
+        },
         {
           "label": {
             "de": "Preset-Dateien",
@@ -405,52 +365,44 @@ window.FLOWSTATE_DATA = {
             "es": "Imágenes"
           },
           "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Flotte",
-            "en": "Fleet",
-            "es": "Flota"
-          },
-          "state": "ok"
         }
       ]
     },
     {
-      "id": "tuner-4.8-alpha.5",
+      "id": "tuner-4.8-alpha.6",
       "program": "tuner",
-      "version": "v4.8-alpha.5",
+      "version": "v4.8-alpha.6",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Logs bleiben nach dem Neuladen",
-        "en": "Logs survive a reload",
-        "es": "Los registros sobreviven a una recarga"
+        "de": "Ein Name, klare Reihenfolge",
+        "en": "One name, clear order",
+        "es": "Un nombre, orden claro"
       },
       "summary": {
-        "de": "Geladene Blackbox-Logs liegen jetzt in IndexedDB und werden beim Start wieder eingelesen. Ein Export ist nicht mehr nötig, um sie zu behalten. Dazu sind die Textzeilen im Log-Archiv kürzer und sagen, dass die Dateien im Browser bleiben.",
-        "en": "Loaded blackbox logs now live in IndexedDB and are read back on start. An export is no longer needed to keep them. The text lines in the log archive are shorter and say that the files stay in the browser.",
-        "es": "Los registros Blackbox cargados ahora viven en IndexedDB y se vuelven a leer al iniciar. Ya no hace falta exportar para conservarlos. Las líneas de texto del archivo de registros son más cortas y dicen que los archivos se quedan en el navegador."
+        "de": "Das Programm heißt jetzt Tuner. Die Analyse von Blackbox-Logs, der CLI-Plan und die Phasen bleiben unverändert, geladene Logs bleiben weiter im Browser.",
+        "en": "The program is now called Tuner. Blackbox analysis, the CLI plan and the phases stay as they are, loaded logs still stay in the browser.",
+        "es": "El programa ahora se llama Tuner. El análisis de registros Blackbox, el plan CLI y las fases siguen igual, los registros cargados se quedan en el navegador."
       },
       "file": "tuner/index.html",
-      "size_bytes": 502177,
-      "sha256": "c93a391b6676409530c1c16f6c7543b789c579c2a24a67211767ee79baa2648a",
+      "size_bytes": 501800,
+      "sha256": "2b4c4bd7d484e042343995c63105c3444dff7c34539d95757b10c51ac13afd6b",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.5",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.6",
       "signals": [
+        {
+          "label": {
+            "de": "Name",
+            "en": "Name",
+            "es": "Nombre"
+          },
+          "state": "ok"
+        },
         {
           "label": {
             "de": "Log-Archiv",
             "en": "Log archive",
             "es": "Archivo de logs"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Speicher",
-            "en": "Storage",
-            "es": "Almacenamiento"
           },
           "state": "ok"
         },
@@ -465,32 +417,40 @@ window.FLOWSTATE_DATA = {
       ]
     },
     {
-      "id": "guide-1.0.2-beta.20-es",
+      "id": "guide-1.0.2-beta.21-es",
       "program": "guide",
-      "version": "v1.0.2-beta.20-es",
+      "version": "v1.0.2-beta.21-es",
       "channel": "beta",
-      "released": "2026-11-03",
+      "released": "2026-11-19",
       "title": {
-        "de": "Neuer Stand mit eigener Wortmarke, Farbe und Sprache kommen an.",
-        "en": "New build with its own wordmark, colour and language arrive.",
-        "es": "Nueva versión con marca propia, el color y el idioma llegan."
+        "de": "Ein Name, klare Reihenfolge",
+        "en": "One name, clear order",
+        "es": "Un nombre, orden claro"
       },
       "summary": {
-        "de": "Der Guide übernimmt den aktuellen Stand: Wortmarke und Projektzeichen als eigene Bilder in assets, farbige Umschalter im Kopf, Spanisch weiter ausgebaut. Die Palettennamen der Übersichtsseite werden jetzt übersetzt, sonst kam die Farbe dort nicht an. Eigene Änderungen an Farbe und Sprache gehen an die Übersichtsseite zurück.",
-        "en": "The guide takes the current build: wordmark and project mark as separate images in assets, colour switches in the header, more Spanish. The palette names of the overview page are translated now, without that the colour never arrived. Changes to colour and language travel back to the overview page.",
-        "es": "La guía adopta la versión actual: la marca y el distintivo del proyecto como imágenes propias en assets, selectores de color en la cabecera y más español. Los nombres de paleta de la vista general se traducen ahora, sin eso el color no llegaba. Los cambios de color e idioma vuelven a la vista general."
+        "de": "Das Programm heißt jetzt Guide. Inhalt, Quellen und Glossar bleiben, die Kapitel und Tabellen ebenso.",
+        "en": "The program is now called Guide. Content, sources and glossary stay, the chapters and tables as well.",
+        "es": "El programa ahora se llama Guide. El contenido, las fuentes y el glosario siguen igual, también los capítulos y las tablas."
       },
       "file": "guide/index.html",
-      "size_bytes": 7700211,
-      "sha256": "24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e",
+      "size_bytes": 7700071,
+      "sha256": "552078f1b4c33c4021b240a80153276494e46880acb897d8c9b32cf792fb30fe",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.21-es",
       "signals": [
         {
           "label": {
-            "de": "Aufbau der Seite",
-            "en": "Page structure",
-            "es": "Estructura de la página"
+            "de": "Name",
+            "en": "Name",
+            "es": "Nombre"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Kapitel",
+            "en": "Chapters",
+            "es": "Capítulos"
           },
           "state": "ok"
         },
@@ -501,179 +461,110 @@ window.FLOWSTATE_DATA = {
             "es": "Glosario"
           },
           "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Sprache DE/EN",
-            "en": "Language DE/EN",
-            "es": "Idioma DE/EN"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Spanisch",
-            "en": "Spanish",
-            "es": "Español"
-          },
-          "state": "pending"
-        },
-        {
-          "label": {
-            "de": "Durchsicht",
-            "en": "Review",
-            "es": "Revisión"
-          },
-          "state": "pending"
         }
-      ],
-      "notes": {
-        "de": [
-          "Wortmarke und Projektzeichen liegen als eigene Dateien in guide/assets",
-          "Paletten: Ozean, Leinen, Dunkelrot, übernommen aus der Übersichtsseite",
-          "95 Glossarbegriffe, direkt im Text aufrufbar",
-          "Quellen und Lizenzangaben unverändert im Dokument"
-        ],
-        "en": [
-          "Wordmark and project mark are separate files in guide/assets",
-          "Palettes: ocean, linen, dark red, taken from the overview page",
-          "95 glossary terms, openable straight from the text",
-          "Sources and licence notices unchanged in the document"
-        ],
-        "es": [
-          "La marca y el distintivo están como archivos propios en guide/assets",
-          "Paletas: océano, lino y rojo oscuro, tomadas de la vista general",
-          "95 términos de glosario, que se abren directamente en el texto",
-          "Fuentes y avisos de licencia sin cambios en el documento"
-        ]
-      },
-      "limits": {
-        "de": [
-          "Eine große Datei: der erste Aufruf dauert einen Moment",
-          "Spanisch bleibt ungeprüfte Vorschau",
-          "Werte bleiben firmware- und hardwareabhängig",
-          "Sbang inhaltlich und im Ablauf unverändert lassen"
-        ],
-        "en": [
-          "One large file: the first load takes a moment",
-          "Spanish remains an unverified preview",
-          "Values remain firmware and hardware dependent",
-          "Leave Sbang content and sequence unchanged"
-        ],
-        "es": [
-          "Un solo archivo grande: la primera carga tarda un momento",
-          "El español sigue siendo una vista previa sin revisar",
-          "Los valores dependen del firmware y del hardware",
-          "No cambiar el contenido ni el orden de Sbang"
-        ]
-      }
+      ]
     },
     {
-      "id": "presets-0.2.0-beta.3",
+      "id": "presets-0.2.0-beta.4",
       "program": "presets",
-      "version": "v0.2.0-beta.3",
+      "version": "v0.2.0-beta.4",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Copter aus dem Hangar, Farbstreifen bündig",
-        "en": "Copters from the hangar, colour stripe flush",
-        "es": "Copters del hangar, franja al ras"
+        "de": "Ein Name, klare Reihenfolge",
+        "en": "One name, clear order",
+        "es": "Un nombre, orden claro"
       },
       "summary": {
-        "de": "Der Preset-Bauer sammelt die Bereiche, die man gefahrlos weitergeben kann: Schalterbelegung, Beeper, OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit save, den man kopiert, als Datei sichert oder über Web Serial in die Konsole schreibt. Vorher läuft eine Prüfung, die fehlende oder widersprüchliche Angaben einzeln nennt. PID, Filter und Motoren sind nicht Teil des Werkzeugs.",
-        "en": "The preset builder collects the parts that are safe to pass on: switches, beeper, OSD profiles, adjustments and rates. It ends in a CLI block with save that you copy, save as a file or write to the console over Web Serial. A check runs first and names missing or conflicting entries one by one. PID, filters and motors are not part of the tool.",
-        "es": "El creador de presets reúne las partes que se pueden pasar sin riesgo: interruptores, beeper, perfiles OSD, ajustes y rates. Termina en un bloque CLI con save que se copia, se guarda como archivo o se escribe en la consola por Web Serial. Antes corre una revisión que nombra uno por uno los datos que faltan o se contradicen. PID, filtros y motores no forman parte de la herramienta."
+        "de": "Das Programm heißt jetzt Presets. Der gebaute CLI-Block trägt den neuen Namen im Kopf, importierte Dateien werden weiter erkannt.",
+        "en": "The program is now called Presets. The built CLI block carries the new name in its header, imported files are still recognised.",
+        "es": "El programa ahora se llama Presets. El bloque CLI generado lleva el nombre nuevo en la cabecera, los archivos importados se siguen reconociendo."
       },
       "file": "presets/index.html",
-      "size_bytes": 223016,
-      "sha256": "a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d",
+      "size_bytes": 222961,
+      "sha256": "fbf1ccd964830bac00850675108ca524f394ee87eeee960d367a40a74eb31ff1",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.3",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.4",
       "signals": [
         {
           "label": {
-            "de": "Schalter und Beeper",
-            "en": "Switches and beeper",
-            "es": "Interruptores y beeper"
+            "de": "Name",
+            "en": "Name",
+            "es": "Nombre"
           },
           "state": "ok"
         },
         {
           "label": {
-            "de": "OSD-Profile",
-            "en": "OSD profiles",
-            "es": "Perfiles OSD"
+            "de": "CLI-Kopf",
+            "en": "CLI header",
+            "es": "Cabecera CLI"
           },
           "state": "ok"
         },
         {
           "label": {
-            "de": "Sprache DE/EN",
-            "en": "Language DE/EN",
-            "es": "Idioma DE/EN"
+            "de": "Import",
+            "en": "Import",
+            "es": "Importación"
           },
           "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Schreiben per USB",
-            "en": "Writing over USB",
-            "es": "Escritura por USB"
-          },
-          "state": "open"
-        },
-        {
-          "label": {
-            "de": "Flugtest",
-            "en": "Flight test",
-            "es": "Prueba de vuelo"
-          },
-          "state": "open"
         }
-      ],
-      "notes": {
-        "de": [
-          "Copter-Liste des Hangars wird gelesen, Name, Größe und Flight Controller übernommen",
-          "Copter-Kennung bleibt am Modell, das Preset nennt sie beim Bereitstellen",
-          "Farbstreifen links endet bündig an der Eckrundung"
-        ],
-        "en": [
-          "The hangar's copter list is read, name, size and flight controller are taken over",
-          "The copter id stays on the model, the published preset names it",
-          "Colour stripe on the left ends flush with the rounded corner"
-        ],
-        "es": [
-          "Se lee la lista de copters del hangar y se toman nombre, tamaño y controladora",
-          "El identificador del copter queda en el modelo, el preset publicado lo nombra",
-          "La franja de la izquierda termina al ras de la esquina redondeada"
-        ]
+      ]
+    },
+    {
+      "id": "osd-0.1.0-beta.5",
+      "program": "osd",
+      "version": "v0.1.0-beta.5",
+      "channel": "beta",
+      "released": "2026-11-19",
+      "title": {
+        "de": "Ein Name, klare Reihenfolge",
+        "en": "One name, clear order",
+        "es": "Un nombre, orden claro"
       },
-      "limits": {
-        "de": [
-          "Schreiben in die Konsole braucht Chrome, Edge oder Opera",
-          "Spanisch ist übersetzt, aber nicht durchgesehen",
-          "Kein PID, keine Filter, keine Motoren: dafür ist der Tuner da",
-          "Über file:// kann der Browser den Speicher sperren"
-        ],
-        "en": [
-          "Writing to the console needs Chrome, Edge or Opera",
-          "Spanish is translated but not reviewed",
-          "No PID, no filters, no motors: that is the tuner's job",
-          "Over file:// the browser may block storage"
-        ],
-        "es": [
-          "Escribir en la consola necesita Chrome, Edge u Opera",
-          "El español está traducido pero no revisado",
-          "Sin PID, sin filtros, sin motores: eso lo hace el tuner",
-          "Con file:// el navegador puede bloquear el almacenamiento"
-        ]
-      }
+      "summary": {
+        "de": "Das Programm heißt jetzt OSD. Fonts, Startlogo und das Raster bleiben, importierte Schriften liegen weiter im Browser.",
+        "en": "The program is now called OSD. Fonts, startup logo and the grid stay, imported fonts still live in the browser.",
+        "es": "El programa ahora se llama OSD. Las fuentes, el logo de arranque y la rejilla siguen igual, las fuentes importadas se quedan en el navegador."
+      },
+      "file": "osd/index.html",
+      "size_bytes": 4273728,
+      "sha256": "2f561e03bdc23ab5aadb101b84956650b2dc0afc78d3fef82260e3c961473d30",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.5",
+      "signals": [
+        {
+          "label": {
+            "de": "Name",
+            "en": "Name",
+            "es": "Nombre"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Fonts",
+            "en": "Fonts",
+            "es": "Fuentes"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Startlogo",
+            "en": "Startup logo",
+            "es": "Logo de arranque"
+          },
+          "state": "ok"
+        }
+      ]
     }
   ],
   "platform": {
     "id": "flowstate-fpv",
     "name": "FlowState FPV",
-    "version": "1.0.0",
-    "released": "2026-11-03"
+    "version": "1.1.0",
+    "released": "2026-11-19"
   }
 };

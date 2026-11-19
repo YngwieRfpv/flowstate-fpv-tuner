@@ -18,13 +18,13 @@ assets/data/versions.json   Register: Programme, Releases, Texte (DE/EN/ES)
 assets/data/versions.js     dasselbe als Skript, für file:// und das Paket
 assets/images/          Logo, Zeichen, Favicon, Vorschauen
 
-hangar/index.html        FlowState Hangar Deck
+hangar/index.html        Hangar
 hangar/data/flowstate-hangar.json   Startbestand, nur im Paket
-tuner/index.html         FlowState Tuner
-guide/index.html         FPV Guide
+tuner/index.html         Tuner
+guide/index.html         Guide
 guide/assets/            Wortmarke und Fußzeile des Guides
-presets/index.html       FlowState Presets
-osd/index.html           OSD Customizer
+presets/index.html       Presets
+osd/index.html           OSD
 
 tools/paket.mjs          baut das Gesamt-ZIP (Node, keine Abhängigkeiten)
 .github/workflows/       Gesamtpaket an die Releases, Pages-Aufräumen
@@ -150,7 +150,7 @@ in `extra`, damit sie im ZIP landen.
 | Tuner | `flowstate-v48-alpha1`, `flowstate-disclaimer` |
 | Guide | `bf-tuning-guide-alpha-de-v1` |
 | Presets | `flowstate.presets.v1`, `flowstate.presets.prefs`, `flowstate.presets.beepExtra` |
-| OSD Customizer | `bfOsdLab.shell.v1`, `bfOsdLab.fontImports.v1` |
+| OSD | `bfOsdLab.shell.v1`, `bfOsdLab.fontImports.v1` |
 | gemeinsam | `flowstate.prefs`, `flowstate-theme`, `flowstate-lang` |
 
 Die drei gemeinsamen gehören zur Plattform: Farbe und Sprache. Sie werden von jeder Seite

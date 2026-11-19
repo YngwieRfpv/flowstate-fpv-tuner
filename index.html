@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FlowState FPV · Copter, Logs, Presets, OSD</title>
-<meta name="description" content="Copter-Liste, Blackbox-Logs, Presets und OSD-Fonts im Browser. FlowState Hangar Deck führt die Copter-Liste mit Bild und liest den Flight Controller aus, der FlowState Tuner wertet Logs aus und schreibt einen CLI-Plan, FlowState Presets baut Schalter, Beeper und Raten, der OSD Customizer bearbeitet Fonts und Startlogo, der FPV Guide erklärt Ablauf, Filter und Begriffe.">
+<meta name="description" content="Copter-Liste, Blackbox-Logs, Presets und OSD-Fonts im Browser. Der Hangar führt die Copter-Liste mit Bild und liest den Flight Controller aus, der Tuner wertet Logs aus und schreibt einen CLI-Plan, Presets bauen Schalter, Beeper und Raten, das OSD bearbeitet Fonts und Startlogo, der Guide erklärt Ablauf, Filter und Begriffe.">
 <meta name="theme-color" content="#06232a">
 <link rel="icon" href="assets/images/favicon.png" type="image/png">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -47,7 +47,7 @@
       <img class="brand-mark" src="assets/images/mark.png" alt="" width="34" height="27" decoding="async">
       <span class="brand-text">
         <span class="brand-name">FlowState</span>
-        <span class="brand-sub" data-module-names>Hangar · Autotuner · Guide</span>
+        <span class="brand-sub" data-module-names>Hangar · Tuner · Guide</span>
       </span>
     </a>
 
@@ -59,7 +59,7 @@
       </a>
       <a class="app-switch__item" href="tuner/" data-app="tuner">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16.5a8 8 0 1 1 16 0"/><path d="M12 16.5 16 10"/><circle cx="12" cy="16.5" r="1.6"/></svg>
-        <span data-i18n="apps.tuner">Autotuner</span>
+        <span data-i18n="apps.tuner">Tuner</span>
       </a>
       <a class="app-switch__item" href="guide/" data-app="guide">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 7h8M8 10.5h5"/></svg>
@@ -157,7 +157,7 @@
     <div class="overview-list reveal" id="overview-list" aria-live="polite"></div>
     <p class="overview-links reveal">
       <span data-i18n="overview.sections">Mehr zu den Programmen</span>
-      <span id="overview-links"><a href="#hangar">FlowState Hangar Deck</a><a href="#tuner">FlowState Tuner</a><a href="#guide">FPV Guide</a></span>
+      <span id="overview-links"><a href="#hangar">Hangar</a><a href="#tuner">Tuner</a><a href="#guide">Guide</a></span>
     </p>
   </div>
 </section>
@@ -165,7 +165,7 @@
   <div class="wrap">
     <div class="detail-head reveal">
       <div>
-        <p class="eyebrow" data-i18n="hangar.eyebrow">Hangar Deck</p>
+        <p class="eyebrow" data-i18n="hangar.eyebrow">Hangar</p>
         <h2 data-i18n="hangar.title">Die Copter-Liste</h2>
         <p class="lede" data-i18n="hangar.lede">Ein Kopf, eine Liste, ein Dialog. Die Daten bleiben im Browser, eine Sicherung als JSON oder HTML liegt daneben. Die Liste lässt sich als Code oder Link weitergeben.</p>
       </div>
@@ -200,8 +200,8 @@
   <div class="wrap">
     <div class="detail-head reveal">
       <div>
-        <img class="tuner-logo tuner-logo--dunkel" src="assets/images/logo-tuner.png" alt="FlowState Tuner" width="560" height="118" decoding="async">
-        <img class="tuner-logo tuner-logo--hell" src="assets/images/logo-tuner-hell.png" alt="FlowState Tuner" width="560" height="118" decoding="async">
+        <img class="tuner-logo tuner-logo--dunkel" src="assets/images/logo-tuner.png" alt="Tuner" width="560" height="118" decoding="async">
+        <img class="tuner-logo tuner-logo--hell" src="assets/images/logo-tuner-hell.png" alt="Tuner" width="560" height="118" decoding="async">
         <h2 data-i18n="tuner.title">Sechs Phasen bis zum CLI-Plan</h2>
         <p class="lede" data-i18n="tuner.lede">Der Ablauf hat sechs Phasen. Jede sammelt ihre Messwerte und zeigt ihren Plan. Weiter geht es erst, wenn du die Phase abschließt.</p>
       </div>
@@ -236,7 +236,7 @@
   <div class="wrap">
     <div class="detail-head reveal">
       <div>
-        <p class="eyebrow" data-i18n="guide.eyebrow">FPV Guide</p>
+        <p class="eyebrow" data-i18n="guide.eyebrow">Guide</p>
         <h2 data-i18n="guide.title">Was im Guide steht</h2>
         <p class="lede" data-i18n="guide.lede">Führt vom ersten Build bis zum Feintuning: Begriffe, Tabellen und der Ablauf Schritt für Schritt.</p>
       </div>
@@ -386,7 +386,7 @@
           <img class="brand-mark" src="assets/images/mark.png" alt="" width="34" height="27" decoding="async">
           <span class="brand-text">
             <span class="brand-name">FlowState</span>
-            <span class="brand-sub" data-module-names>Hangar · Autotuner · Guide</span>
+            <span class="brand-sub" data-module-names>Hangar · Tuner · Guide</span>
           </span>
         </a>
         <p class="footer-note" data-i18n="footer.note">HTML-Programme für deine Copter. Sie laden keine externen Skripte, Schriften oder Bilder.</p>
@@ -396,9 +396,11 @@
         <div class="footer-col">
           <h4 data-i18n="footer.programs">Programme</h4>
           <div id="footer-programs">
-            <a href="hangar/">FlowState Hangar Deck</a>
-            <a href="tuner/">FlowState Tuner</a>
-            <a href="guide/">FPV Guide</a>
+            <a href="hangar/">Hangar</a>
+            <a href="tuner/">Tuner</a>
+            <a href="guide/">Guide</a>
+            <a href="presets/">Presets</a>
+            <a href="osd/">OSD</a>
           </div>
         </div>
         <div class="footer-col">
@@ -452,9 +454,9 @@
       <span class="report-label" data-i18n="report.program">Programm</span>
       <select id="report-program">
         <option value="hub" selected>FlowState FPV</option>
-        <option value="hangar">FlowState Hangar Deck</option>
-        <option value="tuner">FlowState Tuner</option>
-        <option value="guide">FPV Guide</option>
+        <option value="hangar">Hangar</option>
+        <option value="tuner">Tuner</option>
+        <option value="guide">Guide</option>
       </select>
     </label>
     <label class="report-field" for="report-text">
