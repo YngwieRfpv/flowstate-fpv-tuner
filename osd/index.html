@@ -89,14 +89,6 @@ button { cursor: pointer; }
 .tab.active .num { color: var(--cyan); }
 .tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--amber); }
 .tab.legacy { opacity: .72; }
-.top-status { margin-left: auto; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-left: 2px solid var(--line); }
-.pill {
-  display: inline-flex; align-items: center; gap: 6px; padding: 5px 7px;
-  border: 1px solid var(--line2); background: #050a0c;
-  font: 9px var(--mono); color: var(--muted); white-space: nowrap; letter-spacing: .5px;
-}
-.pill b { color: var(--cyan); font-weight: 700; }
-.pill .dot { width: 7px; height: 7px; background: var(--green); box-shadow: 0 0 6px var(--green); }
 
 /* ------------------------------ WORKSPACE ------------------------------- */
 .workspace {
@@ -322,7 +314,6 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); }
   .topbar { height: auto; min-height: 54px; flex-wrap: wrap; padding-bottom: 0; }
   .brand { min-width: 0; border-right: 0; }
   .tabs { order: 3; width: 100%; border-top: 1px solid var(--line); }
-  .top-status { margin-left: auto; border-left: 0; }
   .workspace { display: flex; flex-direction: column; padding: 8px; gap: 8px; }
   .panel { overflow: visible; box-shadow: none; }
   .panel.main { order: 1; }
@@ -484,10 +475,6 @@ body{
   font-weight:700;padding:5px 8px;cursor:pointer;letter-spacing:.5px}
 .seg.langs button:hover{color:var(--text)}
 .seg.langs button.active{background:var(--accent-soft);color:var(--accent-text)}
-.top-status{margin-left:0;display:flex;gap:7px;align-items:center;padding:0;border:0}
-.pill{background:var(--field);border:1px solid var(--line2);border-radius:999px;padding:5px 9px;font-size:9px}
-.pill b{color:var(--accent-text)}
-.pill .dot{width:7px;height:7px;background:var(--ok);box-shadow:0 0 7px var(--ok);border-radius:50%}
 
 /* FlowState-Tabs: flache Reiter mit Nummern-Chips, keine pixeligen Kanten mehr. */
 .tabs{order:0;display:flex;gap:5px;margin:0 0 14px;flex-wrap:wrap;border-bottom:0;box-shadow:inset 0 -1px 0 var(--line);padding:0;overflow-x:auto;scrollbar-width:none}
@@ -709,11 +696,6 @@ details.more .font-filter{margin-top:4px}
           <button type="button" data-lang="en" aria-label="English">EN</button>
           <button type="button" data-lang="es" aria-label="Español">ES</button>
         </div>
-      </div>
-      <div class="top-status">
-        <span class="pill"><span class="dot"></span> <b>BF · READY</b></span>
-        <span class="pill" id="statusGrid"><b>30×16</b></span>
-        <span class="pill" id="statusFont"><b>IBM VGA 8×16</b></span>
       </div>
     </div>
   </header>
@@ -1447,7 +1429,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     de: {},
     en: {
       'Farbschema': 'Color scheme', 'Sprache': 'Language',
-      'BF · READY': 'BF · READY', 'MODUS': 'MODE', 'ZELLE': 'CELL', 'FONT': 'FONT',
+      'MODUS': 'MODE', 'ZELLE': 'CELL', 'FONT': 'FONT',
       'FLOWSTATE': 'FLOWSTATE', 'OSD LAB': 'OSD LAB',
       'Font Pack': 'Font Pack', 'Fertigfonts mischen': 'Mix ready fonts',
       'Fonts': 'Fonts', '362 Quellen + Editor': '362 sources + editor',
@@ -1502,7 +1484,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     },
     es: {
       'Farbschema': 'Esquema de color', 'Sprache': 'Idioma',
-      'BF · READY': 'BF · LISTO', 'MODUS': 'MODO', 'ZELLE': 'CELDA', 'FONT': 'FUENTE',
+      'MODUS': 'MODO', 'ZELLE': 'CELDA', 'FONT': 'FUENTE',
       'FLOWSTATE': 'FLOWSTATE', 'OSD LAB': 'LAB OSD',
       'Font Pack': 'Paquete de fuentes', 'Fertigfonts mischen': 'Mezclar fuentes listas',
       'Fonts': 'Fuentes', '362 Quellen + Editor': '362 fuentes + editor',
@@ -3182,7 +3164,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     });
     const ws = $('#workspace'); if (ws) ws.classList.toggle('osd-compact', state.tab === 'osd' && !state.showOsdEditor);
     const rf = readyFont(state.fontId);
-    $('#statusGrid').innerHTML = `<b>${state.standard} ${state.cols}×${state.rows}</b>`;
+    const sg = $('#statusGrid'); if (sg) sg.innerHTML = `<b>${state.standard} ${state.cols}×${state.rows}</b>`;
     const sf = $('#statusFont'); if (sf) sf.innerHTML = `<b>${esc(rf.name)}</b>`;
     const sfs = $('#statusFontShort'); if (sfs) sfs.textContent = rf.name.split(' ')[0].toUpperCase();
     const sc = $('#statusCoords'); if (sc) sc.textContent = `${state.cols} × ${state.rows}`;

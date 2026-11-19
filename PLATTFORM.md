@@ -18,7 +18,7 @@ assets/data/versions.json   Register: Programme, Releases, Texte (DE/EN/ES)
 assets/data/versions.js     dasselbe als Skript, für file:// und das Paket
 assets/images/          Logo, Zeichen, Favicon, Vorschauen
 
-hangar/index.html        HangarDeck Lite
+hangar/index.html        FlowState Hangar Deck
 hangar/data/flowstate-hangar.json   Startbestand, nur im Paket
 tuner/index.html         FlowState Tuner
 guide/index.html         FPV Guide
@@ -187,7 +187,7 @@ Ein neues Werkzeug muss dieselben vier Stellen lesen und schreiben, sonst steht 
 - **Rahmen**: Der Hub setzt `?lang=` und `?theme=` an jede Programm-URL. Jedes Programm muss
   beides lesen, sonst startet es in seiner eigenen Vorgabe.
 - **Kopfzeile im Paket**: `paket.mjs` schreibt `data-app-*` ins `<html>`; `hub.js` liest sie,
-  um im Paket auf `hangar/HangarDeck-Lite.html` statt `hangar/` zu verweisen.
+  um im Paket auf `hangar/FlowState-Hangar-Deck.html` statt `hangar/` zu verweisen.
 - **Kein `reveal` in generierten Abschnitten**: Die Einblendung wird beim Start verdrahtet;
   nachträglich eingefügte Elemente mit `.reveal` blieben unsichtbar.
 - **i18n**: Texte der Programme stehen dreisprachig im Register, Texte der Plattform in `UI` in

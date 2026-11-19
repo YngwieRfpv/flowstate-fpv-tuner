@@ -4,23 +4,23 @@
   "programs": [
     {
       "id": "hangar",
-      "name": "HangarDeck Lite",
+      "name": "FlowState Hangar Deck",
       "accent": "mint",
       "path": "hangar/",
       "kind": {
-        "de": "Copter, Presets und Sicherungen an einem Ort",
-        "en": "Quads, presets and backups in one place",
-        "es": "Copter, presets y copias en un solo lugar"
+        "de": "Copter, Preset-Dateien und Sicherungen an einem Ort",
+        "en": "Quads, preset files and backups in one place",
+        "es": "Copter, archivos de presets y copias en un solo lugar"
       },
       "description": {
-        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Presets für Schalter, Beeper und OSD lassen sich einlesen, ohne PID oder Filter mitzunehmen. Die Liste geht als Code oder Link weiter. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt.",
-        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Presets for switches, beeper and OSD can be loaded without dragging PIDs or filters along. The list can be passed on as a code or a link. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in.",
-        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Los presets de interruptores, beeper y OSD se cargan sin arrastrar PID ni filtros. La lista se puede pasar como código o enlace. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML que se puede volver a cargar."
+        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Preset-Dateien aus dem Ordner werden eingelesen: nur Schalter, Beeper und OSD, PID und Filter bleiben draußen. Die Liste geht als Code oder Link weiter. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt.",
+        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Preset files from the folder are read in: only switches, beeper and OSD, PIDs and filters stay out. The list can be passed on as a code or a link. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in.",
+        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Los archivos de presets del directorio se leen: solo interruptores, beeper y OSD, PID y filtros quedan fuera. La lista se puede pasar como código o enlace. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML."
       },
       "highlights": {
         "de": [
           "Name und Größe reichen, Bild und weitere Felder bleiben optional",
-          "Presets für Schalter, Beeper und OSD, ohne PID und Filter",
+          "Preset-Dateien aus dem Ordner einlesen, gefiltert auf Schalter, Beeper und OSD",
           "Flight Controller über USB auslesen oder CLI-Text einfügen",
           "Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät",
           "Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup",
@@ -28,7 +28,7 @@
         ],
         "en": [
           "Name and size are enough, picture and further fields stay optional",
-          "Presets for switches, beeper and OSD, without PIDs and filters",
+          "Read preset files from the folder, filtered to switches, beeper and OSD",
           "Read the flight controller over USB or paste CLI text",
           "Pass the list on as a code or link, photos stay on the device",
           "Export as a PDF table, CSV, print, JSON and an HTML backup",
@@ -36,7 +36,7 @@
         ],
         "es": [
           "El nombre y el tamaño bastan, la imagen y los demás campos son opcionales",
-          "Presets de interruptores, beeper y OSD, sin PID ni filtros",
+          "Leer archivos de presets del directorio, filtrados a interruptores, beeper y OSD",
           "Leer la controladora por USB o pegar texto CLI",
           "Pasar la lista como código o enlace, las fotos se quedan en el dispositivo",
           "Exportación como tabla PDF, CSV, impresión, JSON y copia HTML",
@@ -45,24 +45,24 @@
       },
       "meta": {
         "de": [
-          "1 Datei · 158 KB",
-          "Bild, Presets, FC-Auslese",
+          "1 Datei · 143 KB",
+          "Bild, Preset-Dateien, FC-Auslese",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 158 KB",
-          "picture, presets, controller read",
+          "1 file · 143 KB",
+          "picture, preset files, controller read",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 158 KB",
-          "imagen, presets, lectura de la FC",
+          "1 archivo · 143 KB",
+          "imagen, archivos de presets, lectura de la FC",
           "cualquier navegador actual"
         ]
       },
       "enabled": true,
       "entry": "index.html",
-      "pack": "hangar/HangarDeck-Lite.html",
+      "pack": "hangar/FlowState-Hangar-Deck.html",
       "icon": "hangar",
       "extra": [
         "hangar/data/flowstate-hangar.json"
@@ -316,26 +316,26 @@
   ],
   "releases": [
     {
-      "id": "hangar-0.9.6-beta.2",
+      "id": "hangar-1.0.0-beta.1",
       "program": "hangar",
-      "version": "v0.9.6-beta.2",
+      "version": "v1.0.0-beta.1",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Farbstreifen am Kopf bündig, Presets aus dem Preset-Bauer",
-        "en": "Colour stripe flush with the head, presets from the preset builder",
-        "es": "Franja del encabezado al ras, presets del creador de presets"
+        "de": "Neuer Name, Preset-Dateien statt Preset-Dialog",
+        "en": "New name, preset files instead of a preset dialog",
+        "es": "Nombre nuevo, archivos de presets en lugar de un diálogo"
       },
       "summary": {
-        "de": "HangarDeck Lite übernimmt den Stand 0.9.6. Neu sind Presets für die drei Bereiche, bei denen eine fremde Vorlage keinen Copter kippen kann: Schalter, Beeper und OSD. Beim Einlesen wird jede Zeile geprüft, PID, Filter und Motoren kommen nicht durch. Dazu das gespeicherte OSD als Raster und eigene Presets, die im HTML-Backup mitreisen. Unverändert: Übertragen per Code oder Link, Flight Controller über USB auslesen, Betaflight-Backup je Modell, Export als PDF, CSV, Druck, JSON und HTML.",
-        "en": "HangarDeck Lite takes the 0.9.6 build. New are presets for the three areas where a foreign template cannot tip a quad over: switches, beeper and OSD. Every line is checked on load, PIDs, filters and motors do not get through. Also the stored OSD as a grid and your own presets that travel inside the HTML backup. Unchanged: transfer as a code or link, reading the flight controller over USB, a Betaflight backup per model, export as PDF, CSV, print, JSON and HTML.",
-        "es": "HangarDeck Lite adopta la versión 0.9.6. Lo nuevo son los presets para las tres áreas donde una plantilla ajena no puede volcar un copter: interruptores, beeper y OSD. Cada línea se comprueba al cargar, PID, filtros y motores no pasan. Además el OSD guardado como rejilla y presets propios que viajan en la copia HTML. Sin cambios: traspaso como código o enlace, lectura de la controladora por USB, copia de Betaflight por modelo, exportación como PDF, CSV, impresión, JSON y HTML."
+        "de": "FlowState Hangar Deck übernimmt den Stand 0.9.6. Neu sind Presets für die drei Bereiche, bei denen eine fremde Vorlage keinen Copter kippen kann: Schalter, Beeper und OSD. Beim Einlesen wird jede Zeile geprüft, PID, Filter und Motoren kommen nicht durch. Dazu das gespeicherte OSD als Raster und eigene Presets, die im HTML-Backup mitreisen. Unverändert: Übertragen per Code oder Link, Flight Controller über USB auslesen, Betaflight-Backup je Modell, Export als PDF, CSV, Druck, JSON und HTML.",
+        "en": "FlowState Hangar Deck takes the 0.9.6 build. New are presets for the three areas where a foreign template cannot tip a quad over: switches, beeper and OSD. Every line is checked on load, PIDs, filters and motors do not get through. Also the stored OSD as a grid and your own presets that travel inside the HTML backup. Unchanged: transfer as a code or link, reading the flight controller over USB, a Betaflight backup per model, export as PDF, CSV, print, JSON and HTML.",
+        "es": "FlowState Hangar Deck adopta la versión 0.9.6. Lo nuevo son los presets para las tres áreas donde una plantilla ajena no puede volcar un copter: interruptores, beeper y OSD. Cada línea se comprueba al cargar, PID, filtros y motores no pasan. Además el OSD guardado como rejilla y presets propios que viajan en la copia HTML. Sin cambios: traspaso como código o enlace, lectura de la controladora por USB, copia de Betaflight por modelo, exportación como PDF, CSV, impresión, JSON y HTML."
       },
       "file": "hangar/index.html",
-      "size_bytes": 157742,
-      "sha256": "7bb4cfdc10b1f636c0c7964252fed87065ac4530794759e7d73c0f15abfcdf6f",
+      "size_bytes": 142244,
+      "sha256": "dc02574ed46c162dd79483426200d158bfd7402fcd24a268862911cc19feacad",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/hangar-0.9.6-beta.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.1",
       "signals": [
         {
           "label": {
@@ -396,19 +396,22 @@
       ],
       "notes": {
         "de": [
-          "Farbstreifen links endet bündig an der Eckrundung, in allen Farben",
-          "Preset aus dem Preset-Bauer steht in der Auswahl und wird als CLI gelesen",
-          "Copter-Kennung geht an den Preset-Bauer, Auswahl dort über den Namen"
+          "Heißt jetzt FlowState Hangar Deck, „Lite“ fällt überall weg",
+          "Preset-Dialog ersetzt durch einen Leser für .txt-Dateien aus dem Ordner",
+          "Beim Einlesen bleiben nur aux-, beeper- und osd_-Zeilen übrig, der Rest wird gezählt",
+          "Farbstreifen links endet bündig an der Eckrundung"
         ],
         "en": [
-          "Colour stripe on the left ends flush with the rounded corner, in every colour",
-          "A preset from the preset builder shows up in the list and is read as CLI",
-          "The copter id goes to the preset builder, picked there by name"
+          "Now called FlowState Hangar Deck, „Lite“ is gone everywhere",
+          "Preset dialog replaced by a reader for .txt files from the folder",
+          "Only aux, beeper and osd_ lines survive reading, the rest is counted",
+          "Colour stripe on the left ends flush with the rounded corner"
         ],
         "es": [
-          "La franja de la izquierda termina al ras de la esquina redondeada, en todos los colores",
-          "Un preset del creador aparece en la lista y se lee como CLI",
-          "El identificador del copter va al creador, allí se elige por nombre"
+          "Ahora se llama FlowState Hangar Deck, „Lite“ desaparece en todas partes",
+          "El diálogo de presets se sustituye por un lector de archivos .txt del directorio",
+          "Solo quedan líneas aux, beeper y osd_, el resto se cuenta",
+          "La franja de la izquierda termina al ras de la esquina redondeada"
         ]
       },
       "limits": {
@@ -754,15 +757,15 @@
       }
     },
     {
-      "id": "osd-0.1.0-beta.2",
+      "id": "osd-0.1.0-beta.3",
       "program": "osd",
-      "version": "v0.1.0-beta.2",
+      "version": "v0.1.0-beta.3",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Farbe und Sprache aus der Übersicht, Streifen bündig",
-        "en": "Colour and language from the overview, stripe flush",
-        "es": "Color e idioma desde la portada, franja al ras"
+        "de": "Schlankere Kopfzeile, Farbe und Sprache aus der Übersicht",
+        "en": "Leaner header, colour and language from the overview",
+        "es": "Cabecera más compacta, color e idioma desde la portada"
       },
       "summary": {
         "de": "Der OSD Customizer sammelt die Arbeit am Zeichensatz des Flight Controllers: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts zu einem Pack mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32 mit Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Farbe und Sprache kommen aus der Übersicht oder aus der Adresse.",
@@ -770,10 +773,10 @@
         "es": "El OSD Customizer reúne el trabajo sobre el juego de caracteres de la controladora: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes en un paquete y exporta .mcm. Además el logo de arranque en 288×72 o 32×32 con conversor de imágenes y el diseño OSD como rejilla con salida CLI. El color y el idioma vienen de la portada o de la dirección."
       },
       "file": "osd/index.html",
-      "size_bytes": 4273034,
-      "sha256": "b7aa4e682336d794f799a2582ccc614138e2747a606547c223f7b766c06070a1",
+      "size_bytes": 4271843,
+      "sha256": "377aaefb25659e25111e673666cfff9b25110c244afd16bc2af2acd5e9c63ab2",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-0.1.0-beta.2",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.3",
       "signals": [
         {
           "label": {
@@ -818,18 +821,21 @@
       ],
       "notes": {
         "de": [
+          "Statusleiste im Kopf entfernt, die Font-Angabe steht jetzt in der Werkzeugleiste",
           "Farbe und Sprache kommen aus der Adresse, aus der Übersicht oder aus der eigenen Ablage",
-          "Die Wahl wird an die Übersicht zurückgeschrieben, Änderungen ziehen im offenen Fenster nach",
+          "Die Wahl wird an die Übersicht zurückgeschrieben, offene Fenster ziehen nach",
           "Farbstreifen links endet bündig an der Eckrundung"
         ],
         "en": [
-          "Colour and language come from the address, the overview or the tool's own store",
-          "The choice is written back to the overview, changes follow in the open window",
+          "Status bar in the header removed, the font name now sits in the toolbar",
+          "Colour and language come from the address, the overview or the own store",
+          "The choice is written back to the overview, open windows follow",
           "Colour stripe on the left ends flush with the rounded corner"
         ],
         "es": [
+          "Barra de estado de la cabecera eliminada, la fuente aparece ahora en la barra de herramientas",
           "Color e idioma vienen de la dirección, de la portada o del almacén propio",
-          "La elección se escribe en la portada, los cambios siguen en la ventana abierta",
+          "La elección se escribe en la portada, las ventanas abiertas siguen",
           "La franja de la izquierda termina al ras de la esquina redondeada"
         ]
       },
