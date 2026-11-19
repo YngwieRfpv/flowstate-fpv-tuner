@@ -502,7 +502,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">FlowState Hangar Deck · v1.0.0-beta.1</span>
+    <span class="ver">FlowState Hangar Deck · v1.0.0-beta.2</span>
   </footer>
 </div>
 
@@ -868,12 +868,12 @@ var BF_I18N = {
     bfFromFc:"Target und CLI-Diff aus der FC übernommen.", bfDiffFail:"CLI-Diff konnte nicht gelesen werden – bitte unten einfügen.", bfSaved:"Betaflight-Sicherung erstellt", bfLoaded:"CLI-Text übernommen",
     bfFileBad:"Datei nicht lesbar",
     pfDir:"Ordner wählen", pfPick:"Preset-Datei wählen", pfNone:"Noch keine Preset-Datei gelesen.",
-    pfCount:function(n){ return n + (n === 1 ? " Preset-Datei im Ordner" : " Preset-Dateien im Ordner"); },
-    pfUse:"In den Diff übernehmen", pfUsed:"Übernommen", pfBad:"Nicht lesbar", pfEmptyFile:"Keine passenden Zeilen",
-    pfIgnored:"übergangen", pfNoFs:"Dieser Browser darf keinen Ordner öffnen. Dateien einzeln wählen oder hierher ziehen.",
-    pfHint:"Preset-Dateien aus dem Ordner lesen – gleiche Endung, keine Verbindung nötig. Nur Schalter, Beeper und OSD werden übernommen.",
+    pfCount:function(n){ return n + (n === 1 ? " Preset-Datei gelesen" : " Preset-Dateien gelesen"); },
+    pfUse:"Einfügen", pfUsed:"Übernommen", pfBad:"Nicht lesbar", pfEmptyFile:"Keine Zeilen",
+    pfNoFs:"Dieser Browser darf keinen Ordner öffnen. Dateien einzeln wählen oder hierher ziehen.",
+    pfHint:"Eine Preset-Datei wird so übernommen, wie sie geschrieben ist. Zeile für Zeile, ohne Auswahl.",
     pfDrag:"Preset-Dateien hierher ziehen",
-    pfSw:"Schalter", pfBeep:"Beeper", pfOsd:"OSD",
+    pfLines:function(n){ return n + " Zeilen"; }, pfAlreadyThere:"Steht schon im Diff",
     bfPick:"Datei ablegen (.txt)", bfRemove:"Entfernen",
     bfDropHint:"Bleibt im Modell – kein Download nötig. Datei hierher ziehen oder über „Datei ablegen“ wählen.",
     bfEmpty:"Noch keine Sicherung im Hangar. Datei ablegen oder FC auslesen.",
@@ -893,12 +893,12 @@ var BF_I18N = {
     bfFromFc:"Target and CLI diff taken from the FC.", bfDiffFail:"CLI diff could not be read – please paste it below.", bfSaved:"Betaflight backup created", bfLoaded:"CLI text applied",
     bfFileBad:"File could not be read",
     pfDir:"Choose folder", pfPick:"Choose preset file", pfNone:"No preset file read yet.",
-    pfCount:function(n){ return n + (n === 1 ? " preset file in the folder" : " preset files in the folder"); },
-    pfUse:"Add to the diff", pfUsed:"Added", pfBad:"Not readable", pfEmptyFile:"No matching lines",
-    pfIgnored:"skipped", pfNoFs:"This browser cannot open a folder. Pick files one by one or drop them here.",
-    pfHint:"Read preset files from the folder – same extension, no connection needed. Only switches, beeper and OSD are taken over.",
+    pfCount:function(n){ return n + (n === 1 ? " preset file read" : " preset files read"); },
+    pfUse:"Insert", pfUsed:"Added", pfBad:"Not readable", pfEmptyFile:"No lines",
+    pfNoFs:"This browser cannot open a folder. Pick files one by one or drop them here.",
+    pfHint:"A preset file is taken over as it was written. Line by line, without picking anything out.",
     pfDrag:"Drop preset files here",
-    pfSw:"switch", pfBeep:"beeper", pfOsd:"OSD",
+    pfLines:function(n){ return n + (n === 1 ? " line" : " lines"); }, pfAlreadyThere:"Already in the diff",
     bfPick:"Store file (.txt)", bfRemove:"Remove",
     bfDropHint:"Stays in the model – no download needed. Drag the file here or use “Store file”.",
     bfEmpty:"No backup in the hangar yet. Store a file or read the FC.",
@@ -918,12 +918,12 @@ var BF_I18N = {
     bfFromFc:"Target y diff CLI tomados de la FC.", bfDiffFail:"No se pudo leer el diff CLI: pégalo abajo.", bfSaved:"Copia de Betaflight creada", bfLoaded:"Texto CLI aplicado",
     bfFileBad:"No se pudo leer el archivo",
     pfDir:"Elegir carpeta", pfPick:"Elegir archivo de preset", pfNone:"Aún no se ha leído ningún preset.",
-    pfCount:function(n){ return n + (n === 1 ? " preset en la carpeta" : " presets en la carpeta"); },
-    pfUse:"Añadir al diff", pfUsed:"Añadido", pfBad:"No legible", pfEmptyFile:"Sin líneas válidas",
-    pfIgnored:"omitidas", pfNoFs:"Este navegador no puede abrir una carpeta. Elige los archivos uno a uno o arrástralos aquí.",
-    pfHint:"Lee presets de la carpeta – misma extensión, sin conexión. Solo se toman interruptores, beeper y OSD.",
+    pfCount:function(n){ return n + (n === 1 ? " preset leído" : " presets leídos"); },
+    pfUse:"Insertar", pfUsed:"Añadido", pfBad:"No legible", pfEmptyFile:"Sin líneas",
+    pfNoFs:"Este navegador no puede abrir una carpeta. Elige los archivos uno a uno o arrástralos aquí.",
+    pfHint:"El preset se toma tal como se escribió. Línea por línea, sin elegir nada.",
     pfDrag:"Arrastra los presets aquí",
-    pfSw:"interruptor", pfBeep:"beeper", pfOsd:"OSD",
+    pfLines:function(n){ return n + (n === 1 ? " línea" : " líneas"); }, pfAlreadyThere:"Ya está en el diff",
     bfPick:"Guardar archivo (.txt)", bfRemove:"Quitar",
     bfDropHint:"Se queda en el modelo – sin descarga. Arrastra el archivo aquí o usa “Guardar archivo”.",
     bfEmpty:"Todavía no hay copia en el hangar. Guarda un archivo o lee la FC.",
@@ -1155,7 +1155,83 @@ function loadImgs(){
   try{ return cleanImgs(JSON.parse(LS.get(IMG_KEY) || "{}")); }catch(e){ return {}; }
 }
 var IMG = loadImgs();
-/* "ok" | "full" (Kontingent erschöpft) | "mem" (Speicher blockiert -> nur diese Sitzung) */
+
+/* Bilder liegen in IndexedDB, nicht im kleinen Schluessel-Wertspeicher des Browsers.
+   Der fasst nur wenige Megabyte fuer die ganze Seite, damit waren nach zwei, drei
+   Coptern die Bilder weg. IndexedDB hat Platz in der Groessenordnung des freien
+   Speichers, die Bilder bleiben also nach dem Neuladen da. Wo IndexedDB fehlt
+   (etwa bei file://), bleibt der alte Weg ueber localStorage. */
+var IMG_DB = (function(){
+  var DB = "flowstate-hangar", STORE = "images", conn = null, opening = null;
+  function open(){
+    if(opening) return opening;
+    opening = new Promise(function(res, rej){
+      if(!window.indexedDB) return rej(new Error("no idb"));
+      var req = window.indexedDB.open(DB, 1);
+      req.onupgradeneeded = function(){ var d = req.result; if(!d.objectStoreNames.contains(STORE)) d.createObjectStore(STORE); };
+      req.onsuccess = function(){ conn = req.result; res(conn); };
+      req.onerror = function(){ rej(req.error || new Error("idb")); };
+      req.onblocked = function(){ rej(new Error("blocked")); };
+    });
+    return opening;
+  }
+  function run(mode, fn){
+    return open().then(function(db){
+      return new Promise(function(res, rej){
+        var tx = db.transaction(STORE, mode), store = tx.objectStore(STORE), out;
+        var req = fn(store);
+        if(req) req.onsuccess = function(){ out = req.result; };
+        tx.oncomplete = function(){ res(out); };
+        tx.onerror = function(){ rej(tx.error || new Error("tx")); };
+        tx.onabort = function(){ rej(tx.error || new Error("abort")); };
+      });
+    });
+  }
+  return {
+    /* alle Bilder in einem Zug: Schluessel und Werte aus derselben Transaktion */
+    entries:function(){
+      return open().then(function(db){
+        return new Promise(function(res, rej){
+          var tx = db.transaction(STORE, "readonly"), st = tx.objectStore(STORE);
+          var keys = st.getAllKeys(), vals = st.getAll();
+          tx.oncomplete = function(){ res({ keys:keys.result, vals:vals.result }); };
+          tx.onerror = function(){ rej(tx.error || new Error("tx")); };
+        });
+      }).catch(function(){ return null; });
+    },
+    keys:function(){ return run("readonly", function(st){ return st.getAllKeys(); }).catch(function(){ return null; }); },
+    get:function(k){ return run("readonly", function(st){ return st.get(k); }).catch(function(){ return null; }); },
+    put:function(k, v){ return run("readwrite", function(st){ return st.put(v, k); }).then(function(){ return true; }).catch(function(){ return false; }); },
+    del:function(k){ return run("readwrite", function(st){ return st.delete(k); }).then(function(){ return true; }).catch(function(){ return false; }); },
+    clear:function(){ return run("readwrite", function(st){ return st.clear(); }).then(function(){ return true; }).catch(function(){ return false; }); }
+  };
+})();
+/* Alter Bestand aus localStorage in die neue Ablage holen, einmalig. */
+(function migrateImgs(){
+  var keys = Object.keys(IMG);
+  if(!keys.length) return;
+  IMG_DB.keys().then(function(have){
+    if(have === null) return;            /* kein IndexedDB: der alte Weg bleibt */
+    var put = Promise.resolve();
+    keys.forEach(function(k){
+      if(IMG[k] && !have.some(function(x){ return x === k; })) put = put.then(function(){ return IMG_DB.put(k, IMG[k]); });
+    });
+    put.then(function(){ try{ localStorage.removeItem(IMG_KEY); }catch(e){} });
+  });
+})();
+/* Bilder aus der neuen Ablage nachladen und die Ansicht einmal neu setzen. */
+function loadImgsFromDb(){
+  return IMG_DB.entries().then(function(box){
+    if(!box || !box.keys || !box.keys.length) return false;
+    var added = false;
+    box.keys.forEach(function(k, i){
+      var url = box.vals[i];
+      if(typeof url === "string" && IMG_RE.test(url) && !IMG[k]){ IMG[k] = url; added = true; }
+    });
+    return added;
+  }).catch(function(){ return false; });
+}
+/* "ok" | "full" | "mem" - nur noch fuer den Rueckfallweg ohne IndexedDB. */
 function saveImgs(){
   try{ localStorage.setItem(IMG_KEY, JSON.stringify(IMG)); return "ok"; }
   catch(e){
@@ -1163,15 +1239,36 @@ function saveImgs(){
     return full ? "full" : "mem";
   }
 }
+/* Setzt oder loescht ein Bild. Erst in die grosse Ablage, der kleine Speicher
+   wird nur genommen, wenn IndexedDB nicht da ist. */
 function setImg(id, url){
-  var prev = IMG[id];
   if(url) IMG[id] = url; else delete IMG[id];
-  if(saveImgs() === "full"){
-    if(prev) IMG[id] = prev; else delete IMG[id];
-    toast(T("photoFull"), "bad");
-    return false;
-  }
+  if(!url) IMG_DB.del(id);
+  else IMG_DB.put(id, url).then(function(ok){
+    if(!ok) saveImgs();
+  });
   return true;
+}
+/* Schreibt alle Bilder, die gerade im Speicher stehen, in die grosse Ablage.
+   Wird nach einem Import oder einer Wiederherstellung gebraucht. */
+function syncImgsToDb(){
+  var keys = Object.keys(IMG);
+  return IMG_DB.keys().then(function(have){
+    if(have === null){ if(saveImgs() === "full") toast(T("photoFull"), "bad"); return; }
+    var chain = Promise.resolve();
+    keys.forEach(function(k){
+      if(IMG[k]) chain = chain.then(function(){ return IMG_DB.put(k, IMG[k]); });
+    });
+    return chain.then(function(){
+      /* Was nicht mehr im Bestand ist, kommt auch aus der Ablage weg. */
+      var gone = have.filter(function(k){ return keys.indexOf(k) === -1; });
+      gone.forEach(function(k){ IMG_DB.del(k); });
+    });
+  });
+}
+/* Wird beim Start einmal aufgerufen: nachgeladene Bilder einhaengen. */
+function imgsReady(){
+  return loadImgsFromDb().then(function(added){ if(added) render(); });
 }
 function imgsFor(list){
   var out = {}, n = 0;
@@ -1745,37 +1842,14 @@ function bfDate(ts){
   try{ return new Date(ts).toLocaleDateString(locTag()); }catch(e){ return ""; }
 }
 /* ---------- Preset-Dateien aus dem Ordner ----------
-   Der Preset-Bauer schreibt eine .txt mit CLI-Zeilen. Hier wird sie gelesen, gefiltert
-   und in den Diff dieses Modells gelegt. Warum nur aux/beeper/OSD: eine Datei kann von
-   einem anderen Board stammen - PID, Filter und Motoren bleiben deshalb draußen, egal
-   was in der Datei steht. Geprüft wird beim Einlesen, nicht beim Einfügen. */
-function pfIsOsdLine(l){
-  if(/^set\s+osd_[a-z0-9_]*_pos\s*=/.test(l)) return true;
-  if(/^set\s+osd_displayport_device\s*=/.test(l)) return true;
-  if(/^set\s+vcd_video_system\s*=/.test(l)) return true;
-  if(/^set\s+osd_units\s*=/.test(l)) return true;
-  if(/^set\s+osd_craft_name/.test(l)) return true;
-  if(/^set\s+osd_ahi/.test(l)) return true;
-  return false;
-}
-function pfKindOf(l){
-  if(/^aux\b/.test(l) || /^feature\s+AIRMODE\b/.test(l)) return "aux";
-  if(/^beeper\s+/.test(l) || /^set\s+beep/.test(l)) return "beeper";
-  if(/^feature\s+OSD\b/.test(l) || pfIsOsdLine(l)) return "osd";
-  return null;
-}
-function pfFilter(text){
-  var kept = { aux:[], beeper:[], osd:[] }, ignored = 0;
-  String(text || "").replace(/\r/g, "").split("\n").forEach(function(raw){
-    var l = raw.replace(/\s+$/, "").trim();
-    if(!l || l.charAt(0) === "#") return;
-    var k = pfKindOf(l);
-    if(k) kept[k].push(l);
-    else if(!/^(batch start|batch end|save)$/.test(l)) ignored++;
-  });
-  var out = [];
-  ["aux", "beeper", "osd"].forEach(function(k){ out = out.concat(kept[k]); });
-  return { text:out.join("\n"), counts:kept, ignored:ignored };
+   Eine Preset-Datei ist ein CLI-Text. Hier wird sie so gelesen, wie sie geschrieben
+   wurde: jede Zeile bleibt, wie sie ist, nichts wird einsortiert, ergaenzt oder
+   weggelassen. Nur Kommentar- und Leerzeilen zaehlen nicht mit, weil sie nichts
+   einstellen. Was in der Datei steht, landet im Diff dieses Modells. */
+function pfLines(text){
+  var raw = String(text || "").replace(/\r/g, "").split("\n");
+  var lines = raw.filter(function(l){ return l.trim() && l.trim().charAt(0) !== "#"; });
+  return { lines:lines, count:lines.length };
 }
 var pfFiles = [];          /* { name, text, res } */
 var pfDirHandle = null;
@@ -1794,36 +1868,32 @@ function pfRender(){
   }
   pfSay(T("pfCount")(pfFiles.length), "ok");
   list.innerHTML = pfFiles.map(function(f, i){
-    var ok = f.res.text, bits = [];
-    if(ok){
-      if(f.res.counts.aux.length)    bits.push(f.res.counts.aux.length + " " + T("pfSw"));
-      if(f.res.counts.beeper.length) bits.push(f.res.counts.beeper.length + " " + T("pfBeep"));
-      if(f.res.counts.osd.length)    bits.push(f.res.counts.osd.length + " " + T("pfOsd"));
-      if(f.res.ignored)              bits.push(f.res.ignored + " " + T("pfIgnored"));
-    }
-    return '<li' + (ok ? "" : ' class="bad"') + '>' +
+    var n = f.res.count;
+    return '<li>' +
       '<span class="nm" title="' + esc(f.name) + '">' + esc(f.name) + '</span>' +
-      '<span class="mt">' + esc(ok ? bits.join(" · ") : T("pfEmptyFile")) + '</span>' +
-      (ok ? '<button class="btn sm ghost" type="button" data-pf="' + i + '">' + esc(T("pfUse")) + '</button>' : "") +
+      '<span class="mt">' + esc(n ? T("pfLines")(n) : T("pfEmptyFile")) + '</span>' +
+      (n ? '<button class="btn sm ghost" type="button" data-pf="' + i + '">' + esc(T("pfUse")) + '</button>' : "") +
       '</li>';
   }).join("");
   list.hidden = false;
 }
 function pfAdd(name, text){
-  var res = pfFilter(text);
+  var res = pfLines(text);
   pfFiles = pfFiles.filter(function(f){ return f.name !== name; });
   pfFiles.unshift({ name:name, text:text, res:res });
   if(pfFiles.length > 40) pfFiles.length = 40;
   pfRender();
 }
+/* Haengt die Zeilen an den Diff des Modells, so wie sie in der Datei stehen.
+   Nur Zeilen, die dort schon wortgleich stehen, kommen nicht ein zweites Mal. */
 function pfUseFile(i){
   var f = pfFiles[i];
-  if(!f || !f.res.text) return;
+  if(!f || !f.res.count) return;
   var field = $("f_bfdiff");
   var have = {}, cur = field.value.replace(/\s+$/, "");
   (cur ? cur.split("\n") : []).forEach(function(l){ have[l.trim()] = 1; });
-  var add = f.res.text.split("\n").filter(function(l){ return !have[l] });
-  if(!add.length){ toast(T("pfEmptyFile"), "warn"); return; }
+  var add = f.res.lines.filter(function(l){ return !have[l.trim()] });
+  if(!add.length){ toast(T("pfAlreadyThere"), "warn"); return; }
   field.value = (cur ? cur + "\n" : "") + add.join("\n");
   field.dispatchEvent(new Event("input", { bubbles:true }));
   bfPanel();
@@ -2265,7 +2335,7 @@ function restoreHtmlBackup(doc){
     return copy;
   });
   IMG = cleanImgs(doc.images);
-  if(saveImgs() === "full") toast(T("photoFull"), "bad");
+  syncImgsToDb();
   if(doc.prefs){
     if(THEMES[doc.prefs.theme]) prefs.theme = doc.prefs.theme;
     if(I18N[doc.prefs.lang]) prefs.lang = doc.prefs.lang;
@@ -2321,7 +2391,7 @@ function doImport(file){
 
       var pics = cleanImgs(p.images);
       for(var pid in pics){ if(byId[pid]) IMG[pid] = pics[pid]; }
-      if(Object.keys(pics).length && saveImgs() === "full") toast(T("photoFull"), "bad");
+      if(Object.keys(pics).length) syncImgsToDb();
       pruneTombstones();
       save(); render();
       toast(T("imported")(added, updated), "ok");
@@ -2332,7 +2402,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "1.0.0-beta.1";
+var VER = "1.0.0-beta.2";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -2569,7 +2639,7 @@ document.addEventListener("click", function(e){
     if(!confirm(T("confirmDel")(c.name))) return;
     c.deleted = true;
     c.updatedAt = Date.now();
-    if(IMG[id]){ delete IMG[id]; saveImgs(); }
+    if(IMG[id]){ delete IMG[id]; IMG_DB.del(id); }
     pruneTombstones();
     save(); render(); toast(T("deleted"));
   }
@@ -2806,6 +2876,8 @@ function trFromHash(){
   toast(r.total > 0 ? T("trTaken")(r.total) : T("trNone"), r.total > 0 ? "ok" : "");
 }
 trFromHash();
+/* Bilder aus der dauerhaften Ablage nachziehen; die Liste steht schon. */
+imgsReady();
 /* Wer den Link in die Adresszeile einer bereits offenen Seite einfügt,
    bekommt ihn ebenfalls übernommen (Hashwechsel lädt die Seite nicht neu). */
 window.addEventListener("hashchange", trFromHash);

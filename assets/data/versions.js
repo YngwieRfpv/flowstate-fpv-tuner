@@ -15,49 +15,49 @@ window.FLOWSTATE_DATA = {
         "es": "Copter, archivos de presets y copias en un solo lugar"
       },
       "description": {
-        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Preset-Dateien aus dem Ordner werden eingelesen: nur Schalter, Beeper und OSD, PID und Filter bleiben draußen. Die Liste geht als Code oder Link weiter. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt.",
-        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Preset files from the folder are read in: only switches, beeper and OSD, PIDs and filters stay out. The list can be passed on as a code or a link. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in.",
-        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Los archivos de presets del directorio se leen: solo interruptores, beeper y OSD, PID y filtros quedan fuera. La lista se puede pasar como código o enlace. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML."
+        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Preset-Dateien aus dem Ordner kommen so an, wie sie geschrieben sind, Zeile für Zeile. Die Liste geht als Code oder Link weiter, Bilder und Einträge bleiben im Browser. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt.",
+        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Preset files from the folder arrive as they are written, line by line. The list can be passed on as a code or a link, pictures and entries stay in the browser. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in.",
+        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Los archivos de presets del directorio llegan tal como están escritos, línea por línea. La lista se puede pasar como código o enlace, las imágenes y las entradas se quedan en el navegador. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML."
       },
       "highlights": {
         "de": [
           "Name und Größe reichen, Bild und weitere Felder bleiben optional",
-          "Preset-Dateien aus dem Ordner einlesen, gefiltert auf Schalter, Beeper und OSD",
+          "Preset-Dateien Zeile für Zeile übernehmen, ohne Auswahl",
           "Flight Controller über USB auslesen oder CLI-Text einfügen",
-          "Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät",
+          "Liste als Code oder Link weitergeben, Bilder bleiben im Browser",
           "Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup",
           "Deutsch, Englisch und Spanisch, Ozean, Sand und Drakn"
         ],
         "en": [
           "Name and size are enough, picture and further fields stay optional",
-          "Read preset files from the folder, filtered to switches, beeper and OSD",
+          "Take preset files line by line, without a selection",
           "Read the flight controller over USB or paste CLI text",
-          "Pass the list on as a code or link, photos stay on the device",
+          "Pass the list on as a code or link, pictures stay in the browser",
           "Export as a PDF table, CSV, print, JSON and an HTML backup",
           "German, English and Spanish, Ocean, Sand and Drakn"
         ],
         "es": [
           "El nombre y el tamaño bastan, la imagen y los demás campos son opcionales",
-          "Leer archivos de presets del directorio, filtrados a interruptores, beeper y OSD",
+          "Tomar archivos de presets línea por línea, sin selección",
           "Leer la controladora por USB o pegar texto CLI",
-          "Pasar la lista como código o enlace, las fotos se quedan en el dispositivo",
+          "Pasar la lista como código o enlace, las imágenes se quedan en el navegador",
           "Exportación como tabla PDF, CSV, impresión, JSON y copia HTML",
           "Alemán, inglés y español, océano, lino y rojo oscuro"
         ]
       },
       "meta": {
         "de": [
-          "1 Datei · 143 KB",
+          "1 Datei · 146 KB",
           "Bild, Preset-Dateien, FC-Auslese",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 143 KB",
+          "1 file · 146 KB",
           "picture, preset files, controller read",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 143 KB",
+          "1 archivo · 146 KB",
           "imagen, archivos de presets, lectura de la FC",
           "cualquier navegador actual"
         ]
@@ -81,43 +81,46 @@ window.FLOWSTATE_DATA = {
         "es": "Ajuste a partir de registros Blackbox"
       },
       "description": {
-        "de": "Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Geschrieben wird über Web Serial, nur nach Sicherung und Bestätigung. Alles läuft im Browser.",
-        "en": "Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Writes go over Web Serial, only after a backup and confirmation. Everything runs in the browser.",
-        "es": "Lee registros Blackbox y Dataflash, deduce valores de filtros y PID y muestra cada paso como un plan CLI legible. La escritura va por Web Serial, solo tras una copia de seguridad y una confirmación. Todo funciona en el navegador."
+        "de": "Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt als lesbaren CLI-Plan. Die geladenen Logs bleiben im Browser und sind beim nächsten Start wieder da. Geschrieben wird über Web Serial, nur nach Sicherung und Bestätigung. Alles läuft im Browser.",
+        "en": "Reads Blackbox and Dataflash logs, derives filter and PID values and shows every step as a readable CLI plan. Loaded logs stay in the browser and are back on the next start. Writes go over Web Serial, only after a backup and confirmation. Everything runs in the browser.",
+        "es": "Lee registros Blackbox y Dataflash, deduce valores de filtros y PID y muestra cada paso como un plan CLI legible. Los registros cargados se quedan en el navegador y vuelven en el siguiente inicio. La escritura va por Web Serial, solo tras una copia de seguridad y una confirmación. Todo funciona en el navegador."
       },
       "highlights": {
         "de": [
           "Sechs Phasen von Setup bis Archiv, jede mit eigenem Abschluss",
           "Sichtbarer CLI-Plan vor jedem Schreibvorgang",
           "Zielprofil-Schutz: nur das gewählte PID-Profil wird verändert",
+          "Geladene Logs bleiben nach dem Neuladen erhalten",
           "Deutsch und Englisch, Ozean, Leinen und Dunkelrot"
         ],
         "en": [
           "Six phases from setup to archive, each with its own completion",
           "Visible CLI plan before every write",
           "Target-profile protection: only the selected PID profile changes",
+          "Loaded logs survive a reload",
           "German and English, Ocean, Sand and Drakn"
         ],
         "es": [
           "Seis fases desde el setup hasta el archivo, cada una con su cierre",
           "Plan CLI visible antes de cada escritura",
           "Protección del perfil objetivo: solo cambia el perfil PID elegido",
+          "Los registros cargados sobreviven a una recarga",
           "Alemán, inglés y español, océano, lino y rojo oscuro"
         ]
       },
       "meta": {
         "de": [
-          "1 Datei · 497 KB",
+          "1 Datei · 502 KB",
           "Betaflight 4.5+",
           "Chrome / Edge / Opera"
         ],
         "en": [
-          "1 file · 497 KB",
+          "1 file · 502 KB",
           "Betaflight 4.5+",
           "Chrome / Edge / Opera"
         ],
         "es": [
-          "1 archivo · 497 KB",
+          "1 archivo · 502 KB",
           "Betaflight 4.5+",
           "Chrome / Edge / Opera"
         ]
@@ -170,7 +173,7 @@ window.FLOWSTATE_DATA = {
           "auch mobil"
         ],
         "en": [
-          "1 file · 7.7 MB",
+          "1 file · 7,7 MB",
           "DE / EN / ES",
           "mobile ready"
         ],
@@ -263,9 +266,9 @@ window.FLOWSTATE_DATA = {
         "es": "Fuentes y logo de arranque para el OSD de Betaflight"
       },
       "description": {
-        "de": "Werkbank für MAX7456-Zeichensätze: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32, ein Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Die Arbeitsfläche bleibt absichtlich hart gepixelt, 12×18 mit zwei Bit.",
-        "en": "Workbench for MAX7456 character sets: search more than 300 fonts, edit glyphs pixel by pixel, mix areas from different fonts and export .mcm. Plus the startup logo at 288×72 or 32×32, an image converter and the OSD layout as a grid with CLI output. The canvas stays deliberately hard-pixelled, 12×18 with two bits.",
-        "es": "Banco de trabajo para juegos de caracteres MAX7456: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes y exporta .mcm. Además el logo de arranque en 288×72 o 32×32, un conversor de imágenes y el diseño OSD como rejilla con salida CLI. El lienzo sigue a propósito con píxeles duros, 12×18 y dos bits."
+        "de": "Werkbank für MAX7456-Zeichensätze: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32, ein Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Eigene .mcm-Fonts bleiben im Browser. Die Arbeitsfläche bleibt absichtlich hart gepixelt, 12×18 mit zwei Bit.",
+        "en": "Workbench for MAX7456 character sets: search more than 300 fonts, edit glyphs pixel by pixel, mix areas from different fonts and export .mcm. Plus the startup logo at 288×72 or 32×32, an image converter and the OSD layout as a grid with CLI output. Your own .mcm fonts stay in the browser. The canvas stays deliberately hard-pixelled, 12×18 with two bits.",
+        "es": "Banco de trabajo para juegos de caracteres MAX7456: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes y exporta .mcm. Además el logo de arranque en 288×72 o 32×32, un conversor de imágenes y el diseño OSD como rejilla con salida CLI. El lienzo sigue a propósito con píxeles duros, 12×18 y dos bits. Las fuentes .mcm propias se quedan en el navegador."
       },
       "highlights": {
         "de": [
@@ -300,7 +303,7 @@ window.FLOWSTATE_DATA = {
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 4.3 MB",
+          "1 file · 4,3 MB",
           "fonts, logo, OSD grid",
           "any modern browser"
         ],
@@ -318,27 +321,91 @@ window.FLOWSTATE_DATA = {
   ],
   "releases": [
     {
-      "id": "hangar-1.0.0-beta.1",
-      "program": "hangar",
-      "version": "v1.0.0-beta.1",
+      "id": "osd-0.1.0-beta.4",
+      "program": "osd",
+      "version": "v0.1.0-beta.4",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Neuer Name, Preset-Dateien statt Preset-Dialog",
-        "en": "New name, preset files instead of a preset dialog",
-        "es": "Nombre nuevo, archivos de presets en lugar de un diálogo"
+        "de": "Eigene Fonts bleiben im Browser",
+        "en": "Own fonts stay in the browser",
+        "es": "Las fuentes propias se quedan en el navegador"
       },
       "summary": {
-        "de": "FlowState Hangar Deck übernimmt den Stand 0.9.6. Neu sind Presets für die drei Bereiche, bei denen eine fremde Vorlage keinen Copter kippen kann: Schalter, Beeper und OSD. Beim Einlesen wird jede Zeile geprüft, PID, Filter und Motoren kommen nicht durch. Dazu das gespeicherte OSD als Raster und eigene Presets, die im HTML-Backup mitreisen. Unverändert: Übertragen per Code oder Link, Flight Controller über USB auslesen, Betaflight-Backup je Modell, Export als PDF, CSV, Druck, JSON und HTML.",
-        "en": "FlowState Hangar Deck takes the 0.9.6 build. New are presets for the three areas where a foreign template cannot tip a quad over: switches, beeper and OSD. Every line is checked on load, PIDs, filters and motors do not get through. Also the stored OSD as a grid and your own presets that travel inside the HTML backup. Unchanged: transfer as a code or link, reading the flight controller over USB, a Betaflight backup per model, export as PDF, CSV, print, JSON and HTML.",
-        "es": "FlowState Hangar Deck adopta la versión 0.9.6. Lo nuevo son los presets para las tres áreas donde una plantilla ajena no puede volcar un copter: interruptores, beeper y OSD. Cada línea se comprueba al cargar, PID, filtros y motores no pasan. Además el OSD guardado como rejilla y presets propios que viajan en la copia HTML. Sin cambios: traspaso como código o enlace, lectura de la controladora por USB, copia de Betaflight por modelo, exportación como PDF, CSV, impresión, JSON y HTML."
+        "de": "Importierte .mcm-Fonts liegen jetzt in IndexedDB statt im kleinen Schlüssel-Wertspeicher. Vorher waren nach wenigen Fonts die weiteren weg, jetzt bleiben sie nach dem Neuladen da. Dazu sind zwei Statuszeilen aus der Oberfläche verschwunden, die keine Werte mehr hatten.",
+        "en": "Imported .mcm fonts now live in IndexedDB instead of the small key-value store. Before, a few fonts in and the next ones were gone, now they survive a reload. Two status rows without values have also left the interface.",
+        "es": "Las fuentes .mcm importadas ahora viven en IndexedDB en lugar del pequeño almacén clave-valor. Antes, tras pocas fuentes, las siguientes ya no estaban; ahora sobreviven a una recarga. Además han desaparecido dos filas de estado sin valores."
+      },
+      "file": "osd/index.html",
+      "size_bytes": 4273766,
+      "sha256": "60bd4b109997d26f6cf4e5352497fcdc22a8c4088851a38919907eb16528dac4",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.4",
+      "signals": [
+        {
+          "label": {
+            "de": "Import-Fonts",
+            "en": "Imported fonts",
+            "es": "Fuentes importadas"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Statuszeilen",
+            "en": "Status rows",
+            "es": "Filas de estado"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprachen",
+            "en": "Languages",
+            "es": "Idiomas"
+          },
+          "state": "ok"
+        }
+      ]
+    },
+    {
+      "id": "hangar-1.0.0-beta.2",
+      "program": "hangar",
+      "version": "v1.0.0-beta.2",
+      "channel": "beta",
+      "released": "2026-11-19",
+      "title": {
+        "de": "Preset-Dateien kommen unverändert an",
+        "en": "Preset files arrive unchanged",
+        "es": "Los archivos de presets llegan sin cambios"
+      },
+      "summary": {
+        "de": "Preset-Dateien werden Zeile für Zeile übernommen, so wie sie geschrieben sind. Die alte Prüfung, die nur Schalter, Beeper und OSD durchließ, ist weg. Dazu liegen Copter-Bilder in IndexedDB und sind nach dem Neuladen wieder da, auch wenn der kleine Speicher voll wäre.",
+        "en": "Preset files are taken line by line, as written. The old filter that only let switches, beeper and OSD through is gone. Quad pictures now live in IndexedDB and are back after a reload, even if the small store would be full.",
+        "es": "Los archivos de presets se toman línea por línea, tal como están escritos. El filtro antiguo que solo dejaba pasar interruptores, beeper y OSD ya no está. Las imágenes de los copter viven en IndexedDB y vuelven tras una recarga, aunque el almacén pequeño estuviera lleno."
       },
       "file": "hangar/index.html",
-      "size_bytes": 142244,
-      "sha256": "dc02574ed46c162dd79483426200d158bfd7402fcd24a268862911cc19feacad",
+      "size_bytes": 145797,
+      "sha256": "f2f09d61d479b1ee8be970ac8c010ddce950f26be2d2ba75ef2c53b3284e3bab",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.1",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.2",
       "signals": [
+        {
+          "label": {
+            "de": "Preset-Dateien",
+            "en": "Preset files",
+            "es": "Archivos de presets"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Bilder",
+            "en": "Pictures",
+            "es": "Imágenes"
+          },
+          "state": "ok"
+        },
         {
           "label": {
             "de": "Flotte",
@@ -346,212 +413,56 @@ window.FLOWSTATE_DATA = {
             "es": "Flota"
           },
           "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Presets",
-            "en": "Presets",
-            "es": "Presets"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "OSD-Raster",
-            "en": "OSD grid",
-            "es": "Rejilla OSD"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Auslese am FC",
-            "en": "Reading a controller",
-            "es": "Lectura en la FC"
-          },
-          "state": "pending"
-        },
-        {
-          "label": {
-            "de": "Sprache DE/EN",
-            "en": "Language DE/EN",
-            "es": "Idioma DE/EN"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Spanisch",
-            "en": "Spanish",
-            "es": "Español"
-          },
-          "state": "pending"
-        },
-        {
-          "label": {
-            "de": "Datenexport",
-            "en": "Data export",
-            "es": "Exportación de datos"
-          },
-          "state": "ok"
         }
-      ],
-      "notes": {
-        "de": [
-          "Heißt jetzt FlowState Hangar Deck, „Lite“ fällt überall weg",
-          "Preset-Dialog ersetzt durch einen Leser für .txt-Dateien aus dem Ordner",
-          "Beim Einlesen bleiben nur aux-, beeper- und osd_-Zeilen übrig, der Rest wird gezählt",
-          "Farbstreifen links endet bündig an der Eckrundung"
-        ],
-        "en": [
-          "Now called FlowState Hangar Deck, „Lite“ is gone everywhere",
-          "Preset dialog replaced by a reader for .txt files from the folder",
-          "Only aux, beeper and osd_ lines survive reading, the rest is counted",
-          "Colour stripe on the left ends flush with the rounded corner"
-        ],
-        "es": [
-          "Ahora se llama FlowState Hangar Deck, „Lite“ desaparece en todas partes",
-          "El diálogo de presets se sustituye por un lector de archivos .txt del directorio",
-          "Solo quedan líneas aux, beeper y osd_, el resto se cuenta",
-          "La franja de la izquierda termina al ras de la esquina redondeada"
-        ]
-      },
-      "limits": {
-        "de": [
-          "Auslesen am Flight Controller setzt Chrome, Edge oder Opera voraus",
-          "Daten liegen im localStorage dieses Browsers",
-          "Spanisch ist übersetzt, aber nicht durchgesehen",
-          "Eigene Presets reisen im HTML-Backup mit, nicht im Übertragungscode",
-          "Weitergeben per Link geht nur über http(s), nicht bei einer Datei aus dem Ordner"
-        ],
-        "en": [
-          "Reading the controller requires Chrome, Edge or Opera",
-          "Data lives in this browser's localStorage",
-          "Spanish is translated but not reviewed",
-          "Own presets travel inside the HTML backup, not in the transfer code",
-          "Passing the list on by link needs http(s), not a file from a folder"
-        ],
-        "es": [
-          "Leer la controladora requiere Chrome, Edge u Opera",
-          "Los datos están en el localStorage de este navegador",
-          "El español está traducido, pero sin revisar",
-          "Los presets propios viajan en la copia HTML, no en el código de traspaso",
-          "Pasar la lista por enlace requiere http(s), no un archivo de la carpeta"
-        ]
-      }
+      ]
     },
     {
-      "id": "tuner-4.8-alpha.4",
+      "id": "tuner-4.8-alpha.5",
       "program": "tuner",
-      "version": "v4.8-alpha.4",
-      "channel": "alpha",
-      "released": "2026-11-02",
+      "version": "v4.8-alpha.5",
+      "channel": "beta",
+      "released": "2026-11-19",
       "title": {
-        "de": "Farbe kommt aus der Adresse und aus dem zweiten Fenster.",
-        "en": "Colour comes in the address and from the second window.",
-        "es": "El color llega por la dirección y desde la segunda ventana."
+        "de": "Logs bleiben nach dem Neuladen",
+        "en": "Logs survive a reload",
+        "es": "Los registros sobreviven a una recarga"
       },
       "summary": {
-        "de": "Der Tuner liest die Palette auch aus der Adresse (`?theme=`) und zieht nach, wenn in einem anderen Fenster eine Farbe gewählt wird. Im Umschalter steht er jetzt zwischen HangarDeck und Guide. Der Ablauf der sechs Phasen ist unverändert, an echter Hardware und im Flug weiterhin nicht getestet.",
-        "en": "The tuner also reads the palette from the address (`?theme=`) and follows a colour picked in another window. In the switch it now sits between HangarDeck and guide. The six phases are unchanged, still not tested on real hardware or in flight.",
-        "es": "El tuner también lee la paleta de la dirección (`?theme=`) y la sigue cuando en otra ventana se elige un color. En el selector está ahora entre HangarDeck y Guide. El desarrollo de las seis fases no cambia y sigue sin probarse en hardware real ni en vuelo."
+        "de": "Geladene Blackbox-Logs liegen jetzt in IndexedDB und werden beim Start wieder eingelesen. Ein Export ist nicht mehr nötig, um sie zu behalten. Dazu sind die Textzeilen im Log-Archiv kürzer und sagen, dass die Dateien im Browser bleiben.",
+        "en": "Loaded blackbox logs now live in IndexedDB and are read back on start. An export is no longer needed to keep them. The text lines in the log archive are shorter and say that the files stay in the browser.",
+        "es": "Los registros Blackbox cargados ahora viven en IndexedDB y se vuelven a leer al iniciar. Ya no hace falta exportar para conservarlos. Las líneas de texto del archivo de registros son más cortas y dicen que los archivos se quedan en el navegador."
       },
       "file": "tuner/index.html",
-      "size_bytes": 496882,
-      "sha256": "ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a",
+      "size_bytes": 502177,
+      "sha256": "c93a391b6676409530c1c16f6c7543b789c579c2a24a67211767ee79baa2648a",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.5",
       "signals": [
         {
           "label": {
-            "de": "Log-Analyse",
-            "en": "Log analysis",
-            "es": "Análisis de registros"
+            "de": "Log-Archiv",
+            "en": "Log archive",
+            "es": "Archivo de logs"
           },
           "state": "ok"
         },
         {
           "label": {
-            "de": "Sprache DE/EN",
-            "en": "Language DE/EN",
-            "es": "Idioma DE/EN"
+            "de": "Speicher",
+            "en": "Storage",
+            "es": "Almacenamiento"
           },
           "state": "ok"
         },
         {
           "label": {
-            "de": "Spanisch",
-            "en": "Spanish",
-            "es": "Español"
+            "de": "Phasen",
+            "en": "Phases",
+            "es": "Fases"
           },
-          "state": "pending"
-        },
-        {
-          "label": {
-            "de": "Verbindung zum FC",
-            "en": "Connection to FC",
-            "es": "Conexión a la FC"
-          },
-          "state": "pending"
-        },
-        {
-          "label": {
-            "de": "Flugtest",
-            "en": "Flight test",
-            "es": "Prueba en vuelo"
-          },
-          "state": "pending"
+          "state": "ok"
         }
-      ],
-      "notes": {
-        "de": [
-          "Ein Eintrag für alle Programme: flowstate-theme trägt ocean, sand und drakn",
-          "Alte Werte dark, light und cream werden weiter gelesen",
-          "Die Farbe reist zusätzlich als ?theme= in der Adresse mit",
-          "Filter-, P/D-, Master- und Finish-Phase arbeiten auf demselben Log-Satz",
-          "Importierte Logs behalten ihre Herkunft; fehlende Werte bleiben UNBEKANNT",
-          "Mehrere Flüge in einem Log werden als getrennte Segmente geführt",
-          "Plan, Manifest und Roh-Logs lassen sich jederzeit exportieren"
-        ],
-        "en": [
-          "One entry for all programs: flowstate-theme carries ocean, sand and drakn",
-          "Old values dark, light and cream are still read",
-          "The colour also travels in the address as ?theme=",
-          "Filter, P/D, master and finish phases work on the same log set",
-          "Imported logs keep their origin; missing values stay UNKNOWN",
-          "Multiple flights in one log are kept as separate segments",
-          "Plan, manifest and raw logs can be exported at any time"
-        ],
-        "es": [
-          "Una entrada para todos los programas: flowstate-theme lleva ocean, sand y drakn",
-          "Los valores antiguos dark, light y cream se siguen leyendo",
-          "El color viaja además como ?theme= en la dirección",
-          "Las fases de filtro, P/D, master y finish trabajan sobre el mismo conjunto de registros",
-          "Los registros importados conservan su origen, los valores ausentes quedan como DESCONOCIDO",
-          "Varios vuelos en un registro se llevan como segmentos separados",
-          "El plan, el manifiesto y los registros en bruto se pueden exportar en cualquier momento"
-        ]
-      },
-      "limits": {
-        "de": [
-          "Verbindungstest mit echtem Flight Controller steht aus",
-          "Schreiben nur mit Betaflight 4.5 oder neuer",
-          "Tuning ersetzt keine mechanische Kontrolle",
-          "Props ab für alle Arbeiten am USB-verbundenen Copter"
-        ],
-        "en": [
-          "Connection test with a real flight controller is pending",
-          "Writing requires Betaflight 4.5 or newer",
-          "Tuning does not replace mechanical inspection",
-          "Remove props for all work on the USB-connected craft"
-        ],
-        "es": [
-          "La prueba de conexión con una controladora real sigue pendiente",
-          "Escritura solo con Betaflight 4.5 o más nuevo",
-          "El ajuste no sustituye una revisión mecánica",
-          "Quita las hélices para cualquier trabajo en el copter conectado por USB"
-        ]
-      }
+      ]
     },
     {
       "id": "guide-1.0.2-beta.20-es",
@@ -754,110 +665,6 @@ window.FLOWSTATE_DATA = {
           "Escribir en la consola necesita Chrome, Edge u Opera",
           "El español está traducido pero no revisado",
           "Sin PID, sin filtros, sin motores: eso lo hace el tuner",
-          "Con file:// el navegador puede bloquear el almacenamiento"
-        ]
-      }
-    },
-    {
-      "id": "osd-0.1.0-beta.3",
-      "program": "osd",
-      "version": "v0.1.0-beta.3",
-      "channel": "beta",
-      "released": "2026-11-19",
-      "title": {
-        "de": "Schlankere Kopfzeile, Farbe und Sprache aus der Übersicht",
-        "en": "Leaner header, colour and language from the overview",
-        "es": "Cabecera más compacta, color e idioma desde la portada"
-      },
-      "summary": {
-        "de": "Der OSD Customizer sammelt die Arbeit am Zeichensatz des Flight Controllers: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts zu einem Pack mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32 mit Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Farbe und Sprache kommen aus der Übersicht oder aus der Adresse.",
-        "en": "The OSD Customizer collects the work on the flight controller character set: search more than 300 fonts, edit glyphs pixel by pixel, mix areas from different fonts into a pack and export .mcm. Plus the startup logo at 288×72 or 32×32 with an image converter and the OSD layout as a grid with CLI output. Colour and language come from the overview or from the address.",
-        "es": "El OSD Customizer reúne el trabajo sobre el juego de caracteres de la controladora: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes en un paquete y exporta .mcm. Además el logo de arranque en 288×72 o 32×32 con conversor de imágenes y el diseño OSD como rejilla con salida CLI. El color y el idioma vienen de la portada o de la dirección."
-      },
-      "file": "osd/index.html",
-      "size_bytes": 4271843,
-      "sha256": "377aaefb25659e25111e673666cfff9b25110c244afd16bc2af2acd5e9c63ab2",
-      "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.3",
-      "signals": [
-        {
-          "label": {
-            "de": "Font-Bibliothek",
-            "en": "Font library",
-            "es": "Biblioteca de fuentes"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Startlogo",
-            "en": "Startup logo",
-            "es": "Logo de arranque"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Sprache DE/EN",
-            "en": "Language DE/EN",
-            "es": "Idioma DE/EN"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "Import eigener .mcm",
-            "en": "Own .mcm import",
-            "es": "Importar .mcm propio"
-          },
-          "state": "ok"
-        },
-        {
-          "label": {
-            "de": "OSD-Layout",
-            "en": "OSD layout",
-            "es": "Diseño OSD"
-          },
-          "state": "open"
-        }
-      ],
-      "notes": {
-        "de": [
-          "Statusleiste im Kopf entfernt, die Font-Angabe steht jetzt in der Werkzeugleiste",
-          "Farbe und Sprache kommen aus der Adresse, aus der Übersicht oder aus der eigenen Ablage",
-          "Die Wahl wird an die Übersicht zurückgeschrieben, offene Fenster ziehen nach",
-          "Farbstreifen links endet bündig an der Eckrundung"
-        ],
-        "en": [
-          "Status bar in the header removed, the font name now sits in the toolbar",
-          "Colour and language come from the address, the overview or the own store",
-          "The choice is written back to the overview, open windows follow",
-          "Colour stripe on the left ends flush with the rounded corner"
-        ],
-        "es": [
-          "Barra de estado de la cabecera eliminada, la fuente aparece ahora en la barra de herramientas",
-          "Color e idioma vienen de la dirección, de la portada o del almacén propio",
-          "La elección se escribe en la portada, las ventanas abiertas siguen",
-          "La franja de la izquierda termina al ras de la esquina redondeada"
-        ]
-      },
-      "limits": {
-        "de": [
-          "4,3 MB in einer Datei: der erste Aufruf dauert einen Moment",
-          "Das OSD-Layout ist bewusst untergeordnet",
-          "Spanisch ist übersetzt, aber nicht durchgesehen",
-          "Über file:// kann der Browser den Speicher sperren"
-        ],
-        "en": [
-          "4.3 MB in one file: the first load takes a moment",
-          "The OSD layout stays deliberately secondary",
-          "Spanish is translated but not reviewed",
-          "Over file:// the browser may block storage"
-        ],
-        "es": [
-          "4,3 MB en un archivo: la primera carga tarda un momento",
-          "El diseño OSD queda a propósito en segundo plano",
-          "El español está traducido pero no revisado",
           "Con file:// el navegador puede bloquear el almacenamiento"
         ]
       }

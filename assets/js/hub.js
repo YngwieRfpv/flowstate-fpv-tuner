@@ -85,8 +85,21 @@
     return ICONS[item.icon || item.id] || ICONS.tool;
   }
 
+  function releaseVersion(id) {
+    var releases = (state.data && state.data.releases) || [];
+    var found = '';
+    releases.forEach(function (release) {
+      if (release.program === id) found = release.version;
+    });
+    return found;
+  }
+
+  // Der Dateiname im Paket traegt die Version, damit ein einzeln
+  // herausgezogenes Programm spaeter noch zuzuordnen ist.
   function modulePackName(item) {
-    return item.pack || (dirOf(item.path) + (item.name || item.id) + '.html');
+    var base = item.pack || (dirOf(item.path) + (item.name || item.id) + '.html');
+    var version = releaseVersion(item.id);
+    return version ? base.replace(/\.html$/, '-' + version + '.html') : base;
   }
 
   function platformName() {
@@ -126,7 +139,7 @@
       'hero.title1': 'Copter verwalten,',
       'hero.title2': 'Logs auswerten,',
       'hero.accent': 'Werte nachschlagen',
-      'hero.lede': 'FlowState Hangar Deck führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. FlowState Presets baut Schalter, Beeper und Raten als CLI-Block, der OSD Customizer bearbeitet Fonts und Startlogo, und der FPV Guide erklärt Ablauf, Filter und Begriffe. Alles läuft im Browser, ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.',
+      'hero.lede': 'Copter-Liste, Blackbox-Auswertung, Presets und OSD im Browser, ohne Installation und ohne Konto. Einmal geladen läuft es auch ohne Verbindung.',
       'hero.cta4': 'Versionen',
       'programs.eyebrow': 'Programme',
       'programs.title': 'Was die Programme machen',
@@ -154,7 +167,7 @@
       'tuner.gates': 'Sicherheits-Gates',
       'tuner.gates.lede': 'Mehrere Prüfungen blockieren das Schreiben. Sie greifen auch dann, wenn du die optionale Checkliste abgeschaltet hast.',
       'tuner.exports': 'Exporte',
-      'tuner.exports.lede': 'Plan als Text, Manifest als JSON, Roh-Logs als ZIP, Blackbox direkt aus dem Flight Controller. Alles bleibt auf deinem Rechner.',
+      'tuner.exports.lede': 'Plan als Text, Manifest als JSON, Logs als ZIP. Alles bleibt auf deinem Rechner.',
       'guide.eyebrow': 'FPV Guide',
       'guide.title': 'Was im Guide steht',
       'guide.lede': 'Führt vom ersten Build bis zum Feintuning: Begriffe, Tabellen und der Ablauf Schritt für Schritt.',
@@ -165,7 +178,7 @@
       'guide.workspace.lede': 'Fünf Schritte: ESC, Betaflight-Basis, Filterflug, PID und Feedforward, Abschlussprüfung. Jeden Schritt kannst du später nachlesen.',
       'versions.eyebrow': 'Versionen',
       'versions.title': 'Was gerade veröffentlicht ist',
-      'versions.lede': 'Zu jeder Version: Kanal, Datum, Größe und Prüfsumme, dazu der Stand direkt in der Karte. Oben lässt sich alles auf einmal laden, in der Zeile dasselbe Paket mit dem Programmnamen im Dateinamen.',
+      'versions.lede': 'Je Programm die aktuelle Fassung. Oben lädt alles auf einmal, in der Zeile nur das eine Programm.',
       'search.label': 'Versionen durchsuchen',
       'search.placeholder': 'Version, Programm oder Stichwort …',
       'filter.anyChannel': 'Jeder Kanal',
@@ -237,9 +250,9 @@
       'area.glossary.t': 'Glossar', 'area.glossary.d': '95 Begriffe, direkt im Text aufrufbar.',
       'area.sources.t': 'Quellen & Links', 'area.sources.d': 'Originalanleitungen, Dokumentation, Werkzeuge.',
       'bundle.all': 'Alles herunterladen',
-      'bundle.what': 'Im Paket liegt der Ordner FlowState-FPV mit der Startseite, den Programmen, der Beschreibung und der Lizenz.',
-      'bundle.optional': 'Herunterladen ist freiwillig: die Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.',
-      'bundle.storage': 'Was du hier anlegst, liegt im Speicher dieser Seite, das Paket führt seinen eigenen. Über file:// kann der Browser den Speicher sperren, dann gilt alles nur für die Sitzung.',
+      'bundle.what': 'Alles in einem Paket, für den Fall ohne Verbindung. Jedes Programm läuft auch einzeln.',
+      'bundle.optional': '',
+      'bundle.storage': '',
       'update.title': 'Stand prüfen',
       'update.checking': 'Wird geprüft …',
       'update.current': 'Alles auf dem neuesten Stand. Geprüft gegen die veröffentlichte Fassung.',
@@ -308,7 +321,7 @@
       'hero.title1': 'Gestionar copters,',
       'hero.title2': 'leer registros,',
       'hero.accent': 'consultar valores',
-      'hero.lede': 'FlowState Hangar Deck lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. FlowState Presets arma interruptores, beeper y rates en un bloque CLI, el OSD Customizer edita fuentes y logo de arranque, y la Guía FPV explica el procedimiento, los filtros y los términos. Todo funciona en el navegador, sin instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
+      'hero.lede': 'Lista de copter, análisis Blackbox, presets y OSD en el navegador, sin instalación y sin cuenta. Una vez cargado funciona también sin conexión.',
       'hero.cta4': 'Versiones',
       'programs.eyebrow': 'Programas',
       'programs.title': 'Qué hacen los programas',
@@ -342,7 +355,7 @@
       'tuner.gates': 'Controles de seguridad',
       'tuner.gates.lede': 'Varias comprobaciones bloquean la escritura. Actúan también cuando has desactivado la lista de control opcional.',
       'tuner.exports': 'Exportaciones',
-      'tuner.exports.lede': 'Plan como texto, manifiesto como JSON, registros en bruto como ZIP y Blackbox directamente desde la controladora. Todo se queda en tu equipo.',
+      'tuner.exports.lede': 'Plan como texto, manifiesto como JSON, registros como ZIP. Todo se queda en tu equipo.',
       'guide.eyebrow': 'Guía FPV',
       'guide.title': 'Qué contiene la Guía',
       'guide.lede': 'Acompaña desde el primer montaje hasta el ajuste fino: términos, tablas y el procedimiento paso a paso.',
@@ -353,7 +366,7 @@
       'guide.workspace.lede': 'Cinco pasos: ESC, base de Betaflight, vuelo de filtros, PID y feedforward, comprobación final. Cada paso puedes releerlo después.',
       'versions.eyebrow': 'Versiones',
       'versions.title': 'Qué está publicado ahora',
-      'versions.lede': 'Para cada versión: canal, fecha, tamaño y suma de comprobación, además del estado en la tarjeta. Arriba se descarga todo de una vez; en la fila es el mismo paquete con el nombre del programa en el archivo.',
+      'versions.lede': 'La versión actual de cada programa. Arriba se descarga todo de una vez, en la fila solo ese programa.',
       'search.label': 'Buscar versiones',
       'search.placeholder': 'Versión, programa o palabra …',
       'filter.anyChannel': 'Cualquier canal',
@@ -438,9 +451,9 @@
       'area.sources.t': 'Fuentes y enlaces',
       'area.sources.d': 'Manuales originales, documentación, herramientas.',
       'bundle.all': 'Descargar todo',
-      'bundle.what': 'El paquete trae la carpeta FlowState-FPV con la portada, los programas, la descripción y la licencia.',
-      'bundle.optional': 'Descargar es opcional: los programas están aquí en el marco bajo la cabecera y arrancan con un clic, y cada archivo del paquete también se abre por separado. Esta página llega desde la red, sin conexión los programas solo funcionan desde el paquete descomprimido.',
-      'bundle.storage': 'Lo que creas aquí queda en el almacenamiento de esta página, el paquete lleva el suyo. Con file:// el navegador puede bloquear el almacenamiento y entonces todo vale solo para la sesión.',
+      'bundle.what': 'Todo en un paquete, para cuando no hay conexión. Cada programa también funciona por separado.',
+      'bundle.optional': '',
+      'bundle.storage': '',
       'update.title': 'Comprobar el estado',
       'update.checking': 'Comprobando …',
       'update.current': 'Todo está al día. Comprobado con la versión publicada.',
@@ -509,7 +522,7 @@
       'hero.title1': 'Manage copters,',
       'hero.title2': 'read logs,',
       'hero.accent': 'look up values',
-      'hero.lede': 'FlowState Hangar Deck keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. FlowState Presets builds switches, beeper and rates into a CLI block, the OSD Customizer edits fonts and the startup logo, and the FPV guide explains the workflow, the filters and the terms. Everything runs in the browser, needs no install and no account, and once loaded it keeps running without a connection.',
+      'hero.lede': 'Quad list, blackbox analysis, presets and OSD in the browser, no install and no account. Once loaded it also runs without a connection.',
       'hero.cta4': 'Versions',
       'programs.eyebrow': 'Programs',
       'programs.title': 'What the programs do',
@@ -537,7 +550,7 @@
       'tuner.gates': 'Safety gates',
       'tuner.gates.lede': 'Several checks block writing. They still apply when you switch the optional checklist off.',
       'tuner.exports': 'Exports',
-      'tuner.exports.lede': 'Plan as text, manifest as JSON, raw logs as ZIP, Blackbox straight from the flight controller. Everything stays on your machine.',
+      'tuner.exports.lede': 'Plan as text, manifest as JSON, logs as ZIP. Everything stays on your machine.',
       'guide.eyebrow': 'FPV Guide',
       'guide.title': 'What the guide covers',
       'guide.lede': 'Takes you from the first build to fine tuning: terms, tables and the workflow step by step.',
@@ -548,7 +561,7 @@
       'guide.workspace.lede': 'Five steps: ESC, Betaflight basics, filter flight, PID and feedforward, final check. You can read up on each one later.',
       'versions.eyebrow': 'Versions',
       'versions.title': 'What is published right now',
-      'versions.lede': 'For each version: channel, date, size and checksum, plus the state right on the card. Above the list the whole package is one click away, in a row it is the same ZIP named after the program.',
+      'versions.lede': 'The current build per program. Above you get everything at once, in a row only that one program.',
       'search.label': 'Search versions',
       'search.placeholder': 'Version, program or keyword …',
       'filter.anyChannel': 'Any channel',
@@ -620,9 +633,9 @@
       'area.glossary.t': 'Glossary', 'area.glossary.d': '95 terms, openable straight from the text.',
       'area.sources.t': 'Sources & links', 'area.sources.d': 'Original guides, documentation, tools.',
       'bundle.all': 'Download everything',
-      'bundle.what': 'The package holds the folder FlowState-FPV with the start page, the programs, the description and the licence.',
-      'bundle.optional': 'Downloading is optional: the programs sit in the frame below the header and start with a click, and every file in the package also opens on its own. This page comes from the network, without a connection the programs only run from the unpacked package.',
-      'bundle.storage': 'What you create here lives in the storage of this page, the package keeps its own. Over file:// the browser may block storage, then everything only lasts for the session.',
+      'bundle.what': 'Everything in one package, for when there is no connection. Each program also runs on its own.',
+      'bundle.optional': '',
+      'bundle.storage': '',
       'update.title': 'Check for updates',
       'update.checking': 'Checking …',
       'update.current': 'Everything is up to date. Checked against the published version.',
@@ -2116,17 +2129,8 @@
         '<p class="release-summary"><strong>' + esc(pick(release.title)) + '</strong> ' +
           esc(pick(release.summary)) + '</p>' +
         '<div class="release-meta">' +
-          '<span class="chip chip--mono">' + esc(release.file) + '</span>' +
           '<span class="chip">' + esc(formatBytes(release.size_bytes)) + '</span>' +
-          '<span class="chip">' + esc(release.available ? t('release.ready') : t('release.pending')) + '</span>' +
-        '</div>' +
-        '<div class="hash-row">' +
-          '<span class="hash-label">' + esc(t('release.hash')) + '</span>' +
-          (release.sha256
-            ? '<code class="hash-value">' + esc(release.sha256) + '</code>' +
-              '<button class="copy-btn" type="button" data-copy="' + esc(release.sha256) + '">' +
-              esc(t('release.copy')) + '</button>'
-            : '<span class="hash-value">—</span>') +
+          (release.available ? '' : '<span class="chip">' + esc(t('release.pending')) + '</span>') +
         '</div>' +
         signalsTemplate(release.signals) +
         '<div class="release-actions">' + actions.join('') + '</div>' +
