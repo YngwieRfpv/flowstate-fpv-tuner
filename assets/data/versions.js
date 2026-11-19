@@ -369,9 +369,9 @@ window.FLOWSTATE_DATA = {
       ]
     },
     {
-      "id": "tuner-4.8-alpha.6",
+      "id": "tuner-4.8-alpha.7",
       "program": "tuner",
-      "version": "v4.8-alpha.6",
+      "version": "v4.8-alpha.7",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
@@ -385,10 +385,10 @@ window.FLOWSTATE_DATA = {
         "es": "El programa ahora se llama Tuner. El análisis de registros Blackbox, el plan CLI y las fases siguen igual, los registros cargados se quedan en el navegador."
       },
       "file": "tuner/index.html",
-      "size_bytes": 501800,
-      "sha256": "2b4c4bd7d484e042343995c63105c3444dff7c34539d95757b10c51ac13afd6b",
+      "size_bytes": 501793,
+      "sha256": "3d543e21b775fb0bc4bebfcf190088f110fc113df8ae447516c520778546f0d2",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.6",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.7",
       "signals": [
         {
           "label": {
