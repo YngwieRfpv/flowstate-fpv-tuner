@@ -135,11 +135,11 @@
     <div class="overview-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">FlowState FPV</p>
       <h1>
-        <span data-i18n="hero.title1">Alle Programme,</span><br>
-        <span data-i18n="hero.title2">je eine HTML-Datei,</span>
-        <span class="accent" data-i18n="hero.accent">kein Server</span>.
+        <span data-i18n="hero.title1">Copter verwalten,</span><br>
+        <span data-i18n="hero.title2">Logs auswerten,</span>
+        <span class="accent" data-i18n="hero.accent">Werte nachschlagen</span>.
       </h1>
-      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Jedes Programm ist eine einzelne HTML-Datei, braucht keine Installation und kein Konto, und einmal geladen läuft es ohne Verbindung weiter.</p>
+      <p class="hero-lede" data-i18n="hero.lede">HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Alles läuft im Browser, ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.</p>
       <div class="overview-actions">
         <button class="btn btn--primary" type="button" data-bundle="all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/><path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5"/></svg>
@@ -148,14 +148,7 @@
         <a class="btn btn--quiet" href="#versionen" data-i18n="hero.cta4">Versionen</a>
       </div>
       <div class="bundle-info">
-        <p class="bundle-info__lead" data-i18n="bundle.what">Im Paket liegt alles im Ordner FlowState-FPV:</p>
-        <ul class="bundle-info__list" id="bundle-list">
-          <li><code>FlowState-FPV.html</code></li>
-          <li><code>hangar/HangarDeck-Lite.html</code></li>
-          <li><code>tuner/FlowState-Tuner.html</code></li>
-          <li><code>guide/FPV-Guide.html</code></li>
-          <li><code>README.md</code> <code>README.html</code> <code>LICENSE</code> <code>LIESMICH.txt</code></li>
-        </ul>
+        <p class="bundle-info__lead" data-i18n="bundle.what">Im Paket liegt der Ordner FlowState-FPV mit der Startseite, den Programmen, der Beschreibung und der Lizenz.</p>
         <p class="bundle-info__note" data-i18n="bundle.optional">Herunterladen ist freiwillig: die Programme liegen hier im Rahmen unter der Kopfzeile und starten per Klick, jede Datei im Paket lässt sich auch allein öffnen. Diese Seite kommt aus dem Netz, ohne Verbindung laufen die Programme nur aus dem entpackten Paket.</p>
         <p class="bundle-info__note" data-i18n="bundle.storage">Was du hier anlegst, liegt im Speicher dieser Seite, das Paket führt seinen eigenen. Über file:// kann der Browser den Speicher sperren, dann gilt alles nur für die Sitzung.</p>
       </div>
@@ -171,7 +164,6 @@
 <section class="section section--detail" id="hangar">
   <div class="wrap">
     <div class="detail-head reveal">
-      <span class="detail-index">01</span>
       <div>
         <p class="eyebrow" data-i18n="hangar.eyebrow">HangarDeck</p>
         <h2 data-i18n="hangar.title">Die Copter-Liste</h2>
@@ -207,7 +199,6 @@
 <section class="section section--detail" id="tuner">
   <div class="wrap">
     <div class="detail-head reveal">
-      <span class="detail-index">02</span>
       <div>
         <img class="tuner-logo tuner-logo--dunkel" src="assets/images/logo-tuner.png" alt="FlowState Tuner" width="560" height="118" decoding="async">
         <img class="tuner-logo tuner-logo--hell" src="assets/images/logo-tuner-hell.png" alt="FlowState Tuner" width="560" height="118" decoding="async">
@@ -244,7 +235,6 @@
 <section class="section section--detail" id="guide">
   <div class="wrap">
     <div class="detail-head reveal">
-      <span class="detail-index">03</span>
       <div>
         <p class="eyebrow" data-i18n="guide.eyebrow">FPV Guide</p>
         <h2 data-i18n="guide.title">Was im Guide steht</h2>
@@ -329,13 +319,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="search" type="search" data-i18n-placeholder="search.placeholder" placeholder="Version, Programm oder Stichwort …" autocomplete="off" spellcheck="false">
       </label>
-
-      <div class="segmented" id="project-filter" role="group" aria-label="Programm">
-        <button type="button" data-filter="project" data-value="all" aria-pressed="true" data-i18n="filter.all">Alle</button>
-        <button type="button" data-filter="project" data-value="hangar" aria-pressed="false">Hangar</button>
-        <button type="button" data-filter="project" data-value="tuner" aria-pressed="false">Tuner</button>
-        <button type="button" data-filter="project" data-value="guide" aria-pressed="false">Guide</button>
-      </div>
 
       <div class="segmented" role="group" aria-label="Kanal">
         <button type="button" data-filter="channel" data-value="all" aria-pressed="true" data-i18n="filter.anyChannel">Jeder Kanal</button>

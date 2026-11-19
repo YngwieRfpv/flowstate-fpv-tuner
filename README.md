@@ -1,7 +1,7 @@
 # [FlowState FPV](https://yngwierfpv.github.io/flowstate-fpv-tuner/)
 
-Drei Programme für deine Copter. Jedes ist eine einzelne HTML-Datei, die im Browser läuft,
-ohne Installation und ohne Konto. Einmal geladen arbeiten sie ohne Verbindung.
+Copter-Liste führen, Blackbox-Logs auswerten, Werte nachschlagen. Das läuft im Browser,
+ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.
 
 ---
 
@@ -136,32 +136,6 @@ Gemeinsam geändert: die Farbe reist als `?theme=ocean|sand|drakn` in der Adress
 Umschalter steht überall in der Reihenfolge HangarDeck, Tuner, Guide, und ein offenes
 Programm zieht nach, sobald in der Übersicht eine andere Farbe oder Sprache gewählt wird.
 
-## Aufbau
-
-Die Übersichtsseite ist die Plattform, die Programme liegen daneben und bleiben eigenständig.
-Kein Build, kein Framework, keine gemeinsame Bibliothek: jede Programmdatei läuft für sich,
-auch ohne die Übersicht.
-
-| Pfad | Inhalt |
-|---|---|
-| `index.html`, `assets/` | Startseite mit Navigation, Versionen, Download, Fehlermeldung |
-| `assets/data/versions.json` | Register: welche Programme es gibt, Version, Größe, Prüfsumme, Texte |
-| `hangar/`, `tuner/`, `guide/` | je ein Programm, je eine HTML-Datei mit eigenem Speicher |
-| `tools/paket.mjs` | baut das Gesamt-ZIP aus dem Register |
-
-`versions.json` ist die einzige Liste. Übersicht, Kopfzeile, Fußzeile, Versionsfilter,
-Meldedialog, Paketliste und ZIP lesen daraus. Ein neues Programm hinzufügen heißt deshalb:
-
-1. Ordner mit der HTML-Datei anlegen, zum Beispiel `presets/index.html`.
-2. Einen Eintrag in `assets/data/versions.json` ergänzen: `id`, `name`, `path`, `entry`,
-   `pack`, `kind`, `description`, `highlights`, `meta` und einen Release-Eintrag.
-3. Fertig. Es erscheint in Kopfzeile, Übersicht, Fußzeile, Filter und ZIP. Plattform-Code
-   wird nicht angefasst.
-
-Wer ein Programm aktualisiert, tauscht nur dessen Datei und zieht Version, Größe und
-SHA-256 im Register nach. Die anderen Programme und die Startseite bleiben unberührt.
-Details, Feldbeschreibungen und die Prüfliste stehen in [`PLATTFORM.md`](PLATTFORM.md).
-
 ## Lizenz
 
 Unveränderte Weitergabe ist erlaubt: vollständig, mit Lizenz und Verweis auf die
@@ -174,8 +148,8 @@ auf Deutsch und Englisch in [`LICENSE`](LICENSE).
 
 ## English
 
-Three programs for your quads, each a single HTML file that runs in the browser without an
-install and without an account. Once loaded they work offline.
+Keep the quad list, read blackbox logs, look up values. It runs in the browser, without an
+install and without an account, and once loaded it works offline.
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
@@ -226,25 +200,6 @@ not in the HTML files. Dropping a new version over the old one in the same folde
 no backup needed. Only if the folder moves, export first: JSON in HangarDeck, plan and
 manifest in the tuner. Over
 GitHub Pages you always get the latest state, so there is nothing to replace.
-
-## Layout and adding a program
-
-The overview page is the platform; the programs sit next to it and stay self-contained. No
-build, no framework, no shared library: every program file runs on its own, also without the
-overview.
-
-`assets/data/versions.json` is the only list. Header, footer, overview tiles, version filter,
-report dialog, package list and the ZIP all read from it. Adding a program means:
-
-1. Create a folder with its HTML file, for example `presets/index.html`.
-2. Add an entry to `assets/data/versions.json`: `id`, `name`, `path`, `entry`, `pack`, `kind`,
-   `description`, `highlights`, `meta`, plus a release entry.
-3. Done. It shows up in the header, the overview, the footer, the filter and the ZIP. No
-   platform code is touched.
-
-Updating a program means replacing its file and updating version, size and SHA-256 in the
-register. The other programs and the overview stay untouched. Field reference and checklist:
-[`PLATTFORM.md`](PLATTFORM.md).
 
 The tuner is an alpha: writing over Web Serial is untested on real hardware and in flight,
 and Web Serial exists in Chrome, Edge and Opera on desktop. Read the plan before writing.
