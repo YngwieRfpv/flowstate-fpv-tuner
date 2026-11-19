@@ -345,7 +345,7 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); }
 
 /* =============================================================================
    FLOWSTATE SHELL — Konstrukt, Farben, Sprache, Logo aus den Presets
-   Referenz: FlowState_Presets_v0.2.0-beta.1.html (Google-Drive-Ordner).
+   Vorlage: das Gehaeuse der Presets, hier auf die Arbeitsflaeche des OSD gesetzt.
    Die 12x18-Zeichenflaechen bleiben bewusst hart gepixelt; Gehaeuse und
    Bedienelemente folgen dem FlowState-Formsprache mit gemischten Radien.
    ============================================================================= */
@@ -450,15 +450,17 @@ body{
 .top{
   display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
   margin-bottom:14px;padding:13px 17px;position:sticky;top:8px;z-index:10;
-  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  /* Der Farbstreifen links ist eine Hintergrundlage des Kopfs, kein gelegtes Kind:
+     die Eckrundung schneidet ihn exakt ab, damit er buendig sitzt. */
+  background:
+    linear-gradient(180deg,var(--logo-a),var(--logo-b)) left top / 3px 100% no-repeat,
+    linear-gradient(180deg,var(--panel),var(--panel2));
+  background-origin:border-box;
   border:1px solid var(--line);
   border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);
   box-shadow:0 10px 30px var(--shadow);
   backdrop-filter:blur(12px);
 }
-.top::before{content:"";position:absolute;left:-1px;top:18px;bottom:18px;width:3px;
-  background:linear-gradient(180deg,var(--logo-a),var(--logo-b));
-  border-radius:0 3px 3px 0}
 .brand{display:flex;align-items:center;gap:13px;min-width:0;padding-left:3px;border:0}
 .logo{width:48px;height:43px;flex:none;display:grid;place-items:center}
 .logo svg{width:48px;height:43px;display:block;filter:drop-shadow(0 3px 6px var(--shadow))}
@@ -618,8 +620,9 @@ canvas[data-glyph],canvas[data-font-preview],canvas[data-osd-ex],canvas[data-pre
 .osd-el canvas.cell{height:100%;image-rendering:pixelated;display:block}
 
 /* ---------------------------- FINAL EXPORT STEP ----------------------------- */
-.workspace.osd-compact { grid-template-columns: minmax(0,1fr) 340px; }
-.workspace.osd-compact .panel.left { display:none; }
+.workspace.osd-compact { grid-template-columns: minmax(0,1fr); }
+.workspace.osd-compact .panel.left,
+.workspace.osd-compact .panel.right { display:none; }
 .export-final { margin-bottom:14px; }
 .export-final .seg { margin-bottom:8px; }
 .export-toggle { margin-top:10px; padding-top:9px; border-top:1px dashed var(--line); }
@@ -631,7 +634,42 @@ canvas[data-glyph],canvas[data-font-preview],canvas[data-osd-ex],canvas[data-pre
 .compat .no { color:var(--bad); font-weight:700; }
 .compat .part { color:var(--warn); font-weight:700; }
 .compat-note { margin:8px 0 0; color:var(--muted); font-size:11px; }
-@media (max-width:900px){ .workspace.osd-compact { grid-template-columns:1fr; } }
+
+
+
+/* v12 · 02 Zeichen: schlanker Editor */
+.step-strip{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--field);color:var(--muted);font:10px var(--mono);letter-spacing:.3px}
+.step-strip b{display:inline-grid;place-items:center;width:16px;height:16px;margin-right:6px;border-radius:50%;background:var(--accent-soft);color:var(--accent-text);font:700 9px var(--mono)}
+.step-strip .grow{flex:1}
+#glyphGrid.glyph-grid{grid-template-columns:repeat(16,1fr);gap:3px}
+#glyphGrid .glyph-cell{padding:4px 1px 2px}
+#glyphGrid .glyph-cell canvas{margin-bottom:2px}
+#glyphGrid .glyph-cell small{font-size:8px;line-height:1.1}
+.glyph-cell.edited{box-shadow:inset 0 -2px 0 var(--amber,#e0b24a)}
+.edit-row{display:grid;grid-template-columns:auto minmax(220px,1fr);gap:14px;align-items:start}
+.edit-row .glyph-editor{padding:14px 14px 30px}
+.edit-row .canvas-shell.glyphshell{width:204px}
+.edit-side{min-width:0}
+.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tool-grid .btn{padding:6px 0;text-align:center}
+.seg.brush{display:flex;width:100%}
+.seg.brush button{flex:1;padding:7px 0}
+.font-active canvas{display:block;width:100%;max-width:168px;height:36px;image-rendering:pixelated;background:#020505;border:1px solid var(--line2);border-radius:var(--r-sm)}
+.btn.ghost{opacity:.45}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+details.more{margin-top:10px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--field)}
+details.more>summary{cursor:pointer;list-style:none;padding:7px 10px;color:var(--muted);font:700 10px var(--mono);letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:'▸';color:var(--accent-text);font-size:11px}
+details.more[open]>summary::before{content:'▾'}
+details.more>summary .hint{margin-left:auto;text-transform:none;font-weight:400}
+details.more>*:not(summary){padding:0 10px 10px}
+details.more .font-filter{margin-top:4px}
+@media (max-width:900px){
+  #glyphGrid.glyph-grid{grid-template-columns:repeat(8,1fr)}
+  .edit-row{grid-template-columns:1fr}
+  .edit-row .canvas-shell.glyphshell{width:168px}
+}
 </style>
 </head>
 <body>
@@ -684,7 +722,7 @@ canvas[data-glyph],canvas[data-font-preview],canvas[data-osd-ex],canvas[data-pre
     <button class="tab active" type="button" role="tab" aria-selected="true" data-action="tab" data-tab="pack"><span class="n">01</span><span class="tab-copy">Font Pack<small>Fonts wählen &amp; mischen</small></span></button>
     <button class="tab" type="button" role="tab" aria-selected="false" data-action="tab" data-tab="font"><span class="n">02</span><span class="tab-copy">Zeichen<small>einzeln anpassen · optional</small></span></button>
     <button class="tab" type="button" role="tab" aria-selected="false" data-action="tab" data-tab="logo"><span class="n">03</span><span class="tab-copy">Startup Logo<small>einfügen / bearbeiten</small></span></button>
-    <button class="tab legacy" type="button" role="tab" aria-selected="false" data-action="tab" data-tab="osd"><span class="n">04</span><span class="tab-copy">Layout &amp; Export<small>OSD · BF · iNAV · DJI</small></span></button>
+    <button class="tab legacy" type="button" role="tab" aria-selected="false" data-action="tab" data-tab="osd"><span class="n">04</span><span class="tab-copy">Export<small>BF · iNAV · DJI · WTFOS</small></span></button>
   </nav>
 
   <div class="workspace" id="workspace">
@@ -1369,11 +1407,11 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   'use strict';
 
   /* ============================ FLOWSTATE SHELL ============================
-     Konstrukt, Farbschemata, Sprachen und Logo folgen der FlowState-Presets-
-     Referenz aus dem Google-Drive-Ordner. Nur die Shell wird übersetzt;
-     MAX7456-Daten, CLI und .mcm-Export bleiben unverändert.                  */
+     Konstrukt, Farbschemata, Sprachen und Logo folgen dem Gehaeuse der
+     FlowState-Presets. Nur die Shell wird übersetzt;
+     MAX7456-Daten und .mcm-Export bleiben unverändert.                  */
   const SHELL_KEY = 'bfOsdLab.shell.v1';
-  /* Farbe und Sprache, die auch die Übersichtsseite und die anderen Werkzeuge lesen. */
+  /* Farbe und Sprache, die auch die Uebersichtsseite und die anderen Werkzeuge lesen. */
   const HUB_THEME_KEY = 'flowstate-theme';
   const HUB_LANG_KEY = 'flowstate-lang';
   const SHARED_KEY = 'flowstate.prefs';
@@ -1381,8 +1419,8 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   const LANGS = ['de', 'en', 'es'];
   const shell = { theme: 'ocean', lang: 'de' };
   try { Object.assign(shell, JSON.parse(localStorage.getItem(SHELL_KEY) || '{}')); } catch (e) { /* ignorieren */ }
-  /* Reihenfolge: Adresse, dann die Schlüssel der Übersichtsseite, dann die eigene
-     Ablage, dann Browsersprache. So kommt die Wahl aus der Übersicht hier an. */
+  /* Reihenfolge: Adresse, dann die Schluessel der Uebersicht, dann die eigene Ablage,
+     dann die Browsersprache. So kommt die Wahl aus der Uebersicht hier an. */
   (function loadShell() {
     let query = {};
     try {
@@ -1412,7 +1450,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       'BF · READY': 'BF · READY', 'MODUS': 'MODE', 'ZELLE': 'CELL', 'FONT': 'FONT',
       'FLOWSTATE': 'FLOWSTATE', 'OSD LAB': 'OSD LAB',
       'Font Pack': 'Font Pack', 'Fertigfonts mischen': 'Mix ready fonts',
-      'Fonts': 'Fonts', '321 Quellen + Editor': '349 sources + editor',
+      'Fonts': 'Fonts', '362 Quellen + Editor': '362 sources + editor',
       'Startup Logo': 'Startup Logo', 'OSD Layout': 'OSD Layout',
       'Schnellstart': 'Quick start', 'Ziel-Firmware': 'Target firmware',
       'Font-Zeilen': 'Font rows', 'Bootlogo': 'Boot logo', 'Pack': 'Pack',
@@ -1428,11 +1466,10 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       'Mehr laden': 'Load more', 'Eigener Font': 'Custom font',
       'Klassisch 5×7': 'Classic 5×7', 'Weiß': 'White', 'Leer': 'Empty', 'Schwarz': 'Black',
       'Invert': 'Invert', 'Invertieren': 'Invert', 'Kopieren': 'Copy', 'Workspace': 'Workspace',
-      'Font File Info': 'Font file info', 'CLI-Hinweise': 'CLI notes',
       'Format': 'Format', 'Zeilen pro Zeichen': 'Rows per character', 'Ziel': 'Target',
       'Schnell-Design': 'Quick design', 'Import': 'Import', 'Layout': 'Layout',
-      'OSD-Profil': 'OSD profile', 'Aktivierung (CLI)': 'Activation (CLI)',
-      'Bild übernehmen': 'Apply image', 'CLI-Snippet': 'CLI snippet',
+      'OSD-Profil': 'OSD profile',
+      'Bild übernehmen': 'Apply image',
       'Digital / HD': 'Digital / HD', 'Editor-Modus': 'Editor mode',
       'Elemente': 'Elements', 'Farblegende': 'Color legend', 'Quellbild': 'Source image',
       'Video-Format': 'Video format', 'Warum so pixelig?': 'Why so pixelated?',
@@ -1468,7 +1505,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       'BF · READY': 'BF · LISTO', 'MODUS': 'MODO', 'ZELLE': 'CELDA', 'FONT': 'FUENTE',
       'FLOWSTATE': 'FLOWSTATE', 'OSD LAB': 'LAB OSD',
       'Font Pack': 'Paquete de fuentes', 'Fertigfonts mischen': 'Mezclar fuentes listas',
-      'Fonts': 'Fuentes', '321 Quellen + Editor': '349 fuentes + editor',
+      'Fonts': 'Fuentes', '362 Quellen + Editor': '362 fuentes + editor',
       'Startup Logo': 'Logo de inicio', 'OSD Layout': 'Diseño OSD',
       'Schnellstart': 'Inicio rápido', 'Ziel-Firmware': 'Firmware de destino',
       'Font-Zeilen': 'Filas de fuente', 'Bootlogo': 'Logo de arranque', 'Pack': 'Paquete',
@@ -1485,11 +1522,11 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       'Klassisch 5×7': 'Clásica 5×7', 'Weiß': 'Blanco', 'Leer': 'Vacío', 'Schwarz': 'Negro',
       'Invert': 'Invertir', 'Invertieren': 'Invertir', 'Kopieren': 'Copiar',
       'Workspace': 'Espacio de trabajo', 'Font File Info': 'Info del archivo',
-      'CLI-Hinweise': 'Notas CLI', 'Format': 'Formato',
+      'Format': 'Formato',
       'Zeilen pro Zeichen': 'Filas por carácter', 'Ziel': 'Destino',
       'Schnell-Design': 'Diseño rápido', 'Import': 'Importar', 'Layout': 'Diseño',
-      'OSD-Profil': 'Perfil OSD', 'Aktivierung (CLI)': 'Activación (CLI)',
-      'Bild übernehmen': 'Aplicar imagen', 'CLI-Snippet': 'Fragmento CLI',
+      'OSD-Profil': 'Perfil OSD',
+      'Bild übernehmen': 'Aplicar imagen',
       'Digital / HD': 'Digital / HD', 'Editor-Modus': 'Modo editor',
       'Elemente': 'Elementos', 'Farblegende': 'Leyenda de color', 'Quellbild': 'Imagen fuente',
       'Video-Format': 'Formato de vídeo', 'Warum so pixelig?': '¿Por qué tan pixelado?',
@@ -1562,32 +1599,50 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   });
   /* v11: kompakte Schrittanzeige, optionaler OSD-Editor, klare Kompatibilität */
   Object.assign(I18N.en, {
-    '321 Quellen + Editor': '321 sources + editor',
+    '362 Quellen + Editor': '362 sources + editor',
     'Fertiges Paket': 'Final package', 'Kompatibilität': 'Compatibility',
     'was wirkt wirklich?': 'what really works?', 'Datei / Ablage': 'File / location',
     'Ja': 'Yes', 'Nein': 'No', 'Teil': 'Partial',
     'OSD-Einstellungen & Anzeige einblenden': 'Show OSD settings & display',
     'ANZEIGER AUSGEBLENDET': 'INSPECTOR HIDDEN',
-    'Der OSD-Editor ist ausgeblendet. Über „OSD-Einstellungen &amp; Anzeige einblenden“ oben kannst du ihn jederzeit dazuschalten. Die CLI-Ausgabe bleibt rechts sichtbar.':
-      'The OSD editor is hidden. Use “Show OSD settings &amp; display” above to enable it again. The CLI output stays visible on the right.',
-    'Anzeiger und OSD-Editor sind optional. Mit dem Schalter „OSD-Einstellungen &amp; Anzeige einblenden“ oben lassen sich beide wieder aktivieren. Die CLI bleibt immer verfügbar.':
-      'Inspector and OSD editor are optional. Use “Show OSD settings &amp; display” above to enable both again. The CLI is always available.',
     'live · BF-kompatibel': 'live · BF compatible',
     'Nur Bootlogo (288×72 BMP)': 'Boot logo only (288×72 BMP)'
   });
   Object.assign(I18N.es, {
-    '321 Quellen + Editor': '321 fuentes + editor',
+    '362 Quellen + Editor': '362 fuentes + editor',
     'Fertiges Paket': 'Paquete final', 'Kompatibilität': 'Compatibilidad',
     'was wirkt wirklich?': '¿qué funciona de verdad?', 'Datei / Ablage': 'Archivo / ubicación',
     'Ja': 'Sí', 'Nein': 'No', 'Teil': 'Parcial',
     'OSD-Einstellungen & Anzeige einblenden': 'Mostrar ajustes y vista OSD',
     'ANZEIGER AUSGEBLENDET': 'INSPECTOR OCULTO',
-    'Der OSD-Editor ist ausgeblendet. Über „OSD-Einstellungen &amp; Anzeige einblenden“ oben kannst du ihn jederzeit dazuschalten. Die CLI-Ausgabe bleibt rechts sichtbar.':
-      'El editor OSD está oculto. Usa «Mostrar ajustes y vista OSD» arriba para volver a activarlo. La salida CLI sigue visible a la derecha.',
-    'Anzeiger und OSD-Editor sind optional. Mit dem Schalter „OSD-Einstellungen &amp; Anzeige einblenden“ oben lassen sich beide wieder aktivieren. Die CLI bleibt immer verfügbar.':
-      'El inspector y el editor OSD son opcionales. Usa «Mostrar ajustes y vista OSD» arriba para reactivarlos. La CLI siempre está disponible.',
     'live · BF-kompatibel': 'en vivo · compatible BF',
     'Nur Bootlogo (288×72 BMP)': 'Solo logo de arranque (BMP 288×72)'
+  });
+  Object.assign(I18N.en, {
+    'Basis-Font': 'Base font', 'aus 01': 'from 01', 'Schnell wechseln': 'Quick switch',
+    '← 01 Font Pack': '← 01 Font Pack', '.mcm importieren': 'Import .mcm',
+    'Bibliothek durchsuchen': 'Browse library',
+    'Linke Maustaste zeichnet, rechte Maustaste löscht.': 'Left button draws, right button erases.',
+    'Zeichen-Aktionen': 'Glyph actions', 'Änderungen': 'Changes', 'Im Export verwenden': 'Use in export',
+    'Alle verwerfen': 'Discard all', 'Zeichen wählen': 'Pick glyph', 'Pixel setzen': 'Set pixels',
+    'Vorschau prüfen': 'Check preview', 'Export in 04': 'Export in 04',
+    'Kompletter Font-Speicher · 256 Zeichen': 'Full font memory · 256 glyphs',
+    'Weiter': 'Next', '03 Startup Logo →': '03 Startup Logo →', '04 Export →': '04 Export →',
+    'Aus: Der Font wird unverändert exportiert.': 'Off: the font is exported unchanged.',
+    'Noch keine Änderung. Einfach ein Zeichen anklicken und pixeln.': 'No changes yet. Just click a glyph and start pixelling.'
+  });
+  Object.assign(I18N.es, {
+    'Basis-Font': 'Fuente base', 'aus 01': 'de 01', 'Schnell wechseln': 'Cambio rápido',
+    '← 01 Font Pack': '← 01 Font Pack', '.mcm importieren': 'Importar .mcm',
+    'Bibliothek durchsuchen': 'Explorar biblioteca',
+    'Linke Maustaste zeichnet, rechte Maustaste löscht.': 'Botón izquierdo dibuja, derecho borra.',
+    'Zeichen-Aktionen': 'Acciones del carácter', 'Änderungen': 'Cambios', 'Im Export verwenden': 'Usar en la exportación',
+    'Alle verwerfen': 'Descartar todo', 'Zeichen wählen': 'Elegir carácter', 'Pixel setzen': 'Pintar píxeles',
+    'Vorschau prüfen': 'Revisar vista previa', 'Export in 04': 'Exportar en 04',
+    'Kompletter Font-Speicher · 256 Zeichen': 'Memoria completa · 256 caracteres',
+    'Weiter': 'Siguiente', '03 Startup Logo →': '03 Logo de inicio →', '04 Export →': '04 Exportar →',
+    'Aus: Der Font wird unverändert exportiert.': 'Apagado: la fuente se exporta sin cambios.',
+    'Noch keine Änderung. Einfach ein Zeichen anklicken und pixeln.': 'Sin cambios aún. Haz clic en un carácter y empieza a pintar.'
   });
   const I18N_PH = {
     de: {},
@@ -1600,7 +1655,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   function saveShell() {
     try {
       localStorage.setItem(SHELL_KEY, JSON.stringify(shell));
-      /* Die Übersichtsseite liest die beiden einzelnen Schlüssel direkt. */
+      /* Die Uebersichtsseite liest die beiden einzelnen Schluessel direkt. */
       localStorage.setItem(HUB_THEME_KEY, shell.theme);
       localStorage.setItem(HUB_LANG_KEY, shell.lang);
       localStorage.setItem(SHARED_KEY, JSON.stringify({
@@ -1642,7 +1697,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     $$('#langs button').forEach(b => b.addEventListener('click', () => {
       shell.lang = b.dataset.lang; saveShell(); applyLang();
     }));
-    /* Ändert jemand Farbe oder Sprache in der Übersicht oder in einem anderen
+    /* Aendert jemand Farbe oder Sprache in der Uebersicht oder in einem anderen
        Werkzeug, zieht dieses Fenster ohne Neuladen nach. */
     window.addEventListener('storage', (event) => {
       if (!event || !event.newValue) return;
@@ -1776,9 +1831,9 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   const state = {
     tab: 'pack',
     standard: 'PAL', cols: 30, rows: 16, aspect: '4:3',
-    profile: 1, showGrid: true, animate: true, showOsdEditor: false,
+    profile: 1, showGrid: true, animate: true, showOsdEditor: false, /* OSD-Editor entfernt */
     elements: [], selectedId: null, nextId: 1,
-    selectedChar: 65, fontOverrides: {}, fontPreview: 'BF OSD LAB 123',
+    selectedChar: 65, fontOverrides: {}, fontOverridesStore: {}, fontPreview: 'BF OSD LAB 123',
     preset: 'standard', fontId: 'ibm-vga-8x16', fontTall: false, fontOutline: true,
     fontEdit: false, fontLogo: true,
     pack: { firmware: 'BF', base: 'ibm-vga-8x16', mix: false, letters: '=', digits: '=', punctuation: '=', icons: '=', logo: 'base' },
@@ -1808,7 +1863,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       });
       if (typeof saved.showGrid === 'boolean') state.showGrid = saved.showGrid;
       if (typeof saved.animate === 'boolean') state.animate = saved.animate;
-      if (typeof saved.showOsdEditor === 'boolean') state.showOsdEditor = saved.showOsdEditor;
+      state.showOsdEditor = false;
       if (Array.isArray(saved.elements)) {
         state.elements = saved.elements.filter(e => ELEMENTS[e.key]).map(e => ({
           id: state.nextId++, key: e.key, col: +e.col || 0, row: +e.row || 0,
@@ -1816,7 +1871,13 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
           label: String(e.label ?? ELEMENTS[e.key].label)
         }));
       }
-      if (saved.fontOverrides) state.fontOverrides = saved.fontOverrides;
+      const activeFont = saved.fontId || state.fontId;
+      if (saved.fontOverridesStore && typeof saved.fontOverridesStore === 'object') state.fontOverridesStore = saved.fontOverridesStore;
+      if (saved.fontOverrides) {
+        state.fontOverrides = saved.fontOverrides;
+        state.fontOverridesStore[activeFont] = saved.fontOverrides;
+      }
+      if (!state.fontOverridesStore[state.fontId]) state.fontOverridesStore[state.fontId] = state.fontOverrides;
       if (saved.pack) { const hadMix = typeof saved.pack.mix === 'boolean'; Object.assign(state.pack, saved.pack); normalizePack(hadMix); }
       if (saved.logoDesign) Object.assign(state.logoDesign, saved.logoDesign);
       if (saved.logoPixels && saved.logoPixels.length === 288 * 72) state.logoPixel = Uint8Array.from(saved.logoPixels);
@@ -1861,7 +1922,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
         fontId: state.fontId, fontTall: state.fontTall, fontOutline: state.fontOutline,
         fontEdit: state.fontEdit, fontLogo: state.fontLogo, exportTarget: state.exportTarget,
         pack: state.pack, logoDesign: state.logoDesign,
-        fontPreview: state.fontPreview, fontOverrides: state.fontOverrides,
+        fontPreview: state.fontPreview, fontOverrides: state.fontOverrides, fontOverridesStore: state.fontOverridesStore,
         logoMode: state.logoMode, logoBrush: state.logoBrush, symbolBrush: state.symbolBrush,
         logoPixels: state.logoPixel ? Array.from(state.logoPixel) : null,
         symbolPixels: state.symbolPixel ? Array.from(state.symbolPixel) : null,
@@ -1906,10 +1967,18 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     saveState(); renderAll();
   }
 
+  /* Zeichen-Änderungen gehören zum Font, nicht zum Zufall: beim Wechsel
+     wird nur der aktive Satz getauscht, nichts verworfen. */
+  function activateFont(id) {
+    if (!id || id === state.fontId) return;
+    state.fontOverridesStore[state.fontId] = state.fontOverrides;
+    state.fontId = id;
+    state.fontOverrides = state.fontOverridesStore[id] || (state.fontOverridesStore[id] = {});
+  }
   /* Stufe 01 und 02 teilen sich denselben Basis-Font. */
   function pickBase(id) {
-    if (id === 'custom' || id === 'classic') { state.fontId = id; return; }
-    state.pack.base = id; state.fontId = id;
+    activateFont(id);
+    if (id !== 'custom' && id !== 'classic') state.pack.base = id;
   }
   function finalExport(kind) {
     const fw = kind.endsWith('inav') ? 'INAV' : 'BF';
@@ -2272,54 +2341,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     }
   }
 
-  /* ----------------------------- CLI Export -------------------------------
-     Wert = (1 << 11) | (row << 5) | col  →  sichtbar in OSD-Profil 1.
-     Zusätzliche Profile setzen Bit 12 (Profil 2) bzw. Bit 13 (Profil 3).   */
-  function osdPosValue(el) {
-    const pos = (el.row << 5) | el.col;
-    let flags = 0;
-    if (el.visible) {
-      if (el.profileMask & 1) flags |= (1 << 11);
-      if (el.profileMask & 2) flags |= (1 << 12);
-      if (el.profileMask & 4) flags |= (1 << 13);
-    }
-    return (flags | pos) & 0xffff;
-  }
-
-  function cliText() {
-    const a = [];
-    a.push(`# Betaflight OSD Layout — ${state.standard} ${state.cols}x${state.rows} — Profil ${state.profile}`);
-    a.push(`# Positionscodec: 1<<11 sichtbar(P1), 1<<12 P2, 1<<13 P3, Zeile<<5, Spalte`);
-    a.push(`# Erzeugt von BF OSD Customizer · ${new Date().toISOString().slice(0, 19).replace('T',' ')}`);
-    a.push('');
-    a.push(`profile ${state.profile - 1}`);
-    a.push('');
-    state.elements.forEach(el => {
-      const def = ELEMENTS[el.key];
-      const val = osdPosValue(el);
-      a.push(`set ${def.cli} = ${val}${el.visible ? '' : '  # ausgeblendet'}`);
-    });
-    a.push('');
-    a.push(`# Analog-Einstellungen (nur MAX7456)`);
-    a.push('set osd_displayport_device = MAX7456');
-    a.push('set osd_units = METRIC');
-    a.push('set osd_framerate_hz = 12');
-    a.push('');
-    a.push('save');
-    return a.join('\n');
-  }
-
-  function logoCliText() {
-    return [
-      '# Betaflight Bootlogo — Upload erfolgt im Configurator unter',
-      '# OSD → Font Manager → "Custom Logo" (Datei: 288x72 BMP/PNG, grün = transparent).',
-      'set osd_logo_on_arming = ON',
-      'set osd_logo_on_arming_duration = 50',
-      'set osd_arming_logo = 1',
-      'save'
-    ].join('\n');
-  }
-
   /* ------------------------------- .mcm -----------------------------------
    * 256 Zeichen à 64 Byte (8 Zeichen pro Zeile). Zeichen 0xA0..0xFF enthalten
    * das 24x4-Bootlogo, die ASCII-Zeichen die editierte Font-Matrix.         */
@@ -2410,8 +2431,9 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     const data = {
       format: 'bf-osd-lab', version: 1, created: new Date().toISOString(),
       standard: state.standard, cols: state.cols, rows: state.rows, aspect: state.aspect,
-      elements: state.elements, preset: state.preset,
+      elements: state.elements, preset: state.preset, fontId: state.fontId,
       fontOverrides: Object.fromEntries(Object.entries(state.fontOverrides).map(([k,v]) => [k, Array.from(v)])),
+      fontOverridesStore: Object.fromEntries(Object.entries(state.fontOverridesStore).map(([id, ov]) => [id, Object.fromEntries(Object.entries(ov).map(([k,v]) => [k, Array.from(v)]))])),
       logoPixels: state.logoPixel ? Array.from(state.logoPixel) : null,
       symbolPixels: state.symbolPixel ? Array.from(state.symbolPixel) : null
     };
@@ -2485,6 +2507,8 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   }
 
   function renderLeftOSD() {
+    return '';
+    // (OSD-Editor entfernt – Layout/Anzeiger leben im FlowState Tuner)
     if (!state.showOsdEditor) return '';
     const cats = ['Flugdaten', 'Navigation', 'Status', 'Identität', 'Kunsthorizont'];
     const palette = cats.map(cat => {
@@ -2517,7 +2541,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
         <h3 class="sec-title">OSD-Profil</h3>
         <div class="seg" data-group="profile">${[1,2,3].map(p =>
           `<button class="${state.profile === p ? 'active' : ''}" data-action="profile" data-value="${p}">P${p}</button>`).join('')}</div>
-        <p class="hint-text" style="margin:8px 0 0">Profil wechselt den CLI-Kontext (<code>profile 0..2</code>).</p>
+        <p class="hint-text" style="margin:8px 0 0">Profil wechselt den OSD-Kontext (<code>profile 0..2</code>).</p>
       </section>
       <section class="sec">
         <h3 class="sec-title">Digital / HD</h3>
@@ -2558,87 +2582,22 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       <h3 class="sec-title">Fertiges Paket <span class="hint">01 + 02 + 03 → Export</span></h3>
       <div class="seg">${[['BF', 'Betaflight'], ['INAV', 'iNAV'], ['DJI', 'DJI-Brille']].map(([v, l]) => `<button class="${t === v ? 'active' : ''}" data-action="export-target" data-value="${v}">${l}</button>`).join('')}</div>
       ${t === 'BF' ? `<button class="btn primary block" style="margin-top:8px" data-action="final-export" data-value="mcm-bf">Betaflight .mcm herunterladen</button>
-        <p class="hint-text">Analog / HDZero: FC → Configurator → OSD → Font Manager → „Open Font File“. Das Layout steht unten als CLI.</p>`
+        <p class="hint-text">Analog / HDZero: FC → Configurator → OSD → Font Manager → „Open Font File“.</p>`
       : t === 'INAV' ? `<button class="btn primary block" style="margin-top:8px" data-action="final-export" data-value="mcm-inav">iNAV .mcm herunterladen</button>
         <p class="hint-text">512 Zeichen (Seite 2 leer). Symbole folgen der BF-Belegung – für exakte iNAV-Icons einen iNAV-Basisfont wählen.</p>`
       : `<div class="btn-row" style="margin-top:8px"><button class="btn primary" data-action="final-export" data-value="dji-bf">font_btfl_hd.png</button><button class="btn" data-action="final-export" data-value="dji-inav">font_inav_hd.png</button></div>
         <p class="hint-text">WTFOS/msp-osd ≥ 0.12 rendert in der <b>Brille</b>: PNG auf die Goggles-SD nach <code>/storage/sdcard0/font/</code> bzw. <code>/blackbox/font/</code>. ${b.hdPng ? `<b>${esc(b.name)}</b> nutzt Original-24×36-Kacheln.` : 'Basis ist analog → 12×18 wird 2× hochskaliert.'}</p>`}
       <button class="btn sm block" style="margin-top:6px" data-action="final-export" data-value="logo-bmp">Nur Bootlogo (288×72 BMP)</button>
-      <label class="check export-toggle"><input type="checkbox" data-bind="showOsdEditor" ${state.showOsdEditor ? 'checked' : ''}> OSD-Einstellungen &amp; Anzeige einblenden <span class="hint">(optional)</span></label>
+      <button class="btn sm block ghost" style="margin-top:6px" data-action="export-json">Workspace als JSON sichern</button>
     </section>${renderCompatibility()}`;
   }
 
   function renderMainOSD() {
-    const editor = state.showOsdEditor ? `
-      <div class="monitor-bar">
-        <span class="rec"></span><span>SD / CVBS</span>
-        <span class="grow"></span>
-        <span>${state.standard} · ${state.cols}×${state.rows}</span>
-        <span class="tag">${state.aspect}</span>
-        <span class="tag orange">PROFIL ${state.profile}</span>
-      </div>
-      <div class="monitor"><div class="screen" id="screen"></div></div>
-      <div class="stage-foot">
-        <span>Ziehe Elemente aus der Palette oder verschiebe sie im Raster · <b>Pfeiltasten</b> = 1 Zelle · <b>Entf</b> = löschen</span>
-        <span>ZELLEN <b>${state.cols}×${state.rows}</b> · BYTE <b>${state.cols * state.rows}</b></span>
-      </div>` : `<div class="notice cyan">Der OSD-Editor ist ausgeblendet. Über „OSD-Einstellungen &amp; Anzeige einblenden“ oben kannst du ihn jederzeit dazuschalten. Die CLI-Ausgabe bleibt rechts sichtbar.</div>`;
-    return `${renderExportPanel()}${editor}`;
-  }
-
-  function highlightCli(text) {
-    return text.split('\n').map(line => {
-      if (line.startsWith('#')) return `<span class="c">${esc(line)}</span>`;
-      const m = line.match(/^(set|profile)\s+([^=]+?)\s*=\s*(\S+)(.*)$/);
-      if (m) return `<span class="k">${m[1]}</span> ${esc(m[2])} = <span class="v">${esc(m[3])}</span><span class="c">${esc(m[4])}</span>`;
-      if (/^profile\s/.test(line) || /^save$/.test(line)) return `<span class="k">${esc(line)}</span>`;
-      return esc(line);
-    }).join('\n');
+    return renderExportPanel();
   }
 
   function renderRightOSD() {
-    const sel = state.elements.find(e => e.id === state.selectedId);
-    let insp;
-    if (!sel) {
-      insp = `<div class="insp-card">
-        <div class="insp-head"><span class="dot"></span><strong>KEIN ELEMENT AUSGEWÄHLT</strong></div>
-        <p class="hint-text" style="margin:0">Klicke ein OSD-Element im Vorschaubild an, um Spalte, Zeile, Text und Sichtbarkeit pro OSD-Profil zu bearbeiten.</p>
-      </div>`;
-    } else {
-      const def = ELEMENTS[sel.key];
-      insp = `<div class="insp-card">
-        <div class="insp-head"><span class="dot"></span><strong>${esc(def.cat.toUpperCase())}</strong><span class="tag">${esc(def.cli)}</span></div>
-        <label class="field"><span>Elementtyp</span><select data-bind="elKey">
-          ${Object.entries(ELEMENTS).map(([k, d]) => `<option value="${k}" ${k === sel.key ? 'selected' : ''}>${esc(d.icon)} · ${esc(d.cat === 'Kunsthorizont' ? k : d.sample || k)}</option>`).join('')}
-        </select></label>
-        <div class="grid2">
-          <label class="field"><span>Spalte (X)</span><input type="number" min="0" max="${state.cols - 1}" value="${sel.col}" data-bind="col"></label>
-          <label class="field"><span>Zeile (Y)</span><input type="number" min="0" max="${state.rows - 1}" value="${sel.row}" data-bind="row"></label>
-        </div>
-        ${!def.special ? `<label class="field"><span>Anzeigetext</span><input type="text" maxlength="40" value="${esc(sel.label)}" data-bind="label"></label>` : ''}
-        <label class="check"><input type="checkbox" data-bind="visible" ${sel.visible ? 'checked' : ''}> Element sichtbar</label>
-        <div class="palette-cat">Sichtbar in Profil</div>
-        <div class="seg">${[1,2,3].map(p => `<button class="${(sel.profileMask & (1 << (p-1))) ? 'active' : ''}" data-action="profile-mask" data-value="${p}">P${p}</button>`).join('')}</div>
-        <div class="btn-row" style="margin-top:11px">
-          <button class="btn sm" data-action="duplicate">Duplizieren</button>
-          <button class="btn sm danger" data-action="delete">Löschen</button>
-        </div>
-      </div>`;
-    }
-    const inspector = state.showOsdEditor ? insp : `<div class="insp-card">
-      <div class="insp-head"><span class="dot"></span><strong>ANZEIGER AUSGEBLENDET</strong></div>
-      <p class="hint-text" style="margin:0">OSD-Editor und Anzeiger sind optional. Mit dem Schalter „OSD-Einstellungen &amp; Anzeige einblenden“ oben lassen sich beide wieder aktivieren. Die CLI bleibt immer verfügbar.</p>
-    </div>`;
-    return `${inspector}
-      <section class="sec">
-        <h3 class="sec-title">CLI-Snippet <span class="hint">live · BF-kompatibel</span></h3>
-        <div class="copy-row" style="margin:0 0 7px">
-          <button class="btn sm primary" data-action="copy-cli">Kopieren</button>
-          <button class="btn sm" data-action="download-cli">.cli</button>
-          <button class="btn sm" data-action="export-json">JSON</button>
-        </div>
-        <pre class="code" id="cliCode">${highlightCli(cliText())}</pre>
-        <p class="hint-text" style="margin:7px 0 0">Position = <code>2048 + row*32 + col</code>. Bit 11 markiert das Element als sichtbar. Komplettfenster: <code>osd_warnings</code> / <code>osd_profiles</code> bleiben unangetastet.</p>
-      </section>`;
+    return '';
   }
 
   /* --------------------------- Startup Logo ------------------------------ */
@@ -2743,11 +2702,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
         </div>
       </section>
       <section class="sec">
-        <h3 class="sec-title">Aktivierung (CLI)</h3>
-        <pre class="code">${highlightCli(logoCliText())}</pre>
-        <div class="copy-row"><button class="btn sm" data-action="copy-logo-cli">Kopieren</button>
-        <button class="btn sm" data-action="download-logo-cli">.txt</button></div>
-        <div class="notice" style="margin-top:10px"><b>Wichtig:</b> Das Bild selbst wird nicht per CLI übertragen, sondern über den Font-Manager des Betaflight Configurators.</div>
+        <div class="notice"><b>Upload:</b> Das Logo kommt über den Font-Manager des Betaflight Configurators (OSD → Font Manager → Custom Logo). 288×72 px, grün = transparent.</div>
       </section>`;
   }
 
@@ -2805,187 +2760,161 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     if (count) count.textContent = `${filteredFonts().length} / ${allFonts().length}`;
   }
 
+  function activeFontInfo() {
+    if (state.fontId === 'custom') return { id: 'custom', name: 'Eigener Font', w: 12, h: 18, license: 'eigene Glyphen', author: '', desc: '' };
+    if (state.fontId === 'classic') return { id: 'classic', name: 'Klassisch 5×7', w: 5, h: 7, license: 'Basis', author: '', desc: '' };
+    return readyFont(state.fontId);
+  }
+
+
+  /* Optionale Bereiche gehören zum Zeichen-Tab (02), wirken aber auf den
+     exportierten Font. „= wie Basis-Font“ lässt einen Bereich unverändert. */
+  function packMixSection() {
+    const p = state.pack;
+    const row = (name, key, kind) => `<div class="pack-row"><label>${name}</label><select data-bind="pack-${key}">${packOptions(p[key], kind)}</select></div>`;
+    return `<section class="sec">
+      <h3 class="sec-title">3. Bereiche ändern <span class="hint">optional</span></h3>
+      <label class="check"><input type="checkbox" data-bind="pack-mix" ${p.mix ? 'checked' : ''}> Einzelne Bereiche aus anderen Fonts nehmen</label>
+      ${p.mix ? `<div class="pack-mix">
+        ${row('A–Z', 'letters')}
+        ${row('0–9', 'digits')}
+        ${row('Satzzeichen', 'punctuation')}
+        ${row('Symbole', 'icons', 'icons')}
+        <p class="hint-text" style="margin:4px 0 0">„= wie Basis-Font“ lässt den Bereich unverändert. Symbole: nur komplette MCM-Fonts.</p>
+        <button class="btn sm" data-action="pack-mix-reset">Alle Bereiche zurück auf Basis</button>
+      </div>` : `<p class="hint-text" style="margin:4px 0 0">Aus: Der komplette Font kommt aus der Basis.</p>`}
+    </section>`;
+  }
+
+  /* 02 · Zeichen: bewusst schlank. Font kommt aus 01, Export liegt in 04.
+     Hier nur: Zeichen wählen → Pixel setzen → Vorschau prüfen.           */
   function renderLeftFont() {
-    const f = state.fontId === 'classic' ? { name: 'Klassisch 5×7', w: 5, h: 7, license: 'Basis', author: '', d: '' } : readyFont(state.fontId);
-    const quick = [
-      { id: 'custom', name: 'Eigener Font', size: '12×18', license: 'lokal editierbar' },
-      { id: 'classic', name: 'Klassisch 5×7', size: '5×7', license: 'Basis' }
-    ];
+    const f = activeFontInfo();
+    const n = Object.keys(state.fontOverrides).length;
+    const brush = (v, label) => `<button class="${glyphBrush === v ? 'active' : ''}" data-action="glyph-tool" data-value="${v}">${label}</button>`;
     return `
       <section class="sec">
-        <h3 class="sec-title">Font-Bibliothek <span class="hint" id="fontCount">${filteredFonts().length} / ${allFonts().length}</span></h3>
-        <div class="font-filter">
-          <input id="fontSearch" type="search" placeholder="Name, Autor, Lizenz …" value="${esc(fontQuery)}" aria-label="Fonts durchsuchen">
-          <select id="fontGroup" aria-label="Font-Gruppe">${UI_FONT_GROUPS.map(g => `<option value="${g.id}" ${fontGroup === g.id ? 'selected' : ''}>${esc(g.label)}</option>`).join('')}</select>
+        <h3 class="sec-title">Basis-Font <span class="hint">aus 01</span></h3>
+        <div class="insp-card font-active">
+          <canvas data-font-preview="${esc(f.id || state.fontId)}" width="84" height="18"></canvas>
+          <div class="insp-head" style="margin:6px 0 2px"><strong>${esc(f.name)}</strong><span class="tag">${f.w}×${f.h}</span></div>
+          <div class="hint-text">${esc(f.license || '')}${f.author ? ' · ' + esc(f.author) : ''}</div>
         </div>
-        <div class="quick-fonts">
-          ${quick.map(c => `<button class="font-card compact ${state.fontId === c.id ? 'active' : ''}" data-action="font-pick" data-id="${c.id}">
-            <canvas data-font-preview="${c.id}" width="84" height="18"></canvas>
-            <span><span class="fc-name">${esc(c.name)}</span><br><span class="fc-meta">${esc(c.size)} · ${esc(c.license)}</span></span>
-          </button>`).join('')}
+        <label class="field"><span>Schnell wechseln</span><select data-bind="fontId">${fontOptions(state.fontId)}</select></label>
+        <div class="btn-row" style="margin-top:6px">
+          <button class="btn sm" data-action="tab" data-tab="pack">← 01 Font Pack</button>
+          <button class="btn sm" data-action="font-import">.mcm importieren</button>
         </div>
-        <div id="fontCards">${fontCardsHtml()}</div>
-        <button class="btn sm block" style="margin-top:6px" data-action="font-import">+ Eigene .mcm importieren</button>
-        <label class="field" style="margin-top:6px"><span>Oder direkt auswählen</span>
-          <select data-bind="fontId">${fontOptions(state.fontId)}</select></label>
-        <button class="btn sm block" style="margin-top:6px" data-action="font-copy-to-custom">Aktiven Font → eigenes Font kopieren</button>
-        <div class="notice cyan">${allFonts().length} Fonts, davon <b>${SPECIAL_FONTS.length} Spezial-Fonts</b> mit eigenen Symbolen/Logos (Filter „Spezial / Community“, ★).</div>
+        <details class="more" ${fontQuery || fontGroup !== 'all' ? 'open' : ''}>
+          <summary>Bibliothek durchsuchen <span class="hint" id="fontCount">${filteredFonts().length} / ${allFonts().length}</span></summary>
+          <div class="font-filter">
+            <input id="fontSearch" type="search" placeholder="Name, Autor, Lizenz …" value="${esc(fontQuery)}" aria-label="Fonts durchsuchen">
+            <select id="fontGroup" aria-label="Font-Gruppe">${UI_FONT_GROUPS.map(g => `<option value="${g.id}" ${fontGroup === g.id ? 'selected' : ''}>${esc(g.label)}</option>`).join('')}</select>
+          </div>
+          <div id="fontCards">${fontCardsHtml()}</div>
+        </details>
+      </section>
+      ${packMixSection()}
+      <section class="sec">
+        <h3 class="sec-title">Stift</h3>
+        <div class="seg brush">${brush(2, 'Weiß')}${brush(1, 'Leer')}${brush(0, 'Schwarz')}</div>
+        <p class="hint-text" style="margin:6px 0 0">Linke Maustaste zeichnet, rechte Maustaste löscht.</p>
+      </section>
+      <section class="sec">
+        <h3 class="sec-title">Zeichen-Aktionen</h3>
+        <div class="tool-grid">
+          <button class="btn sm" data-action="glyph-shift" data-value="left" title="nach links">←</button>
+          <button class="btn sm" data-action="glyph-shift" data-value="up" title="nach oben">↑</button>
+          <button class="btn sm" data-action="glyph-shift" data-value="down" title="nach unten">↓</button>
+          <button class="btn sm" data-action="glyph-shift" data-value="right" title="nach rechts">→</button>
+        </div>
+        <div class="btn-row" style="margin-top:6px">
+          <button class="btn sm" data-action="glyph-invert">Invertieren</button>
+          <button class="btn sm" data-action="glyph-clear">Leeren</button>
+        </div>
+        <button class="btn sm block ${state.fontOverrides[state.selectedChar] ? '' : 'ghost'}" style="margin-top:6px" data-action="glyph-reset-char" ${state.fontOverrides[state.selectedChar] ? '' : 'disabled'}>Auf Font zurück</button>
       </section>
       <section class="sec">
         <h3 class="sec-title">Darstellung</h3>
         <label class="check"><input type="checkbox" data-bind="fontTall" ${state.fontTall ? 'checked' : ''}> Tall · 2× Zeilenhöhe</label>
         <label class="check"><input type="checkbox" data-bind="fontOutline" ${state.fontOutline ? 'checked' : ''}> 1 px schwarzer Rand</label>
-        <label class="check"><input type="checkbox" data-bind="fontLogo" ${state.pack.logo === 'custom' ? 'checked' : ''}> Eigenes Bootlogo (Stufe 03) einsetzen</label>
-        <p class="hint-text" style="margin:6px 0 0">Aktiv: <code>${esc(f.name)}</code><br>Lizenz: ${esc(f.license)}${f.author ? ' · ' + esc(f.author) : ''}${f.desc ? '<br>' + esc(f.desc) : ''}<br>Symbole: ${isFullFont(state.fontId) ? 'aus diesem Font' : 'Stock Betaflight'}${state.pack.logo === 'custom' ? ' · Logo: eigenes (Stufe 03)' : ' · Logo: ' + (fontHasLogo(state.fontId) ? 'aus diesem Font' : 'Stock BF')}</p>
       </section>
       <section class="sec">
-        <h3 class="sec-title">Zeichen bearbeiten <span class="hint">optional</span></h3>
-        <label class="check"><input type="checkbox" data-bind="fontEdit" ${state.fontEdit ? 'checked' : ''}> Einzelne Zeichen pixeln</label>
-        ${state.fontEdit ? `<div class="editor-tools btn-row" style="margin-top:6px">
-          <button class="btn sm ${glyphBrush === 2 ? 'active' : ''}" data-action="glyph-tool" data-value="2">Weiß</button>
-          <button class="btn sm ${glyphBrush === 1 ? 'active' : ''}" data-action="glyph-tool" data-value="1">Leer</button>
-          <button class="btn sm ${glyphBrush === 0 ? 'active' : ''}" data-action="glyph-tool" data-value="0">Schwarz</button>
-        </div>
-        <div class="btn-row" style="margin-top:6px">
-          <button class="btn sm" data-action="glyph-invert">Invert</button>
-          <button class="btn sm" data-action="glyph-shift" data-value="left">←</button>
-          <button class="btn sm" data-action="glyph-shift" data-value="right">→</button>
-          <button class="btn sm" data-action="glyph-shift" data-value="up">↑</button>
-          <button class="btn sm" data-action="glyph-shift" data-value="down">↓</button>
-        </div>
-        <div class="btn-row" style="margin-top:6px">
-          <button class="btn sm" data-action="glyph-clear">Zeichen leeren</button>
-          <button class="btn sm danger" data-action="glyph-reset-char">Auf Font zurück</button>
-        </div>
-        <button class="btn sm block" style="margin-top:6px" data-action="glyph-reset-all">Alle Änderungen verwerfen (${Object.keys(state.fontOverrides).length})</button>` :
-        `<p class="hint-text" style="margin:4px 0 0">Aus: Der Font wird unverändert exportiert.${Object.keys(state.fontOverrides).length ? ` ${Object.keys(state.fontOverrides).length} gespeicherte Änderungen sind pausiert.` : ''}</p>`}
-      </section>
-      <section class="sec">
-        <h3 class="sec-title">Import</h3>
-        <button class="btn block" data-action="import-mcm">.mcm Font importieren</button>
+        <h3 class="sec-title">Änderungen <span class="hint">${n}</span></h3>
+        <label class="check"><input type="checkbox" data-bind="fontEdit" ${state.fontEdit ? 'checked' : ''}> Im Export verwenden</label>
+        <p class="hint-text" style="margin:2px 0 6px">${overridesActive() ? (n ? `${n} geänderte Zeichen landen in der .mcm / PNG.` : 'Noch keine Änderung. Einfach ein Zeichen anklicken und pixeln.') : (n ? `${n} Änderungen gespeichert, aber pausiert – Font wird original exportiert.` : 'Aus: Der Font wird unverändert exportiert.')}</p>
+        <button class="btn sm block danger" data-action="glyph-reset-all" ${n ? '' : 'disabled'}>Alle verwerfen</button>
       </section>`;
   }
 
   function renderMainFont() {
-    if (!state.fontEdit && state.fontId !== 'custom') {
-      const v = state.fontId === 'classic' ? { name: 'Klassisch 5×7' } : readyFont(state.fontId);
-      return `
-      <div class="monitor-bar"><span class="rec"></span><span>Font-Ansicht</span><span class="grow"></span>
-        <span class="tag">${esc(v.name)}</span><span class="tag amber">${isFullFont(state.fontId) ? 'KOMPLETT' : 'TEXT + STOCK-SYMBOLE'}</span></div>
-      ${v.desc ? `<div class="notice cyan special-desc"><b>${esc(v.name)}</b> · ${esc(v.desc)} <span class="hint">${esc(v.author || '')} · ${esc(v.license || '')}</span></div>` : ''}
-      <div class="goggle-preview"><div class="gp-label">OSD-BEISPIEL · TELEMETRIE</div><canvas data-osd-ex="font" data-ex="0"></canvas></div>
-      <div class="goggle-preview"><div class="gp-label">OSD-BEISPIEL · FLUG</div><canvas data-osd-ex="font" data-ex="1"></canvas></div>
-      <div class="goggle-preview"><div class="gp-label">OSD-BEISPIEL · SYMBOLE (AKKU, SIGNAL, PFEILE)</div><canvas data-osd-ex="font" data-ex="2"></canvas></div>
-      <div class="goggle-preview bootlogo-preview">
-        <div class="gp-label">STARTUP-LOGO · 288×72 · 24×4 ZEICHEN AB 0xA0 · VOLLSTÄNDIG</div>
-        <canvas data-bootlogo="font" width="288" height="72"></canvas>
-      </div>
-      <div class="goggle-preview"><div class="gp-label">KOMPLETTER FONT-SPEICHER · 256 ZEICHEN · EXAKT WIE IN DER .MCM</div><canvas id="fontSheet" class="font-sheet"></canvas></div>
-      <div class="notice">Einzelne Zeichen ändern? Links <b>„Zeichen bearbeiten · optional“</b> einschalten.</div>`;
-    }
-    const f = state.fontId === 'custom' ? { name: 'Eigener Font', w: 12, h: 18 }
-      : state.fontId === 'classic' ? { name: 'Klassisch 5×7', w: 5, h: 7 } : readyFont(state.fontId);
+    const f = activeFontInfo();
     const ch = String.fromCharCode(state.selectedChar);
+    const hex = state.selectedChar.toString(16).toUpperCase().padStart(2, '0');
     const cells = Array.from(CHARSET).map(c => {
       const code = c.charCodeAt(0);
       const label = c === ' ' ? 'SP' : c === '\\' ? '\\\\' : c;
-      return `<button class="glyph-cell ${code === state.selectedChar ? 'active' : ''}" data-action="glyph" data-code="${code}" title="0x${code.toString(16).toUpperCase().padStart(2,'0')}">
-        <canvas data-glyph="${code}"></canvas><small>${code.toString(16).toUpperCase().padStart(2,'0')}</small><small>${esc(label)}</small>
+      return `<button class="glyph-cell ${code === state.selectedChar ? 'active' : ''} ${state.fontOverrides[code] ? 'edited' : ''}" data-action="glyph" data-code="${code}" title="0x${code.toString(16).toUpperCase().padStart(2,'0')}">
+        <canvas data-glyph="${code}"></canvas><small>${esc(label)}</small>
       </button>`;
     }).join('');
     return `
-      <div class="monitor-bar"><span class="rec"></span><span>Font Matrix</span><span class="grow"></span>
-        <span class="tag">${esc(f.name)}</span><span class="tag amber">0x${state.selectedChar.toString(16).toUpperCase().padStart(2,'0')} · ${esc(ch === ' ' ? 'SPACE' : ch)}</span></div>
+      <div class="monitor-bar"><span class="rec"></span><span>Zeichen-Editor</span><span class="grow"></span>
+        <span class="tag">${esc(f.name)}</span><span class="tag amber">0x${hex} · ${esc(ch === ' ' ? 'SPACE' : ch)}</span></div>
+      <div class="step-strip"><span>Basis-Font</span><span>Bereiche <span class="hint">(optional)</span></span><span>Zeichen</span><span>Vorschau</span><span class="grow"></span><span class="hint">Export in 04</span></div>
       <div class="glyph-grid" id="glyphGrid">${cells}</div>
-      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
-        <div class="editor-wrap" style="flex:0 0 auto;padding-bottom:28px">
+      <div class="edit-row">
+        <div class="editor-wrap glyph-editor">
           <div class="canvas-shell glyphshell" style="--gx:12;--gy:18">
             <canvas id="glyphCanvas" aria-label="Zeichen-Pixel-Editor"></canvas>
             <div class="canvas-grid strong"></div>
-            <div class="canvas-caption">12 × 18 PX · 2 BIT</div>
+            <div class="canvas-caption">0x${hex} · 12 × 18 PX</div>
           </div>
         </div>
-        <div style="flex:1 1 240px;min-width:220px">
+        <div class="edit-side">
           <label class="field"><span>Vorschau</span><input type="text" id="fontPreviewInput" value="${esc(state.fontPreview)}" maxlength="40"></label>
           <div class="font-preview-line" id="fontPreviewLine"></div>
           <div class="goggle-preview" style="margin-top:9px">
-            <div class="gp-label">OSD-BEISPIEL · TELEMETRIE</div>
-            <canvas data-osd-ex="font" data-ex="0"></canvas>
-          </div>
-          <div class="goggle-preview" style="margin-top:7px">
             <div class="gp-label">OSD-BEISPIEL · FLUG</div>
             <canvas data-osd-ex="font" data-ex="1"></canvas>
           </div>
         </div>
-      </div>`;
+      </div>
+      <details class="more">
+        <summary>Kompletter Font-Speicher · 256 Zeichen</summary>
+        <div class="goggle-preview"><canvas id="fontSheet" class="font-sheet"></canvas></div>
+      </details>`;
   }
 
   function renderRightFont() {
-    const f = state.fontId === 'custom' ? { name: 'Eigener Font', w: 12, h: 18, license: 'eigene Glyphen (Override)', author: '' }
-      : state.fontId === 'classic' ? { name: 'Klassisch 5×7', w: 5, h: 7, license: 'Basis', author: '' } : readyFont(state.fontId);
+    const f = activeFontInfo();
     const code = state.selectedChar, ch = String.fromCharCode(code);
+    const edited = !!state.fontOverrides[code];
     return `
-      <section class="sec">
-        <h3 class="sec-title">Aktiver Font</h3>
-        <div class="insp-card">
-          <div class="insp-head"><span class="dot"></span><strong>${esc(f.name)}</strong><span class="tag">${f.w}×${f.h}</span></div>
-          <div class="hint-text">Lizenz: <b style="color:var(--amber)">${esc(f.license)}</b>${f.author ? '<br>' + esc(f.author) : ''}</div>
-        </div>
-      </section>
       <section class="sec">
         <h3 class="sec-title">Zeichen</h3>
         <div class="insp-card">
           <div class="insp-head"><strong>${esc(ch === ' ' ? 'SPACE' : ch)}</strong><span class="tag">0x${code.toString(16).toUpperCase().padStart(2,'0')} / ${code}</span></div>
           <div style="display:flex;align-items:center;gap:10px">
             <canvas data-glyph="${code}" style="width:36px;height:54px;image-rendering:pixelated;background:#020506;border:1px solid var(--line2)"></canvas>
-            <div class="hint-text">${state.fontOverrides[code] ? '<span class="tag amber">EDITIERT</span>' : '<span class="tag green">FONT-ORIGINAL</span>'}<br>12×18 px · 2 Bit</div>
+            <div class="hint-text">${edited ? '<span class="tag amber">EDITIERT</span>' : '<span class="tag green">FONT-ORIGINAL</span>'}<br>aus <b>${esc(f.name)}</b></div>
           </div>
         </div>
       </section>
       <section class="sec">
-        <h3 class="sec-title">Export</h3>
-        <div class="btn-row"><button class="btn primary" data-action="export-mcm">.mcm herunterladen</button></div>
-        <div class="btn-row" style="margin-top:6px"><button class="btn sm" data-action="export-json">Workspace</button><button class="btn sm" data-action="tab" data-tab="pack">Zum Pack-Builder →</button></div>
-        <div class="btn-row" style="margin-top:6px"><button class="btn sm" data-action="export-wtfos">WTFOS PNG (HD)</button></div>
-        <p class="hint-text" style="margin:8px 0 0">OSD-Symbole (Akku, RSSI, Horizont): ${isFullFont(state.fontId) ? 'aus diesem Font' : 'Stock Betaflight'}. Bootlogo ab Adresse <code>0xA0</code>: ${state.pack.logo === 'custom' ? 'eigenes Logo (Stufe 03)' : fontHasLogo(state.fontId) ? 'Logo dieses Fonts' : 'Stock BF'}.</p>
-      </section>
-      <section class="sec">
         <h3 class="sec-title">Pixel-Werte</h3>
         <div class="hint-text"><div><span class="tag">10</span> weiß</div><div style="margin-top:5px"><span class="tag green">01</span> grün / transparent</div><div style="margin-top:5px"><span class="tag amber">00</span> schwarz (Kante)</div></div>
+      </section>
+      <section class="sec">
+        <h3 class="sec-title">Weiter</h3>
+        <div class="btn-row"><button class="btn primary" data-action="tab" data-tab="logo">03 Startup Logo →</button></div>
+        <div class="btn-row" style="margin-top:6px"><button class="btn sm" data-action="tab" data-tab="osd">04 Export →</button><button class="btn sm" data-action="export-json">Workspace</button></div>
+        <p class="hint-text" style="margin:8px 0 0">Symbole (Akku, RSSI, Horizont): ${isFullFont(state.fontId) ? 'aus diesem Font' : 'Stock Betaflight'}. Alle Downloads (.mcm, PNG, Logo) liegen in <b>04</b>.</p>
       </section>`;
   }
 
-  /* --------------------------- Font Pack Builder --------------------------
-   * Aufbau wie im SNEAKY_FPV-Logo-Tool aus dem Google-Drive-Ordner:
-   * 1) Firmware wählen  2) Font-Zeilen zuweisen  3) Logo  4) CLI-Hinweise.
-   * Gemischt werden A-Z / 0-9 / Satzzeichen; Symbole bleiben Stock-BF.      */
-  function packCliText() {
-    const fw = state.pack.firmware;
-    if (fw === 'INAV') return [
-      '# INAV 7+ · MAX7456 Font',
-      'set osd_use_pilot_logo = on',
-      'set osd_arm_screen_display_time = 3000',
-      'set osd_inav_to_pilot_logo_spacing = 0',
-      'save'
-    ].join('\n');
-    if (fw === 'WS') return [
-      '# BF = Betaflight (Flugcontroller).',
-      '# WTFOS / msp-osd = SOFTWARE AUF DER BRILLE, nicht auf dem FC.',
-      '# .mcm ist nur fuer analoge MAX7456-Ziele (FC).',
-      '# Brille: PNG-Fonts auf SD-Karte / in /blackbox/font/ ablegen.',
-      '# Dateien: font_btfl.png / font_btfl_hd.png',
-      '# FC (Betaflight): set displayport_msp_fonts = 0,0,0,0',
-      '# Tab 02 Fonts > „WTFOS PNG (HD)“ erzeugt eine passende PNG.'
-    ].join('\n');
-    return [
-      '# BF = Betaflight · 4.4+ / 4.6 · 1-Seiten-Font (0xA0 = Bootlogo)',
-      'set osd_logo_on_arming = ON',
-      'set osd_logo_on_arming_duration = 50',
-      'set displayport_device = MAX7456',
-      'save'
-    ].join('\n');
-  }
-
+  /* Font Pack Builder: Firmware, Basis-Font, optionale Bereiche (02),
+     Bootlogo und .mcm-Pack. Ohne CLI – Upload läuft im Configurator. */
   function packOptions(current, kind) {
     const fonts = kind === 'icons' ? allFonts().filter(f => isFullFont(f.id)) : allFonts();
     const head = `<option value="=" ${current === '=' ? 'selected' : ''}>= wie Basis-Font</option>` +
@@ -3017,7 +2946,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
 
   function renderLeftPack() {
     const p = state.pack;
-    const row = (name, key, kind) => `<div class="pack-row"><label>${name}</label><select data-bind="pack-${key}">${packOptions(p[key], kind)}</select></div>`;
     const logoBtn = (v, label) => `<button class="${p.logo === v ? 'active' : ''}" data-action="pack-logo" data-value="${v}">${label}</button>`;
     return `
       <section class="sec">
@@ -3035,28 +2963,17 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
         <h3 class="sec-title">2. Basis-Font</h3>
         <div class="pack-row"><label>Basis</label><select data-bind="pack-base">${fontOptions(p.base, true)}</select></div>
         <p class="hint-text pack-kind">${fontKindText(p.base)}</p>
+        <p class="hint-text" style="margin:4px 0 0">Optionale Bereiche (A–Z, 0–9, Zeichen, Symbole) findest du jetzt in <b>02 Zeichen</b>.</p>
         <div class="sub-title">Spezial-Fonts mit eigenen Symbolen</div>
         ${specialChipsHtml('pack-base-pick', p.base)}
       </section>
       <section class="sec">
-        <h3 class="sec-title">3. Bereiche ändern <span class="hint">optional</span></h3>
-        <label class="check"><input type="checkbox" data-bind="pack-mix" ${p.mix ? 'checked' : ''}> Einzelne Bereiche aus anderen Fonts nehmen</label>
-        ${p.mix ? `<div class="pack-mix">
-          ${row('A–Z', 'letters')}
-          ${row('0–9', 'digits')}
-          ${row('Satzzeichen', 'punctuation')}
-          ${row('Symbole', 'icons', 'icons')}
-          <p class="hint-text" style="margin:4px 0 0">„= wie Basis-Font“ lässt den Bereich unverändert. Symbole: nur komplette MCM-Fonts.</p>
-          <button class="btn sm" data-action="pack-mix-reset">Alle Bereiche zurück auf Basis</button>
-        </div>` : `<p class="hint-text" style="margin:4px 0 0">Aus: Der komplette Font kommt aus der Basis.</p>`}
-      </section>
-      <section class="sec">
-        <h3 class="sec-title">4. Bootlogo</h3>
+        <h3 class="sec-title">3. Bootlogo</h3>
         <div class="seg">${logoBtn('base', 'Aus Basis')}${logoBtn('custom', 'Eigenes')}${logoBtn('stock', 'Stock BF')}</div>
         <p class="hint-text" style="margin:4px 0 0">${p.logo === 'custom' ? 'Logo aus Tab <b>03 Startup Logo</b>.' : p.logo === 'stock' ? 'Original-Betaflight-Logo.' : fontHasLogo(p.base) ? 'Eigenes Logo des Basis-Fonts.' : 'Basis hat kein eigenes Logo → Stock BF.'} 24×4 Zeichen ab <code>0xA0</code>.</p>
       </section>
       <section class="sec">
-        <h3 class="sec-title">5. Pack</h3>
+        <h3 class="sec-title">4. Pack</h3>
         <div class="btn-row"><button class="btn primary" data-action="export-pack">.mcm Pack</button><button class="btn" data-action="pack-to-editor">In Editor</button></div>
         <div class="btn-row" style="margin-top:6px"><button class="btn sm" data-action="save-pack">Pack speichern</button><button class="btn sm" data-action="load-pack">Pack laden</button></div>
       </section>`;
@@ -3103,11 +3020,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       <section class="sec">
         <h3 class="sec-title">Font File Info</h3>
         <table class="info-table">${rows.map(([k,v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>
-      </section>
-      <section class="sec">
-        <h3 class="sec-title">CLI-Hinweise</h3>
-        <pre class="code">${highlightCli(packCliText())}</pre>
-        <div class="copy-row"><button class="btn sm" data-action="copy-pack-cli">Kopieren</button><button class="btn sm" data-action="download-pack-cli">.txt</button></div>
       </section>
       <section class="sec">
         <div class="notice"><b>BF = Betaflight</b> (Flugcontroller, analoges <code>.mcm</code>). <b>WTFOS/msp-osd läuft auf der Brille</b> und nutzt dort PNG-Fonts. Tab <b>02 Fonts</b> → „WTFOS PNG (HD)“ erzeugt eine passende Datei für <code>font_btfl_hd.png</code>.</div>
@@ -3274,7 +3186,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     const sf = $('#statusFont'); if (sf) sf.innerHTML = `<b>${esc(rf.name)}</b>`;
     const sfs = $('#statusFontShort'); if (sfs) sfs.textContent = rf.name.split(' ')[0].toUpperCase();
     const sc = $('#statusCoords'); if (sc) sc.textContent = `${state.cols} × ${state.rows}`;
-    $('#statusMode').innerHTML = `MODUS <b>${({ osd:'OSD-LAYOUT', logo:'STARTUP-LOGO', font:'FONT-LAB', pack:'FONT-PACK', convert:'KONVERTER' })[state.tab]}</b>`;
+    $('#statusMode').innerHTML = `MODUS <b>${({ osd:'EXPORT', logo:'STARTUP-LOGO', font:'FONT-LAB', pack:'FONT-PACK', convert:'KONVERTER' })[state.tab]}</b>`;
     if (state.tab === 'osd' && state.showOsdEditor) renderStage();
     if (state.tab === 'logo') { drawLogoCanvases(); bindLogoPointer(); }
     if (state.tab === 'font') { drawFontCanvases(); drawFontPreviews(); drawFontSheet($('#fontSheet'), editorCellPx); drawOsdExamples(); drawBootLogos(); bindGlyphPointer(); }
@@ -3548,6 +3460,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       const px = glyph(state.selectedChar);
       px[p.y * FIELD.W + p.x] = glyphBrush;
       state.fontOverrides[state.selectedChar] = Array.from(px);
+      if (!state.fontEdit) state.fontEdit = true;
       glyphPainting = true; glyphLast = p;
       redrawGlyphViews();
     });
@@ -3559,7 +3472,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       state.fontOverrides[state.selectedChar] = Array.from(px);
       glyphLast = p; redrawGlyphViews();
     });
-    const stop = () => { if (glyphPainting) { glyphPainting = false; saveState(); } };
+    const stop = () => { if (glyphPainting) { glyphPainting = false; saveState(); renderAll(); } };
     canvas.addEventListener('pointerup', stop);
     canvas.addEventListener('pointercancel', stop);
   }
@@ -3687,7 +3600,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     if (importedFonts.length > 8) importedFonts.shift();
     saveImports();
     readyCache && Object.keys(readyCache).filter(k => k.startsWith(font.id)).forEach(k => delete readyCache[k]);
-    state.fontId = font.id;
+    activateFont(font.id);
     fontGroup = 'custom'; fontQuery = ''; fontLimit = 30;
     saveState(); renderAll();
     toast(`${name} als Font-Quelle hinzugefügt`);
@@ -3753,7 +3666,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       drag.node.dataset.pos = `${col},${row}`;
       const ci = $('[data-bind="col"]'), ri = $('[data-bind="row"]');
       if (ci) ci.value = col; if (ri) ri.value = row;
-      refreshCli();
+     
     };
     const up = () => {
       node.removeEventListener('pointermove', move);
@@ -3765,11 +3678,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     node.addEventListener('pointermove', move);
     node.addEventListener('pointerup', up);
     node.addEventListener('pointercancel', up);
-  }
-
-  function refreshCli() {
-    const code = $('#cliCode');
-    if (code) code.innerHTML = highlightCli(cliText());
   }
 
   function selectedElement() { return state.elements.find(e => e.id === state.selectedId); }
@@ -3804,19 +3712,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     saveState(); renderAll();
   }
 
-  function copyText(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(() => toast('In Zwischenablage kopiert')).catch(() => fallbackCopy(text));
-    } else fallbackCopy(text);
-  }
-  function fallbackCopy(text) {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); toast('In Zwischenablage kopiert'); } catch (e) { toast('Kopieren nicht möglich', true); }
-    ta.remove();
-  }
-
   /* -------------------------- Action dispatch ----------------------------- */
   const actions = {
     tab: b => setTab(b.dataset.tab),
@@ -3828,7 +3723,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       const el = selectedElement(); if (!el) return;
       const bit = 1 << (+b.dataset.value - 1);
       el.profileMask ^= bit; saveState();
-      $('#rightPanel').innerHTML = renderRightOSD(); refreshCli();
+      $('#rightPanel').innerHTML = renderRightOSD();
     },
     duplicate: () => {
       const el = selectedElement(); if (!el) return;
@@ -3842,10 +3737,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       state.selectedId = null; saveState(); renderAll(); toast('Beispiel-Layout geladen');
     },
     'layout-reset': () => { state.elements = []; state.selectedId = null; saveState(); renderAll(); toast('Layout geleert'); },
-    'copy-cli': () => copyText(cliText()),
-    'download-cli': () => download(`bf-osd-profile-${state.profile}-${stamp()}.cli`, textBlob(cliText())),
-    'copy-logo-cli': () => copyText(logoCliText()),
-    'download-logo-cli': () => download(`bf-logo-cli-${stamp()}.txt`, textBlob(logoCliText())),
     'export-json': exportJson,
     'export-mcm': () => {
       const mode = state.tab === 'pack' ? 'pack' : 'editor';
@@ -3853,14 +3744,15 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
       toast('.mcm exportiert (256 Zeichen inkl. Stock-Icons und Bootlogo)');
     },
     'export-pack': () => { download(`bf-pack-${state.pack.firmware.toLowerCase()}-${stamp()}.mcm`, textBlob(buildMcm('pack'))); toast('Font-Pack exportiert'); },
-    'copy-pack-cli': () => copyText(packCliText()),
-    'download-pack-cli': () => download(`bf-cli-${stamp()}.txt`, textBlob(packCliText())),
     'font-pick': b => { pickBase(b.dataset.id); if (b.dataset.id === 'custom') state.fontEdit = true; saveState(); renderAll(); },
     'font-more': () => { fontLimit += 30; updateFontCards(); },
     'font-import': () => { pickerMode = 'font-import'; $('#filePicker').accept = '.mcm'; $('#filePicker').click(); },
     'font-copy-to-custom': () => {
-      for (let code = 0x20; code <= 0x5F; code++) state.fontOverrides[code] = Array.from(glyph(code));
-      state.fontId = 'custom';
+      const copy = {};
+      for (let code = 0x20; code <= 0x5F; code++) copy[code] = Array.from(glyph(code));
+      activateFont('custom');
+      Object.assign(state.fontOverrides, copy);
+      state.fontEdit = true;
       saveState(); renderAll();
       toast('64 Zeichen in eigenes Font kopiert');
     },
@@ -3871,7 +3763,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     'pack-base-pick': b => { pickBase(b.dataset.id); saveState(); renderAll(); },
     'pack-logo': b => { state.pack.logo = b.dataset.value; saveState(); renderAll(); },
     'pack-mix-reset': () => { Object.assign(state.pack, { letters: '=', digits: '=', punctuation: '=', icons: '=' }); saveState(); renderAll(); },
-    'glyph-reset-all': () => { state.fontOverrides = {}; saveState(); renderAll(); toast('Alle Zeichen-Änderungen verworfen'); },
+    'glyph-reset-all': () => { state.fontOverrides = state.fontOverridesStore[state.fontId] = {}; saveState(); renderAll(); toast('Änderungen dieses Fonts verworfen'); },
     'pack-to-editor': () => { state.tab = 'font'; saveState(); renderAll(); toast('Weiter mit 02 · das Pack ist die Basis'); },
     'final-export': b => finalExport(b.dataset.value),
     'export-target': b => { state.exportTarget = b.dataset.value; saveState(); renderAll(); },
@@ -3933,21 +3825,21 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     'glyph-invert': () => {
       const px = glyph(state.selectedChar);
       for (let i = 0; i < px.length; i++) px[i] = px[i] === 1 ? 2 : 1;
-      state.fontOverrides[state.selectedChar] = Array.from(px);
-      saveState(); redrawGlyphViews();
+      state.fontOverrides[state.selectedChar] = Array.from(px); state.fontEdit = true;
+      saveState(); renderAll();
     },
     'glyph-shift': b => {
       const px = shiftPixels(glyph(state.selectedChar), 12, 18, b.dataset.value);
-      state.fontOverrides[state.selectedChar] = Array.from(px);
-      saveState(); redrawGlyphViews();
+      state.fontOverrides[state.selectedChar] = Array.from(px); state.fontEdit = true;
+      saveState(); renderAll();
     },
     'glyph-clear': () => {
-      state.fontOverrides[state.selectedChar] = Array(216).fill(1);
-      saveState(); redrawGlyphViews();
+      state.fontOverrides[state.selectedChar] = Array(216).fill(1); state.fontEdit = true;
+      saveState(); renderAll();
     },
     'glyph-reset-char': () => {
       delete state.fontOverrides[state.selectedChar];
-      saveState(); redrawGlyphViews();
+      saveState(); renderAll();
     },
     'pick-image': () => { pickerMode = 'image'; $('#filePicker').accept = 'image/png,image/jpeg,image/svg+xml,image/bmp'; $('#filePicker').click(); },
     'import-mcm': () => { pickerMode = 'mcm'; $('#filePicker').accept = '.mcm'; $('#filePicker').click(); },
@@ -4010,15 +3902,15 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
         const el = selectedElement(); if (!el) return;
         const maxC = name === 'col' ? state.cols - cellsFor(el) : state.rows - rowsFor(el);
         el[name] = clamp(+b.value || 0, 0, maxC);
-        b.value = el[name]; renderStage(); refreshCli(); saveState(); break;
+        b.value = el[name]; renderStage(); saveState(); break;
       }
       case 'label': {
         const el = selectedElement(); if (!el) return;
-        el.label = b.value; renderStage(); refreshCli(); saveState(); break;
+        el.label = b.value; renderStage(); saveState(); break;
       }
       case 'visible': {
         const el = selectedElement(); if (!el) return;
-        el.visible = b.checked; renderStage(); refreshCli(); saveState(); break;
+        el.visible = b.checked; renderStage(); saveState(); break;
       }
       case 'elKey': {
         const el = selectedElement(); if (!el) return;
@@ -4112,7 +4004,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     e.preventDefault();
     el.col = clamp(el.col + d[0], 0, state.cols - cellsFor(el));
     el.row = clamp(el.row + d[1], 0, state.rows - rowsFor(el));
-    renderStage(); refreshCli(); saveState();
+    renderStage(); saveState();
     const ci = $('[data-bind="col"]'), ri = $('[data-bind="row"]');
     if (ci) ci.value = el.col; if (ri) ri.value = el.row;
   });
@@ -4120,7 +4012,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
   /* ------------------------------- Init ----------------------------------- */
   initShell();
   if (!loadState()) Object.assign(state, defaultState());
-  if (!usesPresetText()) state.fontId = state.pack.base;   // Stufe 01 ⇄ 02 synchron
+  if (!usesPresetText() && state.fontId !== state.pack.base) activateFont(state.pack.base);   // Stufe 01 ⇄ 02 synchron
   ensurePixels();
   renderAll();
 

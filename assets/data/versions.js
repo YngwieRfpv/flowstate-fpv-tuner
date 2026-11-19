@@ -47,17 +47,17 @@ window.FLOWSTATE_DATA = {
       },
       "meta": {
         "de": [
-          "1 Datei · 156 KB",
+          "1 Datei · 154 KB",
           "Bild, Presets, FC-Auslese",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 156 KB",
+          "1 file · 154 KB",
           "picture, presets, controller read",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 156 KB",
+          "1 archivo · 154 KB",
           "imagen, presets, lectura de la FC",
           "cualquier navegador actual"
         ]
@@ -232,17 +232,17 @@ window.FLOWSTATE_DATA = {
       },
       "meta": {
         "de": [
-          "1 Datei · 156 KB",
+          "1 Datei · 218 KB",
           "Schalter, Beeper, OSD, Raten",
           "Web Serial in Chrome, Edge, Opera"
         ],
         "en": [
-          "1 file · 156 KB",
+          "1 file · 218 KB",
           "switches, beeper, OSD, rates",
           "Web Serial in Chrome, Edge, Opera"
         ],
         "es": [
-          "1 archivo · 156 KB",
+          "1 archivo · 218 KB",
           "interruptores, beeper, OSD, rates",
           "Web Serial en Chrome, Edge, Opera"
         ]
@@ -295,17 +295,17 @@ window.FLOWSTATE_DATA = {
       },
       "meta": {
         "de": [
-          "1 Datei · 4,3 MB",
+          "1 Datei · 4,1 MB",
           "Fonts, Logo, OSD-Raster",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 4.3 MB",
+          "1 file · 4.1 MB",
           "fonts, logo, OSD grid",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 4,3 MB",
+          "1 archivo · 4,1 MB",
           "fuentes, logo, rejilla OSD",
           "cualquier navegador actual"
         ]
@@ -318,15 +318,15 @@ window.FLOWSTATE_DATA = {
   ],
   "releases": [
     {
-      "id": "hangar-0.9.6-beta.1",
+      "id": "hangar-0.9.6-beta.2",
       "program": "hangar",
-      "version": "v0.9.6-beta.1",
+      "version": "v0.9.6-beta.2",
       "channel": "beta",
-      "released": "2026-11-03",
+      "released": "2026-11-19",
       "title": {
-        "de": "Neuer Stand: Presets für Schalter, Beeper und OSD",
-        "en": "New build: presets for switches, beeper and OSD",
-        "es": "Nueva versión: presets para interruptores, beeper y OSD"
+        "de": "Farbstreifen am Kopf bündig, Presets aus dem Preset-Bauer",
+        "en": "Colour stripe flush with the head, presets from the preset builder",
+        "es": "Franja del encabezado al ras, presets del creador de presets"
       },
       "summary": {
         "de": "HangarDeck Lite übernimmt den Stand 0.9.6. Neu sind Presets für die drei Bereiche, bei denen eine fremde Vorlage keinen Copter kippen kann: Schalter, Beeper und OSD. Beim Einlesen wird jede Zeile geprüft, PID, Filter und Motoren kommen nicht durch. Dazu das gespeicherte OSD als Raster und eigene Presets, die im HTML-Backup mitreisen. Unverändert: Übertragen per Code oder Link, Flight Controller über USB auslesen, Betaflight-Backup je Modell, Export als PDF, CSV, Druck, JSON und HTML.",
@@ -334,10 +334,10 @@ window.FLOWSTATE_DATA = {
         "es": "HangarDeck Lite adopta la versión 0.9.6. Lo nuevo son los presets para las tres áreas donde una plantilla ajena no puede volcar un copter: interruptores, beeper y OSD. Cada línea se comprueba al cargar, PID, filtros y motores no pasan. Además el OSD guardado como rejilla y presets propios que viajan en la copia HTML. Sin cambios: traspaso como código o enlace, lectura de la controladora por USB, copia de Betaflight por modelo, exportación como PDF, CSV, impresión, JSON y HTML."
       },
       "file": "hangar/index.html",
-      "size_bytes": 155603,
-      "sha256": "5aa0ac2ca1da32ece127104819218be0f9709a2fecd7ae34653158859e055d95",
+      "size_bytes": 157742,
+      "sha256": "7bb4cfdc10b1f636c0c7964252fed87065ac4530794759e7d73c0f15abfcdf6f",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.6-beta.1",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/hangar-0.9.6-beta.2",
       "signals": [
         {
           "label": {
@@ -398,28 +398,19 @@ window.FLOWSTATE_DATA = {
       ],
       "notes": {
         "de": [
-          "Presets für Schalter, Beeper und OSD, alles andere bleibt draußen",
-          "Copter mit Bild, FC auslesen über USB oder CLI-Text einfügen",
-          "Export als PDF, CSV, Druck, JSON und HTML-Backup",
-          "Sicherung als JSON oder HTML, die sich wieder einlesen lässt",
-          "Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät",
-          "CLI-Datei direkt auf die Karte ziehen"
+          "Farbstreifen links endet bündig an der Eckrundung, in allen Farben",
+          "Preset aus dem Preset-Bauer steht in der Auswahl und wird als CLI gelesen",
+          "Copter-Kennung geht an den Preset-Bauer, Auswahl dort über den Namen"
         ],
         "en": [
-          "Presets for switches, beeper and OSD, everything else stays out",
-          "Quads with a picture, read the controller over USB or paste CLI text",
-          "Export as PDF, CSV, print, JSON and HTML backup",
-          "A JSON or HTML backup that can be read back in",
-          "Pass the list on as a code or link, photos stay on the device",
-          "Drop a CLI file straight onto the card"
+          "Colour stripe on the left ends flush with the rounded corner, in every colour",
+          "A preset from the preset builder shows up in the list and is read as CLI",
+          "The copter id goes to the preset builder, picked there by name"
         ],
         "es": [
-          "Presets de interruptores, beeper y OSD, todo lo demás se queda fuera",
-          "Copter con imagen, leer la controladora por USB o pegar texto CLI",
-          "Exportación como PDF, CSV, impresión, JSON y copia HTML",
-          "Copia en JSON o HTML que se puede volver a cargar",
-          "Pasar la lista como código o enlace, las fotos se quedan en el dispositivo",
-          "Soltar un archivo CLI directamente en la tarjeta"
+          "La franja de la izquierda termina al ras de la esquina redondeada, en todos los colores",
+          "Un preset del creador aparece en la lista y se lee como CLI",
+          "El identificador del copter va al creador, allí se elige por nombre"
         ]
       },
       "limits": {
@@ -664,15 +655,15 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "presets-0.2.0-beta.1",
+      "id": "presets-0.2.0-beta.3",
       "program": "presets",
-      "version": "v0.2.0-beta.1",
+      "version": "v0.2.0-beta.3",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Erster Stand: Presets für Schalter, Beeper, OSD, Raten und Anpassungen",
-        "en": "First build: presets for switches, beeper, OSD, rates and adjustments",
-        "es": "Primera versión: presets para interruptores, beeper, OSD, rates y ajustes"
+        "de": "Copter aus dem Hangar, Farbstreifen bündig",
+        "en": "Copters from the hangar, colour stripe flush",
+        "es": "Copters del hangar, franja al ras"
       },
       "summary": {
         "de": "Der Preset-Bauer sammelt die Bereiche, die man gefahrlos weitergeben kann: Schalterbelegung, Beeper, OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit save, den man kopiert, als Datei sichert oder über Web Serial in die Konsole schreibt. Vorher läuft eine Prüfung, die fehlende oder widersprüchliche Angaben einzeln nennt. PID, Filter und Motoren sind nicht Teil des Werkzeugs.",
@@ -680,10 +671,10 @@ window.FLOWSTATE_DATA = {
         "es": "El creador de presets reúne las partes que se pueden pasar sin riesgo: interruptores, beeper, perfiles OSD, ajustes y rates. Termina en un bloque CLI con save que se copia, se guarda como archivo o se escribe en la consola por Web Serial. Antes corre una revisión que nombra uno por uno los datos que faltan o se contradicen. PID, filtros y motores no forman parte de la herramienta."
       },
       "file": "presets/index.html",
-      "size_bytes": 160067,
-      "sha256": "6b95b5ef1bfa8577a17193bbc864d59b30d46d6a935b7179bd3c6e06b421f1fd",
+      "size_bytes": 223016,
+      "sha256": "a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.1",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-0.2.0-beta.3",
       "signals": [
         {
           "label": {
@@ -728,25 +719,19 @@ window.FLOWSTATE_DATA = {
       ],
       "notes": {
         "de": [
-          "Schalter, Beeper, OSD, Anpassungen und Raten in einem Ablauf",
-          "Fertige CLI endet mit save, Kopieren und Datei-Export liegen daneben",
-          "Prüfung vor dem Schreiben, offene Punkte einzeln benannt",
-          "Mehrere Modelle getrennt, gespeichert unter flowstate.presets.v1",
-          "Farbe und Sprache kommen aus der Adresse oder aus der Übersicht"
+          "Copter-Liste des Hangars wird gelesen, Name, Größe und Flight Controller übernommen",
+          "Copter-Kennung bleibt am Modell, das Preset nennt sie beim Bereitstellen",
+          "Farbstreifen links endet bündig an der Eckrundung"
         ],
         "en": [
-          "Switches, beeper, OSD, adjustments and rates in one flow",
-          "The finished CLI ends with save, copy and file export sit next to it",
-          "Check before writing, open points named one by one",
-          "Several models kept apart, stored under flowstate.presets.v1",
-          "Colour and language come from the address or from the overview"
+          "The hangar's copter list is read, name, size and flight controller are taken over",
+          "The copter id stays on the model, the published preset names it",
+          "Colour stripe on the left ends flush with the rounded corner"
         ],
         "es": [
-          "Interruptores, beeper, OSD, ajustes y rates en un flujo",
-          "La CLI terminada acaba en save, copiar y exportar están al lado",
-          "Revisión antes de escribir, lo pendiente se nombra por separado",
-          "Varios modelos separados, guardados en flowstate.presets.v1",
-          "El color y el idioma vienen de la dirección o de la portada"
+          "Se lee la lista de copters del hangar y se toman nombre, tamaño y controladora",
+          "El identificador del copter queda en el modelo, el preset publicado lo nombra",
+          "La franja de la izquierda termina al ras de la esquina redondeada"
         ]
       },
       "limits": {
@@ -771,15 +756,15 @@ window.FLOWSTATE_DATA = {
       }
     },
     {
-      "id": "osd-0.1.0-beta.1",
+      "id": "osd-0.1.0-beta.2",
       "program": "osd",
-      "version": "v0.1.0-beta.1",
+      "version": "v0.1.0-beta.2",
       "channel": "beta",
       "released": "2026-11-19",
       "title": {
-        "de": "Erster Stand: Fonts, Startlogo und OSD-Layout in einer Datei",
-        "en": "First build: fonts, startup logo and OSD layout in one file",
-        "es": "Primera versión: fuentes, logo de arranque y diseño OSD en un archivo"
+        "de": "Farbe und Sprache aus der Übersicht, Streifen bündig",
+        "en": "Colour and language from the overview, stripe flush",
+        "es": "Color e idioma desde la portada, franja al ras"
       },
       "summary": {
         "de": "Der OSD Customizer sammelt die Arbeit am Zeichensatz des Flight Controllers: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts zu einem Pack mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32 mit Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Farbe und Sprache kommen aus der Übersicht oder aus der Adresse.",
@@ -787,10 +772,10 @@ window.FLOWSTATE_DATA = {
         "es": "El OSD Customizer reúne el trabajo sobre el juego de caracteres de la controladora: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes en un paquete y exporta .mcm. Además el logo de arranque en 288×72 o 32×32 con conversor de imágenes y el diseño OSD como rejilla con salida CLI. El color y el idioma vienen de la portada o de la dirección."
       },
       "file": "osd/index.html",
-      "size_bytes": 4280924,
-      "sha256": "fcfd7647207fe5cfdc38eef53d4ebe47903230cbd275d8d5ef5e56ecbf64fd61",
+      "size_bytes": 4273034,
+      "sha256": "b7aa4e682336d794f799a2582ccc614138e2747a606547c223f7b766c06070a1",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.1",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-0.1.0-beta.2",
       "signals": [
         {
           "label": {
@@ -835,25 +820,19 @@ window.FLOWSTATE_DATA = {
       ],
       "notes": {
         "de": [
-          "Über 300 Fonts mit Gruppenfilter, Suche und eigener .mcm-Import",
-          "Pack aus Basis-Font und einzelnen Bereichen, Startlogo inklusive",
-          "Startlogo zeichnen oder ein Bild umrechnen, Export als BMP",
-          "OSD-Layout als Raster mit Ziehen, Rasterfang und CLI-Ausgabe",
-          "Farbe und Sprache kommen aus der Adresse oder aus der Übersicht"
+          "Farbe und Sprache kommen aus der Adresse, aus der Übersicht oder aus der eigenen Ablage",
+          "Die Wahl wird an die Übersicht zurückgeschrieben, Änderungen ziehen im offenen Fenster nach",
+          "Farbstreifen links endet bündig an der Eckrundung"
         ],
         "en": [
-          "More than 300 fonts with group filter, search and own .mcm import",
-          "Pack from a base font and single areas, startup logo included",
-          "Draw the startup logo or convert an image, export as BMP",
-          "OSD layout as a grid with dragging, snapping and CLI output",
-          "Colour and language come from the address or from the overview"
+          "Colour and language come from the address, the overview or the tool's own store",
+          "The choice is written back to the overview, changes follow in the open window",
+          "Colour stripe on the left ends flush with the rounded corner"
         ],
         "es": [
-          "Más de 300 fuentes con filtro por grupo, búsqueda e importación .mcm",
-          "Paquete con fuente base y zonas sueltas, logo de arranque incluido",
-          "Dibuja el logo o convierte una imagen, exportación como BMP",
-          "Diseño OSD como rejilla con arrastre, ajuste y salida CLI",
-          "El color y el idioma vienen de la dirección o de la portada"
+          "Color e idioma vienen de la dirección, de la portada o del almacén propio",
+          "La elección se escribe en la portada, los cambios siguen en la ventana abierta",
+          "La franja de la izquierda termina al ras de la esquina redondeada"
         ]
       },
       "limits": {

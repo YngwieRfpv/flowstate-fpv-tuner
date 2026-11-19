@@ -107,14 +107,18 @@ body{
    Statuspunkte bleiben Kreise. Je Schema dosiert: Ocean weich, Sand mittel, Drakn straff. */
 /* FlowState masterbrand: unboxed emblem + wordmark, project name subordinate */
 .top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
-  margin-bottom:22px;background:linear-gradient(180deg,var(--panel),var(--panel2));
+  margin-bottom:22px;
+  /* Der Farbstreifen links ist eine Hintergrundlage des Kopfs, kein gelegtes Kind:
+     die Eckrundung schneidet ihn automatisch exakt ab, damit er an allen Radien
+     buendig ist. Frueher war dafuer overflow:hidden noetig, das auch das Exportmenue
+     beschnitt; ein abstrakter Streifen mit eigener border-radius stand dagegen immer
+     um ein paar Pixel aus der Rundung heraus. */
+  background:
+    linear-gradient(180deg,var(--logo-a),var(--logo-b)) left top / 3px 100% no-repeat,
+    linear-gradient(180deg,var(--panel),var(--panel2));
+  background-origin:border-box;
   border:1px solid var(--line);border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);padding:15px 18px;
   position:relative}
-/* Der Farbstreifen links folgt der Rundung selbst - frueher beschnitt overflow:hidden
-   die ganze Leiste und damit auch das Exportmenue. */
-.top::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--logo-a),var(--logo-b));
-  border-radius:var(--r-xl) 0 0 var(--r-edge)}
 .brand{display:flex;align-items:center;gap:15px;min-width:0;padding-left:3px}
 .logo{width:56px;height:49px;flex:none;display:grid;place-items:center}
 .logo svg{width:56px;height:49px;display:block;filter:drop-shadow(0 3px 6px var(--shadow))}
@@ -156,10 +160,12 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 
 .wrap{max-width:1280px;margin:0 auto;padding:22px 18px 80px}
 
-/* Reiter */
-.tabs{display:flex;gap:6px;margin:0 0 18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:0}
-.tab{appearance:none;background:transparent;border:0;border-bottom:2px solid transparent;color:var(--muted);
-  font:inherit;font-size:14px;font-weight:600;padding:11px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;
+/* Reiter: der Balken des aktiven Tabs ist 3 px und reicht bis unter die Grundlinie der
+   Leiste (margin-bottom:-1px), damit keine 1-px-Naht zwischen Unterstreichung und
+   Trennlinie steht. Inaktive Tabs sind transparent, die Linie lauft unter ihnen weiter. */
+.tabs{display:flex;gap:6px;margin:0 0 18px;flex-wrap:wrap;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab{appearance:none;background:transparent;border:0;border-bottom:3px solid transparent;color:var(--muted);
+  font:inherit;font-size:14px;font-weight:600;padding:11px 14px 9px;margin-bottom:-1px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;
   transition:.14s}
 .tab:hover{color:var(--text)}
 .tab[aria-selected=true]{color:var(--accent-text);border-bottom-color:var(--accent)}
@@ -362,8 +368,62 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   opacity:.28;background:
     linear-gradient(to right,transparent 0 11px,#9df5e2 11px 15px,transparent 15px),
     linear-gradient(to bottom,transparent 0 11px,#9df5e2 11px 15px,transparent 15px)}
-.fpv .safe{position:absolute;inset:3%;border:1px dashed rgba(150,255,235,.22);pointer-events:none;border-radius:4px}
-.ochip{position:absolute;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+/* Zwei bewusst unterschiedliche Vorschauhilfen, keine vermessenen Sichtgrenzen.
+   Signalfarben sind in allen Paletten identisch und liegen auf dunklem Grund.
+   Form, Nummer und Legende unterscheiden die Linien auch ohne Farberkennung. */
+#secOsd{--guide-safe:#f4c76b;--guide-focus:#cfb0ff}
+.fpv .osd-guide{position:absolute;pointer-events:none;z-index:1;
+  box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+/* Frei gewählter Randpuffer: 2 Zellen je Kante, innen 26×12 von 30×16. */
+.fpv .guide-safe{left:6.666667%;right:6.666667%;top:12.5%;bottom:12.5%;
+  border:2px dashed var(--guide-safe);border-radius:3px}
+/* Nur eine mittige Aufmerksamkeits-Illustration, kein physiologischer Messwert. */
+.fpv .guide-focus{left:50%;top:50%;width:47%;height:43%;transform:translate(-50%,-50%);
+  border:2px dotted var(--guide-focus);border-radius:20px}
+.fpv .guide-tag{position:absolute;left:8px;top:-10px;padding:1px 5px;border-radius:4px;
+  background:#081014;color:var(--guide-safe);font:650 10px/1.5 ui-sans-serif,system-ui,sans-serif;
+  letter-spacing:.15px;white-space:nowrap;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.fpv .guide-focus .guide-tag{left:50%;top:auto;bottom:-9px;transform:translateX(-50%);color:var(--guide-focus)}
+
+.guide-tools{border:1px solid var(--line);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  background:var(--field);padding:13px 14px;margin-top:6px;min-width:0}
+.guide-head{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.guide-head h3{margin:0;font-size:13px;font-weight:650;color:var(--text)}
+.guide-badge{font-size:10.5px;color:var(--muted);border:1px solid var(--line2);border-radius:999px;padding:1px 7px}
+.guide-intro{font-size:12px;color:var(--muted);line-height:1.5;margin:7px 0 10px}
+.guide-row{display:grid;grid-template-columns:minmax(155px,.8fr) minmax(0,1.6fr);gap:14px;
+  border-top:1px solid var(--line);padding:13px 0}
+.guide-toggle{display:grid;grid-template-columns:15px 30px minmax(0,1fr);gap:8px;align-items:start;
+  margin:0;color:var(--text);cursor:pointer;line-height:1.4}
+.guide-toggle input{margin:4px 0 0;accent-color:var(--accent)}
+.guide-toggle b{display:block;font-size:12.5px;font-weight:650}
+.guide-toggle small{display:block;font-size:10.5px;color:var(--muted);font-weight:400;margin-top:3px}
+.guide-sample{position:relative;display:block;width:30px;height:24px;background:#081014;border-radius:4px}
+.guide-sample::after{content:"";position:absolute;inset:4px;border:2px dashed var(--guide-safe);border-radius:1px}
+.guide-sample.focus::after{border-style:dotted;border-color:var(--guide-focus);border-radius:6px}
+.guide-copy{min-width:0}
+.guide-copy>p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
+.guide-controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;margin-top:10px}
+.guide-controls label{margin:0;display:block;font-size:11px;line-height:1.45;font-weight:500}
+.guide-controls select{margin-top:4px;padding:5px 8px;font-size:12px}
+.guide-ratio{flex:0 0 100px}
+.guide-scale{flex:1 1 180px;min-width:0}
+.guide-scale-line{display:flex;align-items:center;gap:10px;margin-top:5px;min-height:24px}
+.guide-scale-line input{margin:0;min-width:70px;flex:1}
+.guide-value{font:11.5px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--text);white-space:nowrap;text-align:right;min-width:35px}
+.guide-range-ends{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:1px}
+.guide-off .guide-controls{opacity:.48}
+.guide-evidence{border-top:1px solid var(--line);padding-top:10px}
+.guide-evidence>summary{font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;line-height:1.5}
+.guide-evidence p{font-size:11.5px;line-height:1.6;color:var(--muted);margin:9px 0 0}
+.guide-evidence .guide-source{font-size:10.5px;color:var(--dim)}
+.guide-evidence a{color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
+.guide-evidence a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:620px){
+  .guide-row{grid-template-columns:1fr;gap:8px}
+  .guide-tools{padding:11px 12px}
+}
+.ochip{position:absolute;z-index:2;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   color:#dcfff6;text-shadow:0 0 5px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,1);padding:0 1px;
   white-space:nowrap;line-height:1.05;cursor:grab;user-select:none;border-radius:3px;
   outline:1px dashed transparent}
@@ -443,6 +503,15 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 /* ===== Rates: Slider + Kurve ===== */
 .rateswrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);gap:14px;align-items:start}
 @media (max-width:860px){ .rateswrap{grid-template-columns:1fr} }
+.ratebar{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:8px}
+.ratebar label{min-width:150px}
+.ratebar select{min-width:100px}
+.thrgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:8px;margin-top:9px}
+.thrgrid label{display:grid;gap:3px;font-size:11px;color:var(--muted);line-height:1.3}
+.thrgrid input,.thrgrid select{padding:5px 7px;font-size:12px;min-width:0}
+.videorow{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.videorow label{min-width:150px}
+.videorow select{min-width:100px}
 .slider{margin-top:9px}
 .chart{width:100%;height:auto;background:color-mix(in srgb,var(--bg) 82%,#000);border:1px solid var(--line2);
   border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge)}
@@ -489,10 +558,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <button class="sw" type="button" data-theme="drakn" title="Drakn" style="width:26px;height:26px;padding:2px;border:1px solid var(--line2);background:var(--field);border-radius:var(--r-sm);cursor:pointer;display:flex;gap:1px"><i style="flex:1;background:#140a25;border-radius:2px"></i><i style="flex:1;background:#d82828;border-radius:2px"></i></button>
         </div>
         <div class="seg" role="group" id="langs" data-i18n-aria="lang" aria-label="Sprache"
-             style="display:flex;border:1px solid var(--line2);border-radius:var(--r-sm);overflow:hidden">
-          <button type="button" data-lang="de" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:5px 9px;cursor:pointer">DE</button>
-          <button type="button" data-lang="en" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:5px 9px;cursor:pointer">EN</button>
-          <button type="button" data-lang="es" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:5px 9px;cursor:pointer">ES</button>
+             style="display:flex;align-items:stretch;height:26px;border:1px solid var(--line2);border-radius:var(--r-sm);overflow:hidden">
+          <button type="button" data-lang="de" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;line-height:1;padding:0 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">DE</button>
+          <button type="button" data-lang="en" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;line-height:1;padding:0 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">EN</button>
+          <button type="button" data-lang="es" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;line-height:1;padding:0 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">ES</button>
         </div>
       </div>
     </div>
@@ -516,6 +585,19 @@ input[type=range]{width:100%;accent-color:var(--accent)}
             <input type="text" id="f_preset" maxlength="60" autocomplete="off" data-i18n-ph="presetPh"
                    placeholder="Freestyle Standard 5 Zoll">
             <p class="hint" data-i18n="presetHint">Frei wählbar. Der Name steht als Kommentar oben in der CLI und im Dateinamen.</p>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px">
+              <button class="btn sm ghost" id="btnImport" type="button" data-i18n="importPreset">Preset laden (.txt)</button>
+              <input type="file" id="importFile" accept=".txt,.cfg,text/plain" hidden>
+            </div>
+            <!-- Copter aus dem Hangar. Die Liste bleibt dort, hier wird nur der Bezug gesetzt. -->
+            <div id="hangarBox" hidden style="margin-top:11px">
+              <label for="hangarSel" data-i18n="hangarLabel">Copter aus dem Hangar</label>
+              <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+                <select id="hangarSel" style="flex:1 1 200px;min-width:0" aria-describedby="hangarHint"></select>
+                <button class="btn sm" id="btnHangarTake" type="button" data-i18n="hangarTake">Übernehmen</button>
+              </div>
+              <p class="hint" id="hangarHint" data-i18n="hangarHint">Setzt Name, Größe und Flight Controller aus dem Hangar. Die Copter-Liste bleibt dort.</p>
+            </div>
           </div>
         </div>
 
@@ -545,6 +627,17 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <details class="sec" id="secOsd" open>
           <summary><span class="ico">C</span><h2 data-i18n="secOsd">OSD-Profile &amp; Viewer</h2><span class="arrow">▶</span></summary>
           <div class="body">
+            <div class="videorow">
+              <label><b data-i18n="videoSystem">Videosystem</b>
+                <select id="f_video" aria-describedby="videoHint">
+                  <option value="AUTO" data-i18n="videoAuto">Auto</option>
+                  <option value="PAL" data-i18n="videoPal">PAL</option>
+                  <option value="NTSC" data-i18n="videoNtsc">NTSC</option>
+                  <option value="HD" data-i18n="videoHd">HD</option>
+                </select></label>
+              <span class="hint" id="videoGridLbl" style="margin:0"></span>
+            </div>
+            <p class="hint" id="videoHint" style="margin:0" data-i18n="videoHint">AUTO erkennt analoges PAL/NTSC, HD gibt es ab Betaflight 4.4. Beim Wechsel werden die Elementpositionen proportional auf das neue Raster umgerechnet – eine Hilfe, keine Garantie. Danach im Brillenbild prüfen.</p>
             <label id="armedLbl" data-i18n="armedAsk">Welches OSD-Profil ist beim Freigeben (Armed) aktiv?</label>
             <div class="profilepicker" id="osdPicker"></div>
             <div class="osdwrap" style="margin-top:10px">
@@ -554,10 +647,16 @@ input[type=range]{width:100%;accent-color:var(--accent)}
                   <span class="chips" id="osdEditPick"></span>
                 </div>
                 <div class="fpv" id="fpv" role="application" tabindex="0"
+                     data-i18n-aria="osdPreviewAria" aria-describedby="osdGuideIntro"
                      aria-label="OSD-Vorschau – Elemente mit Pfeiltasten oder Maus verschieben">
                   <div class="noise"></div>
                   <div class="xhair" aria-hidden="true"></div>
-                  <div class="safe"></div>
+                  <div class="osd-guide guide-safe" id="osdSafeGuide" aria-hidden="true">
+                    <span class="guide-tag" data-i18n="osdGuideSafeTag">1 · OSD</span>
+                  </div>
+                  <div class="osd-guide guide-focus" id="osdFocusGuide" aria-hidden="true">
+                    <span class="guide-tag" data-i18n="osdGuideFocusTag">2 · Fokus</span>
+                  </div>
                   <div id="osdChips"></div>
                 </div>
                 <div class="pwmrow"><span id="osdGridLbl"></span><span id="osdCountLbl"></span></div>
@@ -574,6 +673,49 @@ input[type=range]{width:100%;accent-color:var(--accent)}
                 <p class="hint" style="margin-top:6px" data-i18n="osdListHint">Klick wählt, Doppelklick schaltet im bearbeiteten Profil. A = auf allen gewählten Profilen sichtbar.</p>
               </div>
             </div>
+            <section class="guide-tools" id="osdGuideTools" aria-labelledby="osdGuideTitle">
+              <div class="guide-head">
+                <h3 id="osdGuideTitle" data-i18n="osdGuideTitle">Linien &amp; Sichtbereiche</h3>
+                <span class="guide-badge" data-i18n="osdGuideBadge">Nur Vorschau · keine CLI-Änderung</span>
+              </div>
+              <p class="guide-intro" id="osdGuideIntro" data-i18n="osdGuideIntro">OSD-Rand und Aufmerksamkeit sind nicht dasselbe. Die beiden Hilfen lassen sich einzeln ein- und ausblenden.</p>
+
+              <div class="guide-row">
+                <label class="guide-toggle" for="osdGuideSafe">
+                  <input type="checkbox" id="osdGuideSafe" data-osd-guide="safe" aria-describedby="osdGuideSafeHelp" checked>
+                  <span class="guide-sample" aria-hidden="true"></span>
+                  <span><b data-i18n="osdGuideSafeName">1 · OSD-Sicherheitsbereich</b><small data-i18n="osdGuideSafeStyle">Gelb · gestrichelt</small></span>
+                </label>
+                <div class="guide-copy"><p id="osdGuideSafeHelp" data-i18n="osdGuideSafeHelp">Frei gewählter Randpuffer: 2 Rasterzellen je Kante, innen 26×12. OSD-Texte vollständig innerhalb lassen, auch mit längeren Werten. Wie viel am Rand abgeschnitten wird, hängt vom Gerät ab – in deiner Brille prüfen.</p></div>
+              </div>
+
+              <div class="guide-row" id="osdGuideFocusRow">
+                <label class="guide-toggle" for="osdGuideFocus">
+                  <input type="checkbox" id="osdGuideFocus" data-osd-guide="focus" aria-describedby="osdGuideFocusHelp" checked>
+                  <span class="guide-sample focus" aria-hidden="true"></span>
+                  <span><b data-i18n="osdGuideFocusName">2 · Fokus im Flug</b><small data-i18n="osdGuideFocusStyle">Violett · gepunktet · mittig</small></span>
+                </label>
+                <div class="guide-copy">
+                  <p id="osdGuideFocusHelp" data-i18n="osdGuideFocusHelp">Illustration gebündelter Aufmerksamkeit im Flug: Unter hoher Beanspruchung können Randinformationen leichter übersehen werden. Außerhalb wird das Bild nicht unsichtbar. Der Regler verengt nur das Modell – er misst weder Konzentration noch dein tatsächliches Sichtfeld. Flugmitte frei halten, wichtige Warnungen gut erreichbar daneben platzieren.</p>
+                  <div class="guide-controls">
+                    <div class="guide-scale">
+                      <label for="osdGuideNarrow" data-i18n="osdGuideNarrow">Fokus enger darstellen · Illustration</label>
+                      <div class="guide-scale-line">
+                        <input type="range" id="osdGuideNarrow" data-osd-guide="focusNarrow" min="0" max="100" step="1" value="50" aria-describedby="osdGuideFocusHelp">
+                        <output class="guide-value" id="osdGuideFocusValue" for="osdGuideNarrow">gebündelt</output>
+                      </div>
+                      <div class="guide-range-ends" aria-hidden="true"><span data-i18n="osdGuideWide">weiter</span><span data-i18n="osdGuideTight">enger</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <details class="guide-evidence">
+                <summary data-i18n="osdGuideEvidenceTitle">Warum keine feste „wirkliche Sichtgrenze“?</summary>
+                <p><span data-i18n="osdGuideEvidenceFocus">Aufmerksamkeit ist keine Bildmaske. Untersuchungen zur visuellen Einengung unter mentaler Belastung zeigen unter anderem Unterschiede zwischen Piloten und Nichtpiloten. Aufgabe, Blickrichtung und Erfahrung spielen mit hinein. Der mittige Fokusrahmen und seine Größen sind daher eine vereinfachte Gestaltungshilfe, keine aus einer Studie abgeleitete Sichtfeldmessung.</span> <a href="https://pubmed.ncbi.nlm.nih.gov/11540258/" target="_blank" rel="noopener noreferrer" aria-label="Williams, 1995 · PubMed">[1]</a></p>
+                <p class="guide-source"><span data-i18n="osdGuideSources">Quelle zur Einordnung (die Maße sind frei gewählt):</span><br>[1] L. J. Williams (1995), <i>Peripheral target recognition and visual field narrowing in aviators and nonaviators.</i> DOI: 10.1207/s15327108ijap0502_6 · PMID: 11540258.</p>
+              </details>
+            </section>
             <p class="note" data-i18n="osdNote">Hinweis: Das Umschalten der OSD-Profile im Flug erfordert die Zuweisung eines AUX-Kanals in deiner Funke (EdgeTX/OpenTX) auf „OSD Profile“.</p>
           </div>
         </details>
@@ -590,6 +732,12 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <summary><span class="ico">E</span><h2 data-i18n="secRates">Rates &amp; Expo</h2><span class="arrow">▶</span></summary>
           <div class="body">
             <p class="hint" style="margin:0" data-i18n="ratesHint">Der Kurvenverlauf ist der, den die FC rechnet – dieselbe Formel, live mitgerechnet.</p>
+            <div class="ratebar">
+              <label><b data-i18n="rateProfile">Rate-Profil</b>
+                <select id="f_rateProfile" aria-describedby="rateProfileHint"></select></label>
+              <button class="btn sm ghost" id="btnRateAll" type="button" data-i18n="rateCopyAll" aria-describedby="rateProfileHint">Auf alle 4 Profile schreiben</button>
+            </div>
+            <p class="hint" id="rateProfileHint" style="margin:0" data-i18n="rateProfileHint">Vier Rate-Profile (CLI 0–3). Der Schalter im Flug kann auf ein leeres Profil zeigen – deshalb den aktuellen Satz auf alle schreiben.</p>
             <div class="rateswrap">
               <div>
                 <div class="mctl" style="margin-top:8px">
@@ -599,6 +747,18 @@ input[type=range]{width:100%;accent-color:var(--accent)}
                 <div class="slider" data-rate="rc"></div>
                 <div class="slider" data-rate="srate"></div>
                 <div class="slider" data-rate="expo"></div>
+                <div class="thrgrid">
+                  <label><span data-i18n="thrMid">Gas-Mitte (thr_mid)</span><input type="number" id="f_thrMid" data-throttlekey="thrMid" min="0" max="100" step="1"></label>
+                  <label><span data-i18n="thrExpo">Gas-Expo (thr_expo)</span><input type="number" id="f_thrExpo" data-throttlekey="thrExpo" min="0" max="100" step="1"></label>
+                  <label><span data-i18n="thrHover">Schwebegas (thr_hover)</span><input type="number" id="f_thrHover" data-throttlekey="thrHover" min="0" max="100" step="1"></label>
+                  <label><span data-i18n="limitType">Gas-Limit</span>
+                    <select id="f_limitType" data-throttlekey="limitType">
+                      <option value="OFF" data-i18n="limitOff">Aus</option>
+                      <option value="SCALE" data-i18n="limitScale">Skalieren</option>
+                      <option value="CLIP" data-i18n="limitClip">Begrenzen</option>
+                    </select></label>
+                  <label><span data-i18n="limitPercent">Gas-Limit %</span><input type="number" id="f_limitPercent" data-throttlekey="limitPercent" min="25" max="100" step="1"></label>
+                </div>
                 <p class="hint" id="rateHint"></p>
               </div>
               <div>
@@ -637,6 +797,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <h2 data-i18n="cliTitle">CLI</h2>
           <span class="sz" id="cliSize"></span>
         </header>
+        <div class="issues" id="issuesCli" style="padding:0 14px 12px"></div>
         <pre id="cliOut" tabindex="0"></pre>
         <div class="acts">
           <div class="warnbox" id="cliWarn" hidden></div>
@@ -645,6 +806,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
             <button class="btn sm ghost" id="btnFile" type="button" data-i18n="saveFile">Als Datei</button>
           </div>
           <button class="btn sm ghost" id="btnSerial" type="button" data-i18n="toFc">Auf Flight Controller schreiben</button>
+          <button class="btn sm ghost" id="btnShare" type="button" data-i18n="shareSnapshot">Für andere Apps bereitstellen</button>
           <p class="hint" id="serialHint" style="margin:0"></p>
         </div>
       </aside>
@@ -733,8 +895,19 @@ var STR = {
   osdListHint:["Klick wählt, Doppelklick schaltet im bearbeiteten Profil. A = auf allen gewählten Profilen sichtbar.","Click selects, double-click toggles in the edited profile. A = visible on every selected profile.","Clic selecciona, doble clic alterna en el perfil editado. A = visible en todos los perfiles elegidos."],
   posX:["Spalte (x)","Column (x)","Columna (x)"],
   posY:["Zeile (y)","Row (y)","Fila (y)"],
-  adjHint:["Vier Slots für Werte, die du im Flug über ein Poti oder einen Schalter verstellen willst – jeder Bereich braucht einen eigenen Steuerkanal.","Four slots for values you want to change in flight with a pot or switch – jeder range needs its own control channel.","Cuatro ranuras para valores que quieres cambiar en vuelo con un potenciómetro o interruptor – cada rango necesita su canal de control."],
+  adjHint:["Vier Slots für Werte, die du im Flug über ein Poti oder einen Schalter verstellen willst – jeder Bereich braucht einen eigenen Steuerkanal.","Four slots for values you want to change in flight with a pot or switch – each range needs its own control channel.","Cuatro ranuras para valores que quieres cambiar en vuelo con un potenciómetro o interruptor: cada rango necesita su canal de control."],
   adjFn:["Funktion","Function","Función"],
+  adjPreset:["Voreinstellung","Preset","Preajuste"],
+  adjPresetCustom:["Manuell","Manual","Manual"],
+  adjPresetOsd3:["OSD-Profil · 3-Pos-Schalter","OSD profile · 3-pos switch","Perfil OSD · interruptor 3 pos"],
+  adjPresetRate3:["Rate-Profil · 3-Pos-Schalter","Rate profile · 3-pos switch","Perfil de rates · interruptor 3 pos"],
+  adjPresetLed3:["LED-Profil · 3-Pos-Schalter","LED profile · 3-pos switch","Perfil LED · interruptor 3 pos"],
+  adjPresetSlider:["PID-Slider · Master · Poti","PID slider · master · pot","Slider PID · master · potenciómetro"],
+  adjPresetRollP:["Roll P · Poti Mitte","Roll P · pot centre","Roll P · pot centro"],
+  adjPresetRollD:["Roll D · Poti Mitte","Roll D · pot centre","Roll D · pot centro"],
+  adjPresetHint:["Voreinstellung füllt Funktion/Bereich/Mittelwert automatisch. Der Kanal bleibt frei wählbar. 3-Pos-Varianten nutzen die ganze Range 900→2100, damit alle drei Stellungen des Schalters ein Profil treffen.",
+                  "A preset fills in function / range / centre automatically. The channel stays your call. 3-pos variants use the full 900→2100 range so all three positions land on a profile.",
+                  "El preajuste rellena función / rango / centro. El canal queda a tu elección. Las variantes 3 pos usan el rango completo 900→2100 para que las tres posiciones caigan en un perfil."],
   center:["Mittelwert","Centre value","Valor central"],
   scale:["Spanne (±)","Scale (±)","Escala (±)"],
   slot:["Slot","Slot","Ranura"],
@@ -748,20 +921,72 @@ var STR = {
   presetName:["Preset-Name","Preset name","Nombre del preset"],
   presetPh:["Freestyle Standard 5 Zoll","Freestyle standard 5 inch","Freestyle estándar 5 pulgadas"],
   presetHint:["Frei wählbar. Der Name steht als Kommentar oben in der CLI und im Dateinamen.","Free choice. The name sits as a comment at the top of the CLI and in the file name.","Libre. El nombre aparece como comentario en la CLI y en el archivo."],
+  importPreset:["Preset laden (.txt)","Load preset (.txt)","Cargar preset (.txt)"],
+  importFail:["Datei nicht lesbar – bitte eine .txt mit CLI-Zeilen wählen.","File not readable – choose a .txt with CLI lines.","Archivo ilegible – elige un .txt con líneas CLI."],
+  importOk:["Preset geladen – du kannst es jetzt bearbeiten.","Preset loaded – you can edit it now.","Preset cargado – ya puedes editarlo."],
+  shareSnapshot:["Für andere Apps bereitstellen","Make available to other apps","Disponer para otras apps"],
+  hangarLabel:["Copter aus dem Hangar","Copter from the hangar","Copter del hangar"],
+  sizeInch:["Zoll","inch","pulgadas"],
+  hangarPick:["Copter wählen …","Pick a copter …","Elegir un copter …"],
+  hangarTake:["Übernehmen","Take over","Tomar"],
+  hangarHint:["Setzt Name, Größe und Flight Controller aus dem Hangar. Die Copter-Liste bleibt dort.","Sets name, size and flight controller from the hangar. The list itself stays there.","Toma nombre, tamaño y controladora del hangar. La lista sigue allí."],
+  hangarDone:["Aus dem Hangar übernommen","Taken from the hangar","Tomado del hangar"],
+  shareDone:["Preset im geteilten Speicher abgelegt.","Preset placed in shared storage.","Preset guardado en el almacenamiento compartido."],
+  osdPreviewAria:["OSD-Vorschau – Elemente mit Pfeiltasten oder Maus verschieben","OSD preview – move elements with arrow keys or the mouse","Vista previa OSD: mueve elementos con las flechas o el ratón"],
+  osdGuideTitle:["Linien & Sichtbereiche","Guides & viewing areas","Líneas y áreas de visión"],
+  osdGuideBadge:["Nur Vorschau · keine CLI-Änderung","Preview only · no CLI changes","Solo vista previa · no cambia la CLI"],
+  osdGuideIntro:["OSD-Rand und Aufmerksamkeit sind nicht dasselbe. Die beiden Hilfen lassen sich einzeln ein- und ausblenden.","OSD margin and attention are different things. Show or hide each of the two guides independently.","El margen OSD y la atención son cosas distintas. Puedes mostrar u ocultar cada una de las dos guías."],
+  osdGuideSafeTag:["1 · OSD","1 · OSD","1 · OSD"],
+  osdGuideFocusTag:["2 · Fokus","2 · Focus","2 · Enfoque"],
+  osdGuideSafeName:["1 · OSD-Sicherheitsbereich","1 · OSD safe area","1 · Área segura OSD"],
+  osdGuideSafeStyle:["Gelb · gestrichelt","Yellow · dashed","Amarillo · discontinuo"],
+  osdGuideSafeHelp:["Frei gewählter Randpuffer: 2 Rasterzellen je Kante, innen 26×12. OSD-Texte vollständig innerhalb lassen, auch mit längeren Werten. Wie viel am Rand abgeschnitten wird, hängt vom Gerät ab – in deiner Brille prüfen.","An illustrative margin: 2 grid cells at each edge, leaving 26×12 inside. Keep entire OSD texts within it, including longer values. Edge cropping depends on the device – check in your own goggles.","Margen orientativo: 2 celdas en cada borde; quedan 26×12 dentro. Mantén los textos OSD completos dentro, también con valores largos. El recorte depende del dispositivo: compruébalo en tus gafas."],
+  osdGuideFocusName:["2 · Fokus im Flug","2 · Focus in flight","2 · Atención en vuelo"],
+  osdGuideFocusStyle:["Violett · gepunktet · mittig","Purple · dotted · centred","Violeta · punteado · centrado"],
+  osdGuideFocusHelp:["Illustration gebündelter Aufmerksamkeit im Flug: Unter hoher Beanspruchung können Randinformationen leichter übersehen werden. Außerhalb wird das Bild nicht unsichtbar. Der Regler verengt nur das Modell – er misst weder Konzentration noch dein tatsächliches Sichtfeld. Flugmitte frei halten, wichtige Warnungen gut erreichbar daneben platzieren.","An illustration of focused attention in flight: under high workload, peripheral information may be missed more easily. The picture outside does not become invisible. The slider only narrows the model – it measures neither concentration nor your actual field of view. Keep the flight path clear and important warnings easy to find nearby.","Ilustración de la atención concentrada en vuelo: con una carga elevada es más fácil pasar por alto información periférica. La imagen exterior no se vuelve invisible. El control solo estrecha el modelo: no mide la concentración ni tu campo visual real. Deja libre la trayectoria y coloca los avisos importantes cerca, donde sean fáciles de encontrar."],
+  osdGuideNarrow:["Fokus enger darstellen · Illustration","Narrow the focus display · illustration","Estrechar el enfoque · ilustración"],
+  osdGuideWide:["weiter","wider","más amplio"],
+  osdGuideTight:["enger","narrower","más estrecho"],
+  osdGuideFocusWide:["weit","wide","amplio"],
+  osdGuideFocusMid:["gebündelt","focused","concentrado"],
+  osdGuideFocusTight:["eng","narrow","estrecho"],
+  osdGuideModel:["Illustration, keine Messung","Illustration, not a measurement","Ilustración, no medición"],
+  osdGuideEvidenceTitle:["Warum keine feste „wirkliche Sichtgrenze“?","Why no fixed ‘actual viewing boundary’?","¿Por qué no hay un límite fijo de «visión real»?"],
+  osdGuideEvidenceFocus:["Aufmerksamkeit ist keine Bildmaske. Untersuchungen zur visuellen Einengung unter mentaler Belastung zeigen unter anderem Unterschiede zwischen Piloten und Nichtpiloten. Aufgabe, Blickrichtung und Erfahrung spielen mit hinein. Der mittige Fokusrahmen und seine Größen sind daher eine vereinfachte Gestaltungshilfe, keine aus einer Studie abgeleitete Sichtfeldmessung.","Attention is not an image mask. Studies of visual narrowing under mental workload show differences between aviators and nonaviators, among other factors. Task, gaze direction and experience matter. The centred focus frame and its sizes are therefore a simplified layout aid, not a field-of-view measurement derived from a study.","La atención no es una máscara de imagen. Los estudios sobre el estrechamiento visual bajo carga mental muestran, entre otros factores, diferencias entre pilotos y no pilotos. La tarea, la dirección de la mirada y la experiencia influyen. El marco central y sus tamaños son una ayuda de diseño simplificada, no una medición del campo visual derivada de un estudio."],
+  osdGuideSources:["Quelle zur Einordnung (die Maße sind frei gewählt):","Context source (dimensions are illustrative):","Fuente de contexto (las medidas son orientativas):"],
   ctrlChannel:["Steuer-Kanal (Poti/Schalter)","Control channel (pot/switch)","Canal de control (pot/switch)"],
   absMode:["Absolutmodus – das Poti setzt den Wert direkt (sonst Schrittmodus über die Knüppelmitte)","Absolute mode – the pot sets the value directly (otherwise step mode around centre)","Modo absoluto – el pot establece el valor (si no, modo por pasos)"],
   armedAsk:["Welches OSD-Profil ist beim Freigeben (Armed) aktiv?","Which OSD profile is active once enabled (armed)?","¿Qué perfil OSD está activo al habilitar (armed)?"],
+  videoSystem:["Videosystem","Video system","Sistema de vídeo"],
+  videoAuto:["Auto","Auto","Auto"],
+  videoPal:["PAL","PAL","PAL"],
+  videoNtsc:["NTSC","NTSC","NTSC"],
+  videoHd:["HD","HD","HD"],
+  videoHint:["AUTO erkennt analoges PAL/NTSC, HD gibt es ab Betaflight 4.4. Beim Wechsel werden die Elementpositionen proportional auf das neue Raster umgerechnet – eine Hilfe, keine Garantie. Danach im Brillenbild prüfen.","AUTO detects analogue PAL/NTSC; HD needs Betaflight 4.4+. Switching systems proportionally converts element positions to the new grid – a helper, not a guarantee. Check it in your goggles afterwards.","AUTO detecta PAL/NTSC analógico; HD necesita Betaflight 4.4+. Al cambiar, las posiciones se convierten proporcionalmente a la nueva rejilla: es una ayuda, no una garantía. Compruébalo en las gafas."],
+  videoConverted:["Positionen proportional umgerechnet – bitte im Brillenbild prüfen.","Positions converted proportionally – please check in your goggles.","Posiciones convertidas proporcionalmente: compruébalo en las gafas."],
   armedActive:["beim Freigeben aktiv","active when enabled","activo al habilitar"],
   beeperWrap:["Klicken schaltet den Beeper um.","Click toggles the beeper.","Clic para alternar el beeper."],
   secRates:["Rates & Expo","Rates & expo","Rates y expo"],
   rateType:["Rate-Modus","Rate mode","Modo de rates"],
+  rateProfile:["Rate-Profil","Rate profile","Perfil de rates"],
+  rateProfileHint:["Vier Rate-Profile (CLI 0–3). Der Schalter im Flug kann auf ein leeres Profil zeigen – deshalb den aktuellen Satz auf alle schreiben.","Four rate profiles (CLI 0–3). A switch in flight may point at an empty profile – write the current set to all of them.","Cuatro perfiles de rates (CLI 0–3). Un interruptor en vuelo puede apuntar a un perfil vacío: escribe el ajuste actual en todos."],
+  rateCopyAll:["Auf alle 4 Profile schreiben","Write to all 4 profiles","Escribir en los 4 perfiles"],
+  rateCopied:["Aktuelle Rates auf alle vier Profile geschrieben.","Current rates written to all four profiles.","Rates actuales escritos en los cuatro perfiles."],
+  thrMid:["Gas-Mitte (thr_mid)","Throttle mid (thr_mid)","Punto medio del gas (thr_mid)"],
+  thrExpo:["Gas-Expo (thr_expo)","Throttle expo (thr_expo)","Expo de gas (thr_expo)"],
+  thrHover:["Schwebegas (thr_hover)","Hover throttle (thr_hover)","Gas de vuelo estacionario (thr_hover)"],
+  limitType:["Gas-Limit","Throttle limit","Límite de gas"],
+  limitPercent:["Gas-Limit %","Throttle limit %","Límite de gas %"],
+  limitOff:["Aus","Off","Apagado"],
+  limitScale:["Skalieren","Scale","Escalar"],
+  limitClip:["Begrenzen","Clip","Limitar"],
   ratesHint:["Der Kurvenverlauf ist der, den die FC rechnet – dieselbe Formel, live mitgerechnet. Die Zahlen bedeuten je Modus etwas anderes; beim Wechsel kommen passende Startwerte mit.","The curve is the one the FC computes – same formula, live. The numbers mean different things per mode; switching loads matching starting values.","La curva es la que calcula la FC – misma fórmula, en vivo. Los números significan otra cosa en cada modo; al cambiar se cargan valores de partida."],
   legendCurve:["Rate-Kurve","Rate curve","Curva de rates"],
   legendLin:["linear","linear","lineal"],
   stickPath:["Knüppelweg →","Stick travel →","Recorrido del stick →"],
   rateAtEnd:["Am Anschlag","At full stick","A tope"],
   rateAtHalf:["Halbweg","Half stick","A mitad"],
-  cfRateProfile:["Rates landen in rateprofile 0 – dem Profil, das nach dem Flashen aktiv ist.","Rates go into rateprofile 0 – the profile that is active after flashing.","Los rates van a rateprofile 0 – el perfil activo tras flashear."],
+  cfRateProfile:["Rates gehen in rateprofile 0–3; am Ende wird das gewählte Profil wieder aktiv gesetzt.","Rates go into rateprofile 0–3; the chosen profile is re-selected at the end.","Los rates van a rateprofile 0–3; al final se vuelve a activar el perfil elegido."],
   cfNoName:["Preset ohne Namen – steht so als Kommentar in der CLI und macht die Datei unauffindbar.","Preset without a name – it ends up as a comment in the CLI and makes the file hard to find.","Preset sin nombre – acaba como comentario en la CLI y cuesta encontrar el archivo."],
   cfRateOrder:["Der Max Rate liegt unter der Center Sensitivity – die Rate-Kurve steigt dann nicht mehr an.","Max rate sits below centre sensitivity – the rate curve then stops climbing.","El max rate está por debajo de la sensibilidad central – la curva deja de subir."],
   cfSameCh:["Slot {a} und {b} liegen im Absolutmodus auf demselben Kanal – nur einer kann gewinnen.","Slots {a} and {b} sit in absolute mode on the same channel – only one can win.","Ranuras {a} y {b} en absoluto sobre el mismo canal – solo una puede ganar."],
@@ -816,18 +1041,48 @@ var STR = {
   fileFail:["Datei nicht lesbar","File not readable","Archivo ilegible"],
   nothing:["Nichts zu prüfen","Nothing to check","Nada que revisar"],
   fixNone:["Nichts fehlt – der Code deckt die wichtigsten Punkte ab.","Nothing missing – the code covers the essentials.","Nada falta – el código cubre lo esencial."],
-  osdProf1:["Profil 1 · Clean","Profile 1 · clean","Perfil 1 · limpio"],
-  osdProf1d:["Spannung, Timer, Verbrauch, Link-Qualität.","Voltage, timer, mAh drawn, link quality.","Voltaje, temporizador, consumo, calidad de enlace."],
-  osdProf2:["Profil 2 · Longrange","Profile 2 · long range","Perfil 2 · larga distancia"],
-  osdProf2d:["GPS, Satelliten, Home-Pfeil und Distanz.","GPS, satellites, home arrow and distance.","GPS, satélites, flecha a casa y distancia."],
-  osdProf3:["Profil 3 · Setup","Profile 3 · setup","Perfil 3 · ajuste"],
-  osdProf3d:["Systeminfos, VTX-Kanal, Temperatur.","System info, VTX channel, temperature.","Info del sistema, canal VTX, temperatura."],
   osdActive:["aktiv","active","activo"],
   osdInactive:["aus","off","apagado"],
   fsTitle:["Failsafe-Verfahren","Failsafe procedure","Procedimiento de failsafe"],
   fsHint:["DROP lässt den Copter fallen, AUTO-LAND sinkt ab, GPS-RESCUE fliegt zurück – das braucht GPS und einen sauberen Home-Punkt.","DROP lets it fall, AUTO-LAND descends, GPS-RESCUE flies home – that needs GPS and a clean home point.","DROP lo deja caer, AUTO-LAND desciende, GPS-RESCUE vuelve a casa – necesita GPS y un punto home limpio."],
   craftTitle:["Craft-Name","Craft name","Nombre del dron"],
   craftHint:["Steht im OSD und in der Blackbox – leer lassen, wenn nicht gewünscht.","Shows in the OSD and the blackbox – leave empty if unwanted.","Aparece en el OSD y en la blackbox – déjalo vacío si no lo quieres."],
+  extraOsdTitle:["OSD-Alarme & Einheiten","OSD alarms & units","Alarmas OSD y unidades"],
+  extraOsdHint:["Warnschwellen und Einheiten fürs Brillenbild. Eine 0 schaltet den jeweiligen Alarm aus; die Werte stehen als set-Zeilen in der CLI.","Warning thresholds and units for the goggles view. A 0 turns that alarm off; the values appear as set lines in the CLI.","Umbrales de aviso y unidades para las gafas. Un 0 apaga esa alarma; los valores salen como líneas set en la CLI."],
+  extraUnits:["Einheiten","Units","Unidades"],
+  extraRssi:["RSSI-Alarm (%)","RSSI alarm (%)","Alarma RSSI (%)"],
+  extraCap:["Kapazitäts-Alarm (mAh)","Capacity alarm (mAh)","Alarma de capacidad (mAh)"],
+  extraAlt:["Höhenalarm (m)","Altitude alarm (m)","Alarma de altitud (m)"],
+  presetLabel:["Empfehlung für Funke","Radio recommendation","Recomendación de emisora"],
+  presetCustom:["Eigene Werte","Custom values","Valores propios"],
+  presetCeramic:["ELRS · Keramikantenne","ELRS · ceramic antenna","ELRS · antena cerámica"],
+  presetElrs:["ELRS · Normalantenne","ELRS · standard antenna","ELRS · antena estándar"],
+  presetCrsf:["CRSF · andere Sender","CRSF · other transmitters","CRSF · otras emisoras"],
+  osdPresetHint:["Anhaltswerte für eine frühe Warnung. Bitte mit Range-Test prüfen – jeder Aufbau ist anders.","Starting points for an early warning. Check with a range test – every setup differs.","Puntos de partida para un aviso temprano. Comprueba con una prueba de alcance."],
+  lqAlarm:["Link-Quality-Alarm (%)","Link quality alarm (%)","Alarma de calidad de enlace (%)"],
+  dbmAlarm:["RSSI-Alarm (dBm)","RSSI alarm (dBm)","Alarma RSSI (dBm)"],
+  angleSwitch:["Prüfung aus (180°)","Check off (180°)","Comprobación off (180°)"],
+  featTitle:["Weitere Features","More features","Más funciones"],
+  featHint:["Nur anschalten, was die FC wirklich hat – bei unbekannten Features kann die CLI meckern.","Only switch on what the FC really has – unknown features may make the CLI complain.","Activa solo lo que la FC tiene – las funciones desconocidas pueden hacer que la CLI se queje."],
+  fAIRMODE:["Dauerhaft Airmode: mehr Kontrolle bei null Gas.","Airmode always on: more control at zero throttle.","Airmode siempre activo: más control con gas al mínimo."],
+  fDISPLAY:["OLED-Display ansprechen. Ohne Display startet die FC später.","Talk to an OLED display. Without one the FC boots slower.","Usar una pantalla OLED. Sin ella, la FC arranca más despacio."],
+  fGPS:["GPS nutzen – nur mit verbautem GNSS-Modul.","Use GPS – only with a GNSS module fitted.","Usar GPS – solo con un módulo GNSS instalado."],
+  fINFLIGHT:["Acc-Kalibrierung im Flug erlauben.","Allow accelerometer calibration in flight.","Permitir calibrar el acelerómetro en vuelo."],
+  fLED:["WS2812B-LED-Leiste ansteuern.","Drive a WS2812B LED strip.","Controlar una tira LED WS2812B."],
+  fOSD:["Brillenbild aktivieren – die Elemente stellst du in C ein.","Enable the OSD – you place the elements in section C.","Activar el OSD – colocas los elementos en C."],
+  fSERVO:["Kamera per Servos stabilisieren (CAMSTAB).","Stabilise the camera with servos (CAMSTAB).","Estabilizar la cámara con servos (CAMSTAB)."],
+  fSOFT:["Zusätzliche UART emulieren – langsam und CPU-hungrig.","Emulate an extra UART – slow and CPU-hungry.","Emular una UART extra – lenta y consume CPU."],
+  fSONAR:["Ultraschall-Abstandsmessung – heute selten genutzt.","Ultrasonic range finding – rarely used today.","Medición ultrasónica – hoy casi no se usa."],
+  fTRANS:["Renn-Transponder aktivieren, wenn verbaut.","Enable the race transponder if fitted.","Activar el transpondedor de carreras si está instalado."],
+  voltTitle:["Zellspannung","Cell voltage","Voltaje por celda"],
+  voltHint:["In Volt pro Zelle eingeben. Die CLI schreibt Centivolt (3,30 V → 330).","Enter volts per cell. The CLI writes centivolts (3.30 V → 330).","Introduce voltios por celda. La CLI escribe centivoltios (3,30 V → 330)."],
+  vMin:["Minimum (V/Zelle)","Minimum (V/cell)","Mínimo (V/celda)"],
+  vMax:["Maximum (V/Zelle)","Maximum (V/cell)","Máximo (V/celda)"],
+  vWarn:["Warnung (V/Zelle)","Warning (V/cell)","Aviso (V/celda)"],
+  smallAngle:["Max. Neigung beim Freigeben (Armed)","Max tilt when enabling (armed)","Inclinación máxima al habilitar (armed)"],
+  smallAngleHint:["180° schaltet die Prüfung aus – nützlich nach Crash oder Turtle-Mode.","180° turns the check off – handy after a crash or turtle mode.","180° desactiva la comprobación – útil tras una caída o modo turtle."],
+  pilotName:["Pilotenname","Pilot name","Nombre del piloto"],
+  cfVbatOrder:["Warnspannung liegt außerhalb von Minimum/Maximum – die OSD-Warnung kommt dann nie oder immer.","Warning voltage is outside min/max – the OSD warning will never or always fire.","El voltaje de aviso está fuera de mínimo/máximo – el aviso OSD nunca o siempre salta."],
   badgeCrit:["kritisch","critical","crítico"],
   badgeImp:["wichtig","important","importante"],
   badgeComf:["Komfort","comfort","comodidad"],
@@ -1073,9 +1328,21 @@ function adjDef(v){
 /* Steuerkanal ist zugleich der Bereichs-Kanal: das ist der einfache Fall und laut
    Betaflight-Doku ausdrücklich erlaubt ("Range and Adjustment channel can be the same"). */
 var DEF_ADJ = [
-  { fn:18, ch:6, lo:1450, hi:1550, abs:true,  center:58, scale:20 },
-  { fn:20, ch:7, lo:1450, hi:1550, abs:true,  center:45, scale:15 }
+  { preset:"rollP", fn:18, ch:6, lo:1450, hi:1550, abs:true,  center:58, scale:20 },
+  { preset:"rollD", fn:20, ch:7, lo:1450, hi:1550, abs:true,  center:45, scale:15 }
 ];
+
+/* Voreinstellungen pro Slot: fn, lo/hi, abs, center, scale werden gesetzt,
+   der Kanal bleibt frei wählbar. 3-Pos-Schalter laufen über die ganze Range
+   900→2100 in Absolutmodus; Mitte 1500 ergibt Profil 2, unten/oben 1/3. */
+var ADJ_PRESETS = {
+  osd3:   { fn:29, lo:900,  hi:2100, abs:true,  center:2,  scale:1  },
+  rate3:  { fn:12, lo:900,  hi:2100, abs:true,  center:2,  scale:1  },
+  led3:   { fn:30, lo:900,  hi:2100, abs:true,  center:2,  scale:1  },
+  slider: { fn:31, lo:900,  hi:2100, abs:true,  center:100,scale:40 },
+  rollP:  { fn:18, lo:1450, hi:1550, abs:true,  center:58, scale:20 },
+  rollD:  { fn:20, lo:1450, hi:1550, abs:true,  center:45, scale:15 }
+};
 
 /* ============================================================
    OSD: Elemente mit echten Betaflight-Namen (osd_<name>_pos).
@@ -1211,6 +1478,111 @@ function ratesLabels(k){
   return                        { rc:["RC Rate", 0, 255], srate:["Max Rate (°/s)", 0, 99], expo:["Expo", 0, 100] };
 }
 var DEF_RATES = { type:"ACTUAL", rc:7, srate:67, expo:0 };
+var RATE_COUNT = 4;   /* diese Ausgabe nutzt rateprofile 0–3 */
+function rateProfile(over){
+  var o = { type:DEF_RATES.type, rc:DEF_RATES.rc, srate:DEF_RATES.srate, expo:DEF_RATES.expo,
+            thrMid:50, thrExpo:0, thrHover:50, limitType:"OFF", limitPercent:100 };
+  if(over) Object.keys(over).forEach(function(k){ if(o[k] !== undefined) o[k] = over[k]; });
+  return o;
+}
+function blankRates(){
+  var r = { active:0, profiles:[] };
+  for(var i=0;i<RATE_COUNT;i++) r.profiles.push(rateProfile());
+  return r;
+}
+function activeRates(m){
+  if(!m || !m.rates || !Array.isArray(m.rates.profiles)) return rateProfile();
+  var i = Math.max(0, Math.min(RATE_COUNT - 1, Math.round(Number(m.rates.active) || 0)));
+  return m.rates.profiles[i] || rateProfile();
+}
+function normalizeRateProfile(raw){
+  var r = raw && typeof raw === "object" ? raw : {};
+  var typ = ratesType(r.type).k, lim = ratesLabels(typ);
+  var lt = String(r.limitType || "OFF");
+  return { type:typ,
+    rc:Math.max(lim.rc[1], Math.min(lim.rc[2], Math.round(Number(r.rc) || DEF_RATES.rc))),
+    srate:Math.max(lim.srate[1], Math.min(lim.srate[2], Math.round(Number(r.srate) || DEF_RATES.srate))),
+    expo:numIn(r.expo, 0, 100, DEF_RATES.expo),
+    thrMid:numIn(r.thrMid, 0, 100, 50),
+    thrExpo:numIn(r.thrExpo, 0, 100, 0),
+    thrHover:numIn(r.thrHover, 0, 100, 50),
+    limitType:["OFF","SCALE","CLIP"].indexOf(lt) > -1 ? lt : "OFF",
+    limitPercent:numIn(r.limitPercent, 25, 100, 100) };
+}
+function normalizeRates(raw){
+  var out = blankRates();
+  if(!raw || typeof raw !== "object") return out;
+  if(Array.isArray(raw.profiles)){
+    for(var i=0;i<RATE_COUNT;i++) out.profiles[i] = normalizeRateProfile(raw.profiles[i] || (i === 0 ? raw : null));
+    out.active = Math.max(0, Math.min(RATE_COUNT - 1, Math.round(Number(raw.active) || 0)));
+  }else{
+    out.profiles[0] = normalizeRateProfile(raw);
+  }
+  return out;
+}
+/* Canvases nach Betaflight: 30×16 PAL, 30×13 NTSC, 53×20 HD (4.4+).
+   AUTO zeigt analog 30×16, bis die FC ein anderes Format erkennt. */
+var VIDEO_SYSTEMS = [
+  { k:"AUTO", cols:30, rows:16, aspect:"4 / 3" },
+  { k:"PAL",  cols:30, rows:16, aspect:"4 / 3" },
+  { k:"NTSC", cols:30, rows:13, aspect:"4 / 3" },
+  { k:"HD",   cols:53, rows:20, aspect:"16 / 9" }
+];
+function videoDef(k){
+  var out = VIDEO_SYSTEMS[0];
+  VIDEO_SYSTEMS.forEach(function(v){ if(v.k === k) out = v; });
+  return out;
+}
+/* Zusatzfelder aus G: nur OSD-Werte, bewusst ohne PAL/NTSC und ohne VTX-Leistung.
+   Bereiche und Namen nach der offiziellen Betaflight-CLI-Referenz. */
+var DEF_OSD_EXTRA = { preset:"", units:"METRIC", rssi:20, lq:80, dbm:-100, cap:2200, alt:100 };
+/* Anhaltswerte, kein Versprechen: Keramik-Antenne ist schwächer und enger,
+   darum früher warnen. Ein Range-Test in der Realität ist immer die letzte Instanz. */
+var OSD_PRESETS = {
+  elrsCeramic:{ units:"METRIC", rssi:35, lq:85, dbm:-95 },
+  elrs:{ units:"METRIC", rssi:35, lq:80, dbm:-100 },
+  crsf:{ units:"METRIC", rssi:30, lq:70, dbm:-100 }
+};
+function numIn(v, lo, hi, def){
+  var n = Number(v);
+  return isFinite(n) ? Math.max(lo, Math.min(hi, Math.round(n))) : def;
+}
+/* Features aus dem Configurator. CHANNEL_FORWARDING fehlt absichtlich:
+   zu gerätespezifisch für ein allgemeines Preset. DShot-Beacon auch - Motoren. */
+var FEATURE_KEYS = ["AIRMODE","DISPLAY","GPS","INFLIGHT_ACC_CAL","LED_STRIP",
+                    "OSD","SERVO_TILT","SOFTSERIAL","SONAR","TRANSPONDER"];
+var DEF_EXTRA = { feat:{}, pilot:"", smallAngle:25,
+                  vbatMin:330, vbatMax:430, vbatWarn:350 };
+FEATURE_KEYS.forEach(function(k){ DEF_EXTRA.feat[k] = (k === "OSD" || k === "AIRMODE"); });
+function extraMeta(k){
+  var m = {
+    rssi:[0,100,20,"osd_rssi_alarm",false],
+    lq:[0,100,80,"osd_link_quality_alarm",false],
+    dbm:[-130,0,-100,"osd_rssi_dbm_alarm",false],
+    cap:[0,20000,2200,"osd_cap_alarm",false],
+    alt:[0,10000,100,"osd_alt_alarm",false],
+    smallAngle:[0,180,25,"small_angle",false],
+    vbatMin:[1,5,3.3,"vbat_min_cell_voltage",true],
+    vbatMax:[1,5,4.3,"vbat_max_cell_voltage",true],
+    vbatWarn:[1,5,3.5,"vbat_warning_cell_voltage",true]
+  };
+  return m[k] || null;
+}
+function extraRead(k, raw){
+  var m = extraMeta(k); if(!m) return null;
+  var n = Number(raw);
+  if(!isFinite(n)) n = m[2];
+  n = Math.max(m[0], Math.min(m[1], n));
+  return m[4] ? Math.round(n * 100) : Math.round(n);
+}
+function extraShown(k, v){
+  var m = extraMeta(k);
+  return m && m[4] ? (v / 100) : v;
+}
+function extraCmd(k, v){
+  var m = extraMeta(k);
+  return m ? "set " + m[3] + " = " + v : "";
+}
 
 /* ============================================================
    Speicher und gemeinsame Einstellungen (wie die übrigen FlowState-Seiten)
@@ -1218,10 +1590,14 @@ var DEF_RATES = { type:"ACTUAL", rc:7, srate:67, expo:0 };
 var KEY = "flowstate.presets.v1";
 var PREFS_KEY = "flowstate.presets.prefs";
 var FS_KEY = "flowstate.prefs";
-/* Farbe und Sprache, die auch die Übersichtsseite und die anderen Werkzeuge lesen. */
+/* Neutraler Ablageort für andere Apps auf derselben Origin - keine Synchro. */
+var SHARE_KEY = "flowstate.shared.preset";
+/* Farbe und Sprache, die auch die Uebersichtsseite und die anderen Werkzeuge lesen. */
 var HUB_THEME_KEY = "flowstate-theme";
 var HUB_LANG_KEY = "flowstate-lang";
-var VER = "0.2.0-beta.1";
+/* Copter-Liste des Hangars. Wird nur gelesen, nie geschrieben. */
+var HANGAR_KEY = "flowstate.hangar.v1";
+var VER = "0.2.0-beta.3";
 var THEMES = { ocean:1, sand:1, drakn:1 };
 var LANGS = ["de","en","es"];
 
@@ -1252,8 +1628,21 @@ function T(k){
 function TX(k, i){ var row = STR[k]; return row ? row[i] : k; }
 function L3(pair){ return pair ? pair[lgi()] : ""; }
 
-var prefs = { theme:"ocean", lang:"de", tab:"dash", lastModel:null };
-/* Aus der Adresse, wie die Übersichtsseite es schickt: ?theme=drakn&lang=en. */
+/* Reine Viewer-Einstellungen: weder Teil eines Presets noch CLI-Parameter.
+   Kein Rahmen ist aus osd_camera_frame_width/-height oder einem Kameramodell abgeleitet. */
+function normalizeOsdGuides(raw){
+  var g = raw && typeof raw === "object" ? raw : {};
+  function number(key, lo, hi, fallback){
+    var v = g[key];
+    return typeof v === "number" && isFinite(v) ? Math.round(Math.max(lo, Math.min(hi, v))) : fallback;
+  }
+  return {
+    safe:g.safe !== false, focus:g.focus !== false,
+    focusNarrow:number("focusNarrow", 0, 100, 50)
+  };
+}
+var prefs = { theme:"ocean", lang:"de", tab:"dash", lastModel:null, osdGuides:normalizeOsdGuides(null) };
+/* Aus der Adresse, wie die Uebersichtsseite es schickt: ?theme=drakn&lang=en. */
 function urlParam(name){
   try{ return new URLSearchParams(location.search).get(name); }catch(e){ return null; }
 }
@@ -1262,8 +1651,8 @@ function urlParam(name){
   try{ p = JSON.parse(LS.get(PREFS_KEY) || "{}") || {}; }catch(e){ p = {}; }
   var shared = {};
   try{ shared = JSON.parse(LS.get(FS_KEY) || "{}") || {}; }catch(e){ shared = {}; }
-  /* Reihenfolge: Adresse, dann die Schlüssel der Übersichtsseite, dann die eigene
-     Ablage, dann die gemeinsame, dann die Browsersprache. */
+  /* Reihenfolge: Adresse, gemeinsame Schluessel der Uebersicht, eigene Ablage,
+     gemeinsame Ablage, Browsersprache. */
   var queryTheme = urlParam("theme");
   var queryLang = urlParam("lang");
   var hubTheme = LS.get(HUB_THEME_KEY);
@@ -1277,19 +1666,22 @@ function urlParam(name){
              : (/^de/.test(nav) ? "de" : (/^es/.test(nav) ? "es" : "en")));
   prefs.tab = p.tab === "check" ? "check" : "build";
   prefs.lastModel = p.lastModel || null;
-  /* Was aus der Adresse kam, gilt sofort auch für die anderen Seiten. */
+  prefs.osdGuides = normalizeOsdGuides(p.osdGuides);
   if(THEMES[queryTheme] || LANGS.indexOf(queryLang) > -1) savePrefs(true);
 })();
 function savePrefs(shared){
   LS.set(PREFS_KEY, JSON.stringify(prefs));
   if(!shared) return;
   LS.set(FS_KEY, JSON.stringify({ theme:prefs.theme, lang:prefs.lang, updatedAt:Date.now(), by:"presets" }));
-  /* Die beiden einzelnen Schlüssel liest die Übersichtsseite direkt. */
+  /* Diese beiden liest die Uebersichtsseite direkt. */
   LS.set(HUB_THEME_KEY, prefs.theme);
   LS.set(HUB_LANG_KEY, prefs.lang);
 }
 
 var data = { models:[], ver:1 };
+/* Beim Öffnen ist alles ruhig: Hinweise kommen erst nach einer Änderung
+   oder wenn der Prüf-Reiter benutzt wird. bootDone schützt den Startlauf. */
+var hintsArmed = false, bootDone = false;
 (function loadData(){
   try{
     var p = JSON.parse(LS.get(KEY) || "{}");
@@ -1298,8 +1690,74 @@ var data = { models:[], ver:1 };
 })();
 function save(){
   var ok = LS.set(KEY, JSON.stringify(data));
+  if(bootDone && !hintsArmed){
+    hintsArmed = true;
+    /* Erst nach der laufenden Geste nachziehen - sonst stirbt das Element
+       unter dem Zeiger, wenn gerade ein Schieberegler bewegt wird. */
+    setTimeout(function(){ renderIssues(); renderCli(); }, 0);
+  }
   if(!ok) toast(T("fileFail"), "bad");
   return ok;
+}
+/* Ablage für andere Apps auf derselben Browser-Origin. Keine Synchro, kein Netz:
+   nur ein gut lesbarer Schnappschuss unter einem festen localStorage-Key. */
+function publishSnapshot(m, txt){
+  if(!m) return false;
+  /* Der Hangar liest diesen Datensatz. Die Copter-Kennung kommt mit, damit dort
+     erkennbar ist, zu welchem Copter das Preset gehoert. */
+  return LS.set(SHARE_KEY, JSON.stringify({
+    by:"presets", version:1, name:String(m.name || ""), slug:slug(m.name),
+    copter:m.hangarId || "", size:String(m.size || ""),
+    cli:txt || cliFor(m), updatedAt:Date.now()
+  }));
+}
+/* Copter-Liste aus dem Hangar. Nur lesen: die Liste bleibt dort, hier entsteht
+   kein zweiter Bestand. Verknuepft wird ueber die Copter-Kennung. */
+function hangarCopters(){
+  try{
+    var p = JSON.parse(LS.get(HANGAR_KEY) || "[]");
+    var list = Array.isArray(p) ? p : (Array.isArray(p && p.fleet) ? p.fleet : []);
+    return list.filter(function(c){ return c && c.id && !c.deleted && c.name; });
+  }catch(e){ return []; }
+}
+function hangarSizeLabel(v){
+  var n = parseFloat(v);
+  if(!isFinite(n)) return String(v || "");
+  return n >= 50 ? String(n) + " mm" : String(n) + " " + T("sizeInch");
+}
+function adoptFromHangar(id){
+  var m = curModel();
+  if(!m) return;
+  var all = hangarCopters(), c = null;
+  all.forEach(function(x){ if(x.id === id) c = x; });
+  if(!c) return;
+  m.hangarId = c.id;
+  if(c.name) m.name = String(c.name).slice(0, 80);
+  if(c.size) m.size = hangarSizeLabel(c.size).slice(0, 24);
+  if(c.fc) m.fc = String(c.fc).slice(0, 60);
+  m.updatedAt = Date.now();
+  save();
+  renderAll();
+  toast(T("hangarDone"), "ok");
+}
+function renderHangarTake(){
+  var box = $("hangarBox"), sel = $("hangarSel");
+  if(!box || !sel) return;
+  var all = hangarCopters();
+  var m = curModel();
+  if(!all.length){
+    box.hidden = true;
+    return;
+  }
+  box.hidden = false;
+  var cur = m && m.hangarId ? m.hangarId : "";
+  var parts = ['<option value="">' + esc(T("hangarPick")) + '</option>'];
+  all.forEach(function(c){
+    parts.push('<option value="' + esc(c.id) + '"' + (c.id === cur ? " selected" : "") + '>' +
+      esc(c.name) + (c.size ? " · " + esc(hangarSizeLabel(c.size)) : "") + '</option>');
+  });
+  sel.innerHTML = parts.join("");
+  $("btnHangarTake").disabled = !sel.value;
 }
 function uid(p){ return (p || "m") + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
 
@@ -1371,9 +1829,10 @@ function blankModel(){
            prof:[1],
            osd:DEF_OSD.map(function(x){ return { key:x.key, profs:[x.p], x:x.x, y:x.y }; }),
            editP:1,
-           adj:DEF_ADJ.map(function(x){ return { fn:x.fn, ch:x.ch, lo:x.lo, hi:x.hi, abs:x.abs, center:x.center, scale:x.scale }; }),
-           rates:{ type:DEF_RATES.type, rc:DEF_RATES.rc, srate:DEF_RATES.srate, expo:DEF_RATES.expo },
-           fs:"DROP", craft:"", updatedAt:Date.now() };
+           adj:DEF_ADJ.map(function(x){ return { preset:x.preset || "", fn:x.fn, ch:x.ch, lo:x.lo, hi:x.hi, abs:x.abs, center:x.center, scale:x.scale }; }),
+           rates:blankRates(), video:"AUTO",
+           fs:"DROP", craft:"", osdExtra:clone(DEF_OSD_EXTRA),
+           extra:clone(DEF_EXTRA), updatedAt:Date.now() };
 }
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 function getModel(id){
@@ -1386,7 +1845,9 @@ function curModel(){ return getModel(prefs.lastModel) || data.models[0] || null;
 function applyDefaults(m){
   var b = blankModel();
   m.beep = b.beep; m.modes = b.modes; m.prof = b.prof; m.osd = b.osd;
-  m.adj = b.adj; m.editP = 1; m.fs = b.fs; m.rates = b.rates;
+  m.adj = b.adj; m.editP = 1; m.fs = b.fs; m.rates = b.rates; m.video = b.video;
+  m.osdExtra = clone(b.osdExtra);
+  m.extra = clone(b.extra);
   m.updatedAt = Date.now();
   return m;
 }
@@ -1414,15 +1875,25 @@ function normalizeOsdEl(x){
     y: Math.max(0, Math.min(22, Math.round(Number(x.y) || 0))) };
 }
 function normalizeAdj(x){
-  if(!x || !adjDef(x.fn)) return null;
-  var abs = x.abs === true || Number(x.center) > 0;
-  return { fn:Number(x.fn),
-    ch: Math.max(0, Math.min(11, Number(x.ctrl !== undefined ? x.ctrl : x.ch) || 0)),
-    lo: Math.max(900, Math.min(2100, Math.round((Number(x.lo) || 900) / 25) * 25)),
-    hi: Math.max(900, Math.min(2100, Math.round((Number(x.hi) || 2100) / 25) * 25)),
+  if(!x) return null;
+  var presetId = (typeof x.preset === "string" && ADJ_PRESETS[x.preset]) ? x.preset : "";
+  var pv = presetId ? ADJ_PRESETS[presetId] : null;
+  var fn = pv ? pv.fn : Number(x.fn);
+  if(!adjDef(fn)) return null;
+  var ch = Math.max(0, Math.min(11, Number(x.ctrl !== undefined ? x.ctrl : x.ch) || 0));
+  var lo = pv ? pv.lo : (Number(x.lo) || 900);
+  var hi = pv ? pv.hi : (Number(x.hi) || 2100);
+  var abs = pv ? !!pv.abs : (x.abs === true || Number(x.center) > 0);
+  var center = pv ? pv.center : (Number(x.center) || 40);
+  var scale = pv ? pv.scale : (x.scale === undefined ? 10 : Number(x.scale));
+  return { preset: presetId,
+    fn:fn,
+    ch:ch,
+    lo: Math.max(900, Math.min(2100, Math.round(lo / 25) * 25)),
+    hi: Math.max(900, Math.min(2100, Math.round(hi / 25) * 25)),
     abs: !!abs,
-    center: Math.max(1, Math.min(250, Number(x.center) || 40)),
-    scale: Math.max(0, Math.min(250, x.scale === undefined ? 10 : Number(x.scale))) };
+    center: Math.max(1, Math.min(250, Math.round(center))),
+    scale: Math.max(0, Math.min(250, Math.round(scale))) };
 }
 function normalizeModel(m){
   if(!m || typeof m !== "object") return null;
@@ -1431,6 +1902,7 @@ function normalizeModel(m){
   m.size = String(m.size || "").slice(0, 24);
   m.fc = String(m.fc || "").slice(0, 60);
   m.notes = String(m.notes || "").slice(0, 200);
+  m.hangarId = m.hangarId ? String(m.hangarId).slice(0, 40) : "";
   var d = blankModel();
   m.beep = m.beep && typeof m.beep === "object" ? m.beep : clone(d.beep);
   BEEPERS.forEach(function(b){ if(typeof m.beep[b.k] !== "boolean") m.beep[b.k] = d.beep[b.k]; });
@@ -1450,17 +1922,33 @@ function normalizeModel(m){
   m.editP = m.prof.indexOf(Number(m.editP)) > -1 ? Number(m.editP) : m.prof[0];
   m.adj = Array.isArray(m.adj) ? m.adj.map(normalizeAdj).filter(Boolean) : d.adj;
   m.adj = m.adj.slice(0, 4);
-  var rt = m.rates && typeof m.rates === "object" ? m.rates : {};
-  var typ = ratesType(rt.type).k;
-  var lim = ratesLabels(typ);
-  m.rates = { type:typ,
-    rc: Math.max(lim.rc[1], Math.min(lim.rc[2], Math.round(Number(rt.rc) || DEF_RATES.rc))),
-    srate: Math.max(lim.srate[1], Math.min(lim.srate[2], Math.round(Number(rt.srate) || DEF_RATES.srate))),
-    expo: Math.max(0, Math.min(100, Math.round(Number(rt.expo) || 0))) };
+  m.rates = normalizeRates(m.rates);
+  m.video = videoDef(m.video).k;
   m.fs = ["DROP","AUTO-LAND","GPS-RESCUE"].indexOf(m.fs) > -1 ? m.fs : "DROP";
   m.craft = String(m.craft || "").slice(0, 16);
+  var oe = m.osdExtra && typeof m.osdExtra === "object" ? m.osdExtra : {};
+  m.osdExtra = {
+    preset:OSD_PRESETS[oe.preset] ? oe.preset : "",
+    units:oe.units === "IMPERIAL" ? "IMPERIAL" : DEF_OSD_EXTRA.units,
+    rssi:numIn(oe.rssi, 0, 100, DEF_OSD_EXTRA.rssi),
+    lq:numIn(oe.lq, 0, 100, DEF_OSD_EXTRA.lq),
+    dbm:numIn(oe.dbm, -130, 0, DEF_OSD_EXTRA.dbm),
+    cap:numIn(oe.cap, 0, 20000, DEF_OSD_EXTRA.cap),
+    alt:numIn(oe.alt, 0, 10000, DEF_OSD_EXTRA.alt)
+  };
+  var x = m.extra && typeof m.extra === "object" ? m.extra : {};
+  var hasFeat = !!(x.feat && typeof x.feat === "object"), ft = {};
+  FEATURE_KEYS.forEach(function(k){ ft[k] = hasFeat ? x.feat[k] === true : (k === "OSD" || k === "AIRMODE"); });
+  m.extra = {
+    feat:ft,
+    pilot:String(x.pilot || "").slice(0, 16),
+    smallAngle:extraRead("smallAngle", x.smallAngle === undefined ? 25 : x.smallAngle),
+    vbatMin:numIn(x.vbatMin, 100, 500, DEF_EXTRA.vbatMin),
+    vbatMax:numIn(x.vbatMax, 100, 500, DEF_EXTRA.vbatMax),
+    vbatWarn:numIn(x.vbatWarn, 100, 500, DEF_EXTRA.vbatWarn)
+  };
   m.updatedAt = Number(m.updatedAt) || Date.now();
-  delete m.tpl; delete m.vtx; delete m.low; delete m.video;   /* alte Felder, gehören nicht mehr ins Preset */
+  delete m.tpl; delete m.vtx; delete m.low;   /* alte Felder, gehören nicht mehr ins Preset */
   return m;
 }
 
@@ -1469,9 +1957,24 @@ function normalizeModel(m){
    pos = x | (y << 6) | (bits << 11)   - 6 Bit x, 5 Bit y, Bit 11-13 = Profil 1/2/3
    bits 7 = auf allen drei Profilen sichtbar.
    ============================================================ */
-/* Ein Raster für alle: 30×16 ist der Standard-Canvas von Betaflight und die
-   Koordinaten in der CLI beziehen sich darauf. Keine PAL/NTSC/HD-Auswahl. */
-function gridFor(model){ return { cols:30, rows:16 }; }
+/* Koordinaten gehören immer zum gewählten Canvas; die CLI speichert x/y. */
+function gridFor(model){
+  var v = videoDef(model && model.video);
+  return { cols:v.cols, rows:v.rows };
+}
+/* Proportionale Übersetzung zwischen zwei Canvases. Beide Enden bleiben
+   inklusive, die Platzierung wird danach im Viewer geprüft. */
+function convertOsdGrid(model, from, to){
+  var a = videoDef(from), b = videoDef(to);
+  (model.osd || []).forEach(function(x){
+    var el = osdDef(x.key) || { w:1 }, w = el.w || 1;
+    var maxX = Math.max(1, a.cols - w), maxY = Math.max(1, a.rows - 1);
+    var nx = Math.round(x.x / maxX * (b.cols - w));
+    var ny = Math.round(x.y / maxY * (b.rows - 1));
+    var c = clampCel(nx, ny, el, { cols:b.cols, rows:b.rows });
+    x.x = c.x; x.y = c.y;
+  });
+}
 function osdEl(m, k){
   var out = null;
   (m.osd || []).forEach(function(x){ if(x.key === k) out = x; });
@@ -1548,6 +2051,12 @@ function cliFor(model){
            (model.fc ? " · " + model.fc : ""));
   out.push("# " + new Date().toISOString().slice(0, 16).replace("T", " "));
   out.push("");
+  var fx = model.extra || DEF_EXTRA;
+  out.push("# Weitere Features");
+  FEATURE_KEYS.forEach(function(k){
+    out.push("feature " + (fx.feat && fx.feat[k] ? "" : "-") + k);
+  });
+  out.push("");
   out.push("# Beeper");
   out = out.concat(beeperLines(model));
   out.push("");
@@ -1556,32 +2065,50 @@ function cliFor(model){
   out = out.concat(modeLines(model));
   out.push("");
   out.push("# OSD");
-  out.push("feature OSD");
+  out.push("set vcd_video_system = " + videoDef(model.video).k);
   out.push("set osd_profile = " + (model.prof[0] || 1));
   osdLines(model).forEach(function(e){
     out.push("set osd_" + e.key + "_pos = " + e.pos);
   });
   if(model.craft) out.push("set craft_name = " + model.craft.replace(/[^\w \-.]/g, "").slice(0, 16));
+  if(fx.pilot) out.push("set pilot_name = " + String(fx.pilot).replace(/[^\w \-.]/g, "").slice(0, 16));
+  var oe = model.osdExtra || DEF_OSD_EXTRA;
+  out.push("# OSD-Alarme");
+  out.push("set osd_units = " + oe.units);
+  out.push("set osd_rssi_alarm = " + oe.rssi);
+  out.push("set osd_link_quality_alarm = " + oe.lq);
+  out.push("set osd_rssi_dbm_alarm = " + oe.dbm);
   out.push("");
-  var rt = model.rates || DEF_RATES;
-  out.push("# Rates (rateprofile 0 · " + rt.type + ")");
-  out.push("rateprofile 0");
-  out.push("set rates_type = " + ratesType(rt.type).cli);
-  ["roll","pitch","yaw"].forEach(function(ax){
-    out.push("set " + ax + "_rc_rate = " + rt.rc);
+  var rr = normalizeRates(model.rates);
+  out.push("# Rates (rateprofile 0-" + (RATE_COUNT - 1) + ")");
+  rr.profiles.forEach(function(rt, i){
+    out.push("rateprofile " + i);
+    out.push("set rates_type = " + ratesType(rt.type).cli);
+    ["roll","pitch","yaw"].forEach(function(ax){ out.push("set " + ax + "_rc_rate = " + rt.rc); });
+    ["roll","pitch","yaw"].forEach(function(ax){ out.push("set " + ax + "_srate = " + rt.srate); });
+    ["roll","pitch","yaw"].forEach(function(ax){ out.push("set " + ax + "_expo = " + rt.expo); });
+    /* Gas-Kurve und Gas-Limit gehören laut CLI zum rateprofile. */
+    out.push("set thr_mid = " + rt.thrMid);
+    out.push("set thr_expo = " + rt.thrExpo);
+    out.push("set thr_hover = " + rt.thrHover);
+    out.push("set throttle_limit_type = " + rt.limitType);
+    out.push("set throttle_limit_percent = " + rt.limitPercent);
   });
-  ["roll","pitch","yaw"].forEach(function(ax){
-    out.push("set " + ax + "_srate = " + rt.srate);
-  });
-  ["roll","pitch","yaw"].forEach(function(ax){
-    out.push("set " + ax + "_expo = " + rt.expo);
-  });
+  out.push("rateprofile " + rr.active);   /* aktives Profil nach dem Flashen */
   out.push("");
   out.push("# Adjustments (adjrange <slot> 0 <kanal> <start> <ende> <funktion> <steuerKanal> <center> <scale>)");
   out = out.concat(adjLines(model));
   out.push("");
   out.push("# Failsafe");
+  /* Für später merken: Zusatzoptionen beim Umschalten des Failsafe-Verfahrens
+     (Stage 1 / Stage 2, Umschaltverhalten) gehören hier und in renderFail() rein. */
   out.push("set failsafe_procedure = " + model.fs);
+  out.push("");
+  out.push("# Zusätzliche Einstellungen");
+  out.push("set small_angle = " + fx.smallAngle);
+  out.push("set vbat_min_cell_voltage = " + fx.vbatMin);
+  out.push("set vbat_max_cell_voltage = " + fx.vbatMax);
+  out.push("set vbat_warning_cell_voltage = " + fx.vbatWarn);
   out.push("");
   out.push("save");
   return out.join("\n") + "\n";
@@ -1632,7 +2159,7 @@ function conflicts(model){
     if(r.hi - r.lo < 75) add("warn", TX("cfNarrow", lgi()).replace("{m}", d ? L3(d.s) : r.id));
   });
   if(!String(model.name || "").trim()) add("warn", TX("cfNoName", lgi()));
-  var rt2 = model.rates || DEF_RATES;
+  var rt2 = activeRates(model);
   if(rt2.type === "ACTUAL" && rt2.srate && rt2.rc * 10 > rt2.srate * 10) add("warn", TX("cfRateOrder", lgi()));
   if(!modes.length) add("bad", TX("cfNoArm", lgi()));
   if(modes.length && !modes.some(function(r){ return r.id === 0; })) add("bad", TX("cfNoArm", lgi()));
@@ -1644,32 +2171,156 @@ function conflicts(model){
   adj.forEach(function(r, i){
     if(r.abs && (r.scale || 0) === 0) add("warn", TX("cfScaleZero", lgi()).replace("{n}", (i+1)));
   });
+  var vx = model.extra;
+  if(vx && (vx.vbatWarn <= vx.vbatMin || vx.vbatWarn >= vx.vbatMax)) add("warn", T("cfVbatOrder"));
   return out;
 }
 
 /* ============================================================
    Validator: prüft fremden Code gegen das, was wirklich wehtut
    ============================================================ */
+var RATE_SET_MAP = {
+  rates_type:"type", roll_rc_rate:"rc", pitch_rc_rate:"rc", yaw_rc_rate:"rc",
+  roll_srate:"srate", pitch_srate:"srate", yaw_srate:"srate",
+  roll_expo:"expo", pitch_expo:"expo", yaw_expo:"expo",
+  thr_mid:"thrMid", thr_expo:"thrExpo", thr_hover:"thrHover",
+  throttle_limit_type:"limitType", throttle_limit_percent:"limitPercent"
+};
 function parseDiff(text){
   var t = String(text || "").replace(/\r/g, "");
   var beeper = {}, beeperSeen = {}, set = {}, aux = {}, adj = {}, raw = t;
+  var rateProfiles = {}, rateIndex = 0, rateActive = 0;
   t.split("\n").forEach(function(line){
     var l = line.replace(/\s+$/, "").trim();
     if(!l || l.charAt(0) === "#") return;
-    var m = l.match(/^beeper\s+(-?)([A-Z0-9_]+)$/i);
+    var m = l.match(/^rateprofile\s+(\d+)$/i);
+    if(m){
+      var ri = Number(m[1]) || 0;
+      if(ri < RATE_COUNT){
+        rateIndex = ri;
+        rateActive = ri;
+        if(!rateProfiles[rateIndex]) rateProfiles[rateIndex] = {};
+      }else{
+        rateIndex = -1;   /* fremde Profile nicht auf 0-3 umschreiben */
+      }
+      return;
+    }
+    m = l.match(/^beeper\s+(-?)([A-Z0-9_]+)$/i);
     if(m){
       var name = m[2].toUpperCase();
       if(name === "ALL" && m[1] === "-"){ beeper.ALL_OFF = true; return; }
       beeper[name] = m[1] !== "-"; beeperSeen[name] = 1; return;
     }
     m = l.match(/^set\s+([a-z0-9_]+)\s*=\s*(.+)$/i);
-    if(m){ set[m[1].toLowerCase()] = m[2].trim(); return; }
+    if(m){
+      var key = m[1].toLowerCase(), val = m[2].trim();
+      set[key] = val;
+      if(RATE_SET_MAP[key] && rateIndex >= 0){
+        if(!rateProfiles[rateIndex]) rateProfiles[rateIndex] = {};
+        rateProfiles[rateIndex][key] = val;
+      }
+      return;
+    }
     m = l.match(/^aux\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/i);
     if(m){ aux[m[1]] = { mode:Number(m[2]), ch:Number(m[3]), lo:Number(m[4]), hi:Number(m[5]) }; return; }
     m = l.match(/^adjrange\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/i);
     if(m){ adj[m[1]] = { ch:Number(m[3]), lo:Number(m[4]), hi:Number(m[5]), fn:Number(m[6]), ctrl:Number(m[7]), center:Number(m[8]) }; }
   });
-  return { beeper:beeper, beeperSeen:beeperSeen, set:set, aux:aux, adj:adj, raw:t };
+  return { beeper:beeper, beeperSeen:beeperSeen, set:set, aux:aux, adj:adj,
+           rateProfiles:rateProfiles, rateActive:rateActive, raw:t };
+}
+/* CLI oder diff all wieder in ein bearbeitbares Modell zurückübersetzen.
+   Unbekannte Zeilen werden ignoriert - lieber ein paar weniger als falsch raten. */
+function modelFromCli(text, nameHint){
+  var p = parseDiff(text), m = blankModel(), raw = String(text || ""), s = p.set;
+  var skip = /^(CLI Preset generated|FlowState Presets|\d{4}-\d{2}-\d{2}|Beeper|Modes|OSD|Rates|Adjustments|Failsafe|Weitere Features|Zusätzliche Einstellungen|OSD-Alarme|Freigabe & Ausrichtung)/;
+  var named = "";
+  raw.split(/\r?\n/).forEach(function(line){
+    var l = line.trim();
+    if(named || l.charAt(0) !== "#") return;
+    var c = l.replace(/^#+\s*/, "").trim();
+    if(!c || skip.test(c)) return;
+    named = c.slice(0, 60);
+  });
+  m.name = (named || nameHint || "Importiertes Preset").slice(0, 60);
+  BEEPERS.forEach(function(b){
+    if(p.beeper.ALL_OFF) m.beep[b.k] = false;
+    else if(typeof p.beeper[b.k] === "boolean") m.beep[b.k] = p.beeper[b.k];
+  });
+  Object.keys(p.aux).forEach(function(i){
+    var a = p.aux[i];
+    if(a.mode === 0 && a.ch === 0 && a.lo === 900 && a.hi === 900) return; /* leerer Slot */
+    if(!modeDef(a.mode)) return;
+    var row = null;
+    m.modes.forEach(function(x){ if(x.id === a.mode) row = x; });
+    if(!row){ row = { id:a.mode, ch:0, lo:900, hi:1300 }; m.modes.push(row); }
+    row.ch = a.ch; row.lo = a.lo; row.hi = a.hi;
+  });
+  for(var i = 0; i < 4; i++){
+    var r = p.adj[i];
+    if(!r || !adjDef(r.fn)) continue;
+    var sm = raw.match(new RegExp("^adjrange\\s+" + i + "\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+(-?\\d+)", "m"));
+    m.adj[i] = { fn:r.fn, ch:r.ch, lo:r.lo, hi:r.hi,
+                 abs:Number(r.center) > 0, center:Number(r.center) || 40,
+                 scale:sm ? Number(sm[1]) : 10 };
+  }
+  if(s.osd_profile) m.prof = [numIn(s.osd_profile, 1, 3, 1)];
+  if(s.vcd_video_system) m.video = videoDef(String(s.vcd_video_system).toUpperCase()).k;
+  m.editP = m.prof[0];
+  if(s.craft_name) m.craft = String(s.craft_name).replace(/[^\w \-.]/g, "").slice(0, 16);
+  if(s.pilot_name) m.extra.pilot = String(s.pilot_name).replace(/[^\w \-.]/g, "").slice(0, 16);
+  if(s.osd_units) m.osdExtra.units = String(s.osd_units).toUpperCase() === "IMPERIAL" ? "IMPERIAL" : "METRIC";
+  ["rssi","lq","dbm","cap","alt"].forEach(function(k){
+    var meta = extraMeta(k);
+    if(meta && s[meta[3]] !== undefined) m.osdExtra[k] = extraRead(k, s[meta[3]]);
+  });
+  Object.keys(OSD_PRESETS).forEach(function(k){
+    var pr = OSD_PRESETS[k], ok = true;
+    ["units","rssi","lq","dbm"].forEach(function(f){ if(m.osdExtra[f] !== pr[f]) ok = false; });
+    if(ok) m.osdExtra.preset = k;
+  });
+  var hasOsdPos = Object.keys(s).some(function(k){ return /^osd_[a-z0-9_]+_pos$/.test(k); });
+  if(hasOsdPos) m.osd = [];   /* nur was wirklich im CLI steht, nicht die Defaults */
+  Object.keys(s).forEach(function(k){
+    var mm = k.match(/^osd_([a-z0-9_]+)_pos$/);
+    if(!mm || !osdDef(mm[1])) return;
+    var pos = numIn(s[k], 0, 65535, 341);
+    if(pos === 341) return;
+    var bits = (pos >> 11) & 7;
+    var profs = bits === 7 ? [1,2,3] : (bits === 1 ? [1] : bits === 2 ? [2] : bits === 4 ? [3] : [1]);
+    var el = { key:mm[1], profs:profs, x:pos & 63, y:(pos >> 6) & 31 };
+    var found = false;
+    m.osd.forEach(function(x){ if(x.key === el.key){ x.profs = el.profs; x.x = el.x; x.y = el.y; found = true; } });
+    if(!found) m.osd.push(el);
+  });
+  var rpSrc = p.rateProfiles || {};
+  for(var ri=0; ri<RATE_COUNT; ri++){
+    var src = rpSrc[ri] || (ri === 0 ? s : {});
+    var rawRp = {};
+    Object.keys(RATE_SET_MAP).forEach(function(k){
+      if(src[k] !== undefined) rawRp[RATE_SET_MAP[k]] = src[k];
+    });
+    m.rates.profiles[ri] = normalizeRateProfile(rawRp);
+  }
+  m.rates.active = Math.max(0, Math.min(RATE_COUNT - 1, Math.round(Number(p.rateActive) || 0)));
+  if(s.failsafe_procedure && ["DROP","AUTO-LAND","GPS-RESCUE"].indexOf(String(s.failsafe_procedure)) > -1){
+    m.fs = String(s.failsafe_procedure);
+  }
+  [["small_angle","smallAngle"],["acc_trim_pitch","accPitch"],["acc_trim_roll","accRoll"],
+   ["fpv_mix_degrees","camAngle"]].forEach(function(pair){
+    if(s[pair[0]] !== undefined) m.extra[pair[1]] = extraRead(pair[1], s[pair[0]]);
+  });
+  [["vbat_min_cell_voltage","vbatMin"],["vbat_max_cell_voltage","vbatMax"],
+   ["vbat_warning_cell_voltage","vbatWarn"]].forEach(function(pair){
+    if(s[pair[0]] !== undefined) m.extra[pair[1]] = numIn(s[pair[0]], 100, 500, m.extra[pair[1]]);
+  });
+  raw.split(/\r?\n/).forEach(function(line){
+    var fm = line.trim().match(/^feature\s+(-?)([A-Z0-9_]+)$/i);
+    if(fm && FEATURE_KEYS.indexOf(fm[2].toUpperCase()) > -1){
+      m.extra.feat[fm[2].toUpperCase()] = fm[1] !== "-";
+    }
+  });
+  return normalizeModel(m);
 }
 function validate(text, model){
   var p = parseDiff(text), out = [], missing = [];
@@ -1777,6 +2428,11 @@ function validate(text, model){
     out.push({ k:"bad", t:"osd_profile", d:["muss 1, 2 oder 3 sein – alles andere ignoriert die FC.",
                     "must be 1, 2 or 3 – anything else is ignored by the FC.",
                     "debe ser 1, 2 o 3 – cualquier otro valor lo ignora la FC."] });
+  }
+  if(p.set.vcd_video_system && VIDEO_SYSTEMS.map(function(v){ return v.k; }).indexOf(String(p.set.vcd_video_system).toUpperCase()) < 0){
+    out.push({ k:"bad", t:"vcd_video_system", d:["unbekannter Wert – die FC akzeptiert nur AUTO, PAL, NTSC oder HD.",
+                    "unknown value – the FC accepts only AUTO, PAL, NTSC or HD.",
+                    "valor desconocido – la FC solo acepta AUTO, PAL, NTSC o HD."] });
   }
   if(posCount === 0){
     out.push({ k:"warn", t:"OSD", d:["keine Positionen gesetzt – im Brillenbild bleibt es leer.",
@@ -1912,6 +2568,52 @@ function renderModes(){
 }
 
 var osdSel = null;
+/* Nur vorhandene DOM-Eigenschaften ändern: auch während einer Slider-Geste
+   bleiben Vorschau, OSD-Elemente und Pointer-Capture unangetastet. */
+function updateOsdGuides(){
+  var g = prefs.osdGuides;
+  $("osdGuideSafe").checked = g.safe;
+  $("osdGuideFocus").checked = g.focus;
+  $("osdSafeGuide").hidden = !g.safe;
+  $("osdFocusGuide").hidden = !g.focus;
+
+  /* Frei gewählte Illustrationsgrößen, keine Studie-/Belastungs-Kalibrierung.
+     Beide Achsen verengen sich immer symmetrisch um die Vorschau-Mitte. */
+  var narrow = g.focusNarrow / 100;
+  $("osdFocusGuide").style.width = (66 - 38 * narrow).toFixed(2) + "%";
+  $("osdFocusGuide").style.height = (60 - 34 * narrow).toFixed(2) + "%";
+  var level = g.focusNarrow <= 33 ? "osdGuideFocusWide" : g.focusNarrow >= 67 ? "osdGuideFocusTight" : "osdGuideFocusMid";
+  $("osdGuideNarrow").value = g.focusNarrow;
+  $("osdGuideFocusValue").textContent = T(level);
+  $("osdGuideNarrow").setAttribute("aria-valuetext", T(level) + " · " + T("osdGuideModel"));
+  $("osdGuideNarrow").disabled = !g.focus;
+  $("osdGuideFocusRow").classList.toggle("guide-off", !g.focus);
+}
+function setOsdGuideControl(el, commit){
+  var key = el.getAttribute && el.getAttribute("data-osd-guide");
+  if(!key) return;
+  var g = prefs.osdGuides;
+  if(key === "safe" || key === "focus") g[key] = !!el.checked;
+  else if(key === "focusNarrow") g[key] = Number(el.value);
+  else return;
+  prefs.osdGuides = normalizeOsdGuides(g);
+  updateOsdGuides();
+  /* Kein save(): eine reine Ansichtsänderung aktiviert keine Konflikthinweise,
+     verändert keine Presets und publiziert keinen neuen CLI-Schnappschuss. */
+  if(commit) savePrefs(false);
+}
+$("osdGuideTools").addEventListener("input", function(e){ setOsdGuideControl(e.target, false); });
+$("osdGuideTools").addEventListener("change", function(e){ setOsdGuideControl(e.target, true); });
+$("btnRateAll").addEventListener("click", function(){
+  var m = curModel(); if(!m) return;
+  var cfg = activeRates(m);
+  for(var i=0; i<RATE_COUNT; i++) m.rates.profiles[i] = clone(cfg);
+  m.updatedAt = Date.now();
+  save();
+  /* erst nach der Geste neu zeichnen */
+  setTimeout(function(){ renderRates(); renderCli(); renderIssues(); toast(T("rateCopied"), "ok"); }, 0);
+});
+
 function renderOsdEditPick(){
   var m = curModel();
   if(!m) return;
@@ -1928,20 +2630,28 @@ function renderArmedPick(){
   $("osdPicker").innerHTML = [1,2,3].map(function(p){
     var on = (m.prof[0] || 1) === p;
     return '<button class="pick" type="button" data-armed="' + p + '" aria-pressed="' + (on ? "true" : "false") + '">' +
-      '<b>' + esc(T("osdProf" + p)) + '</b>' +
-      '<span>' + esc(T("osdProf" + p + "d")) + '</span>' +
+      '<b>' + p + '</b>' +
       '<span class="badge ' + (on ? "comf" : "") + '" style="justify-self:start;margin-top:3px">' +
         esc(on ? T("armedActive") : T("osdInactive")) + '</span>' +
     '</button>';
   }).join("");
 }
 function renderOsd(){
+  updateOsdGuides();
   var m = curModel();
   if(!m){ $("osdChips").innerHTML = ""; $("osdList").innerHTML = ""; return; }
   renderArmedPick();
   renderOsdEditPick();
 
-  var grid = gridFor(m), ep = m.editP;
+  var grid = gridFor(m), ep = m.editP, vd = videoDef(m.video);
+  $("f_video").value = vd.k;
+  $("fpv").style.aspectRatio = vd.aspect;
+  var safe = $("osdSafeGuide");
+  safe.style.left = (2 / grid.cols * 100).toFixed(4) + "%";
+  safe.style.right = (2 / grid.cols * 100).toFixed(4) + "%";
+  safe.style.top = (2 / grid.rows * 100).toFixed(4) + "%";
+  safe.style.bottom = (2 / grid.rows * 100).toFixed(4) + "%";
+  $("videoGridLbl").textContent = T("osdGrid") + " " + grid.cols + "×" + grid.rows;
   var rows = (m.osd || []).filter(function(x){ return (x.profs || []).indexOf(ep) > -1; });
   var w = $("fpv").clientWidth || 480;
   var fs = Math.max(9, Math.round(w / grid.cols * 1.22));
@@ -1977,9 +2687,19 @@ function renderOsd(){
 function renderAdj(){
   var m = curModel();
   if(!m){ $("adjBody").innerHTML = ""; return; }
+  var presetOpts = [
+    ["",          "adjPresetCustom"],
+    ["osd3",      "adjPresetOsd3"],
+    ["rate3",     "adjPresetRate3"],
+    ["led3",      "adjPresetLed3"],
+    ["slider",    "adjPresetSlider"],
+    ["rollP",     "adjPresetRollP"],
+    ["rollD",     "adjPresetRollD"]
+  ];
   var html = (m.adj || []).map(function(r, i){
     var d = adjDef(r.fn) || { s:["?","?","?"] };
     var pl = pwmRow(r.lo, r.hi);
+    var curPreset = (r.preset && ADJ_PRESETS[r.preset]) ? r.preset : "";
     return '<div class="mrow" data-adj="' + i + '">' +
       '<div class="head">' +
         '<span class="badge comf">' + esc(T("slot")) + " " + (i + 1) + '</span>' +
@@ -1987,6 +2707,13 @@ function renderAdj(){
         '<button class="btn sm ghost danger" type="button" data-deladj="' + i + '">' + esc(T("remove")) + '</button>' +
       '</div>' +
       '<div class="mctl">' +
+        '<div><label><b>' + esc(T("adjPreset")) + '</b>' +
+          '<select data-akey="preset" data-ai="' + i + '">' +
+            presetOpts.map(function(p){
+              return '<option value="' + p[0] + '"' + (curPreset === p[0] ? " selected" : "") + '>' +
+                esc(T(p[1])) + '</option>';
+            }).join("") +
+          '</select></label></div>' +
         '<div><label><b>' + esc(T("adjFn")) + '</b>' +
           '<select data-akey="fn" data-ai="' + i + '">' +
           M_ADJ.map(function(x){ return '<option value="' + x.v + '"' + (x.v === r.fn ? " selected" : "") + '>' +
@@ -1995,6 +2722,7 @@ function renderAdj(){
           '<select data-akey="ch" data-ai="' + i + '">' +
           AUX_OPTS.replace('value="' + r.ch + '"', 'value="' + r.ch + '" selected') + '</select></label></div>' +
       '</div>' +
+      (i === 0 ? '<p class="hint" style="margin:0 0 6px">' + esc(T("adjPresetHint")) + '</p>' : "") +
       '<div class="adjrow">' +
         '<label class="adjs"><b>' + esc(T("rangeFrom")) + '</b>' +
           '<div class="sl"><input type="range" min="900" max="2100" step="25" value="' + r.lo + '" data-akey="lo" data-ai="' + i + '">' +
@@ -2035,8 +2763,18 @@ function ratesCfg(){
 function renderRates(){
   var m = curModel();
   if(!m){ $("rateChart").innerHTML = ""; return; }
-  var cfg = m.rates || DEF_RATES;
+  var cfg = activeRates(m);
   var lim = ratesLabels(cfg.type);
+  var profOpts = [];
+  for(var pi=0; pi<RATE_COUNT; pi++){
+    profOpts.push('<option value="' + pi + '"' + (pi === m.rates.active ? " selected" : "") +
+                  '>' + (pi + 1) + '</option>');
+  }
+  $("f_rateProfile").innerHTML = profOpts.join("");
+  [["f_thrMid","thrMid"],["f_thrExpo","thrExpo"],["f_thrHover","thrHover"],
+   ["f_limitType","limitType"],["f_limitPercent","limitPercent"]].forEach(function(pair){
+    var box = $(pair[0]); if(box) box.value = cfg[pair[1]];
+  });
   $("f_rateType").innerHTML = RATES_TYPES.map(function(t){
     return '<option value="' + t.k + '"' + (t.k === cfg.type ? " selected" : "") + '>' + esc(L3(t.s)) + '</option>';
   }).join("");
@@ -2080,20 +2818,29 @@ function drawRateChart(cfg){
     T("rateAtHalf") + " " + Math.round(rateAt(0.5, cfg)) + " °/s";
 }
 
+/* Erst nach einer Änderung oder dem Prüfen zeigen, was auffällt. */
+function showHints(){
+  hintsArmed = true;
+  renderIssues();
+  renderCli();
+}
 function renderIssues(){
-  var m = curModel(), box = $("issuesBox");
-  if(!m){ box.innerHTML = ""; return; }
-  var list = conflicts(m);
-  if(!list.length){
-    box.innerHTML = '<div class="issue ok"><span class="m"></span><span>' + esc(T("noConflict")) + '</span></div>';
-    return;
+  var m = curModel(), html = "";
+  var boxes = [$("issuesBox"), $("issuesCli")];
+  if(m && hintsArmed){
+    var list = conflicts(m);
+    if(!list.length){
+      html = '<div class="issue ok"><span class="m"></span><span>' + esc(T("noConflict")) + '</span></div>';
+    }else{
+      html = '<div class="issue ' + (list.some(function(x){ return x.kind === "bad"; }) ? "bad" : "warn") +
+        '"><span class="m"></span><span><b>' + esc(T("conflictTitle")) + '</b> · ' +
+        list.length + " " + esc(T("issues")) + '</span></div>' +
+        list.map(function(x){
+          return '<div class="issue ' + x.kind + '"><span class="m"></span><span>' + esc(x.msg) + '</span></div>';
+        }).join("");
+    }
   }
-  box.innerHTML = '<div class="issue ' + (list.some(function(x){ return x.kind === "bad"; }) ? "bad" : "warn") +
-    '"><span class="m"></span><span><b>' + esc(T("conflictTitle")) + '</b> · ' +
-    list.length + " " + esc(T("issues")) + '</span></div>' +
-    list.map(function(x){
-      return '<div class="issue ' + x.kind + '"><span class="m"></span><span>' + esc(x.msg) + '</span></div>';
-    }).join("");
+  boxes.forEach(function(b){ if(b) b.innerHTML = html; });
 }
 
 function renderFail(){
@@ -2113,13 +2860,92 @@ function renderFail(){
 function renderExtra(){
   var m = curModel();
   if(!m){ $("extraBody").innerHTML = ""; return; }
+  var oe = m.osdExtra || DEF_OSD_EXTRA, x = m.extra || DEF_EXTRA;
+  function card(title, hint, body){
+    return '<div class="opt comf" style="grid-template-columns:1fr;margin-top:9px">' +
+      '<div class="txt"><div class="t">' + esc(T(title)) + '</div>' +
+      '<div class="d">' + esc(T(hint)) + '</div>' + body + '</div></div>';
+  }
+  var osdKeys = { rssi:1, lq:1, dbm:1, cap:1, alt:1 };
+  function numField(k, label){
+    var meta = extraMeta(k);
+    if(!meta) return "";
+    var val = osdKeys[k] ? oe[k] : x[k];
+    return '<label style="display:grid;gap:3px;min-width:0">' +
+      '<span style="font-size:11.5px;color:var(--muted)">' + esc(T(label)) + '</span>' +
+      '<input type="number" min="' + meta[0] + '" max="' + meta[1] + '" step="' + (meta[4] ? "0.05" : "1") +
+        '" value="' + extraShown(k, val) + '" data-extrakey="' + k + '" aria-label="' + esc(T(label)) +
+        '" style="max-width:150px">' +
+      '<span class="cmd">' + esc(extraCmd(k, val)) + '</span></label>';
+  }
+  var names = { AIRMODE:"AIRMODE", DISPLAY:"DISPLAY", GPS:"GPS", INFLIGHT_ACC_CAL:"INFLIGHT_ACC_CAL",
+                LED_STRIP:"LED_STRIP", OSD:"OSD", SERVO_TILT:"SERVO_TILT", SOFTSERIAL:"SOFTSERIAL",
+                SONAR:"SONAR", TRANSPONDER:"TRANSPONDER" };
+  var desc = { AIRMODE:"fAIRMODE", DISPLAY:"fDISPLAY", GPS:"fGPS", INFLIGHT_ACC_CAL:"fINFLIGHT",
+               LED_STRIP:"fLED", OSD:"fOSD", SERVO_TILT:"fSERVO", SOFTSERIAL:"fSOFT",
+               SONAR:"fSONAR", TRANSPONDER:"fTRANS" };
+  var features = FEATURE_KEYS.map(function(k){
+    var on = !!(x.feat && x.feat[k]);
+    return '<label style="display:grid;grid-template-columns:auto 1fr;gap:2px 8px;align-items:start">' +
+      '<input type="checkbox" data-feature="' + k + '"' + (on ? " checked" : "") + ' style="margin-top:3px">' +
+      '<span style="font-size:12px;color:var(--muted)"><b>' + names[k] + '</b> · ' + esc(T(desc[k])) + '</span>' +
+      '<span></span><span class="cmd">feature ' + (on ? "" : "-") + k + '</span></label>';
+  }).join("");
+  var ident =
+    '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:9px">' +
+      '<label style="display:grid;gap:3px;min-width:0">' +
+        '<span style="font-size:11.5px;color:var(--muted)">' + esc(T("craftTitle")) + '</span>' +
+        '<input type="text" id="craftIn" maxlength="16" style="max-width:200px" value="' + esc(m.craft) +
+          '" placeholder="MEIN-5ZOLL" aria-label="' + esc(T("craftTitle")) + '">' +
+        '<span class="cmd">set craft_name = ' + esc(m.craft || "—") + '</span></label>' +
+      '<label style="display:grid;gap:3px;min-width:0">' +
+        '<span style="font-size:11.5px;color:var(--muted)">' + esc(T("pilotName")) + '</span>' +
+        '<input type="text" data-extrakey="pilot" maxlength="16" style="max-width:200px" value="' + esc(x.pilot || "") +
+          '" aria-label="' + esc(T("pilotName")) + '">' +
+        '<span class="cmd">set pilot_name = ' + esc(x.pilot || "—") + '</span></label>' +
+    '</div>';
+  var presets = [["", "presetCustom"], ["elrsCeramic", "presetCeramic"],
+                 ["elrs", "presetElrs"], ["crsf", "presetCrsf"]];
+  var osdBits =
+    '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:9px">' +
+      '<label style="display:grid;gap:3px;min-width:0">' +
+        '<span style="font-size:11.5px;color:var(--muted)">' + esc(T("presetLabel")) + '</span>' +
+        '<select id="osdPreset" data-preset="1" aria-label="' + esc(T("presetLabel")) + '" style="max-width:190px">' +
+          presets.map(function(p){
+            return '<option value="' + p[0] + '"' + ((oe.preset || "") === p[0] ? " selected" : "") +
+              '>' + esc(T(p[1])) + '</option>';
+          }).join("") +
+        '</select></label>' +
+      '<label style="display:grid;gap:3px;min-width:0">' +
+        '<span style="font-size:11.5px;color:var(--muted)">' + esc(T("extraUnits")) + '</span>' +
+        '<select data-extrakey="units" aria-label="' + esc(T("extraUnits")) + '" style="max-width:150px">' +
+          ["METRIC","IMPERIAL"].map(function(v){
+            return '<option value="' + v + '"' + (oe.units === v ? " selected" : "") + '>' + v + '</option>';
+          }).join("") +
+        '</select><span class="cmd">set osd_units = ' + oe.units + '</span></label>' +
+      numField("rssi", "extraRssi") + numField("lq", "lqAlarm") + numField("dbm", "dbmAlarm") +
+    '</div><p class="hint">' + esc(T("osdPresetHint")) + '</p>';
+  var align =
+    '<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">' +
+      '<div style="font-size:12px;color:var(--muted);margin-bottom:6px">' + esc(T("smallAngleHint")) + '</div>' +
+      '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">' +
+        '<label class="chkline" style="align-self:end">' +
+          '<input type="checkbox" data-angleoff="' + (x.smallAngle === 180 ? "true" : "false") + '"' +
+            (x.smallAngle === 180 ? " checked" : "") + ' style="margin-bottom:8px">' +
+          '<span>' + esc(T("angleSwitch")) + '</span></label>' +
+        numField("smallAngle", "smallAngle") +
+      '</div></div>';
+  var volts =
+    '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:9px">' +
+      numField("vbatMin", "vMin") + numField("vbatMax", "vMax") + numField("vbatWarn", "vWarn") +
+    '</div>';
   $("extraBody").innerHTML =
     '<div class="opt comf" style="grid-template-columns:1fr">' +
       '<div class="txt"><div class="t">' + esc(T("craftTitle")) + '</div>' +
-      '<div class="d">' + esc(T("craftHint")) + '</div>' +
-      '<input type="text" id="craftIn" maxlength="16" style="margin-top:9px;max-width:260px" value="' +
-        esc(m.craft) + '" placeholder="MEIN-5ZOLL" aria-label="' + esc(T("craftTitle")) + '">' +
-      '<div class="cmd">set craft_name = ' + esc(m.craft || "—") + '</div></div></div>';
+      '<div class="d">' + esc(T("craftHint")) + '</div>' + ident + '</div></div>' +
+    card("featTitle", "featHint", '<div class="checks" style="margin-top:9px">' + features + '</div>' + align) +
+    card("extraOsdTitle", "extraOsdHint", osdBits) +
+    card("voltTitle", "voltHint", volts);
 }
 
 /* ============================================================
@@ -2135,15 +2961,16 @@ function renderCli(){
   var m = curModel(), txt = cliFor(m);
   $("cliOut").innerHTML = colorCli(txt);
   $("cliSize").textContent = txt.split("\n").length + " · " + Math.round(txt.length / 1024 * 10) / 10 + " KB";
-  /* Dezente Warnung, wenn ein kritischer Beeper aus ist - ohne zu blockieren. */
+  /* Dezente Warnung, wenn ein kritischer Beeper aus ist - ohne zu blockieren.
+     Beim Öffnen bleibt sie weg, sonst wirkt das Preset kaputt, bevor man es anfasst. */
   var warns = [];
-  if(m){
+  if(hintsArmed && m){
     if(!m.beep.RX_LOST) warns.push("RX_LOST");
     if(!m.beep.RX_LOST_LANDING) warns.push("FAILSAFE");
     if(!m.beep.BAT_CRIT_LOW) warns.push("BAT_CRIT_LOW");
   }
   var box = $("cliWarn");
-  if(warns.length){
+  if(hintsArmed && warns.length){
     box.hidden = false;
     box.textContent = (STR.warnOff ? "" : "") + "⚠ " + warns.join(" · ") +
       (lgi() === 0 ? " aus – im Feld findest du den Copter dann schwerer." :
@@ -2155,9 +2982,11 @@ function renderCli(){
   var ok = !!(navigator.serial);
   $("serialHint").textContent = ok ? "" : T("serialNo");
   $("btnSerial").disabled = !ok;
+  if(hintsArmed && m) publishSnapshot(m, txt);
 }
 function renderAll(){
   renderPresetName();
+  renderHangarTake();
   renderBeeperBody();
   renderModes();
   renderOsd();
@@ -2201,6 +3030,7 @@ function renderVal(res){
   $("fixCount").textContent = uniq.length ? uniq.length + " " + T("fix_title") : "";
 }
 function runValidate(){
+  showHints();
   var txt = $("f_diff").value;
   if(!txt.trim()){ renderVal({ list:[{ k:"info", t:T("nothing") }], missing:[], stats:{} }); toast(T("nothing"), "bad"); return; }
   var res = validate(txt, curModel());
@@ -2458,6 +3288,7 @@ function applyLang(){
     b.style.fontWeight = on ? "700" : "400";
   });
   document.title = "FlowState Presets — " + T("tabBuild");
+  updateOsdGuides();
 }
 function applyAll(){ renderAll(); applyLang(); }
 
@@ -2466,7 +3297,12 @@ function applyAll(){ renderAll(); applyLang(); }
    ============================================================ */
 document.addEventListener("click", function(e){
   var tab = e.target.closest && e.target.closest(".tabs [data-tab]");
-  if(tab){ setTab(tab.getAttribute("data-tab")); return; }
+  if(tab){
+    var tn = tab.getAttribute("data-tab");
+    setTab(tn);
+    if(tn === "check") showHints();
+    return;
+  }
 
   var th = e.target.closest && e.target.closest(".swatches [data-theme]");
   if(th){ prefs.theme = th.getAttribute("data-theme"); savePrefs(true); applyTheme(); return; }
@@ -2536,7 +3372,7 @@ document.addEventListener("click", function(e){
     var m7 = curModel(); if(!m7 || m7.adj.length >= 4) return;
     var usedCh = {}; m7.adj.forEach(function(x){ usedCh[x.ch] = 1; });
     var freeCh = 0; while(usedCh[freeCh] !== undefined && freeCh < 11) freeCh++;
-    m7.adj.push({ fn:18, ch:freeCh, lo:1450, hi:1550, abs:true, center:58, scale:20 });
+    m7.adj.push({ preset:"", fn:18, ch:freeCh, lo:1450, hi:1550, abs:true, center:58, scale:20 });
     m7.updatedAt = Date.now(); save(); renderAdj(); renderCli(); renderIssues();
     return;
   }
@@ -2544,6 +3380,43 @@ document.addEventListener("click", function(e){
 
 /* Beeper-Schalter */
 document.addEventListener("change", function(e){
+  var m0 = curModel();
+  var ft = e.target.getAttribute && e.target.getAttribute("data-feature");
+  if(ft && m0){
+    if(!m0.extra) m0.extra = clone(DEF_EXTRA);
+    m0.extra.feat[ft] = !!e.target.checked;
+    m0.updatedAt = Date.now();
+    var fc = e.target.parentNode.querySelector(".cmd");
+    if(fc) fc.textContent = "feature " + (m0.extra.feat[ft] ? "" : "-") + ft;
+    save(); renderCli(); return;
+  }
+  var pm = e.target.getAttribute && e.target.getAttribute("data-preset");
+  var pr = (pm !== null && pm !== undefined) ? e.target.value : null;
+  if(pr !== null && m0){
+    if(!m0.osdExtra) m0.osdExtra = clone(DEF_OSD_EXTRA);
+    if(OSD_PRESETS[pr]){
+      var pv = OSD_PRESETS[pr];
+      m0.osdExtra.preset = pr;
+      ["units","rssi","lq","dbm"].forEach(function(k){ m0.osdExtra[k] = pv[k]; });
+    }else{
+      m0.osdExtra.preset = "";
+    }
+    m0.updatedAt = Date.now();
+    save(); renderExtra(); renderCli(); return;
+  }
+  var ao = e.target.getAttribute && e.target.getAttribute("data-angleoff");
+  if(ao !== null && ao !== undefined && m0){
+    if(!m0.extra) m0.extra = clone(DEF_EXTRA);
+    m0.extra.smallAngle = e.target.checked ? 180 : 25;
+    m0.updatedAt = Date.now();
+    var ai = document.querySelector('[data-extrakey="smallAngle"]');
+    if(ai){
+      ai.value = m0.extra.smallAngle;
+      var ac = ai.parentNode.querySelector(".cmd");
+      if(ac) ac.textContent = extraCmd("smallAngle", m0.extra.smallAngle);
+    }
+    save(); renderCli(); return;
+  }
   var b = e.target.getAttribute && e.target.getAttribute("data-beep");
   if(b){
     var m = curModel(); if(!m) return;
@@ -2561,6 +3434,41 @@ document.addEventListener("change", function(e){
 });
 document.addEventListener("input", function(e){
   var m = curModel(); if(!m) return;
+  var ek = e.target.getAttribute && e.target.getAttribute("data-extrakey");
+  if(ek && e.target.tagName === "INPUT"){
+    var cmd;
+    if(ek === "pilot"){
+      if(!m.extra) m.extra = clone(DEF_EXTRA);
+      m.extra.pilot = e.target.value.replace(/[^\w \-.]/g, "").slice(0, 16);
+      m.updatedAt = Date.now();
+      cmd = e.target.parentNode.querySelector(".cmd");
+      if(cmd) cmd.textContent = "set pilot_name = " + (m.extra.pilot || "—");
+      save(); renderCli(); return;
+    }
+    if(!extraMeta(ek)) return;
+    var target = m.extra;
+    if(ek === "rssi" || ek === "lq" || ek === "dbm"){
+      if(!m.osdExtra) m.osdExtra = clone(DEF_OSD_EXTRA);
+      target = m.osdExtra;
+      if(ek === "rssi" || ek === "lq" || ek === "dbm"){
+        target.preset = "";
+        var sel = $("osdPreset");
+        if(sel) sel.value = "";
+      }
+    }else if(!m.extra){
+      m.extra = clone(DEF_EXTRA);
+      target = m.extra;
+    }
+    target[ek] = extraRead(ek, e.target.value);
+    m.updatedAt = Date.now();
+    cmd = e.target.parentNode.querySelector(".cmd");
+    if(cmd) cmd.textContent = extraCmd(ek, target[ek]);
+    if(ek === "smallAngle"){
+      var at = document.querySelector("[data-angleoff]");
+      if(at) at.checked = target[ek] === 180;
+    }
+    save(); renderCli(); return;
+  }
   if(e.target.id === "craftIn"){
     m.craft = e.target.value.replace(/[^\w \-.]/g, "").slice(0, 16);
     save(); renderCli(); return;
@@ -2573,6 +3481,7 @@ document.addEventListener("input", function(e){
     var obj = mk ? m.modes[i2] : m.adj[i2];
     if(!obj) return;
     setVal(obj, mk || ak, e.target.value);
+    if(ak && ak !== "ch"){ obj.preset = ""; }
     m.updatedAt = Date.now();
     var card = e.target.closest(".mrow");
     if(card){
@@ -2601,11 +3510,21 @@ document.addEventListener("input", function(e){
   }
   var rk = e.target.getAttribute && e.target.getAttribute("data-ratekey");
   if(rk){
-    m.rates[rk] = Math.round(Number(e.target.value)) || 0;
+    var rc = activeRates(m);
+    rc[rk] = Math.round(Number(e.target.value)) || 0;
     m.updatedAt = Date.now();
     var sv = e.target.parentNode.querySelector(".sv");
-    if(sv) sv.textContent = m.rates[rk];
-    save(); drawRateChart(m.rates); renderCli();
+    if(sv) sv.textContent = rc[rk];
+    save(); drawRateChart(rc); renderCli();
+    return;
+  }
+  var tk = e.target.getAttribute && e.target.getAttribute("data-throttlekey");
+  if(tk){
+    var tc = activeRates(m);
+    if(tk === "limitType") tc.limitType = e.target.value === "SCALE" || e.target.value === "CLIP" ? e.target.value : "OFF";
+    else tc[tk] = Math.round(Number(e.target.value)) || 0;
+    m.updatedAt = Date.now();
+    save(); renderCli();
     return;
   }
   if(e.target.id === "f_posX" || e.target.id === "f_posY"){
@@ -2617,18 +3536,56 @@ document.addEventListener("input", function(e){
 document.addEventListener("change", function(e){
   var m = curModel(); if(!m) return;
 
+  var eu = e.target.getAttribute && e.target.getAttribute("data-extrakey");
+  if(eu === "units"){
+    if(!m.osdExtra) m.osdExtra = clone(DEF_OSD_EXTRA);
+    m.osdExtra.units = e.target.value === "IMPERIAL" ? "IMPERIAL" : "METRIC";
+    m.osdExtra.preset = "";
+    var ps = $("osdPreset");
+    if(ps) ps.value = "";
+    m.updatedAt = Date.now();
+    var uc = e.target.parentNode.querySelector(".cmd");
+    if(uc) uc.textContent = "set osd_units = " + m.osdExtra.units;
+    save(); renderCli(); return;
+  }
+
   if(e.target.id === "f_preset"){
     m.name = e.target.value.trim().slice(0, 60);
     m.updatedAt = Date.now();
     save(); renderCli(); renderIssues();
     return;
   }
+  if(e.target.id === "f_limitType"){
+    activeRates(m).limitType = e.target.value === "SCALE" || e.target.value === "CLIP" ? e.target.value : "OFF";
+    m.updatedAt = Date.now();
+    save(); renderCli();
+    return;
+  }
+  if(e.target.id === "f_rateProfile"){
+    m.rates.active = Math.max(0, Math.min(RATE_COUNT - 1, Number(e.target.value) || 0));
+    m.updatedAt = Date.now();
+    save(); renderRates(); renderCli();
+    return;
+  }
+  if(e.target.id === "f_video"){
+    var nv = videoDef(e.target.value).k;
+    if(nv !== m.video){
+      convertOsdGrid(m, m.video, nv);
+      m.video = nv;
+      m.updatedAt = Date.now();
+      save();
+      setTimeout(function(){
+        renderOsd(); renderCli(); renderIssues(); toast(T("videoConverted"), "ok");
+      }, 0);
+    }
+    return;
+  }
   if(e.target.id === "f_rateType"){
     /* Die Zahlen bedeuten je Typ etwas anderes: Betaflight-RC-Rate 100 heißt 1.0,
        Actual 7 heißt 70 °/s. Deshalb kommen beim Wechsel passende Startwerte mit. */
-    var t2 = ratesType(e.target.value);
-    m.rates.type = t2.k;
-    m.rates.rc = t2.def.rc; m.rates.srate = t2.def.srate; m.rates.expo = t2.def.expo;
+    var t2 = ratesType(e.target.value), cfg = activeRates(m);
+    cfg.type = t2.k;
+    cfg.rc = t2.def.rc; cfg.srate = t2.def.srate; cfg.expo = t2.def.expo;
     m.updatedAt = Date.now();
     save(); renderRates(); renderCli(); renderIssues();
     return;
@@ -2660,7 +3617,22 @@ document.addEventListener("change", function(e){
   if(ak){
     var ai = Number(e.target.getAttribute("data-ai"));
     if(!m.adj[ai]) return;
-    setVal(m.adj[ai], ak, e.target.type === "checkbox" ? e.target.checked : e.target.value);
+    var raw = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    if(ak === "preset"){
+      var pv = raw && ADJ_PRESETS[raw] ? ADJ_PRESETS[raw] : null;
+      m.adj[ai].preset = pv ? raw : "";
+      if(pv){
+        m.adj[ai].fn = pv.fn;
+        m.adj[ai].lo = pv.lo;
+        m.adj[ai].hi = pv.hi;
+        m.adj[ai].abs = !!pv.abs;
+        m.adj[ai].center = pv.center;
+        m.adj[ai].scale = pv.scale;
+      }
+    }else{
+      setVal(m.adj[ai], ak, raw);
+      if(ak !== "ch"){ m.adj[ai].preset = ""; }
+    }
     m.updatedAt = Date.now();
     save(); renderAdj(); renderCli(); renderIssues();
     return;
@@ -2688,6 +3660,43 @@ function setVal(obj, key, raw){
   }
 }
 
+
+$("btnImport").addEventListener("click", function(){ $("importFile").click(); });
+$("hangarSel").addEventListener("change", function(){ $("btnHangarTake").disabled = !this.value; });
+$("btnHangarTake").addEventListener("click", function(){
+  var id = $("hangarSel").value;
+  if(id) adoptFromHangar(id);
+});
+/* Aendert sich die Copter-Liste im Hangar, zieht die Auswahl nach. */
+window.addEventListener("storage", function(e){
+  if(e.key === HANGAR_KEY) renderHangarTake();
+});
+window.addEventListener("focus", renderHangarTake);
+$("importFile").addEventListener("change", function(e){
+  var f = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if(!f) return;
+  var r = new FileReader();
+  r.onerror = function(){ toast(T("importFail"), "bad"); };
+  r.onload = function(){
+    var txt = String(r.result || "");
+    if(!/^(#|beeper|aux|adjrange|set|feature|rateprofile|save)/m.test(txt)){
+      toast(T("importFail"), "bad"); return;
+    }
+    var nm = f.name.replace(/\.(txt|cfg)$/i, "").slice(0, 60);
+    var m = modelFromCli(txt, nm);
+    if(!m){ toast(T("importFail"), "bad"); return; }
+    data.models.push(m);
+    prefs.lastModel = m.id; osdSel = null;
+    save(); savePrefs(false); hintsArmed = true; renderAll(); applyLang();
+    toast(T("importOk"), "ok");
+  };
+  r.readAsText(f);
+});
+$("btnShare").addEventListener("click", function(){
+  var ok = publishSnapshot(curModel());
+  toast(ok ? T("shareDone") : T("fileFail"), ok ? "ok" : "bad");
+});
 
 $("btnSaveModel").addEventListener("click", function(){
   var m = curModel(); if(!m) return;
@@ -2785,6 +3794,7 @@ if(!data.models.length){
 data.models = data.models.map(normalizeModel).filter(Boolean);
 if(!prefs.lastModel || !getModel(prefs.lastModel)) prefs.lastModel = data.models[0].id;
 renderAll();
+bootDone = true;
 setTab(prefs.tab);
 })();
 </script>
