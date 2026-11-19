@@ -1172,7 +1172,7 @@
   }
 
   // Abschnitte fuer Werkzeuge, die im Markup noch keinen eigenen haben.
-  // Die drei vorhandenen bleiben, wie sie sind.
+  // Vorhandene Abschnitte bleiben, wie sie sind.
   function renderModuleDetails() {
     var holder = $('#program-details');
     if (!holder) return;

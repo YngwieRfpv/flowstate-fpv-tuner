@@ -61,11 +61,18 @@ function walk(dir, prefix = '') {
 
 // README.md liegt auch als lesbare Seite bei. Der Umsetzer ist derselbe wie im Hub.
 function readmePage(markdown) {
+  // Das README verweist auf PLATTFORM.md. Die Datei bleibt im Repository, im Paket
+  // waere der Verweis tot, deshalb steht dort nur der Name.
+  const text = String(markdown).replace(
+    /\[`?([A-Za-z0-9_-]+\.md)`?\]\(\1\)/g,
+    (all, name) => (SKIP_FILES.has(name) ? '`' + name + '` (im Repository)' : all)
+  );
+
   const sandbox = { window: {} };
   vm.createContext(sandbox);
   vm.runInContext(fs.readFileSync(path.join(ROOT, 'assets/js/markdown.js'), 'utf8'), sandbox);
   const md = sandbox.window.FLOWSTATE_MD;
-  const body = md ? md.toHtml(markdown) : '<pre>' + markdown + '</pre>';
+  const body = md ? md.toHtml(text) : '<pre>' + text + '</pre>';
 
   return [
     '<!DOCTYPE html>',
@@ -137,8 +144,9 @@ function liesmich(data) {
     'Jedes Programm lässt sich auch einzeln öffnen, ohne die Übersicht:',
     'einfach die jeweilige Datei doppelklicken und als Lesezeichen ablegen.',
     '',
-    'Alles läuft lokal, ohne Server und ohne Internet. Wird die Seite über',
-    'file:// geöffnet, öffnen sich die Programme in einem eigenen Tab;',
+    'Alles läuft lokal, ohne Server. Das Paket braucht nach dem',
+    'Herunterladen kein Internet. Wird die Seite über file:// geöffnet,',
+    'öffnen sich die Programme in einem eigenen Tab;',
     'über einen lokalen Server oder GitHub Pages auch direkt im Rahmen.',
     '',
     'Programme in diesem Paket:'
