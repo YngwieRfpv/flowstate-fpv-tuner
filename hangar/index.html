@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#093840">
-<meta name="description" content="FlowState Hangar - Copter-Verwaltung. Größe in Zoll, Zellen, KV, ESC, Receiver, Videosystem. Offline, eine HTML-Datei.">
-<title>FlowState Hangar Deck — Copter-Verwaltung</title>
+<meta name="description" content="Hangar - Copter-Verwaltung. Größe in Zoll, Zellen, KV, ESC, Receiver, Videosystem. Offline, eine HTML-Datei.">
+<title>Hangar — Copter-Verwaltung</title>
 <style>
 /* ===== Farbschemata (aus deinen Adobe-Color-Paletten) ===== */
 :root,html[data-theme="ocean"]{
@@ -502,7 +502,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">FlowState Hangar Deck · v1.0.0-beta.2</span>
+    <span class="ver">Hangar · v1.0.0-beta.3</span>
   </footer>
 </div>
 
@@ -984,7 +984,7 @@ var TR_I18N = {
 var THEMES = { ocean:"#093840", sand:"#f4f6f5", drakn:"#140a25" };
 /* Sprache: Datumsformat und Fenstertitel je Sprache */
 var LOCALES = { de:"de-DE", en:"en-GB", es:"es-ES" };
-var TITLES  = { de:"FlowState Hangar Deck — Copter-Verwaltung", en:"FlowState Hangar Deck — Quad manager", es:"FlowState Hangar Deck — Gestión de drones" };
+var TITLES  = { de:"Hangar — Copter-Verwaltung", en:"Hangar — Quad manager", es:"Hangar — Gestión de drones" };
 function locTag(){ return LOCALES[prefs.lang] || "de-DE"; }
 
 /* Speicher kann blockiert sein (private Modi, Sandbox-Vorschau) -> dann flüchtig weiterarbeiten */
@@ -1495,7 +1495,7 @@ function b64uDecode(code){
 }
 /* Die ganze Liste, Grabsteine inklusive - so bleibt eine Löschung übertragbar. */
 function trPayload(){
-  return JSON.stringify({ app:"FlowState Hangar", kind:"transfer", at:Date.now(), fleet:data });
+  return JSON.stringify({ app:"Hangar", kind:"transfer", at:Date.now(), fleet:data });
 }
 function trCode(){ return TR_PREFIX + b64uEncode(trPayload()); }
 /* Aus beliebigem Text (Chat-Nachricht, Link) den Code heraussuchen. */
@@ -1817,7 +1817,7 @@ function bfFileName(name, target){
 function bfText(name, bf, fi){
   var d = new Date();
   var stamp = d.toLocaleDateString(locTag()) + " " + ("0"+d.getHours()).slice(-2) + ":" + ("0"+d.getMinutes()).slice(-2);
-  var head = "# FlowState Hangar - Betaflight-Sicherung\n"
+  var head = "# Hangar - Betaflight-Sicherung\n"
     + "# Modell: " + (name || "") + "\n"
     + "# Target (Modell): " + (bf.target || "-") + "\n"
     + "# Target (FC): " + (bfFcTarget(fi) || "-") + "\n"
@@ -2066,9 +2066,9 @@ function doExportPrint(){
   $("printArea").innerHTML =
     "<h1>" + esc(T("pdfTitle")) + "</h1>" +
     '<p class="meta">' + esc(T("pdfCount")(rows.length)) + " · " + esc(T("pdfCreated")) + " " +
-      new Date().toLocaleDateString(locTag()) + " · FlowState Hangar v" + VER + "</p>" +
+      new Date().toLocaleDateString(locTag()) + " · Hangar v" + VER + "</p>" +
     "<table><thead><tr>" + head + "</tr></thead><tbody>" + body + "</tbody></table>" +
-    '<p class="ft">FlowState Hangar v' + VER + " · " + esc(location.host || "lokal") + "</p>";
+    '<p class="ft">Hangar v' + VER + " · " + esc(location.host || "lokal") + "</p>";
   window.print();
 }
 
@@ -2138,7 +2138,7 @@ function buildPdf(){
     stream += "BT /F2 15 Tf " + PDFPAGE.m + " " + (PDFPAGE.h - 40) + " Td (" + pdfEsc(T("pdfTitle")) + ") Tj ET\n";
     stream += "0.35 0.40 0.45 rg\n";
     stream += "BT /F1 8 Tf " + PDFPAGE.m + " " + (PDFPAGE.h - 54) + " Td (" +
-              pdfEsc(T("pdfCount")(rows.length) + " · " + T("pdfCreated") + " " + stamp + " · FlowState Hangar v" + VER) + ") Tj ET\n";
+              pdfEsc(T("pdfCount")(rows.length) + " · " + T("pdfCreated") + " " + stamp + " · Hangar v" + VER) + ") Tj ET\n";
     /* Kopfzeile der Tabelle */
     var top = PDFPAGE.h - 74;
     stream += "0.90 0.93 0.94 rg\n";
@@ -2211,7 +2211,7 @@ function buildPdf(){
     var label = T("pdfPage") + " " + pg.no + " " + T("pdfOf") + " " + total;
     var out = pg.body;
     out += "0.45 0.50 0.55 rg\n";
-    out += "BT /F1 7.5 Tf " + PDFPAGE.m + " 20 Td (" + pdfEsc("FlowState Hangar v" + VER) + ") Tj ET\n";
+    out += "BT /F1 7.5 Tf " + PDFPAGE.m + " 20 Td (" + pdfEsc("Hangar v" + VER) + ") Tj ET\n";
     out += "BT /F1 7.5 Tf " + (PDFPAGE.w - PDFPAGE.m - textWidth(label, 7.5)) + " 20 Td (" +
            pdfEsc(label) + ") Tj ET\n";
     return out;
@@ -2272,7 +2272,7 @@ function doExport(){
   // gleicher Aufbau wie die Sync-Datei: Flotte + Farbschema/Sprache
   var stamp = new Date().toISOString().slice(0,10);
   var doc = {
-    app: "FlowState Hangar", schema: 2, version: VER,
+    app: "Hangar", schema: 2, version: VER,
     updated: new Date().toISOString(),
     prefs: { theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0 },
     fleet: liveRecords()
@@ -2287,7 +2287,7 @@ function doExport(){
    App-Code plus Daten als JSON-Block direkt in der Datei. */
 function htmlBackupPayload(){
   return {
-    app: "FlowState Hangar HTML Backup", backup: "html", schema: 2, version: VER,
+    app: "Hangar HTML Backup", backup: "html", schema: 2, version: VER,
     exported: new Date().toISOString(),
     prefs: { theme: prefs.theme, lang: prefs.lang, updatedAt: prefs.updatedAt || 0 },
     fleet: data,
@@ -2402,7 +2402,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "1.0.0-beta.2";
+var VER = "1.0.0-beta.3";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -2829,7 +2829,7 @@ $("langs").addEventListener("click", function(e){
   if($("dlg").open) renderFcInfo();
 });
 
-/* Eine Schwesterseite (FPV-Guide, Autotuner, weiteres FlowState-Projekt) hat
+/* Eine Schwesterseite (Guide, Tuner, weiteres FlowState-Projekt) hat
    umgeschaltet: sofort übernehmen, ohne Neuladen. */
 window.addEventListener("storage", function(e){
   if(e.key === HUB_THEME_KEY || e.key === HUB_LANG_KEY){

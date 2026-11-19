@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#093840">
-<title>FlowState OSD Customizer — Betaflight Fonts &amp; Bootlogo</title>
+<title>OSD — Betaflight Fonts &amp; Bootlogo</title>
 <style>/* =============================================================================
    BF OSD FONT LAB — Pixel-OSD Design
    Harte Kanten, 1-Bit-Anmutung, Phosphor-Cyan / Amber. Keine externen Fonts.
@@ -338,7 +338,7 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); }
    FLOWSTATE SHELL — Konstrukt, Farben, Sprache, Logo aus den Presets
    Vorlage: das Gehaeuse der Presets, hier auf die Arbeitsflaeche des OSD gesetzt.
    Die 12x18-Zeichenflaechen bleiben bewusst hart gepixelt; Gehaeuse und
-   Bedienelemente folgen dem FlowState-Formsprache mit gemischten Radien.
+   Bedienelemente folgen der FlowState-Formsprache mit gemischten Radien.
    ============================================================================= */
 :root, html[data-theme="ocean"]{
   --bg:#093840;
@@ -679,7 +679,7 @@ details.more .font-filter{margin-top:4px}
       <div class="brand-copy">
         <p class="brandline">Flow<span>State</span></p>
         <div class="projectline">
-          <h1>OSD Customizer</h1>
+          <h1>OSD</h1>
           <p class="sub">BF = Betaflight · MAX7456 · 12×18 PX</p>
         </div>
       </div>
@@ -2541,7 +2541,7 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
 
   function renderLeftOSD() {
     return '';
-    // (OSD-Editor entfernt – Layout/Anzeiger leben im FlowState Tuner)
+    // (OSD-Editor entfernt – Layout und Anzeiger leben im Tuner)
     if (!state.showOsdEditor) return '';
     const cats = ['Flugdaten', 'Navigation', 'Status', 'Identität', 'Kunsthorizont'];
     const palette = cats.map(cat => {
