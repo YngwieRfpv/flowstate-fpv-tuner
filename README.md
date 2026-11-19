@@ -154,13 +154,13 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [Hangar](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.3) | [Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.6) | [Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.21-es) | [Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.4) | [OSD](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.5) |
+| | [Hangar](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.3) | [Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.7) | [Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.21-es) | [Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.4) | [OSD](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.5) |
 |---|---|---|---|---|---|
-| Version | `v1.0.0-beta.3` | `v4.8-alpha.6` | `v1.0.2-beta.21-es` | `v0.2.0-beta.4` | `v0.1.0-beta.5` |
+| Version | `v1.0.0-beta.3` | `v4.8-alpha.7` | `v1.0.2-beta.21-es` | `v0.2.0-beta.4` | `v0.1.0-beta.5` |
 | Kanal | Beta | Alpha | Beta | Beta | Beta |
 | Datum | 19.11.2026 | 19.11.2026 | 19.11.2026 | 19.11.2026 | 19.11.2026 |
 | Größe (Bytes) | 145.797 | 502.177 | 7.700.211 | 223.016 | 4.273.766 |
-| SHA-256 | `abcc1825af0ccf936a9d916550bf387dba62b547cf08c1e931f459edf8f0d116` | `2b4c4bd7d484e042343995c63105c3444dff7c34539d95757b10c51ac13afd6b` | `e89bbec884c4cf8c03b138e1ac677ad418ac3152150663d59a1efa49e3f71a44` | `fbf1ccd964830bac00850675108ca524f394ee87eeee960d367a40a74eb31ff1` | `652f7d7287fbd4dc518521ebf03e6004648acfacb221ed68bad98e366defb8c7` |
+| SHA-256 | `161d0e173a19154c7d57db2de1dbe6444967d3f10803aba5542afd59da2f819c` | `3d543e21b775fb0bc4bebfcf190088f110fc113df8ae447516c520778546f0d2` | `552078f1b4c33c4021b240a80153276494e46880acb897d8c9b32cf792fb30fe` | `fbf1ccd964830bac00850675108ca524f394ee87eeee960d367a40a74eb31ff1` | `2f561e03bdc23ab5aadb101b84956650b2dc0afc78d3fef82260e3c961473d30` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, `sha256sum presets/index.html`, `sha256sum osd/index.html`,
