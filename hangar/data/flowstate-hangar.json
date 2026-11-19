@@ -1,8 +1,10 @@
 {
-  "app": "HangarDeck Lite",
+  "app": "FlowState Hangar",
+  "example": true,
   "schema": 2,
-  "version": "0.9.5-beta.1",
-  "updated": "2026-11-03T00:00:00.000Z",
+  "version": "0.9.6-beta.1",
+  "updated": "2026-11-03T12:00:00.000Z",
+  "note": "Beispieldaten – keine echten Copter. Dient als Startbestand und zeigt das Dateiformat.",
   "prefs": {
     "theme": "ocean",
     "lang": "de",
@@ -21,9 +23,12 @@
       "props": "5.1x4.6x3",
       "status": "ready",
       "fc": "SpeedyBee F405 V4",
+      "rx": "elrs24",
+      "video": "dji-o3",
       "mah": 1300,
       "weight": 680,
-      "notes": ""
+      "notes": "",
+      "example": true
     },
     {
       "id": "c3",
@@ -37,9 +42,12 @@
       "props": "",
       "status": "maint",
       "fc": "",
+      "rx": "elrs24",
+      "video": "analog",
       "mah": 300,
       "weight": null,
-      "notes": "Canopy gerissen"
+      "notes": "Canopy gerissen",
+      "example": true
     },
     {
       "id": "c4",
@@ -53,9 +61,12 @@
       "props": "7x4.5x3",
       "status": "down",
       "fc": "Matek H743-SLIM V3",
+      "rx": "crossfire",
+      "video": "dji-o3",
       "mah": 4000,
       "weight": 1450,
-      "notes": "Arm gebrochen"
+      "notes": "Arm gebrochen",
+      "example": true
     }
   ]
 }

@@ -7,13 +7,14 @@ ohne Installation und ohne Konto. Einmal geladen arbeiten sie ohne Verbindung.
 
 ## [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-[`hangar/index.html`](hangar/index.html) · 132 KB · Copter mit Bild führen, Flight Controller auslesen
+[`hangar/index.html`](hangar/index.html) · 156 KB · Copter mit Bild führen, Presets, Flight Controller auslesen
 
 Führt die Copter-Liste, wahlweise als Kacheln oder als Tabelle. Name, Größe, Spannung, KV,
 ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem, Abfluggewicht
 und Notiz liegen unter *Mehr Details* und bleiben leer, wenn sie nicht gebraucht werden.
 
 - Bild je Copter, vor dem Speichern verkleinert und nur lokal gehalten
+- Presets für Schalter, Beeper und OSD: beim Einlesen wird jede Zeile geprüft, PID, Filter und Motoren kommen nicht durch
 - Flight Controller über USB auslesen oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung
 - Betaflight-Backup je Modell, dazu Empfänger, Videosystem, Akku und Abfluggewicht
 - Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät
@@ -51,7 +52,7 @@ braucht es nicht. Quellen und Lizenzangaben bleiben im Dokument stehen.
 
 ## Öffnen und herunterladen
 
-Herunterladen ist freiwillig. Die drei Programme laufen auch direkt auf der Übersichtsseite, im
+Herunterladen ist freiwillig. Die Programme laufen auch direkt auf der Übersichtsseite, im
 Rahmen unter der Kopfzeile. Die Seite selbst kommt aus dem Netz, ohne Verbindung laufen die
 Programme nur aus dem entpackten Paket.
 
@@ -65,7 +66,7 @@ Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/).
 
 *Alles herunterladen* auf der Startseite packt ein ZIP mit allem in einem Ordner
-`FlowState-FPV`: die Startseite, die drei Programme, `README.md`, `README.html`, `LICENSE`
+`FlowState-FPV`: die Startseite, alle Programme, `README.md`, `README.html`, `LICENSE`
 und `LIESMICH.txt`. Dasselbe Paket liegt als `FlowState-FPV-mit-Hub.zip` an jedem
 [Release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Mit Hub
 herunterladen* in einer Versionszeile packt denselben Inhalt und nennt das Programm im
@@ -76,7 +77,7 @@ Im Ordner liegt keine Datei namens `index.html`. Die Namen sagen, was läuft:
 
 | Datei | Programm |
 |---|---|
-| `FlowState-FPV.html` | Übersicht, mit der alle drei starten |
+| `FlowState-FPV.html` | Übersicht, mit der alle Programme starten |
 | `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
 | `tuner/FlowState-Tuner.html` | FlowState Tuner |
 | `guide/FPV-Guide.html` | FPV Guide |
@@ -105,8 +106,8 @@ Stand zu sehen, dort gibt es nichts zu ersetzen.
 
 | Sprache | Stand |
 |---|---|
-| Deutsch | vollständig integriert, in der Übersicht und in allen drei Programmen |
-| Englisch | vollständig integriert, in der Übersicht und in allen drei Programmen |
+| Deutsch | vollständig integriert, in der Übersicht und in allen Programmen |
+| Englisch | vollständig integriert, in der Übersicht und in allen Programmen |
 | Spanisch | überall wählbar, nicht geprüft |
 
 Spanisch ist übersetzt, aber in keinem Bereich durchgesehen; offene Stellen erscheinen
@@ -120,13 +121,13 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.5-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) |
+| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.6-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) |
 |---|---|---|---|
-| Version | `v0.9.5-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` |
+| Version | `v0.9.6-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` |
 | Kanal | Beta | Alpha | Beta |
 | Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 |
-| Größe (Bytes) | 131.966 | 496.882 | 7.700.211 |
-| SHA-256 | `603b54b6f1b8354308e8130a0ef85a6e0412566f9a711f56af451e7a9f3a5728` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` |
+| Größe (Bytes) | 155.603 | 496.882 | 7.700.211 |
+| SHA-256 | `5aa0ac2ca1da32ece127104819218be0f9709a2fecd7ae34653158859e055d95` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, jeweils gefolgt vom erwarteten Wert aus der Tabelle.
@@ -134,6 +135,32 @@ Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 Gemeinsam geändert: die Farbe reist als `?theme=ocean|sand|drakn` in der Adresse mit, der
 Umschalter steht überall in der Reihenfolge HangarDeck, Tuner, Guide, und ein offenes
 Programm zieht nach, sobald in der Übersicht eine andere Farbe oder Sprache gewählt wird.
+
+## Aufbau
+
+Die Übersichtsseite ist die Plattform, die Programme liegen daneben und bleiben eigenständig.
+Kein Build, kein Framework, keine gemeinsame Bibliothek: jede Programmdatei läuft für sich,
+auch ohne die Übersicht.
+
+| Pfad | Inhalt |
+|---|---|
+| `index.html`, `assets/` | Startseite mit Navigation, Versionen, Download, Fehlermeldung |
+| `assets/data/versions.json` | Register: welche Programme es gibt, Version, Größe, Prüfsumme, Texte |
+| `hangar/`, `tuner/`, `guide/` | je ein Programm, je eine HTML-Datei mit eigenem Speicher |
+| `tools/paket.mjs` | baut das Gesamt-ZIP aus dem Register |
+
+`versions.json` ist die einzige Liste. Übersicht, Kopfzeile, Fußzeile, Versionsfilter,
+Meldedialog, Paketliste und ZIP lesen daraus. Ein neues Programm hinzufügen heißt deshalb:
+
+1. Ordner mit der HTML-Datei anlegen, zum Beispiel `presets/index.html`.
+2. Einen Eintrag in `assets/data/versions.json` ergänzen: `id`, `name`, `path`, `entry`,
+   `pack`, `kind`, `description`, `highlights`, `meta` und einen Release-Eintrag.
+3. Fertig. Es erscheint in Kopfzeile, Übersicht, Fußzeile, Filter und ZIP. Plattform-Code
+   wird nicht angefasst.
+
+Wer ein Programm aktualisiert, tauscht nur dessen Datei und zieht Version, Größe und
+SHA-256 im Register nach. Die anderen Programme und die Startseite bleiben unberührt.
+Details, Feldbeschreibungen und die Prüfliste stehen in [`PLATTFORM.md`](PLATTFORM.md).
 
 ## Lizenz
 
@@ -152,11 +179,11 @@ install and without an account. Once loaded they work offline.
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
-| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 132 KB | Keep the quad list, read the flight controller |
+| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 156 KB | Keep the quad list, presets, read the flight controller |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 
-Downloading is optional. The three programs also run right on the overview page, in the frame
+Downloading is optional. The programs also run right on the overview page, in the frame
 below the header. The page itself comes from the network; without a connection the programs
 only run from the unpacked package.
 
@@ -165,7 +192,7 @@ own storage, the list from the overview is not in it. Over `file://` the browser
 storage; changes then only last for the running session.
 
 *Download everything* on the overview page packs a ZIP with everything in one folder
-`FlowState-FPV`: the overview page, the three programs, `README.md`, `README.html`, `LICENSE`
+`FlowState-FPV`: the overview page, every program, `README.md`, `README.html`, `LICENSE`
 and `LIESMICH.txt`. The same package sits as `FlowState-FPV-mit-Hub.zip` on every
 [release](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases). *Download with hub* in
 a release row packs the same content and names the program in the file name.
@@ -174,7 +201,7 @@ No file in the folder is called `index.html`. The names say what runs:
 
 | File | Program |
 |---|---|
-| `FlowState-FPV.html` | Overview, the way in to all three |
+| `FlowState-FPV.html` | Overview, the way in to every program |
 | `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
 | `tuner/FlowState-Tuner.html` | FlowState Tuner |
 | `guide/FPV-Guide.html` | FPV Guide |
@@ -184,8 +211,7 @@ overview, and can be kept as a bookmark. Over `file://` the programs start from 
 in their own tab, because browsers block the frame there. Over a local server they sit in the
 frame below the header. The check for newer builds works the same either way.
 
-Spanish is selectable in all three programs and on the overview page, but reviewed
-nowhere. HangarDeck Lite joined later.
+Spanish is selectable in all programs and on the overview page, but reviewed nowhere.
 
 Language lives in the address: `?lang=de`, `?lang=en` or `?lang=es`. Without it the browser
 language decides, otherwise German. A missing string falls back to English.
@@ -200,6 +226,25 @@ not in the HTML files. Dropping a new version over the old one in the same folde
 no backup needed. Only if the folder moves, export first: JSON in HangarDeck, plan and
 manifest in the tuner. Over
 GitHub Pages you always get the latest state, so there is nothing to replace.
+
+## Layout and adding a program
+
+The overview page is the platform; the programs sit next to it and stay self-contained. No
+build, no framework, no shared library: every program file runs on its own, also without the
+overview.
+
+`assets/data/versions.json` is the only list. Header, footer, overview tiles, version filter,
+report dialog, package list and the ZIP all read from it. Adding a program means:
+
+1. Create a folder with its HTML file, for example `presets/index.html`.
+2. Add an entry to `assets/data/versions.json`: `id`, `name`, `path`, `entry`, `pack`, `kind`,
+   `description`, `highlights`, `meta`, plus a release entry.
+3. Done. It shows up in the header, the overview, the footer, the filter and the ZIP. No
+   platform code is touched.
+
+Updating a program means replacing its file and updating version, size and SHA-256 in the
+register. The other programs and the overview stay untouched. Field reference and checklist:
+[`PLATTFORM.md`](PLATTFORM.md).
 
 The tuner is an alpha: writing over Web Serial is untested on real hardware and in flight,
 and Web Serial exists in Chrome, Edge and Opera on desktop. Read the plan before writing.

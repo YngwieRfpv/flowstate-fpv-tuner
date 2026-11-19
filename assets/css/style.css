@@ -949,6 +949,11 @@ body.app-open .site-header {
   color: var(--muted);
 }
 
+/* Die Verweise selbst kommen aus dem Register; die Huelle bleibt ohne eigenen Rahmen. */
+#overview-links {
+  display: contents;
+}
+
 .overview-links a {
   color: var(--mint);
   text-decoration: none;
@@ -2006,6 +2011,12 @@ details.notes > summary:hover {
   color: var(--faint);
   font-weight: 700;
   margin-bottom: 3px;
+}
+
+/* Programmliste der Fusszeile: eine Spalte wie zuvor, nur gefuellt aus dem Register. */
+#footer-programs {
+  display: grid;
+  gap: 7px;
 }
 
 .footer-col a {
