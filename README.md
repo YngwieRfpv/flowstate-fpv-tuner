@@ -8,29 +8,30 @@ Verbindung.
 
 ## [FlowState Hangar Deck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-[`hangar/index.html`](hangar/index.html) · 143 KB · Copter mit Bild führen, Preset-Dateien lesen, Flight Controller auslesen
+[`hangar/index.html`](hangar/index.html) · 146 KB · Copter mit Bild führen, Preset-Dateien lesen, Flight Controller auslesen
 
 Führt die Copter-Liste, wahlweise als Kacheln oder als Tabelle. Name, Größe, Spannung, KV,
 ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem, Abfluggewicht
 und Notiz liegen unter *Mehr Details* und bleiben leer, wenn sie nicht gebraucht werden.
 
 - Bild je Copter, vor dem Speichern verkleinert und nur lokal gehalten
-- Preset-Dateien im Ordner: einzeln wählen, ziehen oder den ganzen Ordner öffnen; gelesen werden nur `aux`, `beeper` und `osd_`, der Rest wird gezählt
+- Preset-Dateien im Ordner: einzeln wählen, ziehen oder den ganzen Ordner öffnen; jede Zeile kommt so in den CLI-Diff, wie sie geschrieben ist
 - Flight Controller über USB auslesen oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung
 - Betaflight-Backup je Modell, dazu Empfänger, Videosystem, Akku und Abfluggewicht
 - Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät
 - Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup; JSON und HTML lassen sich wieder einlesen
-- Daten im localStorage des Browsers, kein Konto, keine Telemetrie
+- Daten im Browser-Speicher, Bilder in IndexedDB, kein Konto, keine Telemetrie
 - Deutsch, Englisch und Spanisch
 
 ## [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)
 
-[`tuner/index.html`](tuner/index.html) · 497 KB · Logs auswerten, Filter- und PID-Werte ableiten
+[`tuner/index.html`](tuner/index.html) · 502 KB · Logs auswerten, Filter- und PID-Werte ableiten
 
 Liest Blackbox- und Dataflash-Logs, leitet Filter- und PID-Werte ab und zeigt jeden Schritt
 als CLI-Plan. Geschrieben wird über Web Serial, erst nach einer Sicherung und nach
 Bestätigung.
 
+- Geladene Logs bleiben im Browser und sind beim nächsten Start wieder da
 - Sechs Phasen: Setup, Filter, P/D neutral, Master, FF/I/D-Max, Archiv
 - Gates vor dem Schreiben: Backup, Firmware 4.5 oder neuer, Zielprofil, Filterlog
 - Web Serial gibt es in Chrome, Edge und Opera am Desktop. Brave liefert es abgeschaltet,
@@ -70,7 +71,7 @@ OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit `save`.
 Werkbank für die MAX7456-Zeichensätze des Flight Controllers. Die Arbeitsfläche bleibt
 absichtlich hart gepixelt: 12×18 mit zwei Bit, damit die Fonts so aussehen wie im OSD.
 
-- Über 300 Fonts mit Suche und Gruppenfilter, eigene `.mcm` lassen sich einlesen
+- Über 300 Fonts mit Suche und Gruppenfilter, eigene `.mcm` lassen sich einlesen und bleiben im Browser
 - Pack aus Basis-Font und einzelnen Bereichen, Startlogo inklusive
 - Startlogo zeichnen oder ein Bild umrechnen, Export als BMP und im Font
 - OSD-Layout als Raster mit Ziehen, Rasterfang und CLI-Ausgabe
@@ -128,7 +129,7 @@ dem Pfeilkreis im Kopf der Übersichtsseite holt die veröffentlichte
 antwortet er mit einem Hinweis und sonst nichts. Die Prüfung läuft nur auf Klick, im
 Hintergrund fragt die Seite nichts ab.
 
-Die eigenen Daten bleiben dabei: Copter-Liste und Tuner-Stand liegen im localStorage des
+Die eigenen Daten bleiben dabei: Copter-Liste, Bilder, Logs und Fonts liegen im Speicher des
 Browsers, nicht in den HTML-Dateien. Wer die neue Fassung im selben Ordner über die alte
 legt, behält beides, eine Sicherung ist dafür nicht nötig. Nur wenn der Ordner wandert, vorher
 exportieren: in Hangar Deck als JSON, im Tuner Plan und Manifest. Über GitHub Pages ist ohnehin immer der letzte
@@ -153,21 +154,21 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [FlowState Hangar Deck](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) | [FlowState Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.3) | [OSD Customizer](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.3) |
+| | [FlowState Hangar Deck](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.2) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.5) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) | [FlowState Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.3) | [OSD Customizer](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.4) |
 |---|---|---|---|---|---|
-| Version | `v1.0.0-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` | `v0.2.0-beta.3` | `v0.1.0-beta.3` |
+| Version | `v1.0.0-beta.2` | `v4.8-alpha.5` | `v1.0.2-beta.20-es` | `v0.2.0-beta.3` | `v0.1.0-beta.4` |
 | Kanal | Beta | Alpha | Beta | Beta | Beta |
-| Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 | 19.11.2026 | 19.11.2026 |
-| Größe (Bytes) | 142.244 | 496.882 | 7.700.211 | 223.016 | 4.271.843 |
-| SHA-256 | `dc02574ed46c162dd79483426200d158bfd7402fcd24a268862911cc19feacad` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` | `a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d` | `377aaefb25659e25111e673666cfff9b25110c244afd16bc2af2acd5e9c63ab2` |
+| Datum | 19.11.2026 | 19.11.2026 | 03.11.2026 | 19.11.2026 | 19.11.2026 |
+| Größe (Bytes) | 145.797 | 502.177 | 7.700.211 | 223.016 | 4.273.766 |
+| SHA-256 | `f2f09d61d479b1ee8be970ac8c010ddce950f26be2d2ba75ef2c53b3284e3bab` | `c93a391b6676409530c1c16f6c7543b789c579c2a24a67211767ee79baa2648a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` | `a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d` | `60bd4b109997d26f6cf4e5352497fcdc22a8c4088851a38919907eb16528dac4` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, `sha256sum presets/index.html`, `sha256sum osd/index.html`,
 jeweils gefolgt vom erwarteten Wert aus der Tabelle.
 
 Presets und OSD führen den Programmnamen im Tag (`presets-v0.2.0-beta.3`,
-`osd-v0.1.0-beta.3`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
-Der Hangar Deck trägt sein Release ohne Vorsatz: `v1.0.0-beta.1`. Die alten Tags bleiben,
+`osd-v0.1.0-beta.4`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
+Der Hangar Deck trägt sein Release ohne Vorsatz: `v1.0.0-beta.2`. Die alten Tags bleiben,
 wie sie sind.
 
 Gemeinsam geändert: die Farbe reist als `?theme=ocean|sand|drakn` in der Adresse mit, der
@@ -262,7 +263,7 @@ reads the published `assets/data/versions.json` and lists every program row that
 Without a connection it says so and nothing else. The check runs on click only, nothing is
 requested in the background.
 
-Your own data stays: the quad list and the tuner state live in the browser's localStorage,
+Your own data stays: the quad list, pictures, logs and fonts live in the browser's storage,
 not in the HTML files. Dropping a new version over the old one in the same folder keeps both,
 no backup needed. Only if the folder moves, export first: JSON in Hangar Deck, plan and
 manifest in the tuner. Over

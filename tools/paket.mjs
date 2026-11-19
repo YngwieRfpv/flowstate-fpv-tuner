@@ -30,7 +30,9 @@ function dirOf(value) {
 }
 
 function packName(item) {
-  return item.pack || dirOf(item.path) + (item.name || item.id) + '.html';
+  const base = item.pack || dirOf(item.path) + (item.name || item.id) + '.html';
+  const release = (data.releases || []).find((item2) => item2.program === item.id);
+  return release && release.version ? base.replace(/\.html$/, '-' + release.version + '.html') : base;
 }
 
 const PAGES = {};

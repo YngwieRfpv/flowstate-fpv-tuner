@@ -2006,17 +2006,68 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
      sowie native MCM-Fonts von Betaflight/iNAV/ArduPilot. Raster-Glyphen
      werden zentriert in die 12x18-Zelle gelegt, optional 2x hoch ("Tall")
      und mit 1px schwarzem Rand. MCM-Fonts behalten ihre Originalpixel.       */
-  /* Importierte .mcm-Fonts liegen getrennt vom State, damit der localStorage
-     nicht durch viele 27-KB-Fonts überfüllt wird.                              */
+  /* Importierte .mcm-Fonts liegen in IndexedDB. Der kleine Schluessel-Wertspeicher
+     des Browsers fasst nur wenige Megabyte fuer die ganze Seite, damit waren nach
+     wenigen 27-KB-Fonts die naechsten weg. IndexedDB hat Platz in der Groessen-
+     ordnung des freien Speichers. Wo IndexedDB fehlt (etwa bei file://), bleibt
+     der alte Weg ueber localStorage.                                           */
   const IMPORT_KEY = 'bfOsdLab.fontImports.v1';
+  const IMPORT_DB = 'flowstate-osd';
   let importedFonts = [];
-  try { importedFonts = JSON.parse(localStorage.getItem(IMPORT_KEY) || '[]'); } catch (e) { importedFonts = []; }
-  if (!Array.isArray(importedFonts)) importedFonts = [];
+  let importWrite = null;
+  function importStore(mode, run) {
+    return new Promise((res, rej) => {
+      if (!window.indexedDB) return rej(new Error('no idb'));
+      const req = window.indexedDB.open(IMPORT_DB, 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains('fonts')) db.createObjectStore('fonts');
+      };
+      req.onsuccess = () => {
+        const db = req.result;
+        try {
+          const tx = db.transaction('fonts', mode), store = tx.objectStore('fonts');
+          const got = run(store);
+          tx.oncomplete = () => res(got && got.result !== undefined ? got.result : true);
+          tx.onerror = () => rej(tx.error || new Error('tx'));
+        } catch (e) { rej(e); }
+        /* Verbindung wieder schliessen, sonst blockiert sie das naechste Oeffnen. */
+        db.close();
+      };
+      req.onerror = () => rej(req.error || new Error('idb'));
+    });
+  }
+  function loadImports() {
+    try { importedFonts = JSON.parse(localStorage.getItem(IMPORT_KEY) || '[]'); } catch (e) { importedFonts = []; }
+    if (!Array.isArray(importedFonts)) importedFonts = [];
+    /* Aus der grossen Ablage nachziehen, falls dort mehr liegt. */
+    importStore('readonly', st => st.getAll()).then(rows => {
+      if (Array.isArray(rows) && rows.length && rows.length >= importedFonts.length) {
+        importedFonts = rows;
+        /* Kein Spiegel in den kleinen Speicher: genau der war zu klein. */
+        try { localStorage.removeItem(IMPORT_KEY); } catch (e) {}
+        if (typeof renderAll === 'function') renderAll();
+      }
+    }).catch(() => {});
+  }
   function allFonts() { return ALL_FONTS.concat(importedFonts); }
   function saveImports() {
-    try { localStorage.setItem(IMPORT_KEY, JSON.stringify(importedFonts.slice(-8))); }
-    catch (e) { /* Speicher kann blockiert sein: Fonts bleiben in dieser Sitzung */ }
+    const keep = importedFonts.slice(-8);
+    importWrite = importStore('readwrite', st => {
+      st.clear();
+      keep.forEach((f, i) => st.put(f, i));
+      return true;
+    }).then(() => {
+      /* Kleiner Speicher nur noch als Rueckfall, damit ein alter Stand nicht stehen bleibt. */
+      try { localStorage.removeItem(IMPORT_KEY); } catch (e) {}
+      return true;
+    }).catch(() => {
+      try { localStorage.setItem(IMPORT_KEY, JSON.stringify(keep)); } catch (e) {}
+      return false;
+    });
+    return importWrite;
   }
+  loadImports();
 
   function readyFont(id) { return allFonts().find(f => f.id === id) || ALL_FONTS[0]; }
   const readyCache = {};
@@ -3164,8 +3215,6 @@ FONT_GROUPS.splice(1, 0, { id:'special', label:'Spezial / Community' });
     });
     const ws = $('#workspace'); if (ws) ws.classList.toggle('osd-compact', state.tab === 'osd' && !state.showOsdEditor);
     const rf = readyFont(state.fontId);
-    const sg = $('#statusGrid'); if (sg) sg.innerHTML = `<b>${state.standard} ${state.cols}×${state.rows}</b>`;
-    const sf = $('#statusFont'); if (sf) sf.innerHTML = `<b>${esc(rf.name)}</b>`;
     const sfs = $('#statusFontShort'); if (sfs) sfs.textContent = rf.name.split(' ')[0].toUpperCase();
     const sc = $('#statusCoords'); if (sc) sc.textContent = `${state.cols} × ${state.rows}`;
     $('#statusMode').innerHTML = `MODUS <b>${({ osd:'EXPORT', logo:'STARTUP-LOGO', font:'FONT-LAB', pack:'FONT-PACK', convert:'KONVERTER' })[state.tab]}</b>`;
