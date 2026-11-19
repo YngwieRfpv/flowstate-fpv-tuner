@@ -2,7 +2,7 @@
 // Nach jeder Änderung an versions.json neu erzeugen.
 window.FLOWSTATE_DATA = {
   "schema": 4,
-  "updated": "2026-11-03",
+  "updated": "2026-11-19",
   "programs": [
     {
       "id": "hangar",
@@ -188,6 +188,132 @@ window.FLOWSTATE_DATA = {
         "guide/assets/flowstate-guide-wordmark.png",
         "guide/assets/yngwierfpv-footer.png"
       ]
+    },
+    {
+      "id": "presets",
+      "name": "FlowState Presets",
+      "accent": "mint",
+      "path": "presets/",
+      "kind": {
+        "de": "Presets für Schalter, Beeper, OSD, Raten und Anpassungen",
+        "en": "Presets for switches, beeper, OSD, rates and adjustments",
+        "es": "Presets para interruptores, beeper, OSD, rates y ajustes"
+      },
+      "description": {
+        "de": "Baut aus Bausteinen eine CLI-Datei für Betaflight: Schalterbelegung, Beeper, OSD-Profile, Anpassungen und Raten. Der Block endet mit save und lässt sich kopieren, als Datei sichern oder über Web Serial in die Konsole schreiben. Vorher prüft das Werkzeug die Eingaben und nennt offene Punkte. PID, Filter und Motoren kommen nicht vor.",
+        "en": "Builds a CLI file for Betaflight from parts: switches, beeper, OSD profiles, adjustments and rates. The block ends with save and can be copied, saved as a file or written to the console over Web Serial. The tool checks the entries first and names what is still open. PID, filters and motors are not part of it.",
+        "es": "Arma un archivo CLI para Betaflight con piezas: interruptores, beeper, perfiles OSD, ajustes y rates. El bloque termina en save y se puede copiar, guardar como archivo o escribir en la consola por Web Serial. Antes revisa los datos y nombra lo que falta. PID, filtros y motores no aparecen."
+      },
+      "highlights": {
+        "de": [
+          "Schalter, Beeper, OSD, Anpassungen und Raten in einem Ablauf",
+          "Fertiger Block endet mit save, kopierbar oder über USB",
+          "Prüfung vor dem Schreiben, offene Punkte einzeln benannt",
+          "Mehrere Modelle getrennt, jedes mit eigenem Stand",
+          "Deutsch, Englisch und Spanisch, Ozean, Sand und Drakn",
+          "Eine HTML-Datei, keine fremden Ressourcen"
+        ],
+        "en": [
+          "Switches, beeper, OSD, adjustments and rates in one flow",
+          "Finished block ends with save, ready to copy or send over USB",
+          "Check before writing, open points named one by one",
+          "Several models kept apart, each with its own state",
+          "German, English and Spanish, Ocean, Sand and Drakn",
+          "One HTML file, no external resources"
+        ],
+        "es": [
+          "Interruptores, beeper, OSD, ajustes y rates en un flujo",
+          "El bloque terminado acaba en save, listo para copiar o enviar por USB",
+          "Revisión antes de escribir, lo pendiente se nombra por separado",
+          "Varios modelos separados, cada uno con su estado",
+          "Alemán, inglés y español, Ocean, Sand y Drakn",
+          "Un solo archivo HTML, sin recursos externos"
+        ]
+      },
+      "meta": {
+        "de": [
+          "1 Datei · 156 KB",
+          "Schalter, Beeper, OSD, Raten",
+          "Web Serial in Chrome, Edge, Opera"
+        ],
+        "en": [
+          "1 file · 156 KB",
+          "switches, beeper, OSD, rates",
+          "Web Serial in Chrome, Edge, Opera"
+        ],
+        "es": [
+          "1 archivo · 156 KB",
+          "interruptores, beeper, OSD, rates",
+          "Web Serial en Chrome, Edge, Opera"
+        ]
+      },
+      "enabled": true,
+      "entry": "index.html",
+      "pack": "presets/FlowState-Presets.html",
+      "icon": "presets"
+    },
+    {
+      "id": "osd",
+      "name": "OSD Customizer",
+      "accent": "sky",
+      "path": "osd/",
+      "kind": {
+        "de": "Fonts und Startlogo für das Betaflight-OSD",
+        "en": "Fonts and startup logo for the Betaflight OSD",
+        "es": "Fuentes y logo de arranque para el OSD de Betaflight"
+      },
+      "description": {
+        "de": "Werkbank für MAX7456-Zeichensätze: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32, ein Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Die Arbeitsfläche bleibt absichtlich hart gepixelt, 12×18 mit zwei Bit.",
+        "en": "Workbench for MAX7456 character sets: search more than 300 fonts, edit glyphs pixel by pixel, mix areas from different fonts and export .mcm. Plus the startup logo at 288×72 or 32×32, an image converter and the OSD layout as a grid with CLI output. The canvas stays deliberately hard-pixelled, 12×18 with two bits.",
+        "es": "Banco de trabajo para juegos de caracteres MAX7456: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes y exporta .mcm. Además el logo de arranque en 288×72 o 32×32, un conversor de imágenes y el diseño OSD como rejilla con salida CLI. El lienzo sigue a propósito con píxeles duros, 12×18 y dos bits."
+      },
+      "highlights": {
+        "de": [
+          "Über 300 Fonts durchsuchen, nach Gruppe filtern, eigene .mcm einlesen",
+          "Pack bauen: Basis-Font, einzelne Bereiche aus anderen Fonts, Startlogo",
+          "Startlogo zeichnen oder ein Bild umrechnen, als BMP und im Font",
+          "OSD-Layout als Raster mit Ziehen, Rasterfang und CLI-Ausgabe",
+          "Deutsch, Englisch und Spanisch, Ozean, Sand und Drakn",
+          "Eine HTML-Datei, keine fremden Ressourcen"
+        ],
+        "en": [
+          "Search more than 300 fonts, filter by group, load your own .mcm",
+          "Build a pack: base font, single areas from other fonts, startup logo",
+          "Draw the startup logo or convert an image, as BMP and inside the font",
+          "OSD layout as a grid with dragging, snapping and CLI output",
+          "German, English and Spanish, Ocean, Sand and Drakn",
+          "One HTML file, no external resources"
+        ],
+        "es": [
+          "Busca entre más de 300 fuentes, filtra por grupo, carga tu propio .mcm",
+          "Arma un paquete: fuente base, zonas de otras fuentes, logo de arranque",
+          "Dibuja el logo o convierte una imagen, como BMP y dentro de la fuente",
+          "Diseño OSD como rejilla con arrastre, ajuste y salida CLI",
+          "Alemán, inglés y español, Ocean, Sand y Drakn",
+          "Un solo archivo HTML, sin recursos externos"
+        ]
+      },
+      "meta": {
+        "de": [
+          "1 Datei · 4,3 MB",
+          "Fonts, Logo, OSD-Raster",
+          "jeder moderne Browser"
+        ],
+        "en": [
+          "1 file · 4.3 MB",
+          "fonts, logo, OSD grid",
+          "any modern browser"
+        ],
+        "es": [
+          "1 archivo · 4,3 MB",
+          "fuentes, logo, rejilla OSD",
+          "cualquier navegador actual"
+        ]
+      },
+      "enabled": true,
+      "entry": "index.html",
+      "pack": "osd/FlowState-OSD-Customizer.html",
+      "icon": "osd"
     }
   ],
   "releases": [
@@ -534,6 +660,220 @@ window.FLOWSTATE_DATA = {
           "El español sigue siendo una vista previa sin revisar",
           "Los valores dependen del firmware y del hardware",
           "No cambiar el contenido ni el orden de Sbang"
+        ]
+      }
+    },
+    {
+      "id": "presets-0.2.0-beta.1",
+      "program": "presets",
+      "version": "v0.2.0-beta.1",
+      "channel": "beta",
+      "released": "2026-11-19",
+      "title": {
+        "de": "Erster Stand: Presets für Schalter, Beeper, OSD, Raten und Anpassungen",
+        "en": "First build: presets for switches, beeper, OSD, rates and adjustments",
+        "es": "Primera versión: presets para interruptores, beeper, OSD, rates y ajustes"
+      },
+      "summary": {
+        "de": "Der Preset-Bauer sammelt die Bereiche, die man gefahrlos weitergeben kann: Schalterbelegung, Beeper, OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit save, den man kopiert, als Datei sichert oder über Web Serial in die Konsole schreibt. Vorher läuft eine Prüfung, die fehlende oder widersprüchliche Angaben einzeln nennt. PID, Filter und Motoren sind nicht Teil des Werkzeugs.",
+        "en": "The preset builder collects the parts that are safe to pass on: switches, beeper, OSD profiles, adjustments and rates. It ends in a CLI block with save that you copy, save as a file or write to the console over Web Serial. A check runs first and names missing or conflicting entries one by one. PID, filters and motors are not part of the tool.",
+        "es": "El creador de presets reúne las partes que se pueden pasar sin riesgo: interruptores, beeper, perfiles OSD, ajustes y rates. Termina en un bloque CLI con save que se copia, se guarda como archivo o se escribe en la consola por Web Serial. Antes corre una revisión que nombra uno por uno los datos que faltan o se contradicen. PID, filtros y motores no forman parte de la herramienta."
+      },
+      "file": "presets/index.html",
+      "size_bytes": 160067,
+      "sha256": "6b95b5ef1bfa8577a17193bbc864d59b30d46d6a935b7179bd3c6e06b421f1fd",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.1",
+      "signals": [
+        {
+          "label": {
+            "de": "Schalter und Beeper",
+            "en": "Switches and beeper",
+            "es": "Interruptores y beeper"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "OSD-Profile",
+            "en": "OSD profiles",
+            "es": "Perfiles OSD"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN",
+            "es": "Idioma DE/EN"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Schreiben per USB",
+            "en": "Writing over USB",
+            "es": "Escritura por USB"
+          },
+          "state": "open"
+        },
+        {
+          "label": {
+            "de": "Flugtest",
+            "en": "Flight test",
+            "es": "Prueba de vuelo"
+          },
+          "state": "open"
+        }
+      ],
+      "notes": {
+        "de": [
+          "Schalter, Beeper, OSD, Anpassungen und Raten in einem Ablauf",
+          "Fertige CLI endet mit save, Kopieren und Datei-Export liegen daneben",
+          "Prüfung vor dem Schreiben, offene Punkte einzeln benannt",
+          "Mehrere Modelle getrennt, gespeichert unter flowstate.presets.v1",
+          "Farbe und Sprache kommen aus der Adresse oder aus der Übersicht"
+        ],
+        "en": [
+          "Switches, beeper, OSD, adjustments and rates in one flow",
+          "The finished CLI ends with save, copy and file export sit next to it",
+          "Check before writing, open points named one by one",
+          "Several models kept apart, stored under flowstate.presets.v1",
+          "Colour and language come from the address or from the overview"
+        ],
+        "es": [
+          "Interruptores, beeper, OSD, ajustes y rates en un flujo",
+          "La CLI terminada acaba en save, copiar y exportar están al lado",
+          "Revisión antes de escribir, lo pendiente se nombra por separado",
+          "Varios modelos separados, guardados en flowstate.presets.v1",
+          "El color y el idioma vienen de la dirección o de la portada"
+        ]
+      },
+      "limits": {
+        "de": [
+          "Schreiben in die Konsole braucht Chrome, Edge oder Opera",
+          "Spanisch ist übersetzt, aber nicht durchgesehen",
+          "Kein PID, keine Filter, keine Motoren: dafür ist der Tuner da",
+          "Über file:// kann der Browser den Speicher sperren"
+        ],
+        "en": [
+          "Writing to the console needs Chrome, Edge or Opera",
+          "Spanish is translated but not reviewed",
+          "No PID, no filters, no motors: that is the tuner's job",
+          "Over file:// the browser may block storage"
+        ],
+        "es": [
+          "Escribir en la consola necesita Chrome, Edge u Opera",
+          "El español está traducido pero no revisado",
+          "Sin PID, sin filtros, sin motores: eso lo hace el tuner",
+          "Con file:// el navegador puede bloquear el almacenamiento"
+        ]
+      }
+    },
+    {
+      "id": "osd-0.1.0-beta.1",
+      "program": "osd",
+      "version": "v0.1.0-beta.1",
+      "channel": "beta",
+      "released": "2026-11-19",
+      "title": {
+        "de": "Erster Stand: Fonts, Startlogo und OSD-Layout in einer Datei",
+        "en": "First build: fonts, startup logo and OSD layout in one file",
+        "es": "Primera versión: fuentes, logo de arranque y diseño OSD en un archivo"
+      },
+      "summary": {
+        "de": "Der OSD Customizer sammelt die Arbeit am Zeichensatz des Flight Controllers: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts zu einem Pack mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32 mit Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Farbe und Sprache kommen aus der Übersicht oder aus der Adresse.",
+        "en": "The OSD Customizer collects the work on the flight controller character set: search more than 300 fonts, edit glyphs pixel by pixel, mix areas from different fonts into a pack and export .mcm. Plus the startup logo at 288×72 or 32×32 with an image converter and the OSD layout as a grid with CLI output. Colour and language come from the overview or from the address.",
+        "es": "El OSD Customizer reúne el trabajo sobre el juego de caracteres de la controladora: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes en un paquete y exporta .mcm. Además el logo de arranque en 288×72 o 32×32 con conversor de imágenes y el diseño OSD como rejilla con salida CLI. El color y el idioma vienen de la portada o de la dirección."
+      },
+      "file": "osd/index.html",
+      "size_bytes": 4280924,
+      "sha256": "fcfd7647207fe5cfdc38eef53d4ebe47903230cbd275d8d5ef5e56ecbf64fd61",
+      "available": true,
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.1",
+      "signals": [
+        {
+          "label": {
+            "de": "Font-Bibliothek",
+            "en": "Font library",
+            "es": "Biblioteca de fuentes"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Startlogo",
+            "en": "Startup logo",
+            "es": "Logo de arranque"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Sprache DE/EN",
+            "en": "Language DE/EN",
+            "es": "Idioma DE/EN"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "Import eigener .mcm",
+            "en": "Own .mcm import",
+            "es": "Importar .mcm propio"
+          },
+          "state": "ok"
+        },
+        {
+          "label": {
+            "de": "OSD-Layout",
+            "en": "OSD layout",
+            "es": "Diseño OSD"
+          },
+          "state": "open"
+        }
+      ],
+      "notes": {
+        "de": [
+          "Über 300 Fonts mit Gruppenfilter, Suche und eigener .mcm-Import",
+          "Pack aus Basis-Font und einzelnen Bereichen, Startlogo inklusive",
+          "Startlogo zeichnen oder ein Bild umrechnen, Export als BMP",
+          "OSD-Layout als Raster mit Ziehen, Rasterfang und CLI-Ausgabe",
+          "Farbe und Sprache kommen aus der Adresse oder aus der Übersicht"
+        ],
+        "en": [
+          "More than 300 fonts with group filter, search and own .mcm import",
+          "Pack from a base font and single areas, startup logo included",
+          "Draw the startup logo or convert an image, export as BMP",
+          "OSD layout as a grid with dragging, snapping and CLI output",
+          "Colour and language come from the address or from the overview"
+        ],
+        "es": [
+          "Más de 300 fuentes con filtro por grupo, búsqueda e importación .mcm",
+          "Paquete con fuente base y zonas sueltas, logo de arranque incluido",
+          "Dibuja el logo o convierte una imagen, exportación como BMP",
+          "Diseño OSD como rejilla con arrastre, ajuste y salida CLI",
+          "El color y el idioma vienen de la dirección o de la portada"
+        ]
+      },
+      "limits": {
+        "de": [
+          "4,3 MB in einer Datei: der erste Aufruf dauert einen Moment",
+          "Das OSD-Layout ist bewusst untergeordnet",
+          "Spanisch ist übersetzt, aber nicht durchgesehen",
+          "Über file:// kann der Browser den Speicher sperren"
+        ],
+        "en": [
+          "4.3 MB in one file: the first load takes a moment",
+          "The OSD layout stays deliberately secondary",
+          "Spanish is translated but not reviewed",
+          "Over file:// the browser may block storage"
+        ],
+        "es": [
+          "4,3 MB en un archivo: la primera carga tarda un momento",
+          "El diseño OSD queda a propósito en segundo plano",
+          "El español está traducido pero no revisado",
+          "Con file:// el navegador puede bloquear el almacenamiento"
         ]
       }
     }

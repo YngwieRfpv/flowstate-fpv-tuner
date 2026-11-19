@@ -1,7 +1,8 @@
 # [FlowState FPV](https://yngwierfpv.github.io/flowstate-fpv-tuner/)
 
-Copter-Liste führen, Blackbox-Logs auswerten, Werte nachschlagen. Das läuft im Browser,
-ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.
+Copter-Liste führen, Blackbox-Logs auswerten, Werte nachschlagen, Presets bauen, OSD-Fonts
+bearbeiten. Das läuft im Browser, ohne Installation und ohne Konto, und einmal geladen ohne
+Verbindung.
 
 ---
 
@@ -48,6 +49,32 @@ sechs Schritten. Werte und Tabellen richten sich nach dem eingestellten Copterpr
 Die Verweise im Text führen absichtlich nach außen und brauchen Internet. Der Inhalt selbst
 braucht es nicht. Quellen und Lizenzangaben bleiben im Dokument stehen.
 
+## [FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)
+
+[`presets/index.html`](presets/index.html) · 156 KB · Schalter, Beeper, OSD, Raten und Anpassungen als CLI
+
+Sammelt die Bereiche, die man gefahrlos weitergeben kann: Schalterbelegung, Beeper,
+OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit `save`.
+
+- Prüfung vor dem Schreiben, offene oder widersprüchliche Angaben werden einzeln genannt
+- Kopieren, als Datei sichern oder über Web Serial in die Konsole schreiben
+- Mehrere Modelle getrennt, jedes mit eigenem Stand
+- PID, Filter und Motoren kommen nicht vor; dafür ist der Tuner da
+- Deutsch, Englisch und Spanisch
+
+## [OSD Customizer](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)
+
+[`osd/index.html`](osd/index.html) · 4,3 MB · Fonts, Startlogo und Layout für das Betaflight-OSD
+
+Werkbank für die MAX7456-Zeichensätze des Flight Controllers. Die Arbeitsfläche bleibt
+absichtlich hart gepixelt: 12×18 mit zwei Bit, damit die Fonts so aussehen wie im OSD.
+
+- Über 300 Fonts mit Suche und Gruppenfilter, eigene `.mcm` lassen sich einlesen
+- Pack aus Basis-Font und einzelnen Bereichen, Startlogo inklusive
+- Startlogo zeichnen oder ein Bild umrechnen, Export als BMP und im Font
+- OSD-Layout als Raster mit Ziehen, Rasterfang und CLI-Ausgabe
+- Deutsch, Englisch und Spanisch
+
 ---
 
 ## Öffnen und herunterladen
@@ -63,7 +90,9 @@ Browser den Speicher sperren; dann gelten Änderungen nur für die laufende Sitz
 Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner/),
 [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/),
 [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
-[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/).
+[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/),
+[FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/),
+[OSD Customizer](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/).
 
 *Alles herunterladen* auf der Startseite packt ein ZIP mit allem in einem Ordner
 `FlowState-FPV`: die Startseite, alle Programme, `README.md`, `README.html`, `LICENSE`
@@ -81,6 +110,8 @@ Im Ordner liegt keine Datei namens `index.html`. Die Namen sagen, was läuft:
 | `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
 | `tuner/FlowState-Tuner.html` | FlowState Tuner |
 | `guide/FPV-Guide.html` | FPV Guide |
+| `presets/FlowState-Presets.html` | FlowState Presets |
+| `osd/FlowState-OSD-Customizer.html` | OSD Customizer |
 
 Entpackt die `FlowState-FPV.html` öffnen. Jedes Programm lässt sich auch allein öffnen, ohne
 die Übersicht, und als Lesezeichen ablegen. Über `file://` starten die Programme aus der
@@ -121,20 +152,26 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.6-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) |
-|---|---|---|---|
-| Version | `v0.9.6-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` |
-| Kanal | Beta | Alpha | Beta |
-| Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 |
-| Größe (Bytes) | 155.603 | 496.882 | 7.700.211 |
-| SHA-256 | `5aa0ac2ca1da32ece127104819218be0f9709a2fecd7ae34653158859e055d95` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` |
+| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.6-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) | [FlowState Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.1) | [OSD Customizer](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.1) |
+|---|---|---|---|---|---|
+| Version | `v0.9.6-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` | `v0.2.0-beta.1` | `v0.1.0-beta.1` |
+| Kanal | Beta | Alpha | Beta | Beta | Beta |
+| Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 | 19.11.2026 | 19.11.2026 |
+| Größe (Bytes) | 155.603 | 496.882 | 7.700.211 | 160.067 | 4.280.924 |
+| SHA-256 | `5aa0ac2ca1da32ece127104819218be0f9709a2fecd7ae34653158859e055d95` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` | `6b95b5ef1bfa8577a17193bbc864d59b30d46d6a935b7179bd3c6e06b421f1fd` | `fcfd7647207fe5cfdc38eef53d4ebe47903230cbd275d8d5ef5e56ecbf64fd61` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
-`sha256sum guide/index.html`, jeweils gefolgt vom erwarteten Wert aus der Tabelle.
+`sha256sum guide/index.html`, `sha256sum presets/index.html`, `sha256sum osd/index.html`,
+jeweils gefolgt vom erwarteten Wert aus der Tabelle.
+
+Die beiden neuen Werkzeuge führen den Programmnamen im Tag (`presets-v0.2.0-beta.1`,
+`osd-v0.1.0-beta.1`). GitHub trennt Tags nicht nach Programm, und `v0.1.0-beta.1` ist schon
+von einem früheren Hangar-Stand belegt. Die drei bestehenden Tags bleiben, wie sie sind.
 
 Gemeinsam geändert: die Farbe reist als `?theme=ocean|sand|drakn` in der Adresse mit, der
-Umschalter steht überall in der Reihenfolge HangarDeck, Tuner, Guide, und ein offenes
-Programm zieht nach, sobald in der Übersicht eine andere Farbe oder Sprache gewählt wird.
+Umschalter steht überall in der Reihenfolge HangarDeck, Tuner, Guide, Presets, OSD Customizer,
+und ein offenes Programm zieht nach, sobald in der Übersicht eine andere Farbe oder Sprache
+gewählt wird.
 
 ## Lizenz
 
@@ -148,14 +185,20 @@ auf Deutsch und Englisch in [`LICENSE`](LICENSE).
 
 ## English
 
-Keep the quad list, read blackbox logs, look up values. It runs in the browser, without an
-install and without an account, and once loaded it works offline.
+Keep the quad list, read blackbox logs, look up values, build presets, edit OSD fonts. It runs
+in the browser, without an install and without an account, and once loaded it works offline.
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
 | **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 156 KB | Keep the quad list, presets, read the flight controller |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
+| **[FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 156 KB | Switches, beeper, OSD, rates and adjustments as CLI |
+| **[OSD Customizer](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)** | [`osd/index.html`](osd/index.html) | 4.3 MB | Fonts, startup logo and layout for the Betaflight OSD |
+
+Both new tools end in a file you hand to the flight controller, not in a screen you read.
+FlowState Presets builds a CLI block that ends with `save`; the OSD Customizer writes
+`.mcm` fonts and BMP logos. Neither touches PID, filters or motors.
 
 Downloading is optional. The programs also run right on the overview page, in the frame
 below the header. The page itself comes from the network; without a connection the programs
@@ -179,6 +222,8 @@ No file in the folder is called `index.html`. The names say what runs:
 | `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
 | `tuner/FlowState-Tuner.html` | FlowState Tuner |
 | `guide/FPV-Guide.html` | FPV Guide |
+| `presets/FlowState-Presets.html` | FlowState Presets |
+| `osd/FlowState-OSD-Customizer.html` | OSD Customizer |
 
 Unzip it and open `FlowState-FPV.html`. Each program also opens on its own, without the
 overview, and can be kept as a bookmark. Over `file://` the programs start from the overview

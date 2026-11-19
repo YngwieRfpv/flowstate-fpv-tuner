@@ -1,0 +1,2792 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#093840">
+<meta name="description" content="FPV Preset Manager – Beeper, OSD-Profile, VTX und Failsafe für Betaflight als sauberes CLI, mit Validator. Läuft offline in einer Datei.">
+<title>FlowState Presets — FPV Preset Manager</title>
+<style>
+
+/* ===== Farbschemata (aus deinen Adobe-Color-Paletten) ===== */
+:root,html[data-theme="ocean"]{
+  /* Ocean: #093840 #155b5b #1e746b #258c71 #2ca387
+     Flächen, Linien und Texttöne sind ausschließlich aus diesen fünf Werten gemischt. */
+  --bg:#093840;
+  --glow1:color-mix(in srgb,#155b5b 55%,#093840);
+  --glow2:color-mix(in srgb,#1e746b 42%,#093840);
+  --panel:color-mix(in srgb,#155b5b 24%,#093840);
+  --panel2:color-mix(in srgb,#155b5b 40%,#093840);
+  --field:color-mix(in srgb,#093840 82%,#000);
+  --line:#155b5b;--line2:#1e746b;
+  --text:color-mix(in srgb,#fff 94%,#2ca387);
+  --muted:color-mix(in srgb,#fff 62%,#258c71);
+  --dim:color-mix(in srgb,#fff 42%,#1e746b);
+  --strong:#fff;
+  --accent:#2ca387;--accent-d:#258c71;
+  --accent-text:color-mix(in srgb,#2ca387 50%,#fff);
+  --on-accent:color-mix(in srgb,#000 70%,#093840);
+  --accent-soft:color-mix(in srgb,#2ca387 18%,transparent);
+  --accent-ring:color-mix(in srgb,#2ca387 42%,transparent);
+  /* Signalfarben bleiben schemefremd: ein Zustand muss in jedem Schema gleich lesbar sein. */
+  --ok:#2ca387;--warn:#e0a33c;--bad:color-mix(in srgb,#d82828 78%,#fff);
+  --shadow:rgba(0,0,0,.45);--backdrop:color-mix(in srgb,#093840 72%,transparent);
+  --r-xl:20px;--r-lg:16px;--r-md:11px;--r-sm:7px;--r-edge:4px;--r-tile:12px;
+  --logo-a:#2ca387;--logo-b:#1e746b;
+  color-scheme:dark;
+}
+html[data-theme="sand"]{
+  /* Sand (hell): #c9e0f0 #f4f6f5 #c4b69c #f0e6cb #ecbda9
+     Karten liegen als warmer Cremeton auf hellem Grund, Eingaben kühl blau. */
+  --bg:#f4f6f5;
+  --glow1:color-mix(in srgb,#c9e0f0 60%,#f4f6f5);
+  --glow2:color-mix(in srgb,#f0e6cb 72%,#f4f6f5);
+  --panel:color-mix(in srgb,#f0e6cb 32%,#f4f6f5);
+  --panel2:color-mix(in srgb,#f0e6cb 52%,#f4f6f5);
+  --field:color-mix(in srgb,#c9e0f0 22%,#f4f6f5);
+  --line:color-mix(in srgb,#c4b69c 50%,#f4f6f5);--line2:#c4b69c;
+  --text:color-mix(in srgb,#000 80%,#c4b69c);
+  --muted:color-mix(in srgb,#000 52%,#c4b69c);
+  --dim:color-mix(in srgb,#000 42%,#c4b69c);
+  --strong:color-mix(in srgb,#000 90%,#c4b69c);
+  --accent:#ecbda9;--accent-d:color-mix(in srgb,#ecbda9 55%,#c4b69c);
+  --accent-text:color-mix(in srgb,#000 40%,#ecbda9);
+  --on-accent:color-mix(in srgb,#000 76%,#c4b69c);
+  --accent-soft:color-mix(in srgb,#c9e0f0 60%,#f4f6f5);
+  --accent-ring:color-mix(in srgb,#c4b69c 65%,transparent);
+  --ok:color-mix(in srgb,#258c71 78%,#000);--warn:#a9751a;--bad:color-mix(in srgb,#d82828 88%,#000);
+  --shadow:rgba(80,64,40,.18);--backdrop:color-mix(in srgb,#c4b69c 55%,transparent);
+  --r-xl:17px;--r-lg:14px;--r-md:10px;--r-sm:6px;--r-edge:3px;--r-tile:11px;
+  --logo-a:color-mix(in srgb,#000 40%,#ecbda9);--logo-b:#ecbda9;
+  color-scheme:light;
+}
+html[data-theme="drakn"]{
+  /* Drakn: #d82828 #8e1e2c #5a152a #390c2b #140a25 */
+  --bg:#140a25;
+  --glow1:color-mix(in srgb,#390c2b 90%,#140a25);
+  --glow2:color-mix(in srgb,#5a152a 42%,#140a25);
+  --panel:color-mix(in srgb,#390c2b 45%,#140a25);
+  --panel2:color-mix(in srgb,#390c2b 70%,#140a25);
+  --field:color-mix(in srgb,#140a25 86%,#000);
+  --line:#5a152a;--line2:#8e1e2c;
+  --text:color-mix(in srgb,#fff 95%,#d82828);
+  --muted:color-mix(in srgb,#fff 58%,#8e1e2c);
+  --dim:color-mix(in srgb,#fff 46%,#5a152a);
+  --strong:#fff;
+  --accent:#d82828;--accent-d:#8e1e2c;
+  --accent-text:color-mix(in srgb,#d82828 42%,#fff);
+  --on-accent:#fff;
+  --accent-soft:color-mix(in srgb,#d82828 18%,transparent);
+  --accent-ring:color-mix(in srgb,#d82828 45%,transparent);
+  --ok:#2ca387;--warn:#e0a33c;--bad:color-mix(in srgb,#d82828 72%,#fff);
+  --shadow:rgba(0,0,0,.55);--backdrop:color-mix(in srgb,#140a25 78%,transparent);
+  --r-xl:13px;--r-lg:10px;--r-md:8px;--r-sm:5px;--r-edge:2px;--r-tile:8px;
+  --logo-a:#d82828;--logo-b:#8e1e2c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+html{background:var(--bg)}
+body{
+  background:
+    radial-gradient(1100px 620px at 12% -8%, var(--glow1) 0%, transparent 62%),
+    radial-gradient(900px 520px at 100% 0%, var(--glow2) 0%, transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  min-height:100vh;
+  -webkit-text-size-adjust:100%;
+}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.wrap{max-width:1020px;margin:0 auto;padding:26px 18px 90px}
+
+/* Formsprache: Bedienelemente (Buttons, Felder, Suche) gleichmaessig gerundet;
+   tragende Flaechen (Top-Bar, Zeilen, Dialoge, Menues) diagonal gemischt:
+   grosse Rundung (--r-lg/--r-xl) gegenueber kleine Kante (--r-edge) im selben Element.
+   Statuspunkte bleiben Kreise. Je Schema dosiert: Ocean weich, Sand mittel, Drakn straff. */
+/* FlowState masterbrand: unboxed emblem + wordmark, project name subordinate */
+.top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
+  margin-bottom:22px;background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);padding:15px 18px;
+  position:relative}
+/* Der Farbstreifen links folgt der Rundung selbst - frueher beschnitt overflow:hidden
+   die ganze Leiste und damit auch das Exportmenue. */
+.top::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--logo-a),var(--logo-b));
+  border-radius:var(--r-xl) 0 0 var(--r-edge)}
+.brand{display:flex;align-items:center;gap:15px;min-width:0;padding-left:3px}
+.logo{width:56px;height:49px;flex:none;display:grid;place-items:center}
+.logo svg{width:56px;height:49px;display:block;filter:drop-shadow(0 3px 6px var(--shadow))}
+.brand-copy{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.brandline{margin:0;max-width:100%;color:var(--text);font-size:24px;font-weight:640;
+  letter-spacing:-1.35px;line-height:1.12;white-space:nowrap}
+.brandline span{font-weight:370}
+.projectline{display:flex;align-items:center;gap:9px;margin-top:5px}
+.projectline::before{content:"";height:1px;width:18px;background:var(--accent);flex:none}
+h1{font-size:11px;margin:0;letter-spacing:1.9px;font-weight:700;line-height:1.35;text-transform:uppercase;color:var(--accent-text)}
+.sub{margin:0;color:var(--muted);font-size:11px;white-space:nowrap}
+.btn.primary{border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge)}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+
+.btn{appearance:none;border:1px solid var(--line2);background:var(--panel2);color:var(--text);
+  padding:9px 14px;border-radius:var(--r-md);font:inherit;font-size:13.5px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:.14s}
+.btn:hover{border-color:var(--accent);color:var(--text)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(145deg,var(--accent),var(--accent-d));border-color:transparent;color:var(--on-accent);font-weight:650}
+.btn.primary:hover{filter:brightness(1.07);color:var(--on-accent)}
+.btn.ghost{background:transparent}
+.btn.danger:hover{border-color:var(--bad);color:var(--bad)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:var(--r-sm)}
+.btn.cta{padding:12px 22px;font-size:14.5px;box-shadow:0 0 0 5px var(--accent-soft)}
+.btn.cta:hover{box-shadow:0 0 0 7px var(--accent-soft)}
+
+/* Suchzeile */
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+input[type=search],input[type=text],input[type=number],input[type=date],input[type=password],input[type=email],input[type=url],select,textarea{
+  background:var(--field);border:1px solid var(--line);color:var(--text);
+  border-radius:var(--r-md);padding:9px 11px;font:inherit;font-size:14px;width:100%;transition:.14s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+.search{flex:1 1 240px;min-width:190px;position:relative}
+.search input{padding-left:34px}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--dim);fill:none;stroke-width:2}
+.count{color:var(--muted);font-size:13px;white-space:nowrap}
+
+.wrap{max-width:1280px;margin:0 auto;padding:22px 18px 80px}
+
+/* Reiter */
+.tabs{display:flex;gap:6px;margin:0 0 18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab{appearance:none;background:transparent;border:0;border-bottom:2px solid transparent;color:var(--muted);
+  font:inherit;font-size:14px;font-weight:600;padding:11px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;
+  transition:.14s}
+.tab:hover{color:var(--text)}
+.tab[aria-selected=true]{color:var(--accent-text);border-bottom-color:var(--accent)}
+.tab .n{font-size:11px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:1px 7px;color:var(--muted)}
+.tab[aria-selected=true] .n{color:var(--accent-text);border-color:var(--line2)}
+
+/* Layout: links Auswahlmenü, rechts sticky CLI */
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:20px;align-items:start}
+@media (max-width:1080px){ .stage{grid-template-columns:1fr} .cli{position:static!important} }
+
+/* Modell-Karten im Dashboard */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.mcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+  border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);padding:15px 16px;display:grid;gap:12px}
+.mcard h3{margin:0;font-size:16px;font-weight:650;letter-spacing:-.2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mcard .size{font-size:11px;font-weight:700;color:var(--accent-text);border:1px solid var(--line2);
+  border-radius:var(--r-sm);padding:1px 7px;letter-spacing:.4px}
+.checks{display:grid;gap:6px}
+.chk{display:grid;grid-template-columns:14px 1fr auto;gap:9px;align-items:center;font-size:13px;color:var(--text)}
+.chk .dot{width:9px;height:9px;border-radius:50%;background:var(--dim);flex:none;justify-self:center}
+.chk.ok .dot{background:var(--ok)}
+.chk.bad .dot{background:var(--bad)}
+.chk.warn .dot{background:var(--warn)}
+.chk small{color:var(--dim);font-size:11.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.mcard footer{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;padding-top:2px;border-top:1px solid var(--line)}
+.score{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);font-weight:700}
+.emptybox{border:1px dashed var(--line2);border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);
+  padding:28px 20px;text-align:center;color:var(--muted)}
+
+/* Sektionen im Auswahlmenü */
+.sec{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+  border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);margin-bottom:14px;overflow:hidden}
+.sec>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;gap:10px;align-items:center;
+  border-bottom:1px solid transparent;user-select:none}
+.sec>summary::-webkit-details-marker{display:none}
+.sec[open]>summary{border-bottom-color:var(--line)}
+.sec>summary h2{margin:0;font-size:14px;font-weight:650;letter-spacing:-.1px;flex:1;display:flex;gap:9px;align-items:center}
+.sec>summary .ico{width:22px;height:22px;border-radius:var(--r-sm);display:grid;place-items:center;flex:none;
+  background:var(--accent-soft);color:var(--accent-text);font-size:11px;font-weight:800}
+.sec>summary .arrow{color:var(--dim);transition:.18s;font-size:11px}
+.sec[open]>summary .arrow{transform:rotate(90deg)}
+.sec .body{padding:12px 16px 15px;display:grid;gap:9px}
+.sec .note{margin:2px 0 0;font-size:12px;color:var(--muted);line-height:1.5;
+  border-left:2px solid var(--line2);padding-left:10px}
+
+/* Eine Zeile / Karte pro Einstellung */
+.opt{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;
+  padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  background:var(--field);transition:.14s}
+.opt:hover{border-color:var(--line2)}
+.opt .txt{min-width:0}
+.opt .t{font-size:13.5px;font-weight:630;display:flex;gap:8px;align-items:center;flex-wrap:wrap;line-height:1.35}
+.opt .d{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:3px}
+.opt .cmd{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--dim);margin-top:4px;
+  overflow-wrap:anywhere}
+.badge{font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:1px 6px;border-radius:var(--r-edge);flex:none}
+.badge.crit{background:color-mix(in srgb,var(--bad) 22%,transparent);color:var(--bad);border:1px solid color-mix(in srgb,var(--bad) 45%,transparent)}
+.badge.imp{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 45%,transparent)}
+.badge.comf{background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--line2)}
+.opt.crit{border-left:3px solid var(--bad)}
+.opt.imp{border-left:3px solid var(--warn)}
+.opt.comf{border-left:3px solid var(--line2)}
+
+/* Toggle */
+.tg{appearance:none;width:44px;height:25px;flex:none;border-radius:999px;background:var(--field);
+  border:1px solid var(--line2);position:relative;cursor:pointer;transition:.18s;margin-top:2px}
+.tg::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;
+  background:var(--dim);transition:.18s}
+.tg:checked{background:color-mix(in srgb,var(--accent) 34%,transparent);border-color:var(--accent)}
+.tg:checked::after{left:21px;background:var(--accent-text)}
+.tg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* OSD-Profil-Auswahl */
+.profilepicker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.pick{border:1px solid var(--line);background:var(--field);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  padding:10px 12px;cursor:pointer;display:grid;gap:3px;transition:.14s;text-align:left;font:inherit;color:var(--text)}
+.pick:hover{border-color:var(--line2)}
+.pick[aria-pressed=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--field))}
+.pick b{font-size:13px}
+.pick span{font-size:11.5px;color:var(--muted);line-height:1.4}
+.elgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px}
+.el{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:center;font-size:12.5px;
+  border:1px solid var(--line);border-radius:var(--r-sm);padding:6px 9px;background:var(--field)}
+.el span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.el.off{opacity:.55}
+
+/* Validierung */
+.val{border:1px solid var(--line);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  padding:10px 12px;display:grid;gap:7px;background:var(--field)}
+.vrow{display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;font-size:12.5px;line-height:1.45}
+.vrow .m{width:8px;height:8px;border-radius:50%;margin-top:5px}
+.vrow.ok .m{background:var(--ok)}
+.vrow.warn .m{background:var(--warn)}
+.vrow.bad .m{background:var(--bad)}
+.vrow.info .m{background:var(--dim)}
+.vrow b{color:var(--text)}
+.vrow code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:var(--accent-text);
+  background:var(--accent-soft);border-radius:3px;padding:0 4px}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.meta b{color:var(--text)}
+
+/* CLI-Spalte */
+.cli{position:sticky;top:16px;background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line2);border-radius:var(--r-lg) var(--r-edge) var(--r-lg) var(--r-edge);
+  display:flex;flex-direction:column;max-height:calc(100vh - 32px);overflow:hidden}
+.cli header{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;
+  align-items:center;gap:10px;flex-wrap:wrap}
+.cli header h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent-text)}
+.cli .sz{font-size:11px;color:var(--dim);font-family:ui-monospace,Menlo,Consolas,monospace}
+.cli{min-width:0}
+.cli pre{margin:0;padding:12px 14px;overflow:auto;flex:1;min-height:180px;max-width:100%;
+  font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--text);background:var(--field);
+  white-space:pre;tab-size:2}
+.cli pre .c{color:var(--dim)}
+.cli .acts{padding:11px 14px;border-top:1px solid var(--line);display:grid;gap:8px}
+.cli .acts .row2{display:flex;gap:8px}
+.cli .acts .row2 .btn{flex:1;justify-content:center}
+.cli .warnbox{font-size:12px;color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);
+  background:color-mix(in srgb,var(--warn) 10%,transparent);border-radius:var(--r-sm);padding:7px 9px;line-height:1.45}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);background:var(--panel2);
+  color:var(--text);border:1px solid var(--line2);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  padding:10px 16px;font-size:13px;opacity:0;pointer-events:none;transition:.22s;z-index:60;max-width:92vw;
+  box-shadow:0 10px 30px var(--shadow)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast.bad{border-color:var(--bad);color:var(--bad)}
+.toast.ok{border-color:var(--ok)}
+
+/* Dialog */
+dialog{border:0;padding:0;background:transparent;max-width:min(680px,94vw);width:100%;color:var(--text)}
+dialog::backdrop{background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(2px)}
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r-xl) var(--r-edge) var(--r-xl) var(--r-edge);
+  overflow:hidden;max-height:92vh;display:flex;flex-direction:column}
+.card header{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card header h2{margin:0;font-size:16px;font-weight:620}
+.card .body{padding:16px 18px;overflow:auto;display:grid;gap:12px}
+.card footer{padding:13px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.dlgclose{appearance:none;background:transparent;border:0;color:var(--dim);font:inherit;font-size:13px;cursor:pointer;padding:4px}
+.dlgclose:hover{color:var(--text)}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.hint{font-size:11.5px;color:var(--dim);margin:5px 0 0;line-height:1.45}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){ .grid2{grid-template-columns:1fr} }
+textarea{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;resize:vertical}
+input[type=range]{width:100%;accent-color:var(--accent)}
+
+@media (max-width:560px){
+  .top{flex-wrap:wrap}
+  .brand{flex:1 1 100%}
+  .tools{width:100%;justify-content:space-between}
+  .projectline{flex-wrap:wrap}
+  .sub{white-space:normal;white-space:normal}
+  .tabs{overflow-x:auto}
+  .cli pre{font-size:11px}
+}
+
+/* ===== Modulare Fassung: Modes, OSD-Viewer, Adjustments ===== */
+.mrow{border:1px solid var(--line);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  background:var(--field);padding:10px 11px;display:grid;gap:9px}
+.mrow.off{opacity:.62}
+.mrow .head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mrow .head .grow{flex:1;min-width:150px}
+.mrow select{width:100%}
+.mrow .cmd{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.mctl label{font-size:11px;margin:0 0 3px}
+.mctl label b{display:block;font-weight:600;color:var(--muted);margin-bottom:3px;font-size:11px}
+/* PWM-Bereich: farbiger Aktivbereich + zwei Regler */
+.pwmtrack{position:relative;height:15px;border-radius:999px;background:color-mix(in srgb,var(--bg) 78%,#000);
+  border:1px solid var(--line2);overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.45)}
+.pwmhi{position:absolute;top:0;bottom:0;background:linear-gradient(180deg,
+  color-mix(in srgb,var(--accent) 78%,transparent),color-mix(in srgb,var(--accent-d) 72%,transparent));
+  border-left:2px solid var(--accent-text);border-right:2px solid var(--accent-text);min-width:2px;
+  box-shadow:0 0 8px color-mix(in srgb,var(--accent) 55%,transparent)}
+.pwmsliders{display:grid;gap:2px;margin-top:5px}
+.pwmsliders input{margin:0;height:16px}
+.pwmvals{display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim);
+  font-family:ui-monospace,Menlo,Consolas,monospace}
+.pwmrow{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:2px}
+.pwmrow b{color:var(--text);font-family:ui-monospace,Menlo,Consolas,monospace}
+.slotbtn{display:flex;gap:4px;align-items:center}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip2{font-size:10.5px;font-family:ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2);
+  border-radius:999px;padding:1px 7px;color:var(--muted);background:var(--panel2)}
+.chip2 b{color:var(--accent-text)}
+
+/* OSD-Viewer (Brillenbild) */
+.osdwrap{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:12px;align-items:start}
+@media (max-width:960px){ .osdwrap{grid-template-columns:1fr} }
+.fpv{position:relative;width:100%;aspect-ratio:4/3;background:#04090b;border:1px solid var(--line2);
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);overflow:hidden;touch-action:none;
+  cursor:crosshair;box-shadow:inset 0 0 60px rgba(0,0,0,.85)}
+.fpv .noise{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(120,255,225,.07),transparent 62%),
+    radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%)}
+.fpv .grid{position:absolute;inset:0;pointer-events:none;opacity:.22}
+.fpv .xhair{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;pointer-events:none;
+  opacity:.28;background:
+    linear-gradient(to right,transparent 0 11px,#9df5e2 11px 15px,transparent 15px),
+    linear-gradient(to bottom,transparent 0 11px,#9df5e2 11px 15px,transparent 15px)}
+.fpv .safe{position:absolute;inset:3%;border:1px dashed rgba(150,255,235,.22);pointer-events:none;border-radius:4px}
+.ochip{position:absolute;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:#dcfff6;text-shadow:0 0 5px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,1);padding:0 1px;
+  white-space:nowrap;line-height:1.05;cursor:grab;user-select:none;border-radius:3px;
+  outline:1px dashed transparent}
+.ochip:hover{outline-color:rgba(120,255,225,.55)}
+.ochip.sel{outline:1px dashed var(--accent);background:color-mix(in srgb,var(--accent) 20%,transparent);
+  z-index:5}
+.ochip:hover{z-index:6}
+.ochip.drag{cursor:grabbing}
+.ochip:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.olist{display:grid;gap:5px;max-height:360px;overflow:auto;padding-right:2px}
+.erow{display:grid;grid-template-columns:1fr 14px 24px;gap:4px;align-items:center;
+  border:1px solid var(--line);border-radius:var(--r-sm);padding:4px 6px;background:var(--field);
+  font-size:12px;cursor:pointer}
+.erow.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--field))}
+.erow .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.erow .nm small{color:var(--dim);font-size:10.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.pbtn{width:21px;height:19px;border-radius:4px;border:1px solid var(--line2);background:transparent;
+  color:var(--dim);font:inherit;font-size:10px;cursor:pointer;display:grid;place-items:center;padding:0}
+.pbtn[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text);font-weight:700}
+.posrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;max-width:340px}
+
+/* Konfliktliste */
+.issues{display:grid;gap:5px}
+.issue{display:grid;grid-template-columns:12px 1fr;gap:8px;font-size:12px;line-height:1.45;
+  color:var(--muted)}
+.issue .m{width:7px;height:7px;border-radius:50%;margin-top:5px;background:var(--dim)}
+.issue.bad{color:var(--text)}
+.issue.bad .m{background:var(--bad)}
+.issue.warn .m{background:var(--warn)}
+.issue b{color:var(--text);font-weight:640}
+
+/* ===== Kompaktes Beeper-Raster ===== */
+.bgrid{display:grid;gap:10px}
+.bgroup h3{margin:0 0 6px;font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
+  font-weight:750;display:flex;align-items:center;gap:8px}
+.bgroup h3::after{content:"";flex:1;height:1px;background:var(--line);opacity:.7}
+.bgroup.gcrit h3{color:var(--bad)}
+.bgroup.gimp h3{color:var(--warn)}
+.bgrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:7px}
+.bhint{margin:2px 0 0;font-size:11.5px;color:var(--dim)}
+.bextra{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+.bextra>summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;padding:10px 13px;
+  list-style:none;font-size:12.5px;font-weight:640}
+.bextra>summary::-webkit-details-marker{display:none}
+.bextra .bt{flex:none}
+.bextra .bc2{flex:1;min-width:160px;font-size:11.5px;font-weight:400;color:var(--dim);line-height:1.35}
+.bextra .arrow{color:var(--dim);font-size:10px;transition:transform .18s}
+.bextra[open] .arrow{transform:rotate(90deg)}
+.bextra .bbody{padding:0 13px 12px;display:grid;gap:10px}
+.bextra .bgroup h3{color:var(--dim)}
+.btile{position:relative;display:grid;grid-template-columns:1fr auto;gap:3px 8px;align-items:start;
+  border:1px solid var(--line);border-left:3px solid var(--line2);border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);
+  background:var(--field);padding:8px 10px;cursor:pointer;transition:.14s}
+.btile:hover{border-color:var(--line2)}
+.btile.crit{border-left-color:var(--bad)}
+.btile.imp{border-left-color:var(--warn)}
+.btile.comf{border-left-color:var(--line2)}
+.btile.on{background:color-mix(in srgb,var(--accent) 7%,var(--field))}
+.btile .tg{grid-column:2;grid-row:1;margin-top:0}
+.btile .bn{grid-column:1;font-size:12.5px;font-weight:640;line-height:1.25;min-width:0;
+  overflow-wrap:break-word;word-break:normal;hyphens:none}
+.btile .bd{grid-column:1/3;font-size:11.5px;color:var(--muted);line-height:1.4}
+.btile .bc{grid-column:1/3;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;color:var(--dim)}
+
+/* ===== Adjustments: Slider-Zeilen ===== */
+.adjrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){ .adjrow{grid-template-columns:1fr} }
+.adjs{display:block;margin:0}
+.adjs b{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:2px}
+.sl{display:grid;grid-template-columns:1fr 52px;gap:8px;align-items:center}
+.sl input[type=range]{margin:0}
+.sv{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--accent-text);
+  text-align:right;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r-sm);padding:2px 5px}
+.chkline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);cursor:pointer;margin:0}
+.chkline input{margin:2px 0 0;flex:none;accent-color:var(--accent)}
+
+/* ===== Rates: Slider + Kurve ===== */
+.rateswrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);gap:14px;align-items:start}
+@media (max-width:860px){ .rateswrap{grid-template-columns:1fr} }
+.slider{margin-top:9px}
+.chart{width:100%;height:auto;background:color-mix(in srgb,var(--bg) 82%,#000);border:1px solid var(--line2);
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge)}
+.chart .cgrid{stroke:color-mix(in srgb,var(--text) 12%,transparent);stroke-width:1}
+.chart .caxis{stroke:color-mix(in srgb,var(--text) 28%,transparent);stroke-width:1}
+.chart .clin{fill:none;stroke:color-mix(in srgb,var(--text) 32%,transparent);stroke-width:1.4;stroke-dasharray:4 4}
+.chart .ccur{fill:none;stroke:var(--accent-text);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.chart .clbl{fill:var(--dim);font-size:9.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.chartleg{display:flex;gap:6px;align-items:center;font-size:11px;color:var(--dim);margin-top:6px;flex-wrap:wrap}
+.lg{width:14px;height:2px;border-radius:2px;display:inline-block}
+.lg1{background:var(--accent-text)}
+.lg2{background:color-mix(in srgb,var(--text) 32%,transparent);margin-left:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <!-- FlowState-Marke: zwei geschwungene Flügel im Logo-Verlauf -->
+        <svg viewBox="0 0 64 56" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="fsgrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--logo-a)"/>
+            <stop offset="1" stop-color="var(--logo-b)"/>
+          </linearGradient></defs>
+          <g fill="url(#fsgrad)">
+            <path d="M3 34.8C12.2 16.5 23 6.1 42 3.9c5.4-.6 12.3-.4 19-.4-2.7 9.7-9.5 14.2-19.9 14.6-15.1.5-25 5.6-38.1 16.7Z"/>
+            <path d="M1.5 54C9.6 38.1 20.8 29 35.8 27.2c5.4-.6 11.6-.4 17.5-.4-3.7 8.7-10.2 12.1-19.1 12.7C22.4 40.2 14.4 45.3 1.5 54Z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <p class="brandline">Flow<span>State</span></p>
+        <div class="projectline"><h1>Presets</h1><p class="sub" data-i18n="sub">CLI-Generator · Beeper, Modes, OSD</p></div>
+      </div>
+    </div>
+    <div class="tools">
+      <div class="prefs" style="display:flex;gap:8px;align-items:center">
+        <div class="swatches" role="group" id="themes" data-i18n-aria="theme" aria-label="Farbschema"
+             style="display:flex;gap:5px">
+          <button class="sw" type="button" data-theme="ocean" title="Ocean" style="width:26px;height:26px;padding:2px;border:1px solid var(--line2);background:var(--field);border-radius:var(--r-sm);cursor:pointer;display:flex;gap:1px"><i style="flex:1;background:#093840;border-radius:2px"></i><i style="flex:1;background:#2ca387;border-radius:2px"></i></button>
+          <button class="sw" type="button" data-theme="sand" title="Sand" style="width:26px;height:26px;padding:2px;border:1px solid var(--line2);background:var(--field);border-radius:var(--r-sm);cursor:pointer;display:flex;gap:1px"><i style="flex:1;background:#c9e0f0;border-radius:2px"></i><i style="flex:1;background:#ecbda9;border-radius:2px"></i></button>
+          <button class="sw" type="button" data-theme="drakn" title="Drakn" style="width:26px;height:26px;padding:2px;border:1px solid var(--line2);background:var(--field);border-radius:var(--r-sm);cursor:pointer;display:flex;gap:1px"><i style="flex:1;background:#140a25;border-radius:2px"></i><i style="flex:1;background:#d82828;border-radius:2px"></i></button>
+        </div>
+        <div class="seg" role="group" id="langs" data-i18n-aria="lang" aria-label="Sprache"
+             style="display:flex;border:1px solid var(--line2);border-radius:var(--r-sm);overflow:hidden">
+          <button type="button" data-lang="de" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:5px 9px;cursor:pointer">DE</button>
+          <button type="button" data-lang="en" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:5px 9px;cursor:pointer">EN</button>
+          <button type="button" data-lang="es" style="appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;padding:5px 9px;cursor:pointer">ES</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tabBuild" aria-controls="panelBuild" aria-selected="true" data-tab="build">
+      <span data-i18n="tabBuild">Preset-Ersteller</span>
+    </button>
+    <button class="tab" role="tab" id="tabCheck" aria-controls="panelCheck" aria-selected="false" data-tab="check">
+      <span data-i18n="tabCheck">Prüfen</span>
+    </button>
+  </div>
+
+  <section id="panelBuild" role="tabpanel" aria-labelledby="tabBuild" hidden>
+    <div class="stage">
+      <div>
+        <div class="sec" style="margin-bottom:14px">
+          <div class="body" style="padding:13px 16px">
+            <label for="f_preset" data-i18n="presetName">Preset-Name</label>
+            <input type="text" id="f_preset" maxlength="60" autocomplete="off" data-i18n-ph="presetPh"
+                   placeholder="Freestyle Standard 5 Zoll">
+            <p class="hint" data-i18n="presetHint">Frei wählbar. Der Name steht als Kommentar oben in der CLI und im Dateinamen.</p>
+          </div>
+        </div>
+
+        <div class="issues" id="issuesBox" style="margin-bottom:14px"></div>
+
+        <details class="sec" id="secBeeper" open>
+          <summary><span class="ico">A</span><h2 data-i18n="secBeeper">Beeper</h2><span class="arrow">▶</span></summary>
+          <div class="body">
+            <p class="hint" style="margin:0" data-i18n="beepHint">Reihenfolge nach Relevanz. Was rot ist, entscheidet im Feld, ob du den Copter wiederfindest. Darunter: alle weiteren Beeper der Betaflight-Konsole.</p>
+            <div class="bgrid" id="beeperBody"></div>
+          </div>
+        </details>
+
+        <details class="sec" id="secModes" open>
+          <summary><span class="ico">B</span><h2 data-i18n="secModes">Modes &amp; Kanäle</h2><span class="arrow">▶</span></summary>
+          <div class="body">
+            <p class="hint" style="margin:0" data-i18n="modesHint">Jede Zeile ist ein Modus aus dem Modes-Tab. Schalter, Bereich und Kanal legst du hier fest, nicht in der Funke.</p>
+            <div id="modesBody" style="display:grid;gap:8px"></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:2px">
+              <select id="f_addMode" style="flex:1 1 180px" aria-label=""></select>
+              <button class="btn sm primary" id="btnAddMode" type="button" data-i18n="add">Hinzufügen</button>
+            </div>
+            <p class="note" data-i18n="modesNote">Die AUX-Kanäle müssen in der Funke (EdgeTX/OpenTX) auf Schalter gelegt sein, sonst passiert auf der FC nichts.</p>
+          </div>
+        </details>
+
+        <details class="sec" id="secOsd" open>
+          <summary><span class="ico">C</span><h2 data-i18n="secOsd">OSD-Profile &amp; Viewer</h2><span class="arrow">▶</span></summary>
+          <div class="body">
+            <label id="armedLbl" data-i18n="armedAsk">Welches OSD-Profil ist beim Freigeben (Armed) aktiv?</label>
+            <div class="profilepicker" id="osdPicker"></div>
+            <div class="osdwrap" style="margin-top:10px">
+              <div>
+                <div class="pwmrow" style="margin:0 0 5px">
+                  <span data-i18n="osdEditIn">Elemente setzen für Profil</span>
+                  <span class="chips" id="osdEditPick"></span>
+                </div>
+                <div class="fpv" id="fpv" role="application" tabindex="0"
+                     aria-label="OSD-Vorschau – Elemente mit Pfeiltasten oder Maus verschieben">
+                  <div class="noise"></div>
+                  <div class="xhair" aria-hidden="true"></div>
+                  <div class="safe"></div>
+                  <div id="osdChips"></div>
+                </div>
+                <div class="pwmrow"><span id="osdGridLbl"></span><span id="osdCountLbl"></span></div>
+                <div class="posrow">
+                  <div><label for="f_posX" data-i18n="posX">Spalte (x)</label>
+                    <input type="number" id="f_posX" min="0" max="29" step="1"></div>
+                  <div><label for="f_posY" data-i18n="posY">Zeile (y)</label>
+                    <input type="number" id="f_posY" min="0" max="15" step="1"></div>
+                </div>
+                <p class="hint" data-i18n="osdDragHint">Ziehen verschiebt, Pfeiltasten schieben um ein Zeichen, Alt+Pfeil um eine Zeile. Doppelklick schaltet das Element im bearbeiteten Profil an oder aus.</p>
+              </div>
+              <div>
+                <div class="olist" id="osdList"></div>
+                <p class="hint" style="margin-top:6px" data-i18n="osdListHint">Klick wählt, Doppelklick schaltet im bearbeiteten Profil. A = auf allen gewählten Profilen sichtbar.</p>
+              </div>
+            </div>
+            <p class="note" data-i18n="osdNote">Hinweis: Das Umschalten der OSD-Profile im Flug erfordert die Zuweisung eines AUX-Kanals in deiner Funke (EdgeTX/OpenTX) auf „OSD Profile“.</p>
+          </div>
+        </details>
+
+        <details class="sec" id="secAdj" open>
+          <summary><span class="ico">D</span><h2 data-i18n="secAdj">Adjustments</h2><span class="arrow">▶</span></summary>
+          <div class="body">
+            <p class="hint" style="margin:0" data-i18n="adjHint">Vier Slots für Werte, die du im Flug über ein Poti oder einen Schalter verstellen willst. Jeder Slot braucht einen eigenen Kanal.</p>
+            <div id="adjBody" style="display:grid;gap:8px"></div>
+          </div>
+        </details>
+
+        <details class="sec" id="secRates" open>
+          <summary><span class="ico">E</span><h2 data-i18n="secRates">Rates &amp; Expo</h2><span class="arrow">▶</span></summary>
+          <div class="body">
+            <p class="hint" style="margin:0" data-i18n="ratesHint">Der Kurvenverlauf ist der, den die FC rechnet – dieselbe Formel, live mitgerechnet.</p>
+            <div class="rateswrap">
+              <div>
+                <div class="mctl" style="margin-top:8px">
+                  <div><label><b data-i18n="rateType">Rate-Modus</b>
+                    <select id="f_rateType"></select></label></div>
+                </div>
+                <div class="slider" data-rate="rc"></div>
+                <div class="slider" data-rate="srate"></div>
+                <div class="slider" data-rate="expo"></div>
+                <p class="hint" id="rateHint"></p>
+              </div>
+              <div>
+                <svg id="rateChart" class="chart" viewBox="0 0 300 200" role="img" aria-label="Rate-Kurve"></svg>
+                <div class="chartleg"><span class="lg lg1"></span><span data-i18n="legendCurve">Rate-Kurve</span>
+                  <span class="lg lg2"></span><span data-i18n="legendLin">linear</span></div>
+                <p class="hint" id="rateMax"></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="sec" id="secVtx">
+          <summary><span class="ico">F</span><h2 data-i18n="secVtx">Failsafe</h2><span class="arrow">▶</span></summary>
+          <div class="body" id="vtxBody"></div>
+        </details>
+
+        <details class="sec" id="secExtra">
+          <summary><span class="ico">G</span><h2 data-i18n="secExtra">Zusätzlich</h2><span class="arrow">▶</span></summary>
+          <div class="body" id="extraBody"></div>
+        </details>
+
+        <div class="sec">
+          <div class="body" style="padding:13px 16px">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button class="btn sm primary" id="btnSaveModel" type="button" data-i18n="saveModel">Preset speichern</button>
+              <button class="btn sm ghost" id="btnReset" type="button" data-i18n="resetAll">Alles zurücksetzen</button>
+              <span class="count" id="saveState" style="font-size:12px"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="cli" aria-label="CLI-Ausgabe">
+        <header>
+          <h2 data-i18n="cliTitle">CLI</h2>
+          <span class="sz" id="cliSize"></span>
+        </header>
+        <pre id="cliOut" tabindex="0"></pre>
+        <div class="acts">
+          <div class="warnbox" id="cliWarn" hidden></div>
+          <div class="row2">
+            <button class="btn sm primary" id="btnCopy" type="button" data-i18n="copyCli">CLI kopieren</button>
+            <button class="btn sm ghost" id="btnFile" type="button" data-i18n="saveFile">Als Datei</button>
+          </div>
+          <button class="btn sm ghost" id="btnSerial" type="button" data-i18n="toFc">Auf Flight Controller schreiben</button>
+          <p class="hint" id="serialHint" style="margin:0"></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ TAB 3: Prüfen ============ -->
+  <section id="panelCheck" role="tabpanel" aria-labelledby="tabCheck" hidden>
+    <div class="stage">
+      <div>
+        <div class="sec">
+          <div class="body" style="padding:13px 16px">
+            <label for="f_diff" data-i18n="diffLabel">Bestehenden Code prüfen (diff all oder CLI-Schnipsel)</label>
+            <textarea id="f_diff" spellcheck="false" data-i18n-ph="diffPh"
+                      placeholder="Hier einfügen: diff all, dump all oder einzelne Zeilen …"></textarea>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn sm primary" id="btnValidate" type="button" data-i18n="validateNow">Prüfen</button>
+              <button class="btn sm ghost" id="btnLoadFile" type="button" data-i18n="loadFile">Datei laden (.txt/.cfg)</button>
+              <button class="btn sm ghost" id="btnUseModel" type="button" data-i18n="useModel">Aus Modell übernehmen</button>
+            </div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="body" style="padding:13px 16px">
+            <div class="meta" id="valMeta"></div>
+            <div class="val" id="valList" style="margin-top:10px"></div>
+          </div>
+        </div>
+      </div>
+      <aside class="cli">
+        <header><h2 data-i18n="valFix">Was fehlt</h2><span class="sz" id="fixCount"></span></header>
+        <pre id="fixOut" tabindex="0"></pre>
+        <div class="acts">
+          <div class="row2">
+            <button class="btn sm primary" id="btnCopyFix" type="button" data-i18n="copyFix">Fehlendes kopieren</button>
+            <button class="btn sm ghost" id="btnFixToBuild" type="button" data-i18n="applyFix">In Ersteller übernehmen</button>
+          </div>
+          <p class="hint" data-i18n="fixHint" style="margin:0">Nur die Zeilen, die laut Prüfung fehlen – zum Ergänzen, nicht zum Überschreiben.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<input type="file" id="file" accept=".txt,.cfg,.json,text/plain" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   Texte: eine Tabelle, drei Spalten (DE/EN/ES).
+   Eine Quelle für alle Sprachen - so kann keine Sprache eine
+   Zeile verlieren, was bei drei getrennten Blöcken ständig passiert.
+   ============================================================ */
+var STR = {
+  sub:["CLI-Generator · Beeper, Modes, OSD","CLI generator · beeper, modes, OSD","Generador CLI · beeper, modos, OSD"],
+  theme:["Farbschema","Colour scheme","Esquema de color"],
+  lang:["Sprache","Language","Idioma"],
+  tabBuild:["Preset-Ersteller","Preset builder","Creador de presets"],
+  tabCheck:["Prüfen","Validate","Validar"],
+  secBeeper:["Beeper","Beeper","Beeper"],
+  secVtx:["Failsafe","Failsafe","Failsafe"],
+  secExtra:["Zusätzlich","Extras","Extras"],
+  secModes:["Modes & Kanäle","Modes & channels","Modos y canales"],
+  secOsd:["OSD-Profile & Viewer","OSD profiles & viewer","Perfiles OSD y visor"],
+  secAdj:["Adjustments","Adjustments","Adjustments"],
+  modesHint:["Jede Zeile ist ein Modus aus dem Modes-Tab. Schalter, Bereich und Kanal legst du hier fest, nicht in der Funke.","Each row is a mode from the Modes tab. Switch, range and channel are set here, not on the radio.","Cada fila es un modo de la pestaña Modes. Interruptor, rango y canal se definen aquí, no en la emisora."],
+  modesNote:["Die AUX-Kanäle müssen in der Funke (EdgeTX/OpenTX) auf Schalter gelegt sein, sonst passiert auf der FC nichts.","The AUX channels must be mapped to switches on the radio (EdgeTX/OpenTX), otherwise nothing happens on the FC.","Los canales AUX deben estar en interruptores de la emisora (EdgeTX/OpenTX), si no en la FC no pasa nada."],
+  addMode:["Modus hinzufügen","Add a mode","Añadir un modo"],
+  add:["Hinzufügen","Add","Añadir"],
+  remove:["Entfernen","Remove","Quitar"],
+  channel:["Kanal","Channel","Canal"],
+  rangeFrom:["Bereich ab","Range from","Rango desde"],
+  rangeTo:["Bereich bis","Range to","Rango hasta"],
+  noModes:["Noch kein Modus gesetzt – oben einen hinzufügen.","No mode yet – add one above.","Aún sin modos – añade uno arriba."],
+  modeExists:["Dieser Modus steht schon in der Liste.","That mode is already in the list.","Ese modo ya está en la lista."],
+  modeAdded:["Modus hinzugefügt","Mode added","Modo añadido"],
+  osdEditIn:["Elemente setzen für Profil","Place elements for profile","Colocar elementos para el perfil"],
+  osdGrid:["Raster","Grid","Rejilla"],
+  osdEditP:["bearbeitetes Profil","editing profile","perfil en edición"],
+  osdElems:["Elemente im Bild","elements on screen","elementos en pantalla"],
+  osdToggle:["Im bearbeiteten Profil an oder aus","On or off in the edited profile","Activo o apagado en el perfil editado"],
+  allProfiles:["Auf allen gewählten Profilen sichtbar – Betaflight speichert eine Position je Element.","Visible on every selected profile – Betaflight stores one position per element.","Visible en todos los perfiles elegidos – Betaflight guarda una posición por elemento."],
+  osdDragHint:["Ziehen verschiebt, Pfeiltasten schieben um ein Zeichen, Alt+Pfeil um eine Zeile. Doppelklick schaltet das Element im bearbeiteten Profil an oder aus.","Drag to move, arrow keys shift by one character, Alt+arrow by one row. Double-click turns the element on or off in the edited profile.","Arrastra para mover, las flechas desplazan un carácter, Alt+flecha una fila. Doble clic activa o apaga en el perfil editado."],
+  osdListHint:["Klick wählt, Doppelklick schaltet im bearbeiteten Profil. A = auf allen gewählten Profilen sichtbar.","Click selects, double-click toggles in the edited profile. A = visible on every selected profile.","Clic selecciona, doble clic alterna en el perfil editado. A = visible en todos los perfiles elegidos."],
+  posX:["Spalte (x)","Column (x)","Columna (x)"],
+  posY:["Zeile (y)","Row (y)","Fila (y)"],
+  adjHint:["Vier Slots für Werte, die du im Flug über ein Poti oder einen Schalter verstellen willst – jeder Bereich braucht einen eigenen Steuerkanal.","Four slots for values you want to change in flight with a pot or switch – jeder range needs its own control channel.","Cuatro ranuras para valores que quieres cambiar en vuelo con un potenciómetro o interruptor – cada rango necesita su canal de control."],
+  adjFn:["Funktion","Function","Función"],
+  center:["Mittelwert","Centre value","Valor central"],
+  scale:["Spanne (±)","Scale (±)","Escala (±)"],
+  slot:["Slot","Slot","Ranura"],
+  addSlot:["Slot hinzufügen","Add slot","Añadir ranura"],
+  adjStepHint:["Schrittmodus: Mitte 1500 hält an, oben/unten ändert um den Schritt. Mittelwert 0 schaltet den Absolutmodus ein.","Step mode: centre 1500 holds, up/down changes by one step. A centre value above 0 turns on absolute mode.","Modo por pasos: centro 1500 mantiene, arriba/abajo cambia un paso. Un valor central mayor que 0 activa el modo absoluto."],
+  adjAbsHint:["Absolutmodus: das Poti setzt den Wert direkt, Mittelwert ist die Stellung in der Mitte.","Absolute mode: the pot sets the value directly, the centre value is the mid position.","Modo absoluto: el potenciómetro fija el valor, el valor central es la posición media."],
+  conflictTitle:["Konflikte","Conflicts","Conflictos"],
+  issues:["Hinweise","issues","avisos"],
+  issueOne:["1 Hinweis","1 issue","1 aviso"],
+  noConflict:["Keine Konflikte gefunden – Kanäle und Bereiche sind sauber getrennt.","No conflicts found – channels and ranges are cleanly separated.","Sin conflictos – canales y rangos separados."],
+  presetName:["Preset-Name","Preset name","Nombre del preset"],
+  presetPh:["Freestyle Standard 5 Zoll","Freestyle standard 5 inch","Freestyle estándar 5 pulgadas"],
+  presetHint:["Frei wählbar. Der Name steht als Kommentar oben in der CLI und im Dateinamen.","Free choice. The name sits as a comment at the top of the CLI and in the file name.","Libre. El nombre aparece como comentario en la CLI y en el archivo."],
+  ctrlChannel:["Steuer-Kanal (Poti/Schalter)","Control channel (pot/switch)","Canal de control (pot/switch)"],
+  absMode:["Absolutmodus – das Poti setzt den Wert direkt (sonst Schrittmodus über die Knüppelmitte)","Absolute mode – the pot sets the value directly (otherwise step mode around centre)","Modo absoluto – el pot establece el valor (si no, modo por pasos)"],
+  armedAsk:["Welches OSD-Profil ist beim Freigeben (Armed) aktiv?","Which OSD profile is active once enabled (armed)?","¿Qué perfil OSD está activo al habilitar (armed)?"],
+  armedActive:["beim Freigeben aktiv","active when enabled","activo al habilitar"],
+  beeperWrap:["Klicken schaltet den Beeper um.","Click toggles the beeper.","Clic para alternar el beeper."],
+  secRates:["Rates & Expo","Rates & expo","Rates y expo"],
+  rateType:["Rate-Modus","Rate mode","Modo de rates"],
+  ratesHint:["Der Kurvenverlauf ist der, den die FC rechnet – dieselbe Formel, live mitgerechnet. Die Zahlen bedeuten je Modus etwas anderes; beim Wechsel kommen passende Startwerte mit.","The curve is the one the FC computes – same formula, live. The numbers mean different things per mode; switching loads matching starting values.","La curva es la que calcula la FC – misma fórmula, en vivo. Los números significan otra cosa en cada modo; al cambiar se cargan valores de partida."],
+  legendCurve:["Rate-Kurve","Rate curve","Curva de rates"],
+  legendLin:["linear","linear","lineal"],
+  stickPath:["Knüppelweg →","Stick travel →","Recorrido del stick →"],
+  rateAtEnd:["Am Anschlag","At full stick","A tope"],
+  rateAtHalf:["Halbweg","Half stick","A mitad"],
+  cfRateProfile:["Rates landen in rateprofile 0 – dem Profil, das nach dem Flashen aktiv ist.","Rates go into rateprofile 0 – the profile that is active after flashing.","Los rates van a rateprofile 0 – el perfil activo tras flashear."],
+  cfNoName:["Preset ohne Namen – steht so als Kommentar in der CLI und macht die Datei unauffindbar.","Preset without a name – it ends up as a comment in the CLI and makes the file hard to find.","Preset sin nombre – acaba como comentario en la CLI y cuesta encontrar el archivo."],
+  cfRateOrder:["Der Max Rate liegt unter der Center Sensitivity – die Rate-Kurve steigt dann nicht mehr an.","Max rate sits below centre sensitivity – the rate curve then stops climbing.","El max rate está por debajo de la sensibilidad central – la curva deja de subir."],
+  cfSameCh:["Slot {a} und {b} liegen im Absolutmodus auf demselben Kanal – nur einer kann gewinnen.","Slots {a} and {b} sit in absolute mode on the same channel – only one can win.","Ranuras {a} y {b} en absoluto sobre el mismo canal – solo una puede ganar."],
+  cfAbsStep:["Slot {a} und {b}: gleicher Kanal und Bereich, einmal absolut, einmal im Schrittmodus – beide greifen gleichzeitig.","Slots {a} and {b}: same channel and range, one absolute, one step mode – both fire at once.","Ranuras {a} y {b}: mismo canal y rango, una absoluta y otra por pasos – ambas actúan."],
+  cfCtrlTwice:["{c} ist für mehrere Bereiche eingetragen – im Schrittmodus ändert sich nur der letzte passende.","{c} is used by more than one range – in step mode only the last matching one changes.","{c} se usa en varios rangos – en modo por pasos solo cambia el último."],
+  cfModeOverlap:["{a} und {b} überlappen sich auf demselben Kanal – beide wären gleichzeitig aktiv.","{a} and {b} overlap on one channel – both would be active at once.","{a} y {b} se solapan en el mismo canal – ambos activos."],
+  cfEmptyRange:["{m}: Start = Ende – wird nie aktiv.","{m}: start = end – never activates.","{m}: inicio = fin – nunca se activa."],
+  cfNarrow:["{m}: sehr schmaler Bereich – die Funke trifft ihn nicht sicher.","{m}: very narrow range – the radio may miss it.","{m}: rango muy estrecho – puede no alcanzarlo."],
+  cfNoArm:["Kein ARM auf einem AUX-Kanal – der Copter lässt sich nur per Stick-Kombination freigeben.","No ARM on an AUX channel – the quad can only be armed by stick command.","Ningún ARM en un canal AUX – solo se arma con combinación de sticks."],
+  cfNoPrearm:["Kein PREARM gesetzt – ein versehentlicher Schaltvorgang startet die Motoren sofort.","No PREARM set – an accidental switch flick spins the motors at once.","Sin PREARM – un movimiento accidental del interruptor arranca los motores."],
+  cfRescueFs:["GPS RESCUE liegt auf einem Schalter, das Failsafe-Verfahren ist aber nicht GPS-RESCUE.","GPS RESCUE is on a switch, but the failsafe procedure is not GPS-RESCUE.","GPS RESCUE está en un interruptor, pero el failsafe no es GPS-RESCUE."],
+  cfFsNoRescue:["Failsafe fliegt nach Hause, aber GPS RESCUE liegt auf keinem Schalter – zum Testen musst du den Failsafe auslösen.","Failsafe flies home, but GPS RESCUE is on no switch – to test it you have to trigger failsafe.","El failsafe vuelve a casa, pero GPS RESCUE no está en ningún interruptor – para probarlo debes provocar el failsafe."],
+  cfScaleZero:["Slot {n}: Mittelwert gesetzt, Spanne 0 – das Poti ändert dann nichts.","Slot {n}: centre value set, scale 0 – the pot changes nothing.","Ranura {n}: valor central con escala 0 – el potenciómetro no cambia nada."],
+  fsNoVtx:["VTX-Leistung steht bewusst nicht im Preset: die Stufen kommen aus der VTX-Tabelle deines Senders, und ein falscher Wert kann den Sender braten. Im Configurator einstellen.","VTX power is deliberately not in this preset: levels come from your VTX table, and a wrong value can cook the transmitter. Set it in the configurator.","La potencia VTX no está en el preset a propósito: los niveles vienen de la tabla VTX y un valor erróneo puede quemar el emisor. Ajusta en el configurador."],
+  resetAll:["Alles zurücksetzen","Reset everything","Restablecer todo"],
+  resetAsk:["Alle Einstellungen auf den Standard zurücksetzen?","Reset every setting to the defaults?","¿Restablecer todos los ajustes al estándar?"],
+  osdNote:["Hinweis: Das Umschalten der OSD-Profile im Flug erfordert die Zuweisung eines AUX-Kanals in deiner Funke (EdgeTX/OpenTX) auf „OSD Profile“.","Note: switching OSD profiles in flight needs a spare AUX channel in your radio (EdgeTX/OpenTX) mapped to “OSD Profile”.","Nota: cambiar de perfil OSD en vuelo requiere un canal AUX en tu emisora (EdgeTX/OpenTX) asignado a “OSD Profile”."],
+  cliTitle:["CLI","CLI","CLI"],
+  copyCli:["CLI kopieren","Copy CLI","Copiar CLI"],
+  saveFile:["Als Datei","Save file","Guardar archivo"],
+  toFc:["Auf Flight Controller schreiben","Write to flight controller","Escribir en la controladora"],
+  saveModel:["Preset speichern","Save preset","Guardar preset"],
+  valFix:["Was fehlt","What is missing","Qué falta"],
+  storeOff:["Speicher gesperrt – Änderungen gelten nur bis zum Schließen. Tipp: die Datei über http(s) öffnen oder im Browser freigeben.",
+            "Storage blocked – changes last only until you close the page. Tip: open the file over http(s) or allow storage in the browser.",
+            "Almacenamiento bloqueado – los cambios duran hasta cerrar. Consejo: abre el archivo por http(s) o permite el almacenamiento."],
+  copyFix:["Fehlendes kopieren","Copy missing","Copiar lo que falta"],
+  applyFix:["In Ersteller übernehmen","Apply in builder","Aplicar en el creador"],
+  fixHint:["Nur die Zeilen, die laut Prüfung fehlen – zum Ergänzen, nicht zum Überschreiben.","Only the lines the check reports as missing – to add, not to overwrite.","Solo las líneas que faltan según la revisión – para añadir, no para sobrescribir."],
+  diffLabel:["Bestehenden Code prüfen (diff all oder CLI-Schnipsel)","Check existing code (diff all or CLI snippet)","Revisar código existente (diff all o fragmento CLI)"],
+  diffPh:["Hier einfügen: diff all, dump all oder einzelne Zeilen …","Paste here: diff all, dump all or single lines …","Pega aquí: diff all, dump all o líneas sueltas …"],
+  validateNow:["Prüfen","Check","Revisar"],
+  loadFile:["Datei laden (.txt/.cfg)","Load file (.txt/.cfg)","Cargar archivo (.txt/.cfg)"],
+  useModel:["Aus dem Preset übernehmen","Take from this preset","Tomar del preset"],
+  mName:["Name","Name","Nombre"],
+  mSize:["Größe","Size","Tamaño"],
+  mFc:["Flight Controller","Flight controller","Controladora"],
+  mNotes:["Notiz","Note","Nota"],
+  save:["Speichern","Save","Guardar"],
+  cancel:["Abbrechen","Cancel","Cancelar"],
+  close:["Schließen","Close","Cerrar"],
+  edit:["Bearbeiten","Edit","Editar"],
+  saved:["Gespeichert","Saved","Guardado"],
+  copied:["Kopiert","Copied","Copiado"],
+  copyFail:["Kopieren ging nicht – bitte von Hand markieren.","Copy failed – please select by hand.","No se pudo copiar – selecciona a mano."],
+  serialNo:["Dieser Browser kann kein USB (Web Serial). Chrome oder Edge am Desktop nehmen – oder die Datei speichern und im Configurator einfügen.","This browser cannot do USB (Web Serial). Use Chrome or Edge on desktop – or save the file and paste it in the configurator.","Este navegador no puede con USB (Web Serial). Usa Chrome o Edge en escritorio – o guarda el archivo y pégalo en el configurador."],
+  serialAsk:["Port wählen – das ist die Flight Controller.","Pick the port – that is the flight controller.","Elige el puerto – esa es la controladora."],
+  serialOpen:["Verbunden, schreibe …","Connected, writing …","Conectado, escribiendo …"],
+  serialDone:["Geschrieben. Die FC startet neu – Werte im Configurator gegenprüfen.","Written. The FC reboots – verify the values in the configurator.","Escrito. La FC reinicia – verifica los valores en el configurador."],
+  serialFail:["Schreiben abgebrochen oder fehlgeschlagen.","Writing cancelled or failed.","Escritura cancelada o fallida."],
+  noName:["Bitte einen Namen eintragen.","Please enter a name.","Escribe un nombre."],
+  fileFail:["Datei nicht lesbar","File not readable","Archivo ilegible"],
+  nothing:["Nichts zu prüfen","Nothing to check","Nada que revisar"],
+  fixNone:["Nichts fehlt – der Code deckt die wichtigsten Punkte ab.","Nothing missing – the code covers the essentials.","Nada falta – el código cubre lo esencial."],
+  osdProf1:["Profil 1 · Clean","Profile 1 · clean","Perfil 1 · limpio"],
+  osdProf1d:["Spannung, Timer, Verbrauch, Link-Qualität.","Voltage, timer, mAh drawn, link quality.","Voltaje, temporizador, consumo, calidad de enlace."],
+  osdProf2:["Profil 2 · Longrange","Profile 2 · long range","Perfil 2 · larga distancia"],
+  osdProf2d:["GPS, Satelliten, Home-Pfeil und Distanz.","GPS, satellites, home arrow and distance.","GPS, satélites, flecha a casa y distancia."],
+  osdProf3:["Profil 3 · Setup","Profile 3 · setup","Perfil 3 · ajuste"],
+  osdProf3d:["Systeminfos, VTX-Kanal, Temperatur.","System info, VTX channel, temperature.","Info del sistema, canal VTX, temperatura."],
+  osdActive:["aktiv","active","activo"],
+  osdInactive:["aus","off","apagado"],
+  fsTitle:["Failsafe-Verfahren","Failsafe procedure","Procedimiento de failsafe"],
+  fsHint:["DROP lässt den Copter fallen, AUTO-LAND sinkt ab, GPS-RESCUE fliegt zurück – das braucht GPS und einen sauberen Home-Punkt.","DROP lets it fall, AUTO-LAND descends, GPS-RESCUE flies home – that needs GPS and a clean home point.","DROP lo deja caer, AUTO-LAND desciende, GPS-RESCUE vuelve a casa – necesita GPS y un punto home limpio."],
+  craftTitle:["Craft-Name","Craft name","Nombre del dron"],
+  craftHint:["Steht im OSD und in der Blackbox – leer lassen, wenn nicht gewünscht.","Shows in the OSD and the blackbox – leave empty if unwanted.","Aparece en el OSD y en la blackbox – déjalo vacío si no lo quieres."],
+  badgeCrit:["kritisch","critical","crítico"],
+  badgeImp:["wichtig","important","importante"],
+  badgeComf:["Komfort","comfort","comodidad"],
+  badgeExtra:["Selten gebraucht","rarely used","rara vez"],
+  beepMoreOn:["Alle {n} Beeper anzeigen","Show all {n} beepers","Mostrar los {n} pitidos"],
+  beepMoreOff:["Seltene Beeper ausblenden","Hide the rare beepers","Ocultar los pitidos raros"],
+  beepMoreHint:["Vollständige Liste aus der Betaflight-Konsole. Standardmäßig aus – einschalten nur, wenn du den Ton wirklich brauchst.","Complete list from the Betaflight console. Off by default – enable only if you really need the tone.","Lista completa de la consola Betaflight. Apagado por defecto – activa solo si necesitas el tono."],
+  beepTotal:["{n} Beeper verfügbar, {k} aktiv","{n} beepers available, {k} active","{n} pitidos disponibles, {k} activos"],
+  beepHint:["Reihenfolge nach Relevanz. Was rot ist, entscheidet im Feld, ob du den Copter wiederfindest. Darunter alle weiteren Beeper der Betaflight-Konsole.","Ordered by relevance. Red is what decides in the field whether you find the quad again. Below that, every other beeper in the Betaflight console.","Ordenado por relevancia. Lo rojo decide en el campo si encuentras el dron. Debajo, todos los demás pitidos de la consola Betaflight."],
+  fix_title:["Fehlende Zeilen","Missing lines","Líneas que faltan"],
+  fix_note:["Diese Zeilen ergänzen den geprüften Code.","These lines complete the checked code.","Estas líneas completan el código revisado."]
+};
+
+/* ============================================================
+   Beeper: echte Betaflight-Namen (beeper.c, Prioritätsreihenfolge).
+   "FAILSAFE" heißt in der CLI RX_LOST_LANDING – das ist der Beeper,
+   der im Failsafe-Modus SOS piept. Wer das verwechselt, baut ein
+   Preset, das im Feld nicht piept.
+   ============================================================ */
+var BEEPERS = [
+  /* Sicherheit: was im Feld entscheidet, ob du den Copter wiederfindest */
+  { k:"RX_LOST",         g:"crit",  def:true  },
+  { k:"RX_LOST_LANDING", g:"crit",  def:true  },   /* Anzeige: FAILSAFE */
+  { k:"BAT_CRIT_LOW",    g:"crit",  def:true  },
+  /* Status & Signal */
+  { k:"ARMING_GPS_FIX",  g:"imp",   def:false },
+  { k:"BAT_LOW",         g:"imp",   def:true  },
+  { k:"GPS_STATUS",      g:"imp",   def:false },
+  /* Werkstatt & Komfort */
+  { k:"READY_BEEP",      g:"comf",  def:false },
+  { k:"GYRO_CALIBRATED", g:"comf",  def:true  },
+  { k:"DISARM_REPEAT",   g:"comf",  def:true  },
+  { k:"ON_USB",          g:"comf",  def:false },
+  /* Seltener gebraucht - aber alle in der CLI vorhanden */
+  { k:"ARMED",                 g:"extra", def:false },
+  { k:"ARMING",                g:"extra", def:false },
+  { k:"DISARMING",             g:"extra", def:false },
+  { k:"ACC_CALIBRATION",       g:"extra", def:false },
+  { k:"ACC_CALIBRATION_FAIL",  g:"extra", def:false },
+  { k:"RX_SET",                g:"extra", def:false },
+  { k:"MULTI_BEEPS",           g:"extra", def:false },
+  { k:"SYSTEM_INIT",           g:"extra", def:false },
+  { k:"CX_CLI",                g:"extra", def:false },
+  { k:"BLACKBOX_ERASE",        g:"extra", def:false },
+  { k:"CRASH_FLIP",            g:"extra", def:false },
+  { k:"CAM_CONNECTION_OPEN",   g:"extra", def:false },
+  { k:"CAM_CONNECTION_CLOSE",  g:"extra", def:false }
+];
+var BLBL = {
+  RX_LOST:["RX_LOST","RX_LOST","RX_LOST"],
+  RX_LOST_LANDING:["FAILSAFE","FAILSAFE","FAILSAFE"],
+  BAT_CRIT_LOW:["BAT_CRIT_LOW","BAT_CRIT_LOW","BAT_CRIT_LOW"],
+  ARMING_GPS_FIX:["ARMING_GPS_FIX","ARMING_GPS_FIX","ARMING_GPS_FIX"],
+  BAT_LOW:["BAT_LOW","BAT_LOW","BAT_LOW"],
+  GPS_STATUS:["GPS_STATUS","GPS_STATUS","GPS_STATUS"],
+  READY_BEEP:["READY_BEEP","READY_BEEP","READY_BEEP"],
+  GYRO_CALIBRATED:["GYRO_CALIBRATED","GYRO_CALIBRATED","GYRO_CALIBRATED"],
+  DISARM_REPEAT:["DISARM_REPEAT","DISARM_REPEAT","DISARM_REPEAT"],
+  ON_USB:["ON_USB","ON_USB","ON_USB"],
+  /* Die selteneren heißen in der CLI genauso wie in der Oberfläche */
+  ARMED:["ARMED","ARMED","ARMED"],
+  ARMING:["ARMING","ARMING","ARMING"],
+  DISARMING:["DISARMING","DISARMING","DISARMING"],
+  ACC_CALIBRATION:["ACC_CALIBRATION","ACC_CALIBRATION","ACC_CALIBRATION"],
+  ACC_CALIBRATION_FAIL:["ACC_CALIBRATION_FAIL","ACC_CALIBRATION_FAIL","ACC_CALIBRATION_FAIL"],
+  RX_SET:["RX_SET","RX_SET","RX_SET"],
+  MULTI_BEEPS:["MULTI_BEEPS","MULTI_BEEPS","MULTI_BEEPS"],
+  SYSTEM_INIT:["SYSTEM_INIT","SYSTEM_INIT","SYSTEM_INIT"],
+  CX_CLI:["CX_CLI","CX_CLI","CX_CLI"],
+  BLACKBOX_ERASE:["BLACKBOX_ERASE","BLACKBOX_ERASE","BLACKBOX_ERASE"],
+  CRASH_FLIP:["CRASH_FLIP","CRASH_FLIP","CRASH_FLIP"],
+  CAM_CONNECTION_OPEN:["CAM_CONNECTION_OPEN","CAM_CONNECTION_OPEN","CAM_CONNECTION_OPEN"],
+  CAM_CONNECTION_CLOSE:["CAM_CONNECTION_CLOSE","CAM_CONNECTION_CLOSE","CAM_CONNECTION_CLOSE"]
+};
+var BDESC = {
+  RX_LOST:["Piept durchgehend, wenn die Funkverbindung abbricht – im hohen Gras der Unterschied zwischen Finden und Suchen.",
+           "Beeps continuously when the link drops – in tall grass the difference between finding it and searching.",
+           "Pita sin parar cuando se corta el enlace – en la hierba alta, la diferencia entre encontrarlo y buscarlo."],
+  RX_LOST_LANDING:["SOS-Ton im Failsafe, solange der Copter landet oder liegt. Genau dann braucht man ihn.",
+           "SOS tone during failsafe while it lands or lies there. Exactly when you need it.",
+           "Tono SOS en failsafe mientras aterriza o queda ahí. Justo cuando lo necesitas."],
+  BAT_CRIT_LOW:["Dringende Akkuwarnung. Aus heißt: der Copter geht ohne Vorwarnung runter.",
+           "Urgent battery warning. Off means the quad drops without notice.",
+           "Aviso urgente de batería. Apagado significa que cae sin avisar."],
+  ARMING_GPS_FIX:["Eigener Ton beim Freigeben, wenn genug Satelliten da sind – nützlich, wenn du auf einen Fix wartest.",
+           "Distinct tone on arming when enough satellites are there – useful when waiting for a fix.",
+           "Tono distinto al armar con satélites suficientes – útil al esperar fix."],
+  BAT_LOW:["Frühwarnung vor dem kritischen Level. Aus lassen heißt: nur noch die letzte Warnung.",
+           "Early warning before the critical level. Off means only the last warning remains.",
+           "Aviso temprano antes del nivel crítico. Apagado deja solo el último aviso."],
+  GPS_STATUS:["Piept die Satellitenzahl beim Suchen nach einem Fix. Am Startplatz hilfreich, im Flug störend.",
+           "Beeps the satellite count while hunting for a fix. Handy at the start, annoying in the air.",
+           "Pita el número de satélites mientras busca fix. Útil al empezar, molesto en vuelo."],
+  READY_BEEP:["Ein Ton, sobald GPS gelockt und alles bereit ist.",
+           "One tone once GPS is locked and everything is ready.",
+           "Un tono cuando el GPS tiene fix y todo está listo."],
+  GYRO_CALIBRATED:["Kurze Rückmeldung nach der Gyro-Kalibrierung. Harmlos, aber ohne sie rätst du, ob es geklappt hat.",
+           "Short confirmation after gyro calibration. Harmless, but without it you guess whether it worked.",
+           "Confirmación corta tras calibrar el giro. Inofensivo, pero sin él adivinas si funcionó."],
+  DISARM_REPEAT:["Wiederholtes Piepen, solange der Copter nicht freigegeben ist – sagt dir, dass die Funke noch lebt.",
+           "Repeated beep while the arm switch is down – tells you the radio is still alive.",
+           "Pitido repetido con el interruptor de armado abajo – te dice que la emisora sigue viva."],
+  ARMED:["Kurzer Ton, sobald die Motoren freigegeben sind. Praktisch, wenn du nicht auf das Bild schaust.",
+         "Short tone once the motors are enabled. Handy when you are not watching the picture.",
+         "Tono corto al habilitar los motores. Útil si no miras la imagen."],
+  ARMING:["Ton beim Beginn des Freigebens – unterscheidet sich von ARMED, das erst danach kommt.",
+          "Tone when enabling starts – different from ARMED, which comes after.",
+          "Tono al empezar a habilitar – distinto de ARMED, que llega después."],
+  DISARMING:["Ton beim Entschärfen. Sagt dir ohne Blick ins OSD, dass die Motoren aus sind.",
+             "Tone when disarming. Tells you without the OSD that the motors are off.",
+             "Tono al desarmar. Te dice sin mirar el OSD que los motores están apagados."],
+  ACC_CALIBRATION:["Rückmeldung beim Kalibrieren des Beschleunigungssensors.",
+                   "Feedback while calibrating the accelerometer.",
+                   "Aviso al calibrar el acelerómetro."],
+  ACC_CALIBRATION_FAIL:["Eigener Ton, wenn die Kalibrierung schiefgeht. Ohne ihn merkst du es erst beim Start.",
+                        "Its own tone when calibration fails. Without it you notice at takeoff.",
+                        "Tono propio si falla la calibración. Sin él lo notas al despegar."],
+  RX_SET:["Bestätigung, wenn ein Schalter am Sender einen Wert setzt – auch als Beacon nutzbar.",
+          "Confirmation when a switch on the radio sets a value – also usable as a beacon.",
+          "Confirmación cuando un interruptor fija un valor – también sirve de baliza."],
+  MULTI_BEEPS:["Die kurzen Bestätigungstöne in Menüs und beim Einstellen von Werten.",
+               "The short confirmation beeps in menus and while setting values.",
+               "Los pitidos cortos en menús y al ajustar valores."],
+  SYSTEM_INIT:["Ton beim Einschalten der FC. Sagt dir, dass Strom da ist und der Code läuft.",
+               "Tone when the FC powers up. Tells you power is there and the code runs.",
+               "Tono al encender la FC. Indica que hay corriente y el código corre."],
+  CX_CLI:["Kurzes Signal, wenn die FC in die Konsole geht – bei manchen Ständen dabei.",
+          "Short signal when the FC enters the console – present on some builds.",
+          "Señal corta cuando la FC entra en la consola – en algunas versiones."],
+  BLACKBOX_ERASE:["Bestätigung, wenn der Log-Speicher gelöscht wurde – das dauert und man sieht nichts.",
+                  "Confirmation that the log flash was erased – that takes a while and shows nothing.",
+                  "Confirmación de que se borró la memoria de logs – tarda y no muestra nada."],
+  CRASH_FLIP:["Ton im Turtle-Mode, während die Motoren rückwärts laufen.",
+              "Tone in turtle mode while the motors run backwards.",
+              "Tono en modo tortuga mientras los motores giran al revés."],
+  CAM_CONNECTION_OPEN:["Signal, wenn das Kamera-Menü aufgeht – bei Kameras mit Steuerung über die FC.",
+                       "Signal when the camera menu opens – for cameras controlled through the FC.",
+                       "Señal cuando se abre el menú de la cámara – en cámaras controladas por la FC."],
+  CAM_CONNECTION_CLOSE:["Signal, wenn das Kamera-Menü wieder schließt.",
+                        "Signal when the camera menu closes again.",
+                        "Señal cuando se cierra el menú de la cámara."],
+  ON_USB:["Standardeinstellung: AUS. Sonst piept der Copter bei jedem Anstecken am PC – und in der Werkstatt hasst du das nach zwei Minuten.",
+           "Default: OFF. Otherwise it beeps every time you plug it into the PC – and on the bench you hate that after two minutes.",
+           "Por defecto: APAGADO. Si no, pita cada vez que lo conectas al PC – y en el taller lo odias en dos minutos."]
+};
+
+/* ============================================================
+   OSD: Elemente, Raster, Profil-Bits.
+   pos = x | (y << 6) | (profileBits << 11)   - 6 Bit x, 5 Bit y, Bit 11-13 = Profil 1/2/3
+   Elemente ohne Profil-Bits sind laut Betaflight auf allen Profilen sichtbar.
+   ============================================================ */
+var OSD_EL = {
+  warnings:{cl:"warnings",  s:["WARNINGS","WARNINGS","WARNINGS"]},
+  vbat:{cl:"vbat",          s:["Spannung","Voltage","Voltaje"]},
+  tim_1:{cl:"tim_1",        s:["Timer 1","Timer 1","Timer 1"]},
+  link_quality:{cl:"link_quality", s:["Link-Qualität","Link quality","Calidad de enlace"]},
+  mah_drawn:{cl:"mah_drawn",s:["mAh verbraucht","mAh drawn","mAh consumidos"]},
+  current:{cl:"current",    s:["Strom (A)","Current (A)","Corriente (A)"]},
+  flymode:{cl:"flymode",    s:["Flugmodus","Flight mode","Modo de vuelo"]},
+  gps_sats:{cl:"gps_sats",  s:["Satelliten","Satellites","Satélites"]},
+  home_dir:{cl:"home_dir",  s:["Home-Pfeil","Home arrow","Flecha a casa"]},
+  home_dist:{cl:"home_dist",s:["Home-Distanz","Distance home","Distancia a casa"]},
+  altitude:{cl:"altitude",  s:["Höhe","Altitude","Altitud"]},
+  gps_lat:{cl:"gps_lat",    s:["GPS Breite","GPS latitude","Latitud GPS"]},
+  gps_lon:{cl:"gps_lon",    s:["GPS Länge","GPS longitude","Longitud GPS"]},
+  vtx_channel:{cl:"vtx_channel", s:["VTX-Kanal","VTX channel","Canal VTX"]},
+  core_temp:{cl:"core_temp",s:["Temperatur","Core temp","Temperatura"]},
+  craft_name:{cl:"craft_name", s:["Craft-Name","Craft name","Nombre del dron"]}
+};
+/* Slot = Anker + Zeile. Anker halten die Elemente in jeder Rastergröße an ihrem Rand. */
+var OSD_BASE = [["warnings","tl",0],["vbat","bl",0],["tim_1","br",0]];
+var OSD_P = {
+  1: [["link_quality","tr",0],["mah_drawn","bl",1],["current","bl",2],["flymode","tc",0]],
+  2: [["gps_sats","tr",0],["home_dir","bc",0],["home_dist","bc",1],["altitude","br",1],
+      ["gps_lat","bl",1],["gps_lon","bl",2]],
+  3: [["vtx_channel","tr",0],["core_temp","tr",1],["craft_name","bc",0]]
+};
+
+/* ============================================================
+   Modes: die echten permanentIds aus msp_box.c - die Zahl steht in
+   der CLI, der Name nur in der Oberfläche. Wer die Zahl rät,
+   schaltet im Feld den falschen Modus.
+   ============================================================ */
+var M_MODES = [
+  { id:0,  cli:"ARM",                 g:"crit", s:["ARM · Freigabe","ARM · enabling","ARM · habilitar"] },
+  { id:36, cli:"PREARM",              g:"crit", s:["PREARM · Sicherheitsabfrage","PREARM · safety gate","PREARM · seguro previo"] },
+  { id:27, cli:"FAILSAFE",            g:"crit", s:["FAILSAFE · Failsafe von Hand","FAILSAFE · failsafe by hand","FAILSAFE · failsafe manual"] },
+  { id:1,  cli:"ANGLE",               g:"imp",  s:["ANGLE · Selbstnivellierung","ANGLE · self level","ANGLE · autonivel"] },
+  { id:2,  cli:"HORIZON",             g:"imp",  s:["HORIZON · Nivellierung, die ausläuft","HORIZON · level that fades","HORIZON · nivel que se desvanece"] },
+  { id:46, cli:"GPS RESCUE",          g:"imp",  s:["GPS RESCUE · Rückflug von Hand","GPS RESCUE · return by switch","GPS RESCUE · retorno por interruptor"] },
+  { id:13, cli:"BEEPER",              g:"imp",  s:["BEEPER · Piepen auf Schalter","BEEPER · beep on switch","BEEPER · pitido por interruptor"] },
+  { id:35, cli:"FLIP OVER AFTER CRASH", g:"imp", s:["FLIP OVER AFTER CRASH · Turtle Mode","FLIP OVER AFTER CRASH · turtle mode","FLIP OVER AFTER CRASH · modo tortuga"] },
+  { id:28, cli:"AIR MODE",            g:"imp",  s:["AIR MODE · Schub bei Nullgas","AIR MODE · control at zero throttle","AIR MODE · control sin gas"] },
+  { id:19, cli:"OSD",                 g:"comf", s:["OSD · Einblendung abschalten","OSD · turn display off","OSD · apagar el display"] },
+  { id:20, cli:"TELEMETRY",           g:"comf", s:["TELEMETRY · Telemetrie hart abschalten","TELEMETRY · cut telemetry","TELEMETRY · cortar telemetría"] },
+  { id:26, cli:"BLACKBOX",            g:"comf", s:["BLACKBOX · Logging an","BLACKBOX · logging on","BLACKBOX · grabación"] },
+  { id:39, cli:"VTX PIT MODE",        g:"comf", s:["VTX PIT MODE · kleinste Leistung","VTX PIT MODE · lowest power","VTX PIT MODE · mínima potencia"] },
+  { id:52, cli:"BEEPER MUTE",         g:"comf", s:["BEEPER MUTE · alles stumm","BEEPER MUTE · silence all","BEEPER MUTE · silenciar todo"] },
+  { id:53, cli:"READY",               g:"comf", s:["READY · „READY“ im OSD","READY · “READY” in the OSD","READY · “READY” en el OSD"] },
+  { id:54, cli:"LAP TIMER RESET",     g:"comf", s:["LAP TIMER RESET · Rundenzeit nullen","LAP TIMER RESET · zero the timer","LAP TIMER RESET · poner a cero"] }
+];
+function modeDef(id){
+  var out = null;
+  M_MODES.forEach(function(x){ if(x.id === Number(id)) out = x; });
+  return out;
+}
+/* Voreinstellung: nur was fast jeder Copter braucht. Kein ANGLE, kein Rescue -
+   das sind Entscheidungen, die der Pilot trifft, nicht das Preset. */
+var DEF_MODES = [
+  { id:0,  ch:0, lo:900,  hi:1300 },
+  { id:36, ch:1, lo:1300, hi:1700 },
+  { id:46, ch:2, lo:1700, hi:2100 },
+  { id:13, ch:3, lo:1700, hi:2100 }
+];
+
+/* ============================================================
+   Adjustments: Werte aus der offiziellen Tabelle. Nicht jede
+   Funktion aus der Wunschliste existiert - VTX-Leistung und
+   LED-Helligkeit sind keine Adjustment-Funktionen.
+   ============================================================ */
+var M_ADJ = [
+  { v:1,  k:"RC_RATE",                    s:["RC Rate · Steuerrate","RC rate","RC rate"] },
+  { v:2,  k:"RC_EXPO",                    s:["RC-Expo · Mitte weicher","RC expo","Expo de RC"] },
+  { v:4,  k:"PITCH_ROLL_RATE",            s:["Pitch/Roll-Rate","Pitch/roll rate","Rate de pitch/roll"] },
+  { v:5,  k:"YAW_RATE",                   s:["Yaw-Rate","Yaw rate","Rate de yaw"] },
+  { v:6,  k:"PITCH_ROLL_P",               s:["Pitch/Roll P","Pitch/roll P","Pitch/roll P"] },
+  { v:7,  k:"PITCH_ROLL_I",               s:["Pitch/Roll I","Pitch/roll I","Pitch/roll I"] },
+  { v:8,  k:"PITCH_ROLL_D",               s:["Pitch/Roll D","Pitch/roll D","Pitch/roll D"] },
+  { v:15, k:"PITCH_P",                    s:["Pitch P","Pitch P","Pitch P"] },
+  { v:18, k:"ROLL_P",                     s:["Roll P","Roll P","Roll P"] },
+  { v:20, k:"ROLL_D",                     s:["Roll D","Roll D","Roll D"] },
+  { v:22, k:"PITCH_ROLL_F",               s:["Pitch/Roll Feedforward","Pitch/roll feedforward","Feedforward pitch/roll"] },
+  { v:12, k:"RATE_PROFILE",               s:["Rate-Profil wechseln","Switch rate profile","Cambiar perfil de rates"] },
+  { v:29, k:"OSD_PROFILE",                s:["OSD-Profil wechseln","Switch OSD profile","Cambiar perfil OSD"] },
+  { v:30, k:"LED_PROFILE",                s:["LED-Profil wechseln","Switch LED profile","Cambiar perfil LED"] },
+  { v:31, k:"SLIDER_MASTER_MULTIPLIER",   s:["PID-Slider · Master-Multiplier","PID slider · master multiplier","Slider PID · multiplicador maestro"] }
+];
+function adjDef(v){
+  var out = null;
+  M_ADJ.forEach(function(x){ if(x.v === Number(v)) out = x; });
+  return out;
+}
+/* Steuerkanal ist zugleich der Bereichs-Kanal: das ist der einfache Fall und laut
+   Betaflight-Doku ausdrücklich erlaubt ("Range and Adjustment channel can be the same"). */
+var DEF_ADJ = [
+  { fn:18, ch:6, lo:1450, hi:1550, abs:true,  center:58, scale:20 },
+  { fn:20, ch:7, lo:1450, hi:1550, abs:true,  center:45, scale:15 }
+];
+
+/* ============================================================
+   OSD: Elemente mit echten Betaflight-Namen (osd_<name>_pos).
+   t = Beispieltext im Brillenbild, w = grobe Zeichenbreite.
+   Die Breite zählt für die Rasterklemme: ein Element darf am Rand
+   nicht halb aus dem Bild fallen.
+   ============================================================ */
+var OSDV = [
+  { k:"craft_name",  t:"CRAFT-NAME",   w:10, s:["Craft-Name","Craft name","Nombre del dron"] },
+  { k:"flymode",     t:"ANGLE",        w:5,  s:["Flugmodus","Flight mode","Modo de vuelo"] },
+  { k:"vbat",        t:"12.6V",        w:5,  s:["Spannung","Voltage","Voltaje"] },
+  { k:"mah_drawn",   t:"1240mAh",      w:7,  s:["mAh verbraucht","mAh drawn","mAh consumidos"] },
+  { k:"current",     t:"18.4A",        w:5,  s:["Strom","Current","Corriente"] },
+  { k:"tim_1",       t:"04:12",        w:5,  s:["Timer 1","Timer 1","Timer 1"] },
+  { k:"warnings",    t:"WARNINGS",     w:8,  s:["Warnungen","Warnings","Avisos"] },
+  { k:"link_quality",t:"LQ 98",        w:5,  s:["Link-Qualität","Link quality","Calidad de enlace"] },
+  { k:"rssi",        t:"RSSI 72",      w:7,  s:["RSSI","RSSI","RSSI"] },
+  { k:"gps_sats",    t:"12 SATS",      w:7,  s:["Satelliten","Satellites","Satélites"] },
+  { k:"home_dist",   t:"142m",         w:5,  s:["Home-Distanz","Distance home","Distancia a casa"] },
+  { k:"home_dir",    t:"\u25B2",       w:2,  s:["Home-Pfeil","Home arrow","Flecha a casa"] },
+  { k:"altitude",    t:"112m ALT",     w:8,  s:["Höhe","Altitude","Altitud"] },
+  { k:"gps_lat",     t:"53.5511N",     w:9,  s:["GPS Breite","GPS latitude","Latitud GPS"] },
+  { k:"gps_lon",     t:"9.9937E",      w:8,  s:["GPS Länge","GPS longitude","Longitud GPS"] },
+  { k:"gps_speed",   t:"88 km/h",      w:7,  s:["Geschwindigkeit","Speed","Velocidad"] },
+  { k:"vtx_channel", t:"R:1 5658",     w:8,  s:["VTX-Kanal","VTX channel","Canal VTX"] },
+  { k:"core_temp",   t:"42 C",         w:4,  s:["Kerntemperatur","Core temp","Temperatura"] },
+  { k:"esc_tmp",     t:"ESC 38 C",     w:8,  s:["ESC-Temperatur","ESC temp","Temp. del ESC"] },
+  { k:"throttle",    t:"THR 62",       w:6,  s:["Gasstellung","Throttle","Gases"] },
+  { k:"crosshairs",  t:"\u253C",       w:1,  s:["Fadenkreuz","Crosshairs","Mira"] }
+];
+function osdDef(k){
+  var out = null;
+  OSDV.forEach(function(x){ if(x.k === k) out = x; });
+  return out;
+}
+/* Voreinstellung: drei Profile, wie sie ein Copter wirklich fliegt. */
+var DEF_OSD = [
+  { key:"craft_name",   p:1, x:12, y:4  },
+  { key:"flymode",      p:1, x:12, y:6  },
+  { key:"vbat",         p:1, x:1,  y:12 },
+  { key:"tim_1",        p:1, x:1,  y:14 },
+  { key:"link_quality", p:1, x:24, y:4  },
+  { key:"warnings",     p:1, x:11, y:9  },
+  { key:"mah_drawn",    p:2, x:12, y:2  },
+  { key:"current",      p:2, x:2,  y:2  },
+  { key:"gps_sats",     p:2, x:23, y:2  },
+  { key:"home_dist",    p:2, x:12, y:12 },
+  { key:"home_dir",     p:2, x:19, y:12 },
+  { key:"altitude",     p:2, x:2,  y:14 },
+  { key:"gps_lat",      p:3, x:2,  y:8  },
+  { key:"gps_lon",      p:3, x:2,  y:10 },
+  { key:"vtx_channel",  p:3, x:22, y:8  },
+  { key:"core_temp",    p:3, x:22, y:4  }
+];
+
+
+/* ============================================================
+   Rates: Formeln 1:1 aus rc.c. Die Kurve im Browser rechnet
+   dieselben Schritte wie die FC, sonst wäre die Vorschau ein
+   Schaubild, das lügt.
+   ============================================================ */
+var RATES_TYPES = [
+  { k:"BETAFLIGHT", cli:"BETAFLIGHT", lo:200,  hi:1800, def:{ rc:100, srate:70, expo:0 },
+    s:["Betaflight","Betaflight","Betaflight"],
+    d:["Der Klassiker: Rate oben offen bis über 1800 °/s, Expo wirkt stark um die Mitte.",
+       "The classic: rate open up to 1800 °/s or more, expo bites hard around centre.",
+       "El clásico: rate abierto hasta 1800 °/s, el expo actúa fuerte en el centro."] },
+  { k:"ACTUAL", cli:"ACTUAL", lo:200, hi:2000, def:{ rc:7, srate:67, expo:0 }, s:["Actual","Actual","Actual"],
+    d:["Raten in echter Gradzahl: was du einstellst, dreht der Copter auch.",
+       "Rates as real degrees: what you set is what the quad turns.",
+       "Rates en grados reales: lo que ajustas es lo que gira el dron."] },
+  { k:"QUICK", cli:"QUICK", lo:200, hi:2000, def:{ rc:100, srate:70, expo:0 }, s:["Quick","Quick","Quick"],
+    d:["Wie Betaflight, aber der mittlere Bereich bleibt länger ruhig.",
+       "Like Betaflight, but the middle stays calm for longer.",
+       "Como Betaflight, pero el centro se mantiene más tiempo tranquilo."] },
+  { k:"RACEFLIGHT", cli:"RACEFLIGHT", lo:200, hi:2550, def:{ rc:70, srate:30, expo:0 }, s:["Raceflight","Raceflight","Raceflight"],
+    d:["Sehr direkt um die Mitte, viel Weg nach außen. Nervös, wenn du es nicht gewohnt bist.",
+       "Very direct around centre, lots of travel outside. Twitchy if you are not used to it.",
+       "Muy directo en el centro, mucho recorrido fuera. Nervioso si no estás acostumbrado."] },
+  { k:"KISS", cli:"KISS", lo:200, hi:2000, def:{ rc:100, srate:70, expo:0 }, s:["Kiss","Kiss","Kiss"],
+    d:["Von KISS übernommen: weiche Mitte, kräftiges Ende.",
+       "Taken from KISS: soft centre, strong end.",
+       "Tomado de KISS: centro suave, final fuerte."] }
+];
+function ratesType(k){
+  var out = RATES_TYPES[0];
+  RATES_TYPES.forEach(function(x){ if(x.k === k) out = x; });
+  return out;
+}
+/* x = Knüppelweg 0…1, gibt °/s zurück. cfg: {type, rc(rcRates), srate(rates), expo} */
+function rateAt(x, cfg){
+  var f = x, a = Math.abs(x), e = (cfg.expo || 0) / 100, rc = (cfg.rc || 0) / 100, sr = (cfg.srate || 0) / 100;
+  function p3(v){ return v * v * v; }
+  function p5(v){ return v * v * v * v * v; }
+  var t = cfg.type;
+  if(t === "BETAFLIGHT"){
+    if(e) f = f * p3(a) * e + f * (1 - e);
+    var r = rc;
+    if(r > 2) r += 14.54 * (r - 2);
+    var rate = 200 * r * f;
+    if(sr) rate *= 1 / Math.min(1, Math.max(0.01, 1 - (a * sr)));
+    return rate;
+  }
+  if(t === "ACTUAL"){
+    var c = rc * 1000;                     /* rcRates * 10 */
+    var move = Math.max(0, (cfg.srate || 0) * 10 - c);
+    var x2 = a * (p5(f) * e + f * (1 - e));
+    return f * c + move * x2;
+  }
+  if(t === "QUICK"){
+    var rc2 = rc * 200, maxD = Math.max((cfg.srate || 0) * 10, rc2);
+    var superC = (maxD / rc2 - 1) / (maxD / rc2);
+    var curve = p3(f) * e + f * (1 - e);
+    var superF = 1 / Math.min(1, Math.max(0.01, 1 - Math.abs(curve) * superC));
+    return Math.min(1998, Math.max(-1998, curve * rc2 * superF));
+  }
+  if(t === "RACEFLIGHT"){
+    var fc2 = (1 + 0.01 * (cfg.expo || 0) * (f * f - 1)) * f;
+    var ar = 10 * (cfg.rc || 0) * fc2;
+    return Math.min(1998, Math.max(-1998, ar * (1 + a * (cfg.srate || 0) * 0.01)));
+  }
+  /* KISS */
+  var kissR = 1 / Math.min(1, Math.max(0.01, 1 - (a * sr)));
+  var kissC = (p3(f) * e + f * (1 - e)) * (rc / 10);   /* rcRates/1000, rcRates in % */
+  return Math.min(1998, Math.max(-1998, (2000 * kissR) * kissC));
+}
+/* Was die Zahl im Feld bedeutet - je Typ etwas anderes. */
+function ratesLabels(k){
+  if(k === "BETAFLIGHT") return { rc:["RC Rate", 0, 255], srate:["Max Rate", 0, 100], expo:["Expo", 0, 100] };
+  if(k === "ACTUAL")     return { rc:["Center Sensitivity (°/s)", 0, 200], srate:["Max Rate (°/s)", 0, 200], expo:["Expo", 0, 100] };
+  if(k === "QUICK")      return { rc:["RC Rate", 0, 255], srate:["Max Rate (°/s)", 0, 200], expo:["Expo", 0, 100] };
+  if(k === "RACEFLIGHT") return { rc:["RC Rate", 0, 200], srate:["Super Rate", 0, 255], expo:["Expo", 0, 100] };
+  return                        { rc:["RC Rate", 0, 255], srate:["Max Rate (°/s)", 0, 99], expo:["Expo", 0, 100] };
+}
+var DEF_RATES = { type:"ACTUAL", rc:7, srate:67, expo:0 };
+
+/* ============================================================
+   Speicher und gemeinsame Einstellungen (wie die übrigen FlowState-Seiten)
+   ============================================================ */
+var KEY = "flowstate.presets.v1";
+var PREFS_KEY = "flowstate.presets.prefs";
+var FS_KEY = "flowstate.prefs";
+/* Farbe und Sprache, die auch die Übersichtsseite und die anderen Werkzeuge lesen. */
+var HUB_THEME_KEY = "flowstate-theme";
+var HUB_LANG_KEY = "flowstate-lang";
+var VER = "0.2.0-beta.1";
+var THEMES = { ocean:1, sand:1, drakn:1 };
+var LANGS = ["de","en","es"];
+
+var LS = {
+  get:function(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set:function(k,v){
+    try{ localStorage.setItem(k,v); storeFail(false); return true; }
+    catch(e){ storeFail(true); return false; }
+  }
+};
+/* Öffnet jemand die Datei per Doppelklick (file://), verweigern manche Browser
+   den Speicher. Dann einmal sagen, dass Änderungen nur bis zum Schließen gelten. */
+var failTold = false;
+function storeFail(on){
+  if(!on || failTold) return;
+  failTold = true;
+  setTimeout(function(){
+    toast((typeof T === "function" ? T("storeOff") : "Speicher gesperrt – Änderungen gelten nur bis zum Schließen."), "bad");
+  }, 600);
+}
+function lgi(k){ return LANGS.indexOf(prefs.lang) < 0 ? 0 : LANGS.indexOf(prefs.lang); }
+function T(k){
+  var row = STR[k];
+  if(!row) return k;
+  var v = row[lgi(k)];
+  return v == null ? row[0] : v;
+}
+function TX(k, i){ var row = STR[k]; return row ? row[i] : k; }
+function L3(pair){ return pair ? pair[lgi()] : ""; }
+
+var prefs = { theme:"ocean", lang:"de", tab:"dash", lastModel:null };
+/* Aus der Adresse, wie die Übersichtsseite es schickt: ?theme=drakn&lang=en. */
+function urlParam(name){
+  try{ return new URLSearchParams(location.search).get(name); }catch(e){ return null; }
+}
+(function loadPrefs(){
+  var p = {};
+  try{ p = JSON.parse(LS.get(PREFS_KEY) || "{}") || {}; }catch(e){ p = {}; }
+  var shared = {};
+  try{ shared = JSON.parse(LS.get(FS_KEY) || "{}") || {}; }catch(e){ shared = {}; }
+  /* Reihenfolge: Adresse, dann die Schlüssel der Übersichtsseite, dann die eigene
+     Ablage, dann die gemeinsame, dann die Browsersprache. */
+  var queryTheme = urlParam("theme");
+  var queryLang = urlParam("lang");
+  var hubTheme = LS.get(HUB_THEME_KEY);
+  var hubLang = LS.get(HUB_LANG_KEY);
+  var nav = String(navigator.language || "de").toLowerCase();
+  var theme = THEMES[queryTheme] ? queryTheme : (THEMES[hubTheme] ? hubTheme : p.theme);
+  var lang = LANGS.indexOf(queryLang) > -1 ? queryLang
+           : (LANGS.indexOf(hubLang) > -1 ? hubLang : p.lang);
+  prefs.theme = THEMES[theme] ? theme : (THEMES[shared.theme] ? shared.theme : "ocean");
+  prefs.lang = LANGS.indexOf(lang) > -1 ? lang : (LANGS.indexOf(shared.lang) > -1 ? shared.lang
+             : (/^de/.test(nav) ? "de" : (/^es/.test(nav) ? "es" : "en")));
+  prefs.tab = p.tab === "check" ? "check" : "build";
+  prefs.lastModel = p.lastModel || null;
+  /* Was aus der Adresse kam, gilt sofort auch für die anderen Seiten. */
+  if(THEMES[queryTheme] || LANGS.indexOf(queryLang) > -1) savePrefs(true);
+})();
+function savePrefs(shared){
+  LS.set(PREFS_KEY, JSON.stringify(prefs));
+  if(!shared) return;
+  LS.set(FS_KEY, JSON.stringify({ theme:prefs.theme, lang:prefs.lang, updatedAt:Date.now(), by:"presets" }));
+  /* Die beiden einzelnen Schlüssel liest die Übersichtsseite direkt. */
+  LS.set(HUB_THEME_KEY, prefs.theme);
+  LS.set(HUB_LANG_KEY, prefs.lang);
+}
+
+var data = { models:[], ver:1 };
+(function loadData(){
+  try{
+    var p = JSON.parse(LS.get(KEY) || "{}");
+    if(p && Array.isArray(p.models)) data = { models:p.models, ver:1 };
+  }catch(e){ /* kaputter Speicher: leer starten, nichts überschreiben */ }
+})();
+function save(){
+  var ok = LS.set(KEY, JSON.stringify(data));
+  if(!ok) toast(T("fileFail"), "bad");
+  return ok;
+}
+function uid(p){ return (p || "m") + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+
+/* ============================================================
+   Hilfen
+   ============================================================ */
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+var tTimer;
+function toast(msg, kind){
+  var t = $("toast");
+  t.textContent = msg;
+  t.className = "toast on" + (kind ? " " + kind : "");
+  clearTimeout(tTimer);
+  tTimer = setTimeout(function(){ t.className = "toast"; }, 2800);
+}
+function copyText(txt, msg){
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = txt; ta.setAttribute("readonly","");
+    ta.style.position = "fixed"; ta.style.top = "-1000px";
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try{ ok = document.execCommand("copy"); }catch(e){ ok = false; }
+    document.body.removeChild(ta);
+    toast(ok ? msg : T("copyFail"), ok ? "ok" : "bad");
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast(msg, "ok"); }, fallback);
+    return;
+  }
+  fallback();
+}
+function download(name, text){
+  try{
+    var blob = new Blob([text], { type:"text/plain;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 400);
+    return true;
+  }catch(e){ return false; }
+}
+function slug(s){
+  return String(s || "preset").toLowerCase()
+    .replace(/[äöüß]/g, function(m){ return ({ "ä":"ae","ö":"oe","ü":"ue","ß":"ss" })[m]; })
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "preset";
+}
+
+/* ============================================================
+   Modell-Daten
+   ============================================================ */
+/* Jeder Beeper startet auf seinem Standardwert - ON_USB bewusst aus. */
+function blankBeeper(){
+  var b = {};
+  BEEPERS.forEach(function(x){ b[x.k] = !!x.def; });
+  b.ON_USB = false;
+  return b;
+}
+function blankModel(){
+  return { id:uid(), name:"", size:"", fc:"", notes:"",
+           beep:blankBeeper(),
+           modes:DEF_MODES.map(function(x){ return { id:x.id, ch:x.ch, lo:x.lo, hi:x.hi }; }),
+           prof:[1],
+           osd:DEF_OSD.map(function(x){ return { key:x.key, profs:[x.p], x:x.x, y:x.y }; }),
+           editP:1,
+           adj:DEF_ADJ.map(function(x){ return { fn:x.fn, ch:x.ch, lo:x.lo, hi:x.hi, abs:x.abs, center:x.center, scale:x.scale }; }),
+           rates:{ type:DEF_RATES.type, rc:DEF_RATES.rc, srate:DEF_RATES.srate, expo:DEF_RATES.expo },
+           fs:"DROP", craft:"", updatedAt:Date.now() };
+}
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function getModel(id){
+  for(var i=0;i<data.models.length;i++) if(data.models[i].id === id) return data.models[i];
+  return null;
+}
+function curModel(){ return getModel(prefs.lastModel) || data.models[0] || null; }
+/* Zurücksetzen: die Seite hat keine festen Vorlagen mehr, nur noch den
+   Standard - alles andere stellt man selbst ein. */
+function applyDefaults(m){
+  var b = blankModel();
+  m.beep = b.beep; m.modes = b.modes; m.prof = b.prof; m.osd = b.osd;
+  m.adj = b.adj; m.editP = 1; m.fs = b.fs; m.rates = b.rates;
+  m.updatedAt = Date.now();
+  return m;
+}
+/* Fehlende Felder aus älteren Ständen auffüllen, ohne Gutes zu überschreiben. */
+function normalizeMode(x){
+  var id = Number(x && x.id);
+  if(!modeDef(id)) return null;
+  var o = { id:id,
+    ch: Math.max(0, Math.min(11, Number(x.ch) || 0)),
+    lo: Math.max(900, Math.min(2100, Math.round((Number(x.lo) || 900) / 25) * 25)),
+    hi: Math.max(900, Math.min(2100, Math.round((Number(x.hi) || 2100) / 25) * 25)) };
+  return o;
+}
+function normalizeOsdEl(x){
+  if(!x || !osdDef(x.key)) return null;
+  /* Ein Element hat eine Position, aber kann in mehreren Profilen sichtbar sein -
+     genau wie in Betaflight. Alte Stände mit einzelnem "p" werden übernommen. */
+  var profs = Array.isArray(x.profs) ? x.profs : (x.p !== undefined ? [x.p] : []);
+  profs = profs.map(Number).filter(function(v, i, a){
+    return [1,2,3].indexOf(v) > -1 && a.indexOf(v) === i;
+  }).sort();
+  if(!profs.length) return null;
+  return { key:String(x.key), profs:profs,
+    x: Math.max(0, Math.min(55, Math.round(Number(x.x) || 0))),
+    y: Math.max(0, Math.min(22, Math.round(Number(x.y) || 0))) };
+}
+function normalizeAdj(x){
+  if(!x || !adjDef(x.fn)) return null;
+  var abs = x.abs === true || Number(x.center) > 0;
+  return { fn:Number(x.fn),
+    ch: Math.max(0, Math.min(11, Number(x.ctrl !== undefined ? x.ctrl : x.ch) || 0)),
+    lo: Math.max(900, Math.min(2100, Math.round((Number(x.lo) || 900) / 25) * 25)),
+    hi: Math.max(900, Math.min(2100, Math.round((Number(x.hi) || 2100) / 25) * 25)),
+    abs: !!abs,
+    center: Math.max(1, Math.min(250, Number(x.center) || 40)),
+    scale: Math.max(0, Math.min(250, x.scale === undefined ? 10 : Number(x.scale))) };
+}
+function normalizeModel(m){
+  if(!m || typeof m !== "object") return null;
+  if(!m.id) m.id = uid();
+  m.name = String(m.name || "").slice(0, 80);
+  m.size = String(m.size || "").slice(0, 24);
+  m.fc = String(m.fc || "").slice(0, 60);
+  m.notes = String(m.notes || "").slice(0, 200);
+  var d = blankModel();
+  m.beep = m.beep && typeof m.beep === "object" ? m.beep : clone(d.beep);
+  BEEPERS.forEach(function(b){ if(typeof m.beep[b.k] !== "boolean") m.beep[b.k] = d.beep[b.k]; });
+  m.beep.ON_USB = m.beep.ON_USB === true;
+  m.modes = Array.isArray(m.modes) ? m.modes.map(normalizeMode).filter(Boolean) : d.modes;
+  m.modes = m.modes.filter(function(x, i, arr){
+    return arr.map(function(y){ return y.id; }).indexOf(x.id) === i;   /* je Modus nur eine Zeile */
+  });
+  if(!Array.isArray(m.prof) || !m.prof.length) m.prof = [1];
+  m.prof = m.prof.filter(function(p){ return p >= 1 && p <= 3; });
+  if(!m.prof.length) m.prof = [1];
+  m.prof.sort();
+  m.osd = Array.isArray(m.osd) ? m.osd.map(normalizeOsdEl).filter(Boolean) : d.osd;
+  m.osd = m.osd.filter(function(x, i, arr){
+    return arr.map(function(y){ return y.key; }).indexOf(x.key) === i;   /* ein Element, eine Position */
+  });
+  m.editP = m.prof.indexOf(Number(m.editP)) > -1 ? Number(m.editP) : m.prof[0];
+  m.adj = Array.isArray(m.adj) ? m.adj.map(normalizeAdj).filter(Boolean) : d.adj;
+  m.adj = m.adj.slice(0, 4);
+  var rt = m.rates && typeof m.rates === "object" ? m.rates : {};
+  var typ = ratesType(rt.type).k;
+  var lim = ratesLabels(typ);
+  m.rates = { type:typ,
+    rc: Math.max(lim.rc[1], Math.min(lim.rc[2], Math.round(Number(rt.rc) || DEF_RATES.rc))),
+    srate: Math.max(lim.srate[1], Math.min(lim.srate[2], Math.round(Number(rt.srate) || DEF_RATES.srate))),
+    expo: Math.max(0, Math.min(100, Math.round(Number(rt.expo) || 0))) };
+  m.fs = ["DROP","AUTO-LAND","GPS-RESCUE"].indexOf(m.fs) > -1 ? m.fs : "DROP";
+  m.craft = String(m.craft || "").slice(0, 16);
+  m.updatedAt = Number(m.updatedAt) || Date.now();
+  delete m.tpl; delete m.vtx; delete m.low; delete m.video;   /* alte Felder, gehören nicht mehr ins Preset */
+  return m;
+}
+
+/* ============================================================
+   OSD: Position, Profil-Bits, Zeilen
+   pos = x | (y << 6) | (bits << 11)   - 6 Bit x, 5 Bit y, Bit 11-13 = Profil 1/2/3
+   bits 7 = auf allen drei Profilen sichtbar.
+   ============================================================ */
+/* Ein Raster für alle: 30×16 ist der Standard-Canvas von Betaflight und die
+   Koordinaten in der CLI beziehen sich darauf. Keine PAL/NTSC/HD-Auswahl. */
+function gridFor(model){ return { cols:30, rows:16 }; }
+function osdEl(m, k){
+  var out = null;
+  (m.osd || []).forEach(function(x){ if(x.key === k) out = x; });
+  return out;
+}
+function clampCel(x, y, el, grid){
+  var w = (el && el.w) || 1;
+  return { x:Math.max(0, Math.min(grid.cols - w, Math.round(x))),
+           y:Math.max(0, Math.min(grid.rows - 1, Math.round(y))) };
+}
+/* Elemente, die in mehr als einem gewählten Profil stehen, gehen nur mit Bits 7 -
+   Betaflight kennt keine zwei Profile mit unterschiedlicher Position für ein Element. */
+function osdLines(model){
+  var grid = gridFor(model), out = [];
+  OSDV.forEach(function(el){
+    var on = [], posEl = null;
+    (model.osd || []).forEach(function(x){
+      if(x.key !== el.k) return;
+      posEl = posEl || x;
+      var live = (x.profs || []).filter(function(p){ return (model.prof || []).indexOf(p) > -1; });
+      if(live.length) on = live;
+    });
+    if(!posEl || !on.length) return;
+    var bits = on.length > 1 ? 7 : ({ 1:1, 2:2, 3:4 })[on[0]];
+    var c = clampCel(posEl.x, posEl.y, el, grid);
+    out.push({ key:el.k, x:c.x, y:c.y, prof:bits, profs:on,
+               pos:c.x + (c.y << 6) + (bits << 11) });
+  });
+  return out;
+}
+function osdPlan(model){ return osdLines(model); }
+
+/* ============================================================
+   Modes, Adjustments: Zeilen
+   aux <index> <mode> <auxKanal 0-11> <start> <ende> <logik> <verknüpft>
+   Leerzeilen explizit, damit kein alter Schalter stehen bleibt.
+   ============================================================ */
+function modeLines(model){
+  var out = [], rows = model.modes || [];
+  for(var i = 0; i < 16; i++){
+    var r = rows[i];
+    out.push(r ? "aux " + i + " " + r.id + " " + r.ch + " " + r.lo + " " + r.hi + " 0 0"
+               : "aux " + i + " 0 0 900 900 0 0");
+  }
+  return out;
+}
+function adjLines(model){
+  var out = [], rows = model.adj || [];
+  for(var i = 0; i < 4; i++){
+    var r = rows[i];
+    out.push(r ? "adjrange " + i + " 0 " + r.ch + " " + r.lo + " " + r.hi + " " + r.fn + " " +
+                 r.ch + " " + (r.abs ? r.center : 0) + " " + (r.abs ? r.scale : 0)
+               : "adjrange " + i + " 0 0 900 900 0 0 0 0");
+  }
+  return out;
+}
+
+/* ============================================================
+   CLI-Generator
+   ============================================================ */
+function beeperLines(model){
+  /* Alle zehn explizit - auch die ausgeschalteten. Sonst bleibt ein altes "+X"
+     aus einem früheren Stand stehen, weil es im diff all nie auftaucht. */
+  return BEEPERS.map(function(b){
+    return "beeper " + (model.beep[b.k] ? "" : "-") + b.k;
+  });
+}
+function cliFor(model){
+  if(!model) return "";
+  var out = [];
+  out.push("# CLI Preset generated by FPV Tool");
+  out.push("# FlowState Presets v" + VER + " · Betaflight 4.3+");
+  out.push("# " + (model.name || "—") + (model.size ? " · " + model.size : "") +
+           (model.fc ? " · " + model.fc : ""));
+  out.push("# " + new Date().toISOString().slice(0, 16).replace("T", " "));
+  out.push("");
+  out.push("# Beeper");
+  out = out.concat(beeperLines(model));
+  out.push("");
+  out.push("# Modes (aux <slot> <mode> <auxKanal 0-11> <start> <ende>)");
+  out.push("# AUX1 = 0 … AUX12 = 11");
+  out = out.concat(modeLines(model));
+  out.push("");
+  out.push("# OSD");
+  out.push("feature OSD");
+  out.push("set osd_profile = " + (model.prof[0] || 1));
+  osdLines(model).forEach(function(e){
+    out.push("set osd_" + e.key + "_pos = " + e.pos);
+  });
+  if(model.craft) out.push("set craft_name = " + model.craft.replace(/[^\w \-.]/g, "").slice(0, 16));
+  out.push("");
+  var rt = model.rates || DEF_RATES;
+  out.push("# Rates (rateprofile 0 · " + rt.type + ")");
+  out.push("rateprofile 0");
+  out.push("set rates_type = " + ratesType(rt.type).cli);
+  ["roll","pitch","yaw"].forEach(function(ax){
+    out.push("set " + ax + "_rc_rate = " + rt.rc);
+  });
+  ["roll","pitch","yaw"].forEach(function(ax){
+    out.push("set " + ax + "_srate = " + rt.srate);
+  });
+  ["roll","pitch","yaw"].forEach(function(ax){
+    out.push("set " + ax + "_expo = " + rt.expo);
+  });
+  out.push("");
+  out.push("# Adjustments (adjrange <slot> 0 <kanal> <start> <ende> <funktion> <steuerKanal> <center> <scale>)");
+  out = out.concat(adjLines(model));
+  out.push("");
+  out.push("# Failsafe");
+  out.push("set failsafe_procedure = " + model.fs);
+  out.push("");
+  out.push("save");
+  return out.join("\n") + "\n";
+}
+
+/* ============================================================
+   Konflikte: was auf der FC still schiefgeht, ohne Fehlermeldung.
+   ============================================================ */
+function overlap(a, b){ return a.lo < b.hi && b.lo < a.hi; }
+function conflicts(model){
+  var out = [], modes = model.modes || [], adj = model.adj || [];
+  function add(kind, msg){ out.push({ kind:kind, msg:msg }); }
+
+  /* 1) Dieselbe Range-Schwelle für mehrere Funktionen → beide feuern gleichzeitig */
+  for(var i = 0; i < adj.length; i++){
+    for(var j = i + 1; j < adj.length; j++){
+      var A = adj[i], B = adj[j];
+      if(A.ch === B.ch && overlap(A, B) && A.abs !== B.abs){
+        add("bad", TX("cfAbsStep", lgi()).replace("{a}", (i+1)).replace("{b}", (j+1)));
+      }
+      if(A.ch === B.ch && A.abs && B.abs && overlap(A, B)){
+        add("bad", TX("cfSameCh", lgi()).replace("{a}", (i+1)).replace("{b}", (j+1)));
+      }
+    }
+  }
+  /* 2) Zwei Bereiche auf demselben Kanal: der zweite gewinnt, der erste ist tot */
+  var byCh = {};
+  adj.forEach(function(r, i){ (byCh[r.ch] = byCh[r.ch] || []).push(i + 1); });
+  Object.keys(byCh).forEach(function(c){
+    if(byCh[c].length > 1) add("warn", TX("cfCtrlTwice", lgi()).replace("{c}", "AUX " + (Number(c) + 1)));
+  });
+  /* 3) Modus-Bereiche, die sich auf demselben Kanal überlappen: legal, aber oft ein Denkfehler */
+  for(var k = 0; k < modes.length; k++){
+    for(var l = k + 1; l < modes.length; l++){
+      var C = modes[k], D = modes[l];
+      if(C.ch === D.ch && overlap(C, D)){
+        add("warn", TX("cfModeOverlap", lgi())
+          .replace("{a}", L3((modeDef(C.id) || { s:["?","?","?"] }).s))
+          .replace("{b}", L3((modeDef(D.id) || { s:["?","?","?"] }).s)));
+      }
+    }
+  }
+  /* 4) Ein Kanal für mehrere Schalter: geht, ist aber meist ein Versehen */
+  /* 5) Abbruchkriterien, die im Feld wehtun */
+  modes.forEach(function(r){
+    var d = modeDef(r.id);
+    if(r.lo >= r.hi) add("bad", TX("cfEmptyRange", lgi()).replace("{m}", d ? L3(d.s) : r.id));
+    if(r.hi - r.lo < 75) add("warn", TX("cfNarrow", lgi()).replace("{m}", d ? L3(d.s) : r.id));
+  });
+  if(!String(model.name || "").trim()) add("warn", TX("cfNoName", lgi()));
+  var rt2 = model.rates || DEF_RATES;
+  if(rt2.type === "ACTUAL" && rt2.srate && rt2.rc * 10 > rt2.srate * 10) add("warn", TX("cfRateOrder", lgi()));
+  if(!modes.length) add("bad", TX("cfNoArm", lgi()));
+  if(modes.length && !modes.some(function(r){ return r.id === 0; })) add("bad", TX("cfNoArm", lgi()));
+  if(modes.length && !modes.some(function(r){ return r.id === 36; })) add("warn", TX("cfNoPrearm", lgi()));
+  /* 6) GPS RESCUE ohne GPS-Rückholverfahren im Failsafe */
+  var rescue = modes.some(function(r){ return r.id === 46 && r.hi > r.lo; });
+  if(rescue && model.fs !== "GPS-RESCUE") add("warn", TX("cfRescueFs", lgi()));
+  if(model.fs === "GPS-RESCUE" && !rescue) add("warn", TX("cfFsNoRescue", lgi()));
+  adj.forEach(function(r, i){
+    if(r.abs && (r.scale || 0) === 0) add("warn", TX("cfScaleZero", lgi()).replace("{n}", (i+1)));
+  });
+  return out;
+}
+
+/* ============================================================
+   Validator: prüft fremden Code gegen das, was wirklich wehtut
+   ============================================================ */
+function parseDiff(text){
+  var t = String(text || "").replace(/\r/g, "");
+  var beeper = {}, beeperSeen = {}, set = {}, aux = {}, adj = {}, raw = t;
+  t.split("\n").forEach(function(line){
+    var l = line.replace(/\s+$/, "").trim();
+    if(!l || l.charAt(0) === "#") return;
+    var m = l.match(/^beeper\s+(-?)([A-Z0-9_]+)$/i);
+    if(m){
+      var name = m[2].toUpperCase();
+      if(name === "ALL" && m[1] === "-"){ beeper.ALL_OFF = true; return; }
+      beeper[name] = m[1] !== "-"; beeperSeen[name] = 1; return;
+    }
+    m = l.match(/^set\s+([a-z0-9_]+)\s*=\s*(.+)$/i);
+    if(m){ set[m[1].toLowerCase()] = m[2].trim(); return; }
+    m = l.match(/^aux\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/i);
+    if(m){ aux[m[1]] = { mode:Number(m[2]), ch:Number(m[3]), lo:Number(m[4]), hi:Number(m[5]) }; return; }
+    m = l.match(/^adjrange\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/i);
+    if(m){ adj[m[1]] = { ch:Number(m[3]), lo:Number(m[4]), hi:Number(m[5]), fn:Number(m[6]), ctrl:Number(m[7]), center:Number(m[8]) }; }
+  });
+  return { beeper:beeper, beeperSeen:beeperSeen, set:set, aux:aux, adj:adj, raw:t };
+}
+function validate(text, model){
+  var p = parseDiff(text), out = [], missing = [];
+  var has = Object.keys(p.set).length > 0 || Object.keys(p.beeperSeen).length > 0 ||
+            Object.keys(p.aux).length > 0 || Object.keys(p.adj).length > 0;
+  if(!has) return { list:[{ k:"info", t:T("nothing") }], missing:[], stats:{} };
+
+  /* 1) RX_LOST - der Beeper, der im Feld zählt */
+  if(p.beeperSeen.RX_LOST === undefined){
+    out.push({ k:"warn", t:"RX_LOST", d:["steht nicht im Code – je nach FC-Standard kann er aus sein. Explizit setzen.",
+                    "not in the code – depending on FC defaults it may be off. Set it explicitly.",
+                    "no está en el código – según el estándar de la FC puede estar apagado. Ponlo explícito."] });
+    missing.push("beeper RX_LOST");
+  }else if(!p.beeper.RX_LOST){
+    out.push({ k:"bad", t:"RX_LOST", d:["ist ausgeschaltet. Bricht die Verbindung ab, piept nichts – im hohen Gras suchst du blind.",
+                    "is switched off. If the link drops, nothing beeps – you search blind in tall grass.",
+                    "está apagado. Si se corta el enlace, nada pita – buscas a ciegas en hierba alta."] });
+    missing.push("beeper RX_LOST");
+  }else{
+    out.push({ k:"ok", t:"RX_LOST", d:["an – der Copter piept, wenn die Verbindung abreisst.",
+                    "on – the quad beeps when the link breaks.",
+                    "activo – el dron pita si se corta el enlace."] });
+  }
+
+  /* 2) Failsafe-Beeper heißt in der CLI RX_LOST_LANDING */
+  if(p.beeperSeen.RX_LOST_LANDING === undefined){
+    out.push({ k:"warn", t:"RX_LOST_LANDING (FAILSAFE)", d:["fehlt – der SOS-Ton im Failsafe ist nicht gesetzt.",
+                    "missing – the SOS tone during failsafe is not set.",
+                    "falta – el tono SOS en failsafe no está configurado."] });
+    missing.push("beeper RX_LOST_LANDING");
+  }else if(!p.beeper.RX_LOST_LANDING){
+    out.push({ k:"bad", t:"RX_LOST_LANDING (FAILSAFE)", d:["ist aus. Im Failsafe liegt der Copter still und piept nicht.",
+                    "is off. During failsafe the quad lies there silently.",
+                    "está apagado. En failsafe queda callado."] });
+    missing.push("beeper RX_LOST_LANDING");
+  }else{
+    out.push({ k:"ok", t:"RX_LOST_LANDING (FAILSAFE)", d:["an – der Copter piept auch im Failsafe.", "on – the quad beeps in failsafe too.", "activo – el dron también pita en failsafe."] });
+  }
+
+  /* 3) BAT_CRIT_LOW */
+  if(p.beeperSeen.BAT_CRIT_LOW !== undefined && !p.beeper.BAT_CRIT_LOW){
+    out.push({ k:"bad", t:"BAT_CRIT_LOW", d:["ist aus – keine letzte Warnung vor dem Absacken.",
+                    "is off – no final warning before the pack sags.",
+                    "está apagado – sin último aviso antes de que caiga."] });
+    missing.push("beeper BAT_CRIT_LOW");
+  }else if(p.beeperSeen.BAT_CRIT_LOW === undefined){
+    out.push({ k:"warn", t:"BAT_CRIT_LOW", d:["nicht gesetzt – Standard kann aus sein.",
+                    "not set – the default may be off.", "no configurado – el estándar puede estar apagado."] });
+    missing.push("beeper BAT_CRIT_LOW");
+  }else{
+    out.push({ k:"ok", t:"BAT_CRIT_LOW", d:["an – die letzte Warnung vor dem Absacken ist eingeschaltet.", "on – the final low-pack warning is enabled.", "activo – el último aviso antes de que caiga está activado."] });
+  }
+
+  /* 4) beeper -ALL ist die Falle: schaltet auch RX_LOST und FAILSAFE ab */
+  if(p.beeper.ALL_OFF){
+    out.push({ k:"bad", t:"beeper -ALL", d:["schaltet ALLE Beeper ab – auch RX_LOST und den Failsafe-Ton. Danach die wichtigen wieder einzeln an.",
+                    "switches off ALL beepers – including RX_LOST and the failsafe tone. Turn the important ones back on individually.",
+                    "apaga TODOS los beeps – también RX_LOST y el de failsafe. Vuelve a encender los importantes uno a uno."] });
+  }
+
+  /* 5) Failsafe-Verfahren */
+  var fs = p.set.failsafe_procedure;
+  if(!fs){
+    out.push({ k:"warn", t:"failsafe_procedure", d:["nicht gesetzt – der FC-Standard gilt. Explizit setzen, dann weißt du, was passiert.",
+                    "not set – the FC default applies. Set it explicitly so you know what happens.",
+                    "no configurado – vale el estándar de la FC. Ponlo explícito para saber qué pasa."] });
+    missing.push("set failsafe_procedure = DROP");
+  }else if(/^GPS[-_]RESCUE$/i.test(fs)){
+    out.push({ k:"info", t:"failsafe_procedure = GPS-RESCUE", d:["Rettung nach Hause – braucht GPS-Fix und sauberen Home-Punkt. Ohne Fix steigt der Copter und kommt nicht zurück.",
+                    "rescue home – needs a GPS fix and a clean home point. Without a fix it climbs and does not come back.",
+                    "rescate a casa – necesita fix GPS y un home limpio. Sin fix sube y no vuelve."] });
+    /* Rettung ohne Schalter ist ein halbes Setup */
+    var hasRescue = false;
+    Object.keys(p.aux).forEach(function(i){ if(p.aux[i].mode === 46 && p.aux[i].hi > p.aux[i].lo) hasRescue = true; });
+    if(!hasRescue){
+      out.push({ k:"warn", t:"GPS RESCUE", d:["als Failsafe-Verfahren gesetzt, aber auf keinem AUX-Kanal – ohne Schalter kommst du nur über den Failsafe heran.",
+                      "set as the failsafe procedure, but on no AUX channel – without a switch you can only trigger it by failsafe.",
+                      "configurado como failsafe, pero en ningún canal AUX – sin interruptor solo entra por failsafe."] });
+      missing.push("aux 4 46 2 1700 2100 0 0");
+    }
+  }else{
+    out.push({ k:"ok", t:"failsafe_procedure = " + String(fs).toUpperCase(), d:["gesetzt.", "set.", "configurado."] });
+  }
+
+  /* 6) Modes: ARM vorhanden, Bereich brauchbar */
+  var arm = null;
+  Object.keys(p.aux).forEach(function(i){ if(p.aux[i].mode === 0 && p.aux[i].hi > p.aux[i].lo) arm = p.aux[i]; });
+  if(!arm){
+    out.push({ k:"bad", t:"ARM", d:["auf keinem AUX-Kanal – kein Bereich zum Freigeben. Ohne das startet der Copter nur per Stick-Kombination.",
+                    "on no AUX channel – switch arming is missing. Without it the quad only arms by stick command.",
+                    "en ningún canal AUX – falta el armado por interruptor. Sin eso solo arma con la combinación de sticks."] });
+    missing.push("aux 0 0 0 900 1300 0 0");
+  }else{
+    out.push({ k:"ok", t:"ARM", d:["auf AUX " + (arm.ch + 1) + " zwischen " + arm.lo + " und " + arm.hi + ".",
+                    "on AUX " + (arm.ch + 1) + " between " + arm.lo + " and " + arm.hi + ".",
+                    "en AUX " + (arm.ch + 1) + " entre " + arm.lo + " y " + arm.hi + "."] });
+  }
+
+  /* 7) OSD: Positionen vorhanden? */
+  var posCount = 0, profCount = 0;
+  Object.keys(p.set).forEach(function(k){
+    if(/_pos$/.test(k) && Number(p.set[k]) > 0) posCount++;
+  });
+  if(p.set.osd_profile && !/^[123]$/.test(p.set.osd_profile)){
+    out.push({ k:"bad", t:"osd_profile", d:["muss 1, 2 oder 3 sein – alles andere ignoriert die FC.",
+                    "must be 1, 2 or 3 – anything else is ignored by the FC.",
+                    "debe ser 1, 2 o 3 – cualquier otro valor lo ignora la FC."] });
+  }
+  if(posCount === 0){
+    out.push({ k:"warn", t:"OSD", d:["keine Positionen gesetzt – im Brillenbild bleibt es leer.",
+                    "no positions set – the goggle view stays empty.",
+                    "sin posiciones – la vista de las gafas queda vacía."] });
+  }else if(posCount < 3){
+    var posTxt = posCount === 1 ? "nur 1 Element mit Position" : "nur " + posCount + " Elemente mit Position";
+    out.push({ k:"warn", t:"OSD", d:[posTxt + " – das ist wenig für einen Flug.",
+                    posCount + " element position(s) only – that is thin for a flight.",
+                    "solo " + posCount + " posición(es) – es poco para un vuelo."] });
+  }else{
+    out.push({ k:"ok", t:"OSD", d:[posCount + " Positionen gesetzt, Profil " + (p.set.osd_profile || "1") + ".",
+                    posCount + " positions set, profile " + (p.set.osd_profile || "1") + ".",
+                    posCount + " posiciones, perfil " + (p.set.osd_profile || "1") + "."] });
+  }
+
+  /* 8) Adjustments: Absolut- und Schrittmodus auf derselben Schwelle */
+  var list = Object.keys(p.adj).map(function(i){ return p.adj[i]; });
+  list.forEach(function(a, i){
+    list.slice(i + 1).forEach(function(b){
+      if(a.ch === b.ch && a.lo < b.hi && b.lo < a.hi && (a.center > 0) !== (b.center > 0)){
+        out.push({ k:"bad", t:"adjrange", d:["zwei Bereiche auf demselben Kanal überlappen sich und mischen Absolut- mit Schrittmodus – wer zuerst greift, entscheidet die Reihenfolge.",
+                    "two ranges on the same channel overlap and mix absolute and step mode – whichever comes first wins.",
+                    "dos rangos en el mismo canal se solapan y mezclan modo absoluto y por pasos – gana el primero."] });
+      }
+    });
+  });
+  if(list.length){
+    out.push({ k:"info", t:"adjrange", d:[list.length + " Bereich(e) gesetzt – Werte werden nicht automatisch gespeichert.",
+                    list.length + " range(s) set – changes are not saved automatically.",
+                    list.length + " rango(s) – los cambios no se guardan solos."] });
+  }
+
+  return { list:out, missing:missing,
+           stats:{ beepers:Object.keys(p.beeperSeen).length, sets:Object.keys(p.set).length,
+                   osd:posCount, aux:Object.keys(p.aux).length, adj:list.length } };
+}
+
+/* ============================================================
+   Rendern: Ersteller
+   ============================================================ */
+function renderPresetName(){
+  var m = curModel();
+  $("f_preset").value = m ? (m.name || "") : "";
+}
+function pwmRow(lo, hi){
+  var l = (lo - 900) / 1200 * 100, w = (hi - lo) / 1200 * 100;
+  return { left:Math.max(0, l), width:Math.max(0.6, w) };
+}
+function renderBeeperBody(){
+  var m = curModel();
+  if(!m){ $("beeperBody").innerHTML = ""; return; }
+  var groups = [["crit",T("badgeCrit")],["imp",T("badgeImp")],["comf",T("badgeComf")]];
+  function tiles(kind){
+    var list = BEEPERS.filter(function(b){ return b.g === kind; });
+    var out = [];
+    out.push('<div class="bgroup g' + kind + '"><h3>' + esc(kind === "extra" ? T("badgeExtra") : T(kind === "crit" ? "badgeCrit" : kind === "imp" ? "badgeImp" : "badgeComf")) + '</h3><div class="bgrid2">');
+    list.forEach(function(b){
+      var on = !!m.beep[b.k];
+      out.push('<label class="btile ' + b.g + (on ? " on" : "") + '" title="' + esc(T("beeperWrap")) + '">' +
+        '<input class="tg" type="checkbox" role="switch" id="bp_' + b.k + '" data-beep="' + b.k + '"' +
+          (on ? " checked" : "") + ' aria-label="' + esc(L3(BLBL[b.k])) + '">' +
+        '<span class="bn">' + esc(L3(BLBL[b.k])) + '</span>' +
+        '<span class="bd">' + esc(L3(BDESC[b.k])) + '</span>' +
+        '<span class="bc">beeper ' + (on ? "" : "-") + b.k + '</span>' +
+      '</label>');
+    });
+    out.push('</div></div>');
+    return out.join("");
+  }
+  var html = [];
+  groups.forEach(function(g){ html.push(tiles(g[0])); });
+  var act = BEEPERS.filter(function(b){ return !!m.beep[b.k]; }).length;
+  html.push('<p class="bhint">' + esc(T("beepTotal").replace("{n}", BEEPERS.length).replace("{k}", act)) + '</p>');
+  html.push('<details class="bextra" id="beepExtra">' +
+    '<summary><span class="bt">' + esc(T("beepMoreOn").replace("{n}", BEEPERS.filter(function(b){return b.g==="extra";}).length)) + '</span>' +
+    '<span class="bc2">' + esc(T("beepMoreHint")) + '</span><span class="arrow">▶</span></summary>' +
+    '<div class="bbody">' + tiles("extra") + '</div></details>');
+  $("beeperBody").innerHTML = html.join("");
+  var open = localStorage.getItem("flowstate.presets.beepExtra") === "1";
+  var det = $("beepExtra");
+  if(det){ det.open = open; det.addEventListener("toggle", function(){
+    try{ localStorage.setItem("flowstate.presets.beepExtra", det.open ? "1" : "0"); }catch(e){}
+  }); }
+}
+var AUX_OPTS = "";
+for(var _a = 0; _a < 12; _a++){
+  AUX_OPTS += '<option value="' + _a + '">AUX ' + (_a + 1) + '</option>';
+}
+function selHTML(sel, val){
+  return sel.replace('value="' + val + '"', 'value="' + val + '" selected');
+}
+function renderAddMode(){
+  var m = curModel();
+  if(!m) return;
+  $("f_addMode").innerHTML = M_MODES.map(function(x){
+    return '<option value="' + x.id + '">' + esc(L3(x.s)) + '</option>';
+  }).join("");
+}
+function renderModes(){
+  var m = curModel();
+  if(!m){ $("modesBody").innerHTML = ""; return; }
+  renderAddMode();
+  $("modesBody").innerHTML = (m.modes || []).map(function(r, i){
+    var d = modeDef(r.id) || { g:"comf", s:["?","?","?"] };
+    var p = pwmRow(r.lo, r.hi);
+    return '<div class="mrow ' + (r.lo >= r.hi ? "off" : "") + '" data-mode="' + i + '">' +
+      '<div class="head">' +
+        '<span class="badge ' + d.g + '">' + (d.g === "crit" ? esc(T("badgeCrit")) : d.g === "imp" ? esc(T("badgeImp")) : esc(T("badgeComf"))) + '</span>' +
+        '<span class="grow" style="font-size:13px;font-weight:630">' + esc(L3(d.s)) + '</span>' +
+        '<button class="btn sm ghost danger" type="button" data-delmode="' + i + '">' + esc(T("remove")) + '</button>' +
+      '</div>' +
+      '<div class="mctl">' +
+        '<div><label><b>' + esc(T("channel")) + '</b>' +
+          '<select data-mkey="ch" data-mi="' + i + '" aria-label="' + esc(T("channel")) + '">' +
+          AUX_OPTS.replace('value="' + r.ch + '"', 'value="' + r.ch + '" selected') + '</select></label></div>' +
+        '<div><label><b>' + esc(T("rangeFrom")) + '</b>' +
+          '<input type="number" min="900" max="2100" step="25" value="' + r.lo + '" data-mkey="lo" data-mi="' + i + '"></label></div>' +
+        '<div><label><b>' + esc(T("rangeTo")) + '</b>' +
+          '<input type="number" min="900" max="2100" step="25" value="' + r.hi + '" data-mkey="hi" data-mi="' + i + '"></label></div>' +
+      '</div>' +
+      '<div>' +
+        '<div class="pwmtrack"><span class="pwmhi" style="left:' + p.left + '%;width:' + p.width + '%"></span></div>' +
+        '<div class="pwmsliders">' +
+          '<input type="range" min="900" max="2100" step="25" value="' + r.lo + '" data-mkey="lo" data-mi="' + i + '" aria-label="' + esc(T("rangeFrom")) + '">' +
+          '<input type="range" min="900" max="2100" step="25" value="' + r.hi + '" data-mkey="hi" data-mi="' + i + '" aria-label="' + esc(T("rangeTo")) + '">' +
+        '</div>' +
+        '<div class="pwmvals"><span>900</span><span>1500</span><span>2100</span></div>' +
+      '</div>' +
+      '<div class="cmd">aux ' + i + ' ' + r.id + ' ' + r.ch + ' ' + r.lo + ' ' + r.hi + ' 0 0</div>' +
+    '</div>';
+  }).join("") || '<p class="hint" style="margin:0">' + esc(T("noModes")) + '</p>';
+}
+
+var osdSel = null;
+function renderOsdEditPick(){
+  var m = curModel();
+  if(!m) return;
+  $("osdEditPick").innerHTML = [1,2,3].map(function(p){
+    var on = m.editP === p;
+    return '<button class="pbtn" type="button" data-editp="' + p + '" aria-pressed="' + (on ? "true" : "false") +
+      '" aria-label="' + esc(T("osdEditIn")) + " " + p + '">' + p + '</button>';
+  }).join("");
+}
+/* Aktives Profil beim Freigeben (osd_profile) und das Profil, das man gerade bearbeitet. */
+function renderArmedPick(){
+  var m = curModel();
+  if(!m) return;
+  $("osdPicker").innerHTML = [1,2,3].map(function(p){
+    var on = (m.prof[0] || 1) === p;
+    return '<button class="pick" type="button" data-armed="' + p + '" aria-pressed="' + (on ? "true" : "false") + '">' +
+      '<b>' + esc(T("osdProf" + p)) + '</b>' +
+      '<span>' + esc(T("osdProf" + p + "d")) + '</span>' +
+      '<span class="badge ' + (on ? "comf" : "") + '" style="justify-self:start;margin-top:3px">' +
+        esc(on ? T("armedActive") : T("osdInactive")) + '</span>' +
+    '</button>';
+  }).join("");
+}
+function renderOsd(){
+  var m = curModel();
+  if(!m){ $("osdChips").innerHTML = ""; $("osdList").innerHTML = ""; return; }
+  renderArmedPick();
+  renderOsdEditPick();
+
+  var grid = gridFor(m), ep = m.editP;
+  var rows = (m.osd || []).filter(function(x){ return (x.profs || []).indexOf(ep) > -1; });
+  var w = $("fpv").clientWidth || 480;
+  var fs = Math.max(9, Math.round(w / grid.cols * 1.22));
+  $("osdChips").innerHTML = rows.map(function(x){
+    var el = osdDef(x.key) || { t:x.key, w:6, s:["","",""] };
+    return '<div class="ochip' + (osdSel === x.key ? " sel" : "") + '" data-chip="' + esc(x.key) + '" tabindex="0" ' +
+      'style="left:' + (x.x / grid.cols * 100) + '%;top:' + (x.y / grid.rows * 100) + '%;font-size:' + fs + 'px" ' +
+      'title="' + esc(L3(el.s) + " · " + x.x + "/" + x.y) + '">' + esc(el.t) + '</div>';
+  }).join("");
+
+  $("osdList").innerHTML = OSDV.map(function(el){
+    var here = osdEl(m, el.k);
+    var inEdit = here && (here.profs || []).indexOf(ep) > -1;
+    var allProf = here ? (here.profs || []) : [];
+    var mark = allProf.length > 1 ? '<span class="chip2" title="' + esc(T("allProfiles")) + '">A</span>' : "";
+    return '<div class="erow' + (osdSel === el.k ? " sel" : "") + '" data-osdrow="' + esc(el.k) + '">' +
+      '<span class="nm">' + esc(L3(el.s)) + (here ? ' <small>' + here.x + '/' + here.y + '</small>' : '') + '</span>' +
+      mark +
+      '<button class="pbtn" type="button" data-osdtgl="' + esc(el.k) + '" aria-pressed="' + (inEdit ? "true" : "false") +
+        '" title="' + esc(T("osdToggle")) + '">' + (inEdit ? "●" : "○") + '</button>' +
+    '</div>';
+  }).join("");
+
+  var sel = osdSel ? osdEl(m, osdSel) : null;
+  if(sel && (sel.profs || []).indexOf(ep) > -1){
+    $("f_posX").value = sel.x; $("f_posY").value = sel.y;
+  }else{
+    $("f_posX").value = ""; $("f_posY").value = "";
+  }
+  $("osdGridLbl").textContent = T("osdGrid") + " " + grid.cols + "×" + grid.rows + " · " + T("osdEditP") + " " + ep;
+  $("osdCountLbl").textContent = rows.length + " " + T("osdElems");
+}
+function renderAdj(){
+  var m = curModel();
+  if(!m){ $("adjBody").innerHTML = ""; return; }
+  var html = (m.adj || []).map(function(r, i){
+    var d = adjDef(r.fn) || { s:["?","?","?"] };
+    var pl = pwmRow(r.lo, r.hi);
+    return '<div class="mrow" data-adj="' + i + '">' +
+      '<div class="head">' +
+        '<span class="badge comf">' + esc(T("slot")) + " " + (i + 1) + '</span>' +
+        '<span class="grow" style="font-size:13px;font-weight:630">' + esc(L3(d.s)) + '</span>' +
+        '<button class="btn sm ghost danger" type="button" data-deladj="' + i + '">' + esc(T("remove")) + '</button>' +
+      '</div>' +
+      '<div class="mctl">' +
+        '<div><label><b>' + esc(T("adjFn")) + '</b>' +
+          '<select data-akey="fn" data-ai="' + i + '">' +
+          M_ADJ.map(function(x){ return '<option value="' + x.v + '"' + (x.v === r.fn ? " selected" : "") + '>' +
+            esc(L3(x.s)) + '</option>'; }).join("") + '</select></label></div>' +
+        '<div><label><b>' + esc(T("ctrlChannel")) + '</b>' +
+          '<select data-akey="ch" data-ai="' + i + '">' +
+          AUX_OPTS.replace('value="' + r.ch + '"', 'value="' + r.ch + '" selected') + '</select></label></div>' +
+      '</div>' +
+      '<div class="adjrow">' +
+        '<label class="adjs"><b>' + esc(T("rangeFrom")) + '</b>' +
+          '<div class="sl"><input type="range" min="900" max="2100" step="25" value="' + r.lo + '" data-akey="lo" data-ai="' + i + '">' +
+          '<span class="sv" data-val="lo">' + r.lo + '</span></div></label>' +
+        '<label class="adjs"><b>' + esc(T("rangeTo")) + '</b>' +
+          '<div class="sl"><input type="range" min="900" max="2100" step="25" value="' + r.hi + '" data-akey="hi" data-ai="' + i + '">' +
+          '<span class="sv" data-val="hi">' + r.hi + '</span></div></label>' +
+      '</div>' +
+      '<div class="pwmtrack"><span class="pwmhi" style="left:' + pl.left + '%;width:' + pl.width + '%"></span></div>' +
+      '<div class="pwmrow" style="margin-top:0"><span>900</span><span>1500</span><span>2100</span></div>' +
+      '<label class="chkline"><input type="checkbox" data-akey="abs" data-ai="' + i + '"' + (r.abs ? " checked" : "") + '>' +
+        '<span>' + esc(T("absMode")) + '</span></label>' +
+      (r.abs ? '<div class="adjrow">' +
+        '<label class="adjs"><b>' + esc(T("center")) + '</b>' +
+          '<div class="sl"><input type="range" min="1" max="200" step="1" value="' + r.center + '" data-akey="center" data-ai="' + i + '">' +
+          '<span class="sv" data-val="center">' + r.center + '</span></div></label>' +
+        '<label class="adjs"><b>' + esc(T("scale")) + '</b>' +
+          '<div class="sl"><input type="range" min="0" max="250" step="1" value="' + r.scale + '" data-akey="scale" data-ai="' + i + '">' +
+          '<span class="sv" data-val="scale">' + r.scale + '</span></div></label>' +
+      '</div><p class="hint" style="margin:0">' + esc(T("adjAbsHint")) + '</p>' :
+       '<p class="hint" style="margin:0">' + esc(T("adjStepHint")) + '</p>') +
+      '<div class="cmd">adjrange ' + i + ' 0 ' + r.ch + ' ' + r.lo + ' ' + r.hi + ' ' + r.fn + ' ' + r.ch + ' ' +
+        (r.abs ? r.center : 0) + ' ' + (r.abs ? r.scale : 0) + '</div>' +
+    '</div>';
+  }).join("");
+  html += '<div><button class="btn sm ghost" type="button" id="btnAddAdj"' +
+    ((m.adj || []).length >= 4 ? " disabled" : "") + '>' + esc(T("addSlot")) + '</button></div>';
+  $("adjBody").innerHTML = html;
+}
+
+/* ============================================================
+   Rates: Slider, Kurve, Klartext
+   ============================================================ */
+function ratesCfg(){
+  var m = curModel();
+  return m ? (m.rates || DEF_RATES) : DEF_RATES;
+}
+function renderRates(){
+  var m = curModel();
+  if(!m){ $("rateChart").innerHTML = ""; return; }
+  var cfg = m.rates || DEF_RATES;
+  var lim = ratesLabels(cfg.type);
+  $("f_rateType").innerHTML = RATES_TYPES.map(function(t){
+    return '<option value="' + t.k + '"' + (t.k === cfg.type ? " selected" : "") + '>' + esc(L3(t.s)) + '</option>';
+  }).join("");
+  [["rc","rc"],["srate","srate"],["expo","expo"]].forEach(function(pair){
+    var box = document.querySelector('.slider[data-rate="' + pair[0] + '"]');
+    if(!box) return;
+    var L = lim[pair[1]];
+    box.innerHTML = '<label class="adjs"><b>' + esc(L[0]) + '</b>' +
+      '<div class="sl"><input type="range" min="' + L[1] + '" max="' + L[2] + '" step="1" value="' + cfg[pair[1]] +
+        '" data-ratekey="' + pair[1] + '">' +
+      '<span class="sv">' + cfg[pair[1]] + '</span></div></label>';
+  });
+  $("rateHint").textContent = L3(ratesType(cfg.type).d);
+  drawRateChart(cfg);
+}
+function drawRateChart(cfg){
+  var W = 300, H = 200, pad = 8;
+  var top = Math.max(400, Math.ceil(rateAt(1, cfg) / 100) * 100);
+  var pts = [], lin = [];
+  for(var i = 0; i <= 40; i++){
+    var x = i / 40;
+    var px = pad + x * (W - pad * 2);
+    var py = H - pad - (rateAt(x, cfg) / top) * (H - pad * 2);
+    pts.push((i ? "L" : "M") + px.toFixed(1) + " " + Math.max(pad, py).toFixed(1));
+    lin.push((i ? "L" : "M") + px.toFixed(1) + " " + (H - pad - x * (H - pad * 2)).toFixed(1));
+  }
+  var g = [];
+  for(var k = 1; k < 4; k++){
+    var gx = pad + k * (W - pad * 2) / 4;
+    var gy = pad + k * (H - pad * 2) / 4;
+    g.push('<line x1="' + gx + '" y1="' + pad + '" x2="' + gx + '" y2="' + (H - pad) + '" class="cgrid"/>');
+    g.push('<line x1="' + pad + '" y1="' + gy + '" x2="' + (W - pad) + '" y2="' + gy + '" class="cgrid"/>');
+  }
+  $("rateChart").innerHTML = g.join("") +
+    '<path d="' + lin.join(" ") + '" class="clin"/>' +
+    '<path d="' + pts.join(" ") + '" class="ccur"/>' +
+    '<line x1="' + pad + '" y1="' + (H - pad) + '" x2="' + (W - pad) + '" y2="' + (H - pad) + '" class="caxis"/>' +
+    '<text x="' + (W / 2) + '" y="' + (H - 1) + '" class="clbl">' + esc(T("stickPath")) + '</text>' +
+    '<text x="' + pad + '" y="' + (pad + 8) + '" class="clbl">' + top + ' °/s</text>';
+  $("rateMax").textContent = T("rateAtEnd") + " " + Math.round(rateAt(1, cfg)) + " °/s · " +
+    T("rateAtHalf") + " " + Math.round(rateAt(0.5, cfg)) + " °/s";
+}
+
+function renderIssues(){
+  var m = curModel(), box = $("issuesBox");
+  if(!m){ box.innerHTML = ""; return; }
+  var list = conflicts(m);
+  if(!list.length){
+    box.innerHTML = '<div class="issue ok"><span class="m"></span><span>' + esc(T("noConflict")) + '</span></div>';
+    return;
+  }
+  box.innerHTML = '<div class="issue ' + (list.some(function(x){ return x.kind === "bad"; }) ? "bad" : "warn") +
+    '"><span class="m"></span><span><b>' + esc(T("conflictTitle")) + '</b> · ' +
+    list.length + " " + esc(T("issues")) + '</span></div>' +
+    list.map(function(x){
+      return '<div class="issue ' + x.kind + '"><span class="m"></span><span>' + esc(x.msg) + '</span></div>';
+    }).join("");
+}
+
+function renderFail(){
+  var m = curModel();
+  if(!m){ $("vtxBody").innerHTML = ""; return; }
+  $("vtxBody").innerHTML =
+    '<div class="opt ' + (m.fs === "GPS-RESCUE" ? "imp" : "comf") + '" style="grid-template-columns:1fr">' +
+      '<div class="txt"><div class="t">' + esc(T("fsTitle")) + '</div>' +
+      '<div class="d">' + esc(T("fsHint")) + '</div>' +
+      '<select id="fsSel" style="margin-top:9px;max-width:260px" aria-label="' + esc(T("fsTitle")) + '">' +
+        ["DROP","AUTO-LAND","GPS-RESCUE"].map(function(v){
+          return '<option value="' + v + '"' + (m.fs === v ? " selected" : "") + '>' + v + '</option>';
+        }).join("") +
+      '</select><div class="cmd">set failsafe_procedure = ' + m.fs + '</div></div></div>' +
+    '<p class="hint" style="margin:8px 0 0">' + esc(T("fsNoVtx")) + '</p>';
+}
+function renderExtra(){
+  var m = curModel();
+  if(!m){ $("extraBody").innerHTML = ""; return; }
+  $("extraBody").innerHTML =
+    '<div class="opt comf" style="grid-template-columns:1fr">' +
+      '<div class="txt"><div class="t">' + esc(T("craftTitle")) + '</div>' +
+      '<div class="d">' + esc(T("craftHint")) + '</div>' +
+      '<input type="text" id="craftIn" maxlength="16" style="margin-top:9px;max-width:260px" value="' +
+        esc(m.craft) + '" placeholder="MEIN-5ZOLL" aria-label="' + esc(T("craftTitle")) + '">' +
+      '<div class="cmd">set craft_name = ' + esc(m.craft || "—") + '</div></div></div>';
+}
+
+/* ============================================================
+   CLI-Ausgabe
+   ============================================================ */
+function colorCli(txt){
+  return txt.split("\n").map(function(l){
+    if(l.charAt(0) === "#") return '<span class="c">' + esc(l) + '</span>';
+    return esc(l);
+  }).join("\n");
+}
+function renderCli(){
+  var m = curModel(), txt = cliFor(m);
+  $("cliOut").innerHTML = colorCli(txt);
+  $("cliSize").textContent = txt.split("\n").length + " · " + Math.round(txt.length / 1024 * 10) / 10 + " KB";
+  /* Dezente Warnung, wenn ein kritischer Beeper aus ist - ohne zu blockieren. */
+  var warns = [];
+  if(m){
+    if(!m.beep.RX_LOST) warns.push("RX_LOST");
+    if(!m.beep.RX_LOST_LANDING) warns.push("FAILSAFE");
+    if(!m.beep.BAT_CRIT_LOW) warns.push("BAT_CRIT_LOW");
+  }
+  var box = $("cliWarn");
+  if(warns.length){
+    box.hidden = false;
+    box.textContent = (STR.warnOff ? "" : "") + "⚠ " + warns.join(" · ") +
+      (lgi() === 0 ? " aus – im Feld findest du den Copter dann schwerer." :
+       lgi() === 1 ? " off – that makes the quad harder to find in the field." :
+                     " apagado – así cuesta más encontrar el dron en el campo.");
+  }else{
+    box.hidden = true;
+  }
+  var ok = !!(navigator.serial);
+  $("serialHint").textContent = ok ? "" : T("serialNo");
+  $("btnSerial").disabled = !ok;
+}
+function renderAll(){
+  renderPresetName();
+  renderBeeperBody();
+  renderModes();
+  renderOsd();
+  renderAdj();
+  renderRates();
+  renderIssues();
+  renderFail();
+  renderExtra();
+  renderCli();
+}
+
+/* ============================================================
+   Validierungs-Tab
+   ============================================================ */
+var lastFix = "";
+function renderVal(res){
+  var box = $("valList");
+  if(!res.list.length || (res.list.length === 1 && res.list[0].k === "info" && res.list[0].t === T("nothing"))){
+    box.innerHTML = '<div class="vrow info"><span class="m"></span><span>' + esc(T("nothing")) + '</span></div>';
+    $("valMeta").innerHTML = "";
+    lastFix = "";
+    $("fixOut").textContent = "";
+    $("fixCount").textContent = "";
+    return;
+  }
+  box.innerHTML = res.list.map(function(r){
+    return '<div class="vrow ' + r.k + '"><span class="m"></span><span><b>' + esc(r.t) + '</b> – ' +
+      esc(r.d ? L3(r.d) : "") + '</span></div>';
+  }).join("");
+  var ok = res.list.filter(function(r){ return r.k === "ok"; }).length;
+  var bad = res.list.filter(function(r){ return r.k === "bad"; }).length;
+  var warn = res.list.filter(function(r){ return r.k === "warn"; }).length;
+  $("valMeta").innerHTML =
+    '<span><b>' + ok + '</b> ok</span><span><b>' + warn + '</b> warn</span><span><b>' + bad +
+    '</b> fehlt</span><span>' + res.stats.beepers + ' beeper · ' + res.stats.sets + ' set · ' +
+    res.stats.osd + ' osd</span>';
+  var uniq = [], seen = {};
+  res.missing.forEach(function(l){ if(!seen[l]){ seen[l] = 1; uniq.push(l); } });
+  lastFix = uniq.join("\n");
+  $("fixOut").textContent = uniq.length ? uniq.join("\n") + "\n" : T("fixNone");
+  $("fixCount").textContent = uniq.length ? uniq.length + " " + T("fix_title") : "";
+}
+function runValidate(){
+  var txt = $("f_diff").value;
+  if(!txt.trim()){ renderVal({ list:[{ k:"info", t:T("nothing") }], missing:[], stats:{} }); toast(T("nothing"), "bad"); return; }
+  var res = validate(txt, curModel());
+  renderVal(res);
+}
+
+/* ============================================================
+   Export / Web Serial
+   ============================================================ */
+function fileName(m){
+  return "flowstate-preset-" + slug(m && m.name) + ".txt";
+}
+function saveCliFile(){
+  var m = curModel();
+  var ok = download(fileName(m), cliFor(m));
+  toast(ok ? T("saved") : T("fileFail"), ok ? "ok" : "bad");
+}
+/* Web Serial: schreibt den generierten Text über die Konsole der FC.
+   Bewusst mit Rückfrage und ohne Automatik - ein falscher Klick soll nicht schreiben. */
+function writeSerial(){
+  if(!("serial" in navigator)){ toast(T("serialNo"), "bad"); return; }
+  var m = curModel();
+  var txt = cliFor(m);
+  var port, writer;
+  navigator.serial.requestPort().then(function(p){
+    port = p;
+    return port.open({ baudRate:115200 });
+  }).then(function(){
+    writer = port.writable.getWriter();
+    var enc = new TextEncoder();
+    $("serialHint").textContent = T("serialOpen");
+    /* Schrittweise senden: die FC-Konsole verschluckt große Blöcke. */
+    var lines = txt.split("\n"), i = 0;
+    function next(){
+      if(i >= lines.length) return Promise.resolve();
+      var chunk = lines[i++] + "\n";
+      return writer.write(enc.encode(chunk)).then(function(){
+        return new Promise(function(r){ setTimeout(r, 30); });
+      }).then(next);
+    }
+    return next();
+  }).then(function(){
+    try{ writer.releaseLock(); }catch(e){}
+    return port.close();
+  }).then(function(){
+    $("serialHint").textContent = T("serialDone");
+    toast(T("serialDone"), "ok");
+  }).catch(function(e){
+    if(e && e.name === "NotFoundError"){ $("serialHint").textContent = ""; return; }
+    try{ if(writer) writer.releaseLock(); }catch(x){}
+    try{ if(port) port.close(); }catch(x){}
+    $("serialHint").textContent = T("serialFail");
+    toast(T("serialFail"), "bad");
+  });
+}
+
+/* ============================================================
+   OSD-Viewer: bewegen, umschalten, ziehen
+   ============================================================ */
+function osdRefresh(){
+  save(); renderOsd(); renderCli(); renderIssues();
+}
+function toggleOsd(key){
+  var m = curModel(); if(!m) return;
+  var el = osdEl(m, key), ep = m.editP;
+  if(el && el.profs.indexOf(ep) > -1){
+    /* Aus dem bearbeiteten Profil raus. Bleibt es in keinem anderen, verschwindet es ganz. */
+    el.profs = el.profs.filter(function(p){ return p !== ep; });
+    if(!el.profs.length){
+      m.osd = m.osd.filter(function(x){ return x.key !== key; });
+      if(osdSel === key) osdSel = null;
+    }
+  }else if(el){
+    /* Schon in einem anderen Profil gesetzt: dieselbe Position gilt für beide,
+       deshalb kommt das Profil hier nur dazu (Bits 7 in der CLI). */
+    el.profs.push(ep);
+    el.profs.sort();
+  }else{
+    var grid = gridFor(m), d = osdDef(key) || { w:1 };
+    /* Freie Stelle suchen: Mitte, dann Zeile für Zeile nach unten */
+    var y = 4, x = Math.max(0, Math.round((grid.cols - d.w) / 2));
+    m.osd.push({ key:key, profs:[ep], x:x, y:y });
+    /* nicht auf ein anderes Element legen */
+    for(var t = 0; t < grid.rows && osdBusy(m, key, x, y, d.w); t++){
+      y = (y + 1) % grid.rows;
+    }
+    var last = osdEl(m, key); if(last){ last.y = y; }
+    osdSel = key;
+  }
+  m.updatedAt = Date.now();
+  osdRefresh();
+}
+function osdBusy(m, key, x, y, w){
+  var grid = gridFor(m), hit = false;
+  m.osd.forEach(function(o){
+    if(o.key === key || (o.profs || []).indexOf(m.editP) < 0) return;
+    var d = osdDef(o.key) || { w:1 };
+    if(o.y === y && x < o.x + d.w && o.x < x + w) hit = true;
+  });
+  return hit;
+}
+function moveSelected(axis, val){
+  var m = curModel(); if(!m || !osdSel) return;
+  var el = osdEl(m, osdSel);
+  if(!el || (el.profs || []).indexOf(m.editP) < 0) return;
+  var grid = gridFor(m), d = osdDef(el.key) || { w:1 };
+  var c = clampCel(axis === "x" ? val : el.x, axis === "y" ? val : el.y, d, grid);
+  el.x = c.x; el.y = c.y;
+  m.updatedAt = Date.now();
+  osdRefresh();
+}
+/* Zeiger auf das Brillenbild: Position in Rasterzellen umrechnen. */
+function cellFromEvent(ev, grid, d){
+  var box = $("fpv").getBoundingClientRect();
+  var x = Math.floor((ev.clientX - box.left) / box.width * grid.cols);
+  var y = Math.floor((ev.clientY - box.top) / box.height * grid.rows);
+  return clampCel(x, y, d, grid);
+}
+var dragKey = null;
+$("osdChips").addEventListener("pointerdown", function(ev){
+  var chip = ev.target.closest && ev.target.closest("[data-chip]");
+  if(!chip) return;
+  var m = curModel(); if(!m) return;
+  dragKey = chip.getAttribute("data-chip");
+  osdSel = dragKey;
+  if(chip.setPointerCapture) chip.setPointerCapture(ev.pointerId);
+  chip.classList.add("drag");
+  /* Nur die Markierung umsetzen: ein volles Neu-Rendern würde genau das Element
+     löschen, an dem der Zeiger gerade hängt. */
+  [].forEach.call($("osdChips").querySelectorAll(".ochip"), function(c){
+    c.classList.toggle("sel", c === chip);
+  });
+  var el = osdEl(curModel(), dragKey);
+  if(el){ $("f_posX").value = el.x; $("f_posY").value = el.y; }
+});
+$("osdChips").addEventListener("pointermove", function(ev){
+  if(!dragKey) return;
+  var m = curModel(); if(!m) return;
+  var el = osdEl(m, dragKey);
+  if(!el) return;
+  var grid = gridFor(m), d = osdDef(el.key) || { w:1 };
+  var c = cellFromEvent(ev, grid, d);
+  if(c.x === el.x && c.y === el.y) return;
+  el.x = c.x; el.y = c.y;
+  ev.preventDefault();
+  /* während des Ziehens nur die Marke setzen, nicht alles neu bauen */
+  var chip = $("osdChips").querySelector('[data-chip="' + dragKey + '"]');
+  if(chip){
+    chip.style.left = (c.x / grid.cols * 100) + "%";
+    chip.style.top = (c.y / grid.rows * 100) + "%";
+    chip.setAttribute("title", dragKey + " · " + c.x + "/" + c.y);
+  }
+  $("f_posX").value = c.x; $("f_posY").value = c.y;
+});
+$("osdChips").addEventListener("pointerup", function(ev){
+  if(!dragKey) return;
+  var k = dragKey; dragKey = null;
+  var chip = $("osdChips").querySelector('[data-chip="' + k + '"]');
+  if(chip) chip.classList.remove("drag");
+  var m = curModel(); if(!m) return;
+  m.updatedAt = Date.now();
+  osdRefresh();
+});
+$("osdChips").addEventListener("pointercancel", function(){ dragKey = null; });
+
+/* Tastatur: Pfeile schieben, Alt+Pfeil zeilenweise, Enter/Leertaste schaltet */
+$("fpv").addEventListener("keydown", function(ev){
+  var m = curModel(); if(!m) return;
+  if(!osdSel){ osdSel = null; return; }
+  var el = osdEl(m, osdSel);
+  if(!el || (el.profs || []).indexOf(m.editP) < 0) return;
+  var grid = gridFor(m), d = osdDef(el.key) || { w:1 };
+  var stepY = ev.altKey ? 2 : 1, stepX = ev.altKey ? 2 : 1;
+  var handled = true;
+  if(ev.key === "ArrowLeft"){ el.x = clampCel(el.x - stepX, el.y, d, grid).x; }
+  else if(ev.key === "ArrowRight"){ el.x = clampCel(el.x + stepX, el.y, d, grid).x; }
+  else if(ev.key === "ArrowUp"){ el.y = clampCel(el.x, el.y - stepY, d, grid).y; }
+  else if(ev.key === "ArrowDown"){ el.y = clampCel(el.x, el.y + stepY, d, grid).y; }
+  else if(ev.key === "Enter" || ev.key === " "){ toggleOsd(osdSel); }
+  else handled = false;
+  if(!handled) return;
+  ev.preventDefault();
+  m.updatedAt = Date.now();
+  osdRefresh();
+});
+
+/* Doppelklick auf das Bild oder die Liste schaltet das Element */
+$("osdChips").addEventListener("dblclick", function(ev){
+  var chip = ev.target.closest && ev.target.closest("[data-chip]");
+  if(chip) toggleOsd(chip.getAttribute("data-chip"));
+});
+$("osdList").addEventListener("dblclick", function(ev){
+  var row = ev.target.closest && ev.target.closest("[data-osdrow]");
+  if(row) toggleOsd(row.getAttribute("data-osdrow"));
+});
+
+/* Breite geändert (Fenster, Spalte): Zeichengröße neu rechnen */
+var _rsz = null;
+window.addEventListener("resize", function(){
+  clearTimeout(_rsz);
+  _rsz = setTimeout(function(){ if($("panelBuild") && !$("panelBuild").hidden) renderOsd(); }, 140);
+});
+
+/* Modus hinzufügen */
+$("btnAddMode").addEventListener("click", function(){
+  var m = curModel(); if(!m) return;
+  var id = Number($("f_addMode").value);
+  if(!modeDef(id)) return;
+  if(m.modes.some(function(x){ return x.id === id; })){ toast(T("modeExists"), "bad"); return; }
+  /* nächsten freien Kanal und Bereich nehmen - nichts doppelt belegen */
+  var used = {};
+  m.modes.forEach(function(x){ used[x.ch] = 1; });
+  var ch = 0; while(used[ch] !== undefined && ch < 11) ch++;
+  m.modes.push({ id:id, ch:ch, lo:1700, hi:2100 });
+  m.updatedAt = Date.now();
+  save(); renderModes(); renderCli(); renderIssues();
+  toast(T("modeAdded"), "ok");
+});
+
+/* ============================================================
+   Tabs / Sprache / Theme
+   ============================================================ */
+function setTab(name){
+  prefs.tab = name;
+  savePrefs(false);
+  [["build","panelBuild","tabBuild"],["check","panelCheck","tabCheck"]]
+    .forEach(function(t){
+      var on = t[0] === name;
+      $(t[1]).hidden = !on;
+      $(t[2]).setAttribute("aria-selected", on ? "true" : "false");
+    });
+  if(name === "build") renderCli();
+}
+function applyTheme(){
+  document.documentElement.setAttribute("data-theme", prefs.theme);
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute("content", prefs.theme === "sand" ? "#f4f6f5" : prefs.theme === "drakn" ? "#140a25" : "#093840");
+}
+function applyLang(){
+  document.documentElement.lang = prefs.lang;
+  [].forEach.call(document.querySelectorAll("[data-i18n]"), function(el){
+    el.textContent = T(el.getAttribute("data-i18n"));
+  });
+  [].forEach.call(document.querySelectorAll("[data-i18n-ph]"), function(el){
+    el.setAttribute("placeholder", T(el.getAttribute("data-i18n-ph")));
+  });
+  [].forEach.call(document.querySelectorAll("[data-i18n-aria]"), function(el){
+    el.setAttribute("aria-label", T(el.getAttribute("data-i18n-aria")));
+  });
+  [].forEach.call(document.querySelectorAll("[data-lang]"), function(b){
+    var on = b.getAttribute("data-lang") === prefs.lang;
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.style.background = on ? "var(--accent)" : "transparent";
+    b.style.color = on ? "var(--on-accent)" : "var(--muted)";
+    b.style.fontWeight = on ? "700" : "400";
+  });
+  document.title = "FlowState Presets — " + T("tabBuild");
+}
+function applyAll(){ renderAll(); applyLang(); }
+
+/* ============================================================
+   Events
+   ============================================================ */
+document.addEventListener("click", function(e){
+  var tab = e.target.closest && e.target.closest(".tabs [data-tab]");
+  if(tab){ setTab(tab.getAttribute("data-tab")); return; }
+
+  var th = e.target.closest && e.target.closest(".swatches [data-theme]");
+  if(th){ prefs.theme = th.getAttribute("data-theme"); savePrefs(true); applyTheme(); return; }
+
+  var lg = e.target.closest && e.target.closest("#langs [data-lang]");
+  if(lg){ prefs.lang = lg.getAttribute("data-lang"); savePrefs(true); applyLang(); renderAll(); return; }
+
+  /* Eindeutig: genau ein Profil ist beim Freigeben aktiv (osd_profile). */
+  var armed = e.target.closest && e.target.closest("#osdPicker [data-armed]");
+  if(armed){
+    var m2 = curModel();
+    if(!m2) return;
+    var p = Number(armed.getAttribute("data-armed"));
+    m2.prof = [p];
+    m2.editP = p;
+    m2.updatedAt = Date.now();
+    save(); renderOsd(); renderCli(); renderIssues();
+    return;
+  }
+
+  var ep = e.target.closest && e.target.closest("#osdEditPick [data-editp]");
+  if(ep){
+    var m3 = curModel(); if(!m3) return;
+    m3.editP = Number(ep.getAttribute("data-editp"));
+    osdSel = null;
+    save(); renderOsd();
+    return;
+  }
+
+  /* Erst der Schalter: er liegt IN der Zeile, sonst greift immer die Zeile. */
+  var tgl = e.target.closest && e.target.closest("#osdList [data-osdtgl]");
+  if(tgl){
+    toggleOsd(tgl.getAttribute("data-osdtgl"));
+    return;
+  }
+
+  var row = e.target.closest && e.target.closest("#osdList [data-osdrow]");
+  if(row){
+    osdSel = row.getAttribute("data-osdrow");
+    renderOsd();
+    return;
+  }
+
+  var chip = e.target.closest && e.target.closest("#osdChips [data-chip]");
+  if(chip){
+    osdSel = chip.getAttribute("data-chip"); renderOsd();
+    return;
+  }
+
+  var dm = e.target.closest && e.target.closest("[data-delmode]");
+  if(dm){
+    var m5 = curModel(); if(!m5) return;
+    m5.modes.splice(Number(dm.getAttribute("data-delmode")), 1);
+    m5.updatedAt = Date.now(); save(); renderModes(); renderCli(); renderIssues();
+    return;
+  }
+
+  var da = e.target.closest && e.target.closest("[data-deladj]");
+  if(da){
+    var m6 = curModel(); if(!m6) return;
+    m6.adj.splice(Number(da.getAttribute("data-deladj")), 1);
+    m6.updatedAt = Date.now(); save(); renderAdj(); renderCli(); renderIssues();
+    return;
+  }
+
+  if(e.target.id === "btnAddAdj"){
+    var m7 = curModel(); if(!m7 || m7.adj.length >= 4) return;
+    var usedCh = {}; m7.adj.forEach(function(x){ usedCh[x.ch] = 1; });
+    var freeCh = 0; while(usedCh[freeCh] !== undefined && freeCh < 11) freeCh++;
+    m7.adj.push({ fn:18, ch:freeCh, lo:1450, hi:1550, abs:true, center:58, scale:20 });
+    m7.updatedAt = Date.now(); save(); renderAdj(); renderCli(); renderIssues();
+    return;
+  }
+});
+
+/* Beeper-Schalter */
+document.addEventListener("change", function(e){
+  var b = e.target.getAttribute && e.target.getAttribute("data-beep");
+  if(b){
+    var m = curModel(); if(!m) return;
+    m.beep[b] = !!e.target.checked;
+    m.updatedAt = Date.now();
+    var tile = e.target.closest(".btile");
+    if(tile){
+      tile.classList.toggle("on", !!m.beep[b]);
+      var cmd = tile.querySelector(".bc");
+      if(cmd) cmd.textContent = "beeper " + (m.beep[b] ? "" : "-") + b;
+    }
+    save(); renderCli();
+    return;
+  }
+});
+document.addEventListener("input", function(e){
+  var m = curModel(); if(!m) return;
+  if(e.target.id === "craftIn"){
+    m.craft = e.target.value.replace(/[^\w \-.]/g, "").slice(0, 16);
+    save(); renderCli(); return;
+  }
+  /* Slider in Modes/Adjustments: live mitziehen, aber nicht bei jedem Pixel neu rendern */
+  var mk = e.target.getAttribute && e.target.getAttribute("data-mkey");
+  var ak = e.target.getAttribute && e.target.getAttribute("data-akey");
+  if((mk || ak) && e.target.type === "range"){
+    var i2 = Number(e.target.getAttribute(mk ? "data-mi" : "data-ai"));
+    var obj = mk ? m.modes[i2] : m.adj[i2];
+    if(!obj) return;
+    setVal(obj, mk || ak, e.target.value);
+    m.updatedAt = Date.now();
+    var card = e.target.closest(".mrow");
+    if(card){
+      var r = mk ? m.modes[i2] : m.adj[i2];
+      var bar = card.querySelector(".pwmhi");
+      if(bar){ var pr = pwmRow(r.lo, r.hi); bar.style.left = pr.left + "%"; bar.style.width = pr.width + "%"; }
+      ["lo","hi","center","scale"].forEach(function(k){
+        card.querySelectorAll('[data-' + (mk ? "mk" : "ak") + 'key="' + k + '"]').forEach(function(el){
+          if(el !== e.target) el.value = r[k];
+        });
+        var sv = card.querySelector('[data-val="' + k + '"]');
+        if(sv) sv.textContent = r[k] || 0;
+      });
+      var curv = card.querySelector('[data-val="' + (mk || ak) + '"]');
+      if(curv && e.target.type === "range") curv.textContent = e.target.value;
+      var track = card.querySelector(".pwmhi");
+      if(track && !mk){ var pr2 = pwmRow(r.lo, r.hi); track.style.left = pr2.left + "%"; track.style.width = pr2.width + "%"; }
+      var cmd = card.querySelector(".cmd");
+      if(cmd){
+        cmd.textContent = mk ? ("aux " + i2 + " " + r.id + " " + r.ch + " " + r.lo + " " + r.hi + " 0 0")
+                             : ("adjrange " + i2 + " 0 " + r.ch + " " + r.lo + " " + r.hi + " " + r.fn + " " + r.ch + " " +
+                                (r.abs ? r.center : 0) + " " + (r.abs ? r.scale : 0));
+      }
+    }
+    save(); renderCli(); return;
+  }
+  var rk = e.target.getAttribute && e.target.getAttribute("data-ratekey");
+  if(rk){
+    m.rates[rk] = Math.round(Number(e.target.value)) || 0;
+    m.updatedAt = Date.now();
+    var sv = e.target.parentNode.querySelector(".sv");
+    if(sv) sv.textContent = m.rates[rk];
+    save(); drawRateChart(m.rates); renderCli();
+    return;
+  }
+  if(e.target.id === "f_posX" || e.target.id === "f_posY"){
+    moveSelected(e.target.id === "f_posX" ? "x" : "y", Number(e.target.value));
+    return;
+  }
+  if(e.target.id === "f_diff"){ return; }
+});
+document.addEventListener("change", function(e){
+  var m = curModel(); if(!m) return;
+
+  if(e.target.id === "f_preset"){
+    m.name = e.target.value.trim().slice(0, 60);
+    m.updatedAt = Date.now();
+    save(); renderCli(); renderIssues();
+    return;
+  }
+  if(e.target.id === "f_rateType"){
+    /* Die Zahlen bedeuten je Typ etwas anderes: Betaflight-RC-Rate 100 heißt 1.0,
+       Actual 7 heißt 70 °/s. Deshalb kommen beim Wechsel passende Startwerte mit. */
+    var t2 = ratesType(e.target.value);
+    m.rates.type = t2.k;
+    m.rates.rc = t2.def.rc; m.rates.srate = t2.def.srate; m.rates.expo = t2.def.expo;
+    m.updatedAt = Date.now();
+    save(); renderRates(); renderCli(); renderIssues();
+    return;
+  }
+
+  if(e.target.id === "fsSel"){
+    m.fs = e.target.value; m.updatedAt = Date.now();
+    save(); renderFail(); renderCli(); renderIssues();
+    return;
+  }
+  if(e.target.id === "f_model"){
+    prefs.lastModel = e.target.value; osdSel = null; savePrefs(false); applyAll();
+    return;
+  }
+
+  /* Modes */
+  var mk = e.target.getAttribute && e.target.getAttribute("data-mkey");
+  if(mk){
+    var mi = Number(e.target.getAttribute("data-mi"));
+    if(!m.modes[mi]) return;
+    setVal(m.modes[mi], mk, e.target.value);
+    m.updatedAt = Date.now();
+    save(); renderModes(); renderCli(); renderIssues();
+    return;
+  }
+
+  /* Adjustments */
+  var ak = e.target.getAttribute && e.target.getAttribute("data-akey");
+  if(ak){
+    var ai = Number(e.target.getAttribute("data-ai"));
+    if(!m.adj[ai]) return;
+    setVal(m.adj[ai], ak, e.target.type === "checkbox" ? e.target.checked : e.target.value);
+    m.updatedAt = Date.now();
+    save(); renderAdj(); renderCli(); renderIssues();
+    return;
+  }
+});
+/* Zahl aus einem Feld lesen und auf den erlaubten Rahmen ziehen. */
+function setVal(obj, key, raw){
+  if(key === "abs"){
+    /* Die eingestellten Werte bleiben erhalten - nur die CLI schreibt im
+       Schrittmodus 0, damit die FC garantiert keine Absolutwerte sieht. */
+    obj.abs = !!raw;
+    if(obj.abs){ obj.center = obj.center || 40; obj.scale = obj.scale === undefined ? 10 : obj.scale; }
+    return;
+  }
+  if(key === "ch" || key === "ctrl" || key === "fn" || key === "center" || key === "scale"){
+    var n = Math.round(Number(raw));
+    if(!isFinite(n)) return;
+    if(key === "ch" || key === "ctrl") obj[key] = Math.max(0, Math.min(11, n));
+    else if(key === "fn") obj[key] = adjDef(n) ? n : obj[key];
+    else obj[key] = Math.max(0, Math.min(999, n));
+  }else{
+    var v = Math.round(Number(raw) / 25) * 25;
+    if(!isFinite(v)) return;
+    obj[key] = Math.max(900, Math.min(2100, v));
+  }
+}
+
+
+$("btnSaveModel").addEventListener("click", function(){
+  var m = curModel(); if(!m) return;
+  if(!m.name){ $("f_preset").focus(); toast(T("noName"), "bad"); return; }
+  m.updatedAt = Date.now();
+  var bad = conflicts(m).filter(function(x){ return x.kind === "bad"; }).length;
+  var ok = save();
+  $("saveState").textContent = ok ? T("saved") + " · " + new Date(m.updatedAt).toLocaleTimeString() : T("fileFail");
+  if(bad) toast(T("conflictTitle") + ": " + bad + " × " + T("issues"), "bad");
+  else toast(ok ? T("saved") : T("fileFail"), ok ? "ok" : "bad");
+});
+$("btnReset").addEventListener("click", function(){
+  var m = curModel(); if(!m) return;
+  if(!confirm(T("resetAsk"))) return;
+  applyDefaults(m);
+  osdSel = null;
+  save(); applyAll(); toast(T("resetAll"), "ok");
+});
+$("btnCopy").addEventListener("click", function(){ copyText(cliFor(curModel()), T("copied")); });
+$("btnFile").addEventListener("click", saveCliFile);
+$("btnSerial").addEventListener("click", writeSerial);
+
+$("btnValidate").addEventListener("click", runValidate);
+$("btnLoadFile").addEventListener("click", function(){ $("file").click(); });
+$("file").addEventListener("change", function(e){
+  var f = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){ $("f_diff").value = String(r.result || ""); runValidate(); };
+  r.onerror = function(){ toast(T("fileFail"), "bad"); };
+  r.readAsText(f);
+});
+$("btnUseModel").addEventListener("click", function(){
+  var m = curModel();
+  if(!m){ toast(T("nothing"), "bad"); return; }
+  $("f_diff").value = cliFor(m);
+  runValidate();
+});
+$("btnCopyFix").addEventListener("click", function(){
+  if(!lastFix){ toast(T("fixNone"), "ok"); return; }
+  copyText(lastFix, T("copied"));
+});
+$("btnFixToBuild").addEventListener("click", function(){
+  if(!lastFix){ toast(T("fixNone"), "ok"); return; }
+  setTab("build");
+  var m = curModel();
+  if(!m) return;
+  /* Die fehlenden Zeilen auf das Modell anwenden, soweit sie ein bekannter Schalter sind. */
+  lastFix.split("\n").forEach(function(l){
+    var bm = l.match(/^beeper\s+(-?)([A-Z0-9_]+)$/);
+    if(bm && m.beep[bm[2]] !== undefined) m.beep[bm[2]] = bm[1] !== "-";
+    var sm = l.match(/^set\s+([a-z0-9_]+)\s*=\s*(.+)$/i);
+    if(sm){
+      var k = sm[1].toLowerCase(), v = sm[2].trim();
+      if(k === "failsafe_procedure") m.fs = v;
+      if(k === "osd_profile" && /^[123]$/.test(v)){ m.prof = [Number(v)]; m.editP = Number(v); }
+    }
+  });
+  m.updatedAt = Date.now();
+  save(); applyAll();
+  toast(T("applyFix"), "ok");
+});
+
+/* Sprache/Theme von einer Schwesterseite übernehmen */
+window.addEventListener("storage", function(e){
+  var changed = false;
+  if(e.key === HUB_THEME_KEY && THEMES[e.newValue] && e.newValue !== prefs.theme){
+    prefs.theme = e.newValue; changed = true;
+  } else if(e.key === HUB_LANG_KEY && LANGS.indexOf(e.newValue) > -1 && e.newValue !== prefs.lang){
+    prefs.lang = e.newValue; changed = true;
+  } else if(e.key === FS_KEY){
+    var sh = {};
+    try{ sh = JSON.parse(e.newValue || "{}") || {}; }catch(x){ return; }
+    if(THEMES[sh.theme] && sh.theme !== prefs.theme){ prefs.theme = sh.theme; changed = true; }
+    if(LANGS.indexOf(sh.lang) > -1 && sh.lang !== prefs.lang){ prefs.lang = sh.lang; changed = true; }
+  }
+  if(!changed) return;
+  savePrefs(false); applyTheme(); applyLang(); renderAll();
+});
+
+/* Start */
+applyTheme();
+applyLang();
+if(!data.models.length){
+  /* Ein leeres Preset mit Beispielnamen - kein leerer Bildschirm, aber auch
+     kein halbfertiges Setup, das man versehentlich fliegt. */
+  var ex = blankModel();
+  ex.name = "Freestyle Standard 5 Zoll";
+  ex.beep.ON_USB = false;
+  data.models.push(ex);
+  prefs.lastModel = ex.id;
+  save(); savePrefs(false);
+}
+data.models = data.models.map(normalizeModel).filter(Boolean);
+if(!prefs.lastModel || !getModel(prefs.lastModel)) prefs.lastModel = data.models[0].id;
+renderAll();
+setTab(prefs.tab);
+})();
+</script>
+</body>
+</html>
