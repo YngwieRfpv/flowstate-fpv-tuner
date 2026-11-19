@@ -23,6 +23,8 @@ hangar/data/flowstate-hangar.json   Startbestand, nur im Paket
 tuner/index.html         FlowState Tuner
 guide/index.html         FPV Guide
 guide/assets/            Wortmarke und Fußzeile des Guides
+presets/index.html       FlowState Presets
+osd/index.html           OSD Customizer
 
 tools/paket.mjs          baut das Gesamt-ZIP (Node, keine Abhängigkeiten)
 .github/workflows/       Gesamtpaket an die Releases, Pages-Aufräumen
@@ -51,11 +53,16 @@ node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('assets/data/
 | `path` | ja | Ordner mit dem Programm, mit Schrägstrich am Ende |
 | `entry` | nein | Dateiname im Ordner, Standard `index.html` |
 | `pack` | nein | Name im ZIP, Standard `<ordner>/<name>.html` |
-| `icon` | nein | `hangar`, `tuner`, `guide` oder `tool` (Standard) |
+| `icon` | nein | `hangar`, `tuner`, `guide`, `presets`, `osd` oder `tool` (Standard) |
 | `enabled` | nein | `false` blendet das Programm überall aus; die Datei bleibt per Adresse erreichbar |
 | `extra` | nein | weitere Dateien, die ins ZIP gehören (relativ zum Repository) |
 | `kind`, `description`, `highlights`, `meta` | ja | Texte, je Sprache (`de`, `en`, `es`) |
 | `accent` | nein | Farbton der Karte: `mint` oder `sky` |
+
+Ein Werkzeug bekommt im Register eine eigene Release-Reihe. Der Tag trägt seit den beiden
+Werkzeugen von November 2026 den Programmnamen davor (`presets-v0.2.0-beta.1`,
+`osd-v0.1.0-beta.1`), weil GitHub Tags nicht nach Programm trennt und `v0.1.0-beta.1` schon
+von einem früheren Hangar-Stand belegt ist. Die drei älteren Tags bleiben unverändert.
 
 Fehlt eine Sprache, greift Englisch, danach die erste vorhandene. Das macht `pick()` in
 `hub.js`; dieselbe Regel gilt für Releases.
@@ -142,6 +149,8 @@ in `extra`, damit sie im ZIP landen.
 | Hangar | `flowstate.hangar.v1`, `flowstate.hangar.prefs` |
 | Tuner | `flowstate-v48-alpha1`, `flowstate-disclaimer` |
 | Guide | `bf-tuning-guide-alpha-de-v1` |
+| Presets | `flowstate.presets.v1`, `flowstate.presets.prefs`, `flowstate.presets.beepExtra` |
+| OSD Customizer | `bfOsdLab.shell.v1`, `bfOsdLab.fontImports.v1` |
 | gemeinsam | `flowstate.prefs`, `flowstate-theme`, `flowstate-lang` |
 
 Die drei gemeinsamen gehören zur Plattform: Farbe und Sprache. Sie werden von jeder Seite
@@ -159,9 +168,19 @@ gelesen und geschrieben, ein `storage`-Ereignis zieht offene Seiten nach. Wer da
   `*/index.html`, `*/assets/**`, `README.md` oder `LICENSE` und hängt es an alle Releases.
 - `.github/workflows/aufraeumen.yml` hält Pages-Builds und Deployments kurz.
 - GitHub Pages liefert `main` direkt aus. Relative Pfade, kein Server, kein Build.
-- Releases: eine Reihe je Programm, Tag `v<version>`, Gesamt-ZIP als Asset.
+- Releases: eine Reihe je Programm, Gesamt-ZIP als Asset. Die drei älteren Reihen nutzen
+  `v<version>`, die beiden neuen `presets-v<version>` und `osd-v<version>` (Begründung in
+  Abschnitt 2).
 
-## 7. Fallstricke
+## 7. Farbe und Sprache
+
+Jedes Werkzeug liest die Wahl in dieser Reihenfolge: `?theme=`/`?lang=` aus der Adresse, dann
+`flowstate-theme` und `flowstate-lang`, dann `flowstate.prefs` (JSON mit `theme`, `lang`),
+dann die eigene Ablage, zuletzt die Browsersprache. Ändert jemand etwas im Kopf, schreibt das
+Werkzeug alle drei Stellen und die anderen Fenster ziehen über das `storage`-Ereignis nach.
+Ein neues Werkzeug muss dieselben vier Stellen lesen und schreiben, sonst steht es allein da.
+
+## 8. Fallstricke
 
 - **`file://`**: kein `fetch`, kein geteilter Speicher zwischen Dateien. Deshalb `versions.js`
   neben `versions.json`, deshalb Programme im eigenen Tab statt im Rahmen.

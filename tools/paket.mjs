@@ -123,23 +123,38 @@ function readmePage(markdown) {
 }
 
 function liesmich(data) {
+  // Die Pfade sind unterschiedlich lang, deshalb richtet sich die Spalte nach dem
+  // laengsten Eintrag statt nach einer festen Zahl.
+  const width = Math.max.apply(null, MODULES.map((program) => ('  ' + packName(program)).length)) + 2;
   const programLines = MODULES.map((program) => {
     const release = data.releases.find((r) => r.program === program.id) || {};
     let line = '  ' + packName(program);
-    while (line.length < 30) line += ' ';
+    while (line.length < width) line += ' ';
     return line + program.name + (release.version ? ' ' + release.version : '');
   });
   const extraLines = [];
   MODULES.forEach((program) => {
     (program.extra || []).forEach((rel) => extraLines.push('  ' + rel));
   });
+  // Grosse Dateien einzeln nennen, damit niemand einen haengenden Aufruf fuer einen Fehler haelt.
+  const big = MODULES.filter((program) => {
+    const release = data.releases.find((r) => r.program === program.id) || {};
+    return (release.size_bytes || 0) >= 2000000;
+  }).map((program) => {
+    const release = data.releases.find((r) => r.program === program.id) || {};
+    return program.name + ' ' + (Math.round(release.size_bytes / 100000) / 10).toFixed(1).replace('.', ',') + ' MB';
+  });
+  const names = MODULES.map((item) => item.name);
+  const head = [];
+  for (let i = 0; i < names.length; i += 3) head.push(names.slice(i, i + 3).join(', '));
 
   return [
     'FlowState FPV, Übersichtsseite mit den Programmen',
     '',
     '1. Dieses Paket entpacken, es liegt alles im Ordner FlowState-FPV.',
     '2. ' + HUB_PAGE + ' im Browser öffnen.',
-    '3. Im Kopf der Seite zwischen ' + MODULES.map((item) => item.name).join(', ') + ' wählen.',
+    '3. Im Kopf der Seite zwischen diesen Programmen wählen:',
+    ...head.map((line) => '   ' + line),
     '',
     'Jedes Programm lässt sich auch einzeln öffnen, ohne die Übersicht:',
     'einfach die jeweilige Datei doppelklicken und als Lesezeichen ablegen.',
@@ -158,11 +173,10 @@ function liesmich(data) {
       'Dazu:',
       '  README.md      Beschreibung des Projekts, wie auf GitHub',
       '  README.html    dieselbe Beschreibung als lesbare Seite',
-      '  LICENSE        Lizenz auf Deutsch und Englisch',
-      '',
-      'Hinweis: Der FPV Guide ist rund 7,7 MB groß, der erste Aufruf dauert kurz.',
-      ''
+      '  LICENSE        Lizenz auf Deutsch und Englisch'
     ])
+    .concat(big.length ? ['', 'Große Dateien: ' + big.join(', ') + '. Der erste Aufruf dauert kurz.'] : [])
+    .concat([''])
     .join('\n');
 }
 

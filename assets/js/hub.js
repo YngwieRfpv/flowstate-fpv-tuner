@@ -22,12 +22,18 @@
     { id: 'tuner', name: 'FlowState Tuner', path: 'tuner/', entry: 'index.html',
       pack: 'tuner/FlowState-Tuner.html', icon: 'tuner' },
     { id: 'guide', name: 'FPV Guide', path: 'guide/', entry: 'index.html',
-      pack: 'guide/FPV-Guide.html', icon: 'guide' }
+      pack: 'guide/FPV-Guide.html', icon: 'guide' },
+    { id: 'presets', name: 'FlowState Presets', path: 'presets/', entry: 'index.html',
+      pack: 'presets/FlowState-Presets.html', icon: 'presets' },
+    { id: 'osd', name: 'OSD Customizer', path: 'osd/', entry: 'index.html',
+      pack: 'osd/FlowState-OSD-Customizer.html', icon: 'osd' }
   ];
   var ICONS = {
     hangar: '<path d="M3 20V9.5L12 4l9 5.5V20"/><path d="M3 20h18"/><path d="M9.5 20v-5.5h5V20"/>',
     tuner: '<path d="M4 16.5a8 8 0 1 1 16 0"/><path d="M12 16.5 16 10"/><circle cx="12" cy="16.5" r="1.6"/>',
     guide: '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 7h8M8 10.5h5"/>',
+    presets: '<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/>',
+    osd: '<rect x="3" y="4" width="18" height="13" rx="1.6"/><path d="M8 21h8M12 17v4"/><path d="M6.5 8.5h4M6.5 11.5h7M14.5 8.5h3"/>',
     tool: '<path d="M4 20V10m6 10V4m6 16v-7"/>'
   };
 
@@ -94,6 +100,8 @@
       'apps.guide': 'Guide',
       'apps.tuner': 'Autotuner',
       'apps.hangar': 'Hangar',
+      'apps.presets': 'Presets',
+      'apps.osd': 'OSD',
       'stage.back': 'Zurück zur Übersicht',
       'stage.newTab': 'In neuem Tab',
       'stage.loading': 'Wird geladen',
@@ -118,7 +126,7 @@
       'hero.title1': 'Copter verwalten,',
       'hero.title2': 'Logs auswerten,',
       'hero.accent': 'Werte nachschlagen',
-      'hero.lede': 'HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. Der FPV Guide erklärt Ablauf, Filter und Begriffe. Alles läuft im Browser, ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.',
+      'hero.lede': 'HangarDeck Lite führt die Copter-Liste mit Bild und liest auf Wunsch den Flight Controller aus. Der FlowState Tuner liest Blackbox-Logs und schreibt den CLI-Plan. FlowState Presets baut Schalter, Beeper und Raten als CLI-Block, der OSD Customizer bearbeitet Fonts und Startlogo, und der FPV Guide erklärt Ablauf, Filter und Begriffe. Alles läuft im Browser, ohne Installation und ohne Konto, und einmal geladen ohne Verbindung.',
       'hero.cta4': 'Versionen',
       'programs.eyebrow': 'Programme',
       'programs.title': 'Was die Programme machen',
@@ -274,6 +282,8 @@
       'apps.guide': 'Guía',
       'apps.tuner': 'Autotuner',
       'apps.hangar': 'Hangar',
+      'apps.presets': 'Presets',
+      'apps.osd': 'OSD',
       'stage.back': 'Volver a la vista general',
       'stage.newTab': 'En una pestaña nueva',
       'stage.loading': 'Cargando',
@@ -298,7 +308,7 @@
       'hero.title1': 'Gestionar copters,',
       'hero.title2': 'leer registros,',
       'hero.accent': 'consultar valores',
-      'hero.lede': 'HangarDeck Lite lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. La Guía FPV explica el procedimiento, los filtros y los términos. Todo funciona en el navegador, sin instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
+      'hero.lede': 'HangarDeck Lite lleva la lista de copter con imagen y lee la controladora cuando quieres. El FlowState Tuner lee registros Blackbox y escribe el plan CLI. FlowState Presets arma interruptores, beeper y rates en un bloque CLI, el OSD Customizer edita fuentes y logo de arranque, y la Guía FPV explica el procedimiento, los filtros y los términos. Todo funciona en el navegador, sin instalación ni cuenta, y una vez cargado sigue funcionando sin conexión.',
       'hero.cta4': 'Versiones',
       'programs.eyebrow': 'Programas',
       'programs.title': 'Qué hacen los programas',
@@ -473,6 +483,8 @@
       'apps.guide': 'Guide',
       'apps.tuner': 'Autotuner',
       'apps.hangar': 'Hangar',
+      'apps.presets': 'Presets',
+      'apps.osd': 'OSD',
       'stage.back': 'Back to the overview',
       'stage.newTab': 'In a new tab',
       'stage.loading': 'Loading',
@@ -497,7 +509,7 @@
       'hero.title1': 'Manage copters,',
       'hero.title2': 'read logs,',
       'hero.accent': 'look up values',
-      'hero.lede': 'HangarDeck Lite keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. The FPV guide explains the workflow, the filters and the terms. Everything runs in the browser, needs no install and no account, and once loaded it keeps running without a connection.',
+      'hero.lede': 'HangarDeck Lite keeps the quad list with a picture and reads the flight controller when you want it. The FlowState Tuner reads blackbox logs and writes the CLI plan. FlowState Presets builds switches, beeper and rates into a CLI block, the OSD Customizer edits fonts and the startup logo, and the FPV guide explains the workflow, the filters and the terms. Everything runs in the browser, needs no install and no account, and once loaded it keeps running without a connection.',
       'hero.cta4': 'Versions',
       'programs.eyebrow': 'Programs',
       'programs.title': 'What the programs do',

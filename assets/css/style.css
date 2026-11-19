@@ -2077,6 +2077,13 @@ details.notes > summary:hover {
   }
 }
 
+/* Fünf Werkzeuge im Umschalter brauchen Platz: die Sprungliste weicht früher. */
+@media (max-width: 1240px) {
+  .nav {
+    display: none;
+  }
+}
+
 @media (max-width: 1000px) {
   .nav {
     display: none;
