@@ -340,7 +340,7 @@ window.FLOWSTATE_DATA = {
       "size_bytes": 4273766,
       "sha256": "60bd4b109997d26f6cf4e5352497fcdc22a8c4088851a38919907eb16528dac4",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.1.0-beta.4",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.4",
       "signals": [
         {
           "label": {
@@ -588,7 +588,7 @@ window.FLOWSTATE_DATA = {
       "size_bytes": 223016,
       "sha256": "a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-0.2.0-beta.3",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.3",
       "signals": [
         {
           "label": {
