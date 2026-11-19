@@ -23,7 +23,7 @@ stehen geblieben; umgesetzt ist inzwischen Etappe 1 bis 3 und 5, die Referenz st
 | `assets/data/versions.json` | 24 KB | Programme, Releases, Größen, Hashes, alle Texte in DE/EN/ES |
 | `assets/data/versions.js` | 24 KB | dasselbe als Skript, damit die Seite auch über `file://` Daten hat |
 | `assets/images/*` | 7 Dateien | Logo, Zeichen, Favicon, Vorschauen |
-| `hangar/index.html` | 131.966 B | HangarDeck Lite 0.9.5-beta.1 |
+| `hangar/index.html` | 131.966 B | FlowState Hangar Deck 0.9.5-beta.1 |
 | `hangar/data/flowstate-hangar.json` | 1.538 B | Startbestand, wird nur im Paket mitgeliefert (hieß bis 0.9.6 `hangardeck.json`) |
 | `tuner/index.html` | 496.882 B | FlowState Tuner 4.8-alpha.4 |
 | `guide/index.html` | 7.700.211 B | FPV Guide 1.0.2-beta.20-es |
@@ -85,7 +85,7 @@ Ich schlage deshalb **keine Änderung** vor.
 - Drei getrennte Release-Reihen, je Programm eine, jeweils mit dem Gesamt-ZIP als Asset.
 - `tools/paket.mjs` und der ZIP-Schreiber im Browser erzeugen dasselbe Paket, einmal auf dem
   Server, einmal auf Klick. Beide enthalten die Programmdateien umbenannt
-  (`hangar/HangarDeck-Lite.html` usw.), damit im Ordner keine vier `index.html` liegen.
+  (`hangar/FlowState-Hangar-Deck.html` usw.), damit im Ordner keine vier `index.html` liegen.
 
 ### 1.5 Was die drei teilen, und was nicht
 
@@ -320,7 +320,7 @@ Nach Etappe 5, in einem eigenen PR:
 1. **Preset Loader / Preset Creator und OSD Customizer liegen nicht vor.** Weder im Repo noch in
    Drive (Suche über den ganzen Account nach `preset` liefert nichts). Ohne die Dateien kann ich
    sie nicht integrieren, nur den Platz dafür vorbereiten.
-2. **Presets gibt es schon, aber im Hangar.** In Drive liegt HangarDeck **0.9.6-beta.1**
+2. **Presets gibt es schon, aber im Hangar.** In Drive liegt Hangar Deck **0.9.6-beta.1**
    (154.054 B) mit einem Preset-Knopf für Schalter, Beeper und OSD. Das Repo führt 0.9.5. Bevor
    ein eigenes Preset-Werkzeug gebaut wird, muss klar sein, ob das die Weiterentwicklung dieses
    Knopfs ist oder ein zweites Werkzeug daneben. Doppelte Preset-Verwaltung wäre schlecht.

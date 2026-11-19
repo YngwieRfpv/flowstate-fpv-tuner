@@ -6,16 +6,16 @@ Verbindung.
 
 ---
 
-## [HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
+## [FlowState Hangar Deck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)
 
-[`hangar/index.html`](hangar/index.html) · 158 KB · Copter mit Bild führen, Presets, Flight Controller auslesen
+[`hangar/index.html`](hangar/index.html) · 143 KB · Copter mit Bild führen, Preset-Dateien lesen, Flight Controller auslesen
 
 Führt die Copter-Liste, wahlweise als Kacheln oder als Tabelle. Name, Größe, Spannung, KV,
 ESC, Props und Status stehen in der Zeile; Flight Controller, Akku, Videosystem, Abfluggewicht
 und Notiz liegen unter *Mehr Details* und bleiben leer, wenn sie nicht gebraucht werden.
 
 - Bild je Copter, vor dem Speichern verkleinert und nur lokal gehalten
-- Presets für Schalter, Beeper und OSD: beim Einlesen wird jede Zeile geprüft, PID, Filter und Motoren kommen nicht durch
+- Preset-Dateien im Ordner: einzeln wählen, ziehen oder den ganzen Ordner öffnen; gelesen werden nur `aux`, `beeper` und `osd_`, der Rest wird gezählt
 - Flight Controller über USB auslesen oder CLI-Text einfügen, mit Prüfung des Targets vor der Sicherung
 - Betaflight-Backup je Modell, dazu Empfänger, Videosystem, Akku und Abfluggewicht
 - Liste als Code oder Link weitergeben, Bilder bleiben auf dem Gerät
@@ -89,7 +89,7 @@ eigenen Speicher, die Liste aus der Übersicht ist dort nicht drin. Über `file:
 Browser den Speicher sperren; dann gelten Änderungen nur für die laufende Sitzung.
 
 Direkt im Browser: [Übersicht](https://yngwierfpv.github.io/flowstate-fpv-tuner/),
-[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/),
+[FlowState Hangar Deck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/),
 [FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/),
 [FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/),
 [FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/),
@@ -108,7 +108,7 @@ Im Ordner liegt keine Datei namens `index.html`. Die Namen sagen, was läuft:
 | Datei | Programm |
 |---|---|
 | `FlowState-FPV.html` | Übersicht, mit der alle Programme starten |
-| `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
+| `hangar/FlowState-Hangar-Deck.html` | FlowState Hangar Deck |
 | `tuner/FlowState-Tuner.html` | FlowState Tuner |
 | `guide/FPV-Guide.html` | FPV Guide |
 | `presets/FlowState-Presets.html` | FlowState Presets |
@@ -131,7 +131,7 @@ Hintergrund fragt die Seite nichts ab.
 Die eigenen Daten bleiben dabei: Copter-Liste und Tuner-Stand liegen im localStorage des
 Browsers, nicht in den HTML-Dateien. Wer die neue Fassung im selben Ordner über die alte
 legt, behält beides, eine Sicherung ist dafür nicht nötig. Nur wenn der Ordner wandert, vorher
-exportieren: in HangarDeck als JSON, im Tuner Plan und Manifest. Über GitHub Pages ist ohnehin immer der letzte
+exportieren: in Hangar Deck als JSON, im Tuner Plan und Manifest. Über GitHub Pages ist ohnehin immer der letzte
 Stand zu sehen, dort gibt es nichts zu ersetzen.
 
 ## Sprachen
@@ -153,32 +153,35 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [HangarDeck Lite](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v0.9.6-beta.2) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) | [FlowState Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.3) | [OSD Customizer](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.2) |
+| | [FlowState Hangar Deck](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.1) | [FlowState Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.4) | [FPV Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.20-es) | [FlowState Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.3) | [OSD Customizer](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.3) |
 |---|---|---|---|---|---|
-| Version | `v0.9.6-beta.2` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` | `v0.2.0-beta.3` | `v0.1.0-beta.2` |
+| Version | `v1.0.0-beta.1` | `v4.8-alpha.4` | `v1.0.2-beta.20-es` | `v0.2.0-beta.3` | `v0.1.0-beta.3` |
 | Kanal | Beta | Alpha | Beta | Beta | Beta |
 | Datum | 03.11.2026 | 02.11.2026 | 03.11.2026 | 19.11.2026 | 19.11.2026 |
-| Größe (Bytes) | 157.742 | 496.882 | 7.700.211 | 223.016 | 4.273.034 |
-| SHA-256 | `7bb4cfdc10b1f636c0c7964252fed87065ac4530794759e7d73c0f15abfcdf6f` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` | `a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d` | `b7aa4e682336d794f799a2582ccc614138e2747a606547c223f7b766c06070a1` |
+| Größe (Bytes) | 142.244 | 496.882 | 7.700.211 | 223.016 | 4.271.843 |
+| SHA-256 | `dc02574ed46c162dd79483426200d158bfd7402fcd24a268862911cc19feacad` | `ddb1d06a840d99e4c19d823c6d7201017f0ee4da33cebe91a395e9f19fdd5e8a` | `24ea9d33e142c45033e2a21d598ec8b789d2ee5b26234de38b3f725f18d3744e` | `a2048eddeea4d23bf900b2d70359e16b4f66cc572655d3434bc84d2bf1ffa77d` | `377aaefb25659e25111e673666cfff9b25110c244afd16bc2af2acd5e9c63ab2` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, `sha256sum presets/index.html`, `sha256sum osd/index.html`,
 jeweils gefolgt vom erwarteten Wert aus der Tabelle.
 
-Die beiden neuen Werkzeuge führen den Programmnamen im Tag (`presets-v0.2.0-beta.3`,
-`osd-v0.1.0-beta.2`). GitHub trennt Tags nicht nach Programm, und `v0.1.0-beta.1` ist schon
-von einem früheren Hangar-Stand belegt. Die drei bestehenden Tags bleiben, wie sie sind.
+Presets und OSD führen den Programmnamen im Tag (`presets-v0.2.0-beta.3`,
+`osd-v0.1.0-beta.3`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
+Der Hangar Deck trägt sein Release ohne Vorsatz: `v1.0.0-beta.1`. Die alten Tags bleiben,
+wie sie sind.
 
 Gemeinsam geändert: die Farbe reist als `?theme=ocean|sand|drakn` in der Adresse mit, der
-Umschalter steht überall in der Reihenfolge HangarDeck, Tuner, Guide, Presets, OSD Customizer,
+Umschalter steht überall in der Reihenfolge Hangar Deck, Tuner, Guide, Presets, OSD Customizer,
 und ein offenes Programm zieht nach, sobald in der Übersicht eine andere Farbe oder Sprache
 gewählt wird.
 
-Hangar und Presets greifen auf dieselben Daten zu, in beide Richtungen. Im Preset-Bauer steht
-die Copter-Liste des Hangars zur Auswahl; ein übernommener Copter gibt Name, Größe und Flight
-Controller weiter und lässt seine Kennung am Modell. Umgekehrt bietet der Hangar das zuletzt
-bereitgestellte Preset an und liest es als CLI. Wer eines der beiden Programme in einem
-eigenen Fenster offen hat, sieht den neuen Stand nach dem nächsten Wechsel dorthin.
+Hangar und Presets greifen auf dieselben Daten zu. Im Preset-Bauer steht die Copter-Liste des
+Hangars zur Auswahl; ein übernommener Copter gibt Name, Größe und Flight Controller weiter und
+lässt seine Kennung am Modell, damit die Zuordnung erhalten bleibt. In die andere Richtung
+geht es über die Datei: der Preset-Bauer schreibt `flowstate-preset-<name>.txt`, der Hangar
+liest Preset-Dateien aus seinem Ordner und übernimmt daraus nur `aux`, `beeper` und `osd_`.
+Raten und Anpassungen aus dem Preset bleiben draußen, das ist Absicht: der Hangar führt
+Sicherungen, er schreibt keine Werte.
 
 Der Farbstreifen links am Kopf ist in Hangar, Presets und OSD eine Hintergrundlage des Kopfs
 statt eines eigenen Elements. Die Eckrundung schneidet ihn damit exakt ab, in allen drei
@@ -201,15 +204,18 @@ in the browser, without an install and without an account, and once loaded it wo
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
-| **[HangarDeck Lite](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 158 KB | Keep the quad list, presets, read the flight controller |
+| **[FlowState Hangar Deck](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 143 KB | Keep the quad list, read preset files, read the flight controller |
 | **[FlowState Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
 | **[FPV Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 | **[FlowState Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 223 KB | Switches, beeper, OSD, rates and adjustments as CLI |
 | **[OSD Customizer](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)** | [`osd/index.html`](osd/index.html) | 4.3 MB | Fonts, startup logo and layout for the Betaflight OSD |
 
-Hangar and Presets share their data in both directions: the preset builder lists the hangar's
-copters and takes name, size and flight controller from one; the hangar offers the preset that
-was published last and reads it as CLI. In every tool the colour stripe on the left edge of the
+Hangar and Presets share their data. The preset builder lists the hangar's copters and takes
+name, size and flight controller from one; the id stays on the model so the link is kept. Back
+the other way it goes through the file: the preset builder writes
+`flowstate-preset-<name>.txt`, the hangar reads preset files from its folder and keeps only
+`aux`, `beeper` and `osd_` lines. Rates and adjustments stay out on purpose, the hangar keeps
+backups, it does not write values. In every tool the colour stripe on the left edge of the
 header is a background layer of the header itself, so the rounded corner cuts it exactly.
 
 Both new tools end in a file you hand to the flight controller, not in a screen you read.
@@ -235,7 +241,7 @@ No file in the folder is called `index.html`. The names say what runs:
 | File | Program |
 |---|---|
 | `FlowState-FPV.html` | Overview, the way in to every program |
-| `hangar/HangarDeck-Lite.html` | HangarDeck Lite |
+| `hangar/FlowState-Hangar-Deck.html` | FlowState Hangar Deck |
 | `tuner/FlowState-Tuner.html` | FlowState Tuner |
 | `guide/FPV-Guide.html` | FPV Guide |
 | `presets/FlowState-Presets.html` | FlowState Presets |
@@ -258,7 +264,7 @@ requested in the background.
 
 Your own data stays: the quad list and the tuner state live in the browser's localStorage,
 not in the HTML files. Dropping a new version over the old one in the same folder keeps both,
-no backup needed. Only if the folder moves, export first: JSON in HangarDeck, plan and
+no backup needed. Only if the folder moves, export first: JSON in Hangar Deck, plan and
 manifest in the tuner. Over
 GitHub Pages you always get the latest state, so there is nothing to replace.
 
