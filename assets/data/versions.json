@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "programs": [
     {
       "id": "hangar",
@@ -319,26 +319,26 @@
   ],
   "releases": [
     {
-      "id": "hangar-1.0.0-beta.3",
+      "id": "hangar-1.0.0-beta.4",
       "program": "hangar",
-      "version": "v1.0.0-beta.3",
+      "version": "v1.0.0-beta.4",
       "channel": "beta",
-      "released": "2026-11-19",
+      "released": "2026-11-20",
       "title": {
-        "de": "Ein Name, klare Reihenfolge",
-        "en": "One name, clear order",
-        "es": "Un nombre, orden claro"
+        "de": "Preset-Hinweis sagt jetzt, was passiert",
+        "en": "Preset hint now says what happens",
+        "es": "La nota del preset dice ahora qué pasa"
       },
       "summary": {
-        "de": "Das Programm heißt jetzt Hangar, ohne Zusatz im Namen. FlowState steht einmal für die Sammlung und nicht vor jedem Werkzeug. Inhaltlich bleibt alles: Copter-Liste, Preset-Dateien Zeile für Zeile, Bilder und Einträge im Browser, Export als PDF, CSV, Druck, JSON und HTML.",
-        "en": "The program is now called Hangar, with nothing appended. FlowState stands once for the collection and not in front of every tool. The content stays: quad list, preset files line by line, pictures and entries in the browser, export as PDF, CSV, print, JSON and HTML.",
-        "es": "El programa ahora se llama Hangar, sin añadidos. FlowState aparece una vez para la colección y no delante de cada herramienta. El contenido sigue igual: lista de copter, archivos de presets línea por línea, imágenes y entradas en el navegador, exportación como PDF, CSV, impresión, JSON y HTML."
+        "de": "Der Hinweis über den Preset-Dateien beschreibt jetzt den Ablauf im Programm: die Datei wird gelesen, ihre Zeilen wandern in den CLI-Diff, doppelte Zeilen bleiben draußen. Dazu eine Schrift für Text und eine für Code, ohne gemischte Angaben im Stylesheet.",
+        "en": "The hint above the preset files now describes what the program does: the file is read, its lines go into the CLI diff, duplicates stay out. Plus one font for text and one for code, with no mixed font stacks in the stylesheet.",
+        "es": "La nota sobre los presets describe ahora lo que hace el programa: se lee el archivo, sus líneas van al diff CLI y las repetidas quedan fuera. Además una fuente para texto y otra para código, sin mezclas en la hoja de estilos."
       },
       "file": "hangar/index.html",
-      "size_bytes": 145624,
-      "sha256": "161d0e173a19154c7d57db2de1dbe6444967d3f10803aba5542afd59da2f819c",
+      "size_bytes": 145864,
+      "sha256": "378b4c32901f9459c55000bc130174ec40a21e843378e76bc95821697295affb",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.3",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.4",
       "signals": [
         {
           "label": {
@@ -367,26 +367,26 @@
       ]
     },
     {
-      "id": "tuner-4.8-alpha.7",
+      "id": "tuner-4.8-alpha.8",
       "program": "tuner",
-      "version": "v4.8-alpha.7",
+      "version": "v4.8-alpha.8",
       "channel": "beta",
-      "released": "2026-11-19",
+      "released": "2026-11-20",
       "title": {
-        "de": "Ein Name, klare Reihenfolge",
-        "en": "One name, clear order",
-        "es": "Un nombre, orden claro"
+        "de": "Klare Ansagen vor dem Schreiben",
+        "en": "Clearer wording before writing",
+        "es": "Avisos más claros antes de escribir"
       },
       "summary": {
-        "de": "Das Programm heißt jetzt Tuner. Die Analyse von Blackbox-Logs, der CLI-Plan und die Phasen bleiben unverändert, geladene Logs bleiben weiter im Browser.",
-        "en": "The program is now called Tuner. Blackbox analysis, the CLI plan and the phases stay as they are, loaded logs still stay in the browser.",
-        "es": "El programa ahora se llama Tuner. El análisis de registros Blackbox, el plan CLI y las fases siguen igual, los registros cargados se quedan en el navegador."
+        "de": "Die Bestätigungen vor dem Schreiben lesen sich jetzt wie Sätze statt wie Formulare: geprüfte Verbindung, geprüfter Gesamtplan, ein klarer Hinweis bei umgangener Qualitätsprüfung. Eine Schrift für Text, eine für Code.",
+        "en": "The confirmations before writing now read like sentences instead of forms: checked connection, checked full plan, a plain notice when the quality gate was bypassed. One font for text, one for code.",
+        "es": "Las confirmaciones antes de escribir se leen ahora como frases y no como formularios: conexión comprobada, plan completo comprobado y un aviso claro cuando se saltó el control de calidad. Una fuente para texto y otra para código."
       },
       "file": "tuner/index.html",
-      "size_bytes": 501793,
-      "sha256": "3d543e21b775fb0bc4bebfcf190088f110fc113df8ae447516c520778546f0d2",
+      "size_bytes": 501695,
+      "sha256": "898e8d39cd31ffcf615c761c769932ee076ee6ddd6b829f0c8b1fb929cd98fbc",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.7",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.8",
       "signals": [
         {
           "label": {
@@ -415,26 +415,26 @@
       ]
     },
     {
-      "id": "guide-1.0.2-beta.21-es",
+      "id": "guide-1.0.2-beta.22-es",
       "program": "guide",
-      "version": "v1.0.2-beta.21-es",
+      "version": "v1.0.2-beta.22-es",
       "channel": "beta",
-      "released": "2026-11-19",
+      "released": "2026-11-20",
       "title": {
-        "de": "Ein Name, klare Reihenfolge",
-        "en": "One name, clear order",
-        "es": "Un nombre, orden claro"
+        "de": "Eine Schrift im ganzen Guide",
+        "en": "One font throughout the guide",
+        "es": "Una sola fuente en toda la guía"
       },
       "summary": {
-        "de": "Das Programm heißt jetzt Guide. Inhalt, Quellen und Glossar bleiben, die Kapitel und Tabellen ebenso.",
-        "en": "The program is now called Guide. Content, sources and glossary stay, the chapters and tables as well.",
-        "es": "El programa ahora se llama Guide. El contenido, las fuentes y el glosario siguen igual, también los capítulos y las tablas."
+        "de": "Alle Schriftangaben im Guide stehen jetzt in zwei Stapeln: einer für Text, einer für Code. Keine gemischten Familien mehr, nichts von außen geladen. Der Inhalt bleibt unverändert.",
+        "en": "Every font declaration in the guide now uses two stacks: one for text, one for code. No mixed families, nothing loaded from outside. The content is unchanged.",
+        "es": "Todas las declaraciones de fuente de la guía usan ahora dos pilas: una para texto y otra para código. Sin familias mezcladas ni cargas externas. El contenido no cambia."
       },
       "file": "guide/index.html",
-      "size_bytes": 7700071,
-      "sha256": "552078f1b4c33c4021b240a80153276494e46880acb897d8c9b32cf792fb30fe",
+      "size_bytes": 7700364,
+      "sha256": "a9052b9bd280b919cdc1d7abe64d698a69dc4ddbaad8705c6ee731a924b1278a",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.21-es",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.22-es",
       "signals": [
         {
           "label": {
@@ -463,26 +463,26 @@
       ]
     },
     {
-      "id": "presets-0.2.0-beta.4",
+      "id": "presets-0.2.0-beta.5",
       "program": "presets",
-      "version": "v0.2.0-beta.4",
+      "version": "v0.2.0-beta.5",
       "channel": "beta",
-      "released": "2026-11-19",
+      "released": "2026-11-20",
       "title": {
-        "de": "Ein Name, klare Reihenfolge",
-        "en": "One name, clear order",
-        "es": "Un nombre, orden claro"
+        "de": "Schrift und Hinweise aufgeräumt",
+        "en": "Fonts and hints tidied up",
+        "es": "Fuentes y avisos ordenados"
       },
       "summary": {
-        "de": "Das Programm heißt jetzt Presets. Der gebaute CLI-Block trägt den neuen Namen im Kopf, importierte Dateien werden weiter erkannt.",
-        "en": "The program is now called Presets. The built CLI block carries the new name in its header, imported files are still recognised.",
-        "es": "El programa ahora se llama Presets. El bloque CLI generado lleva el nombre nuevo en la cabecera, los archivos importados se siguen reconociendo."
+        "de": "Der Preset-Bauer nutzt dieselben zwei Schriftstapel wie die übrigen Werkzeuge, die Hinweise bleiben im Ton sachlich. Am CLI-Ausgang und an den Daten ändert sich nichts.",
+        "en": "The preset builder uses the same two font stacks as the other tools, and the hints stay matter-of-fact. Nothing changes in the CLI output or the data.",
+        "es": "El generador de presets usa las mismas dos pilas de fuentes que las demás herramientas y los avisos mantienen un tono sobrio. La salida CLI y los datos no cambian."
       },
       "file": "presets/index.html",
-      "size_bytes": 222961,
-      "sha256": "fbf1ccd964830bac00850675108ca524f394ee87eeee960d367a40a74eb31ff1",
+      "size_bytes": 223188,
+      "sha256": "ff3e0229f15f636e726a6bf596cd45482dd1df6021d7545bf36da8ce6d7c675e",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.4",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.5",
       "signals": [
         {
           "label": {
@@ -511,26 +511,26 @@
       ]
     },
     {
-      "id": "osd-0.1.0-beta.5",
+      "id": "osd-0.1.0-beta.6",
       "program": "osd",
-      "version": "v0.1.0-beta.5",
+      "version": "v0.1.0-beta.6",
       "channel": "beta",
-      "released": "2026-11-19",
+      "released": "2026-11-20",
       "title": {
-        "de": "Ein Name, klare Reihenfolge",
-        "en": "One name, clear order",
-        "es": "Un nombre, orden claro"
+        "de": "Eine Schriftangabe für die Oberfläche",
+        "en": "One font definition for the interface",
+        "es": "Una definición de fuente para la interfaz"
       },
       "summary": {
-        "de": "Das Programm heißt jetzt OSD. Fonts, Startlogo und das Raster bleiben, importierte Schriften liegen weiter im Browser.",
-        "en": "The program is now called OSD. Fonts, startup logo and the grid stay, imported fonts still live in the browser.",
-        "es": "El programa ahora se llama OSD. Las fuentes, el logo de arranque y la rejilla siguen igual, las fuentes importadas se quedan en el navegador."
+        "de": "Die Oberfläche des OSD-Editors holt ihre Schriften jetzt aus einer Variablen, die auf denselben Stapel zeigt wie die übrigen Werkzeuge. Fonts, Logo und Raster bleiben, wie sie waren.",
+        "en": "The OSD editor interface now takes its fonts from a single variable that points at the same stack as the other tools. Fonts, logo and grid stay as they were.",
+        "es": "La interfaz del editor OSD toma ahora sus fuentes de una variable que apunta a la misma pila que las otras herramientas. Las fuentes, el logo y la rejilla siguen igual."
       },
       "file": "osd/index.html",
-      "size_bytes": 4273728,
-      "sha256": "2f561e03bdc23ab5aadb101b84956650b2dc0afc78d3fef82260e3c961473d30",
+      "size_bytes": 4273720,
+      "sha256": "2d435e2870a90819306c9820b7deed7bc65476c7a7ea2b774a87ef2bede05341",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.5",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.6",
       "signals": [
         {
           "label": {
@@ -562,7 +562,7 @@
   "platform": {
     "id": "flowstate-fpv",
     "name": "FlowState FPV",
-    "version": "1.1.0",
-    "released": "2026-11-19"
+    "version": "1.1.1",
+    "released": "2026-11-20"
   }
 }
