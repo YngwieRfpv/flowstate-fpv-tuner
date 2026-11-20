@@ -10,55 +10,55 @@ window.FLOWSTATE_DATA = {
       "accent": "mint",
       "path": "hangar/",
       "kind": {
-        "de": "Copter, Preset-Dateien und Sicherungen an einem Ort",
-        "en": "Quads, preset files and backups in one place",
-        "es": "Copter, archivos de presets y copias en un solo lugar"
+        "de": "Copter, Preset-Dateien, Sicherungen und UART-Belegung an einem Ort",
+        "en": "Quads, preset files, backups and the UART map in one place",
+        "es": "Copter, archivos de presets, copias y asignación UART en un solo lugar"
       },
       "description": {
-        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Preset-Dateien aus dem Ordner kommen so an, wie sie geschrieben sind, Zeile für Zeile. Die Liste geht als Code oder Link weiter, Bilder und Einträge bleiben im Browser. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt.",
-        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. Preset files from the folder arrive as they are written, line by line. The list can be passed on as a code or a link, pictures and entries stay in the browser. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in.",
-        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Los archivos de presets del directorio llegan tal como están escritos, línea por línea. La lista se puede pasar como código o enlace, las imágenes y las entradas se quedan en el navegador. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML."
+        "de": "Eine Liste pro Copter mit Bild, Größe, Zellen, KV, ESC, Props und Status. Auf Wunsch liest sie den Flight Controller über USB aus und legt ein Betaflight-Backup je Modell ab. Aus dem CLI-Diff zeigt sie die UART-Belegung: welcher Port was macht, mit welcher Baudrate, welche Pins umgelegt sind, und das Ganze auf Knopfdruck als Kommentarblock. Preset-Dateien aus dem Ordner kommen so an, wie sie geschrieben sind. Die Liste geht als Code oder Link weiter, Bilder und Einträge bleiben im Browser. Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup, das sich wieder einlesen lässt.",
+        "en": "One list for your quads with a picture, size, cells, KV, ESC, props and status. On request it reads the flight controller over USB and keeps a Betaflight backup per model. From the CLI diff it shows the UART map: which port does what, at which baud rate, which pins were moved, and the whole thing as a comment block on one click. Preset files from the folder arrive as they are written. The list can be passed on as a code or a link, pictures and entries stay in the browser. Export as a PDF table, CSV, print, JSON and an HTML backup that can be read back in.",
+        "es": "Una lista por copter con imagen, tamaño, celdas, KV, ESC, hélices y estado. Si quieres, lee la controladora por USB y guarda una copia de Betaflight por modelo. Del diff CLI muestra la asignación UART: qué hace cada puerto, con qué baudios, qué pines se movieron, y todo como bloque de comentario con un clic. Los archivos de presets del directorio llegan tal como están escritos. La lista se puede pasar como código o enlace, las imágenes y las entradas se quedan en el navegador. Exportación como tabla PDF, CSV, impresión, JSON y copia HTML."
       },
       "highlights": {
         "de": [
           "Name und Größe reichen, Bild und weitere Felder bleiben optional",
+          "UART-Belegung aus dem CLI-Diff, als Liste und als Kommentarblock",
           "Preset-Dateien Zeile für Zeile übernehmen, ohne Auswahl",
           "Flight Controller über USB auslesen oder CLI-Text einfügen",
           "Liste als Code oder Link weitergeben, Bilder bleiben im Browser",
-          "Export als PDF-Tabelle, CSV, Druck, JSON und HTML-Backup",
           "Deutsch, Englisch und Spanisch, Ozean, Sand und Drakn"
         ],
         "en": [
           "Name and size are enough, picture and further fields stay optional",
+          "UART map from the CLI diff, as a list and as a comment block",
           "Take preset files line by line, without a selection",
           "Read the flight controller over USB or paste CLI text",
           "Pass the list on as a code or link, pictures stay in the browser",
-          "Export as a PDF table, CSV, print, JSON and an HTML backup",
           "German, English and Spanish, Ocean, Sand and Drakn"
         ],
         "es": [
           "El nombre y el tamaño bastan, la imagen y los demás campos son opcionales",
+          "Asignación UART del diff CLI, como lista y como bloque de comentario",
           "Tomar archivos de presets línea por línea, sin selección",
           "Leer la controladora por USB o pegar texto CLI",
           "Pasar la lista como código o enlace, las imágenes se quedan en el navegador",
-          "Exportación como tabla PDF, CSV, impresión, JSON y copia HTML",
           "Alemán, inglés y español, océano, lino y rojo oscuro"
         ]
       },
       "meta": {
         "de": [
-          "1 Datei · 146 KB",
-          "Bild, Preset-Dateien, FC-Auslese",
+          "1 Datei · 155 KB",
+          "Bild, Preset-Dateien, FC-Auslese, UART",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 146 KB",
-          "picture, preset files, controller read",
+          "1 file · 155 KB",
+          "picture, preset files, controller read, UART",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 146 KB",
-          "imagen, archivos de presets, lectura de la FC",
+          "1 archivo · 155 KB",
+          "imagen, archivos de presets, lectura de la FC, UART",
           "cualquier navegador actual"
         ]
       },
@@ -321,26 +321,26 @@ window.FLOWSTATE_DATA = {
   ],
   "releases": [
     {
-      "id": "hangar-1.0.0-beta.4",
+      "id": "hangar-1.0.0-beta.5",
       "program": "hangar",
-      "version": "v1.0.0-beta.4",
+      "version": "v1.0.0-beta.5",
       "channel": "beta",
       "released": "2026-11-20",
       "title": {
-        "de": "Preset-Hinweis sagt jetzt, was passiert",
-        "en": "Preset hint now says what happens",
-        "es": "La nota del preset dice ahora qué pasa"
+        "de": "UART-Belegung aus dem CLI-Diff",
+        "en": "UART map from the CLI diff",
+        "es": "Asignación UART del diff CLI"
       },
       "summary": {
-        "de": "Der Hinweis über den Preset-Dateien beschreibt jetzt den Ablauf im Programm: die Datei wird gelesen, ihre Zeilen wandern in den CLI-Diff, doppelte Zeilen bleiben draußen. Dazu eine Schrift für Text und eine für Code, ohne gemischte Angaben im Stylesheet.",
-        "en": "The hint above the preset files now describes what the program does: the file is read, its lines go into the CLI diff, duplicates stay out. Plus one font for text and one for code, with no mixed font stacks in the stylesheet.",
-        "es": "La nota sobre los presets describe ahora lo que hace el programa: se lee el archivo, sus líneas van al diff CLI y las repetidas quedan fuera. Además una fuente para texto y otra para código, sin mezclas en la hoja de estilos."
+        "de": "Das Modell zeigt jetzt, wie die UARTs belegt sind. Gelesen wird aus den serial- und resource-Zeilen des CLI-Diffs: welcher Port welche Aufgabe hat, mit welcher Baudrate, welche Pins vom Target-Standard abweichen. Der Knopf Belegung als Kommentar legt denselben Stand als Kommentarblock in die Zwischenablage, etwa für eine Notiz zum Copter. Die Nummerierung folgt der Portliste der Firmware, nicht der resource-Nummer.",
+        "en": "The model now shows how the UARTs are assigned. It reads the serial and resource lines of the CLI diff: which port does what, at which baud rate, which pins differ from the target default. The button Assignment as comment puts the same state into the clipboard as a comment block, for a note on the copter. The numbering follows the firmware port list, not the resource number.",
+        "es": "El modelo muestra ahora cómo están asignados los UART. Se lee de las líneas serial y resource del diff CLI: qué hace cada puerto, con qué baudios, qué pines se apartan del estándar del target. El botón Asignación como comentario copia el mismo estado como bloque de comentario, por ejemplo para una nota del copter. La numeración sigue la lista de puertos del firmware, no el número de resource."
       },
       "file": "hangar/index.html",
-      "size_bytes": 145864,
-      "sha256": "378b4c32901f9459c55000bc130174ec40a21e843378e76bc95821697295affb",
+      "size_bytes": 155601,
+      "sha256": "3ad9bec80430da0308da2539ee88507e794e83e4724526ddd8235437c16a29f5",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.4",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.5",
       "signals": [
         {
           "label": {
@@ -564,7 +564,7 @@ window.FLOWSTATE_DATA = {
   "platform": {
     "id": "flowstate-fpv",
     "name": "FlowState FPV",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "released": "2026-11-20"
   }
 };
