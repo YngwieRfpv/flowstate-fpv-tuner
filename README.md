@@ -154,21 +154,21 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [Hangar](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.3) | [Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.7) | [Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.21-es) | [Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.4) | [OSD](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.5) |
+| | [Hangar](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.4) | [Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.8) | [Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.22-es) | [Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.5) | [OSD](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.6) |
 |---|---|---|---|---|---|
-| Version | `v1.0.0-beta.3` | `v4.8-alpha.7` | `v1.0.2-beta.21-es` | `v0.2.0-beta.4` | `v0.1.0-beta.5` |
+| Version | `v1.0.0-beta.4` | `v4.8-alpha.8` | `v1.0.2-beta.22-es` | `v0.2.0-beta.5` | `v0.1.0-beta.6` |
 | Kanal | Beta | Alpha | Beta | Beta | Beta |
-| Datum | 19.11.2026 | 19.11.2026 | 19.11.2026 | 19.11.2026 | 19.11.2026 |
-| Größe (Bytes) | 145.797 | 502.177 | 7.700.211 | 223.016 | 4.273.766 |
-| SHA-256 | `161d0e173a19154c7d57db2de1dbe6444967d3f10803aba5542afd59da2f819c` | `3d543e21b775fb0bc4bebfcf190088f110fc113df8ae447516c520778546f0d2` | `552078f1b4c33c4021b240a80153276494e46880acb897d8c9b32cf792fb30fe` | `fbf1ccd964830bac00850675108ca524f394ee87eeee960d367a40a74eb31ff1` | `2f561e03bdc23ab5aadb101b84956650b2dc0afc78d3fef82260e3c961473d30` |
+| Datum | 20.11.2026 | 20.11.2026 | 20.11.2026 | 20.11.2026 | 20.11.2026 |
+| Größe (Bytes) | 145.864 | 501.695 | 7.700.364 | 223.188 | 4.273.720 |
+| SHA-256 | `378b4c32901f9459c55000bc130174ec40a21e843378e76bc95821697295affb` | `898e8d39cd31ffcf615c761c769932ee076ee6ddd6b829f0c8b1fb929cd98fbc` | `a9052b9bd280b919cdc1d7abe64d698a69dc4ddbaad8705c6ee731a924b1278a` | `ff3e0229f15f636e726a6bf596cd45482dd1df6021d7545bf36da8ce6d7c675e` | `2d435e2870a90819306c9820b7deed7bc65476c7a7ea2b774a87ef2bede05341` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, `sha256sum presets/index.html`, `sha256sum osd/index.html`,
 jeweils gefolgt vom erwarteten Wert aus der Tabelle.
 
-Presets und OSD führen den Programmnamen im Tag (`presets-v0.2.0-beta.4`,
-`osd-v0.1.0-beta.5`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
-Der Hangar trägt sein Release ohne Vorsatz: `v1.0.0-beta.3`. Die alten Tags bleiben,
+Presets und OSD führen den Programmnamen im Tag (`presets-v0.2.0-beta.5`,
+`osd-v0.1.0-beta.6`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
+Der Hangar trägt sein Release ohne Vorsatz: `v1.0.0-beta.4`. Die alten Tags bleiben,
 wie sie sind.
 
 Gemeinsam geändert: die Farbe reist als `?theme=ocean|sand|drakn` in der Adresse mit, der
@@ -180,9 +180,9 @@ Hangar und Presets greifen auf dieselben Daten zu. Im Preset-Bauer steht die Cop
 Hangars zur Auswahl; ein übernommener Copter gibt Name, Größe und Flight Controller weiter und
 lässt seine Kennung am Modell, damit die Zuordnung erhalten bleibt. In die andere Richtung
 geht es über die Datei: der Preset-Bauer schreibt `flowstate-preset-<name>.txt`, der Hangar
-liest Preset-Dateien aus seinem Ordner und übernimmt daraus nur `aux`, `beeper` und `osd_`.
-Raten und Anpassungen aus dem Preset bleiben draußen, das ist Absicht: der Hangar führt
-Sicherungen, er schreibt keine Werte.
+liest Preset-Dateien aus seinem Ordner und hängt ihre Zeilen an den CLI-Diff des Modells.
+Kommentare und Leerzeilen fallen dabei weg, doppelte Zeilen bleiben draußen. Der Hangar
+führt Sicherungen, er schreibt keine Werte.
 
 Der Farbstreifen links am Kopf ist in Hangar, Presets und OSD eine Hintergrundlage des Kopfs
 statt eines eigenen Elements. Die Eckrundung schneidet ihn damit exakt ab, in allen drei
@@ -205,8 +205,8 @@ in the browser, without an install and without an account, and once loaded it wo
 
 | Program | File | Size | Purpose |
 |---|---|---|---|
-| **[Hangar](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 143 KB | Keep the quad list, read preset files, read the flight controller |
-| **[Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 497 KB | Read logs, derive filter and PID values |
+| **[Hangar](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 146 KB | Keep the quad list, read preset files, read the flight controller |
+| **[Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 502 KB | Read logs, derive filter and PID values |
 | **[Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
 | **[Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 223 KB | Switches, beeper, OSD, rates and adjustments as CLI |
 | **[OSD](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)** | [`osd/index.html`](osd/index.html) | 4.3 MB | Fonts, startup logo and layout for the Betaflight OSD |
@@ -214,9 +214,9 @@ in the browser, without an install and without an account, and once loaded it wo
 Hangar and Presets share their data. The preset builder lists the hangar's copters and takes
 name, size and flight controller from one; the id stays on the model so the link is kept. Back
 the other way it goes through the file: the preset builder writes
-`flowstate-preset-<name>.txt`, the hangar reads preset files from its folder and keeps only
-`aux`, `beeper` and `osd_` lines. Rates and adjustments stay out on purpose, the hangar keeps
-backups, it does not write values. In every tool the colour stripe on the left edge of the
+`flowstate-preset-<name>.txt`, the hangar reads preset files from its folder and appends their
+lines to the model's CLI diff. Comments and empty lines are dropped, duplicates stay out. The
+hangar keeps backups, it does not write values. In every tool the colour stripe on the left edge of the
 header is a background layer of the header itself, so the rounded corner cuts it exactly.
 
 Both new tools end in a file you hand to the flight controller, not in a screen you read.

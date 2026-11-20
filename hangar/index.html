@@ -93,7 +93,7 @@ body{
     radial-gradient(900px 520px at 100% 0%, var(--glow2) 0%, transparent 60%),
     var(--bg);
   color:var(--text);
-  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   min-height:100vh;
   -webkit-text-size-adjust:100%;
 }
@@ -502,7 +502,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">Hangar · v1.0.0-beta.3</span>
+    <span class="ver">Hangar · v1.0.0-beta.4</span>
   </footer>
 </div>
 
@@ -628,7 +628,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
                 <button class="btn sm ghost" type="button" id="btnPfPick" data-i18n="pfPick">Preset-Datei wählen</button>
               </div>
               <ul class="pflist" id="pfList" hidden></ul>
-              <p class="hint" data-i18n="pfHint">Preset-Dateien aus dem Ordner lesen – gleiche Endung, keine Verbindung nötig. Nur Schalter, Beeper und OSD werden übernommen.</p>
+              <p class="hint" data-i18n="pfHint">Preset-Dateien aus dem Ordner lesen. Gleiche Endung, keine Verbindung nötig. Jede Zeile kommt so in den Diff, wie sie in der Datei steht, doppelte Zeilen fallen weg.</p>
             </div>
             <div class="bfsrc">
               <label for="f_bftarget"><span data-i18n="bfTarget">Target der FC</span> <span class="opt" data-i18n="opt">optional</span></label>
@@ -871,7 +871,7 @@ var BF_I18N = {
     pfCount:function(n){ return n + (n === 1 ? " Preset-Datei gelesen" : " Preset-Dateien gelesen"); },
     pfUse:"Einfügen", pfUsed:"Übernommen", pfBad:"Nicht lesbar", pfEmptyFile:"Keine Zeilen",
     pfNoFs:"Dieser Browser darf keinen Ordner öffnen. Dateien einzeln wählen oder hierher ziehen.",
-    pfHint:"Eine Preset-Datei wird so übernommen, wie sie geschrieben ist. Zeile für Zeile, ohne Auswahl.",
+    pfHint:"Preset-Dateien aus dem Ordner lesen. Gleiche Endung, keine Verbindung nötig. Jede Zeile kommt so in den Diff, wie sie in der Datei steht, doppelte Zeilen fallen weg.",
     pfDrag:"Preset-Dateien hierher ziehen",
     pfLines:function(n){ return n + " Zeilen"; }, pfAlreadyThere:"Steht schon im Diff",
     bfPick:"Datei ablegen (.txt)", bfRemove:"Entfernen",
@@ -896,7 +896,7 @@ var BF_I18N = {
     pfCount:function(n){ return n + (n === 1 ? " preset file read" : " preset files read"); },
     pfUse:"Insert", pfUsed:"Added", pfBad:"Not readable", pfEmptyFile:"No lines",
     pfNoFs:"This browser cannot open a folder. Pick files one by one or drop them here.",
-    pfHint:"A preset file is taken over as it was written. Line by line, without picking anything out.",
+    pfHint:"Read preset files from a folder. Same file extension, no connection needed. Every line goes into the diff exactly as written; duplicate lines are skipped.",
     pfDrag:"Drop preset files here",
     pfLines:function(n){ return n + (n === 1 ? " line" : " lines"); }, pfAlreadyThere:"Already in the diff",
     bfPick:"Store file (.txt)", bfRemove:"Remove",
@@ -921,7 +921,7 @@ var BF_I18N = {
     pfCount:function(n){ return n + (n === 1 ? " preset leído" : " presets leídos"); },
     pfUse:"Insertar", pfUsed:"Añadido", pfBad:"No legible", pfEmptyFile:"Sin líneas",
     pfNoFs:"Este navegador no puede abrir una carpeta. Elige los archivos uno a uno o arrástralos aquí.",
-    pfHint:"El preset se toma tal como se escribió. Línea por línea, sin elegir nada.",
+    pfHint:"Leer presets desde una carpeta. Misma extensión, sin conexión. Cada línea entra en el diff tal como está escrita; las líneas repetidas se omiten.",
     pfDrag:"Arrastra los presets aquí",
     pfLines:function(n){ return n + (n === 1 ? " línea" : " líneas"); }, pfAlreadyThere:"Ya está en el diff",
     bfPick:"Guardar archivo (.txt)", bfRemove:"Quitar",
@@ -2402,7 +2402,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "1.0.0-beta.3";
+var VER = "1.0.0-beta.4";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
