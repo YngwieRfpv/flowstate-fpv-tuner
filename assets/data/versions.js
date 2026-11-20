@@ -203,9 +203,9 @@ window.FLOWSTATE_DATA = {
         "es": "Presets para interruptores, beeper, OSD, rates y ajustes"
       },
       "description": {
-        "de": "Baut aus Bausteinen eine CLI-Datei für Betaflight: Schalterbelegung, Beeper, OSD-Profile, Anpassungen und Raten. Der Block endet mit save und lässt sich kopieren, als Datei sichern oder über Web Serial in die Konsole schreiben. Vorher prüft das Werkzeug die Eingaben und nennt offene Punkte. PID, Filter und Motoren kommen nicht vor.",
-        "en": "Builds a CLI file for Betaflight from parts: switches, beeper, OSD profiles, adjustments and rates. The block ends with save and can be copied, saved as a file or written to the console over Web Serial. The tool checks the entries first and names what is still open. PID, filters and motors are not part of it.",
-        "es": "Arma un archivo CLI para Betaflight con piezas: interruptores, beeper, perfiles OSD, ajustes y rates. El bloque termina en save y se puede copiar, guardar como archivo o escribir en la consola por Web Serial. Antes revisa los datos y nombra lo que falta. PID, filtros y motores no aparecen."
+        "de": "Baut aus Teilen eine CLI-Datei für Betaflight: Features, Beeper, Modes, OSD, Alarme, Rates, Adjustments und Failsafe. Jeder Block lässt sich am Abschnittskopf abschalten und bleibt trotzdem im Preset gespeichert. Copter aus dem Hangar übernehmen, Einträge prüfen und offene Punkte einzeln benennen. Der Block endet mit save und lässt sich kopieren, als Datei sichern oder über Web Serial schreiben. PID, Filter und Motoren bleiben außen vor.",
+        "en": "Builds a CLI file for Betaflight from parts: features, beeper, modes, OSD, alarms, rates, adjustments and failsafe. Each block can be switched off at its section header and still stays in the preset. Take a copter from the hangar, check the entries and have open points named one by one. The block ends with save and can be copied, saved as a file or written over Web Serial. PID, filters and motors stay out.",
+        "es": "Construye un archivo CLI para Betaflight por partes: funciones, beeper, modos, OSD, alarmas, rates, ajustes y failsafe. Cada bloque se puede apagar en la cabecera de su sección y sigue guardado en el preset. Toma un copter del hangar, revisa las entradas y deja que los puntos abiertos se nombren uno a uno. El bloque termina en save y se puede copiar, guardar como archivo o escribir por Web Serial. PID, filtros y motores quedan fuera."
       },
       "highlights": {
         "de": [
@@ -235,17 +235,17 @@ window.FLOWSTATE_DATA = {
       },
       "meta": {
         "de": [
-          "1 Datei · 223 KB",
+          "1 Datei · 234 KB",
           "Schalter, Beeper, OSD, Raten",
           "Web Serial in Chrome, Edge, Opera"
         ],
         "en": [
-          "1 file · 223 KB",
+          "1 file · 234 KB",
           "switches, beeper, OSD, rates",
           "Web Serial in Chrome, Edge, Opera"
         ],
         "es": [
-          "1 archivo · 223 KB",
+          "1 archivo · 234 KB",
           "interruptores, beeper, OSD, rates",
           "Web Serial en Chrome, Edge, Opera"
         ]
@@ -266,50 +266,50 @@ window.FLOWSTATE_DATA = {
         "es": "Fuentes y logo de arranque para el OSD de Betaflight"
       },
       "description": {
-        "de": "Werkbank für MAX7456-Zeichensätze: über 300 Fonts durchsuchen, Zeichen Pixel für Pixel ändern, Bereiche aus verschiedenen Fonts mischen und als .mcm ausgeben. Dazu das Startlogo für 288×72 oder 32×32, ein Bild-Umrechner und das OSD-Layout als Raster mit CLI-Ausgabe. Eigene .mcm-Fonts bleiben im Browser. Die Arbeitsfläche bleibt absichtlich hart gepixelt, 12×18 mit zwei Bit.",
-        "en": "Workbench for MAX7456 character sets: search more than 300 fonts, edit glyphs pixel by pixel, mix areas from different fonts and export .mcm. Plus the startup logo at 288×72 or 32×32, an image converter and the OSD layout as a grid with CLI output. Your own .mcm fonts stay in the browser. The canvas stays deliberately hard-pixelled, 12×18 with two bits.",
-        "es": "Banco de trabajo para juegos de caracteres MAX7456: busca entre más de 300 fuentes, edita glifos píxel a píxel, mezcla zonas de distintas fuentes y exporta .mcm. Además el logo de arranque en 288×72 o 32×32, un conversor de imágenes y el diseño OSD como rejilla con salida CLI. El lienzo sigue a propósito con píxeles duros, 12×18 y dos bits. Las fuentes .mcm propias se quedan en el navegador."
+        "de": "Werkbank für MAX7456-Zeichensätze in vier Schritten: Font wählen, Startup und Arming, Zeichen bearbeiten, Export. Über 360 Fonts durchsuchen, Bereiche aus anderen Fonts mischen, eigene Banner über Schwellenwert, Dithering und Kontur anpassen. Dazu Bild-Umrechner, das OSD-Layout als Raster mit CLI und die Auswahl der Betaflight-Seiten 1 bis 4 für ein eigenes Arming-Logo. Eigene .mcm-Fonts bleiben im Browser. Die Arbeitsfläche bleibt hart gepixelt, 12×18 mit zwei Bit.",
+        "en": "Workbench for MAX7456 character sets in four steps: choose font, startup and arming, edit characters, export. Search more than 360 fonts, mix areas from other fonts, adjust your own banners by threshold, dithering and outline. Plus an image converter, the OSD layout as a grid with CLI, and the choice of Betaflight pages 1 to 4 for your own arming logo. Your own .mcm fonts stay in the browser. The canvas stays hard-pixelled, 12×18 with two bits.",
+        "es": "Banco de trabajo para juegos de caracteres MAX7456 en cuatro pasos: elegir fuente, inicio y arming, editar caracteres, exportar. Busca entre más de 360 fuentes, mezcla zonas de otras fuentes y ajusta tus propios banners con umbral, dithering y contorno. Además conversor de imágenes, el diseño OSD como rejilla con CLI y la elección de las páginas 1 a 4 de Betaflight para un logo de arming propio. Tus fuentes .mcm se quedan en el navegador. El lienzo sigue con píxeles duros, 12×18 y dos bits."
       },
       "highlights": {
         "de": [
-          "Über 300 Fonts durchsuchen, nach Gruppe filtern, eigene .mcm einlesen",
-          "Pack bauen: Basis-Font, einzelne Bereiche aus anderen Fonts, Startlogo",
-          "Startlogo zeichnen oder ein Bild umrechnen, als BMP und im Font",
-          "OSD-Layout als Raster mit Ziehen, Rasterfang und CLI-Ausgabe",
+          "Über 360 Fonts durchsuchen, nach Gruppe filtern, eigene .mcm einlesen",
+          "Basis-Font, Bereiche aus anderen Fonts und Startlogo zu einem Pack",
+          "Startup- und Arming-Logo getrennt, Kontur oder Fläche, mit Live-CLI",
+          "Bild umrechnen, Betaflight-Seiten 1 bis 4, INAV und WTFOS-PNG",
           "Deutsch, Englisch und Spanisch, Ozean, Sand und Drakn",
           "Eine HTML-Datei, keine fremden Ressourcen"
         ],
         "en": [
-          "Search more than 300 fonts, filter by group, load your own .mcm",
-          "Build a pack: base font, single areas from other fonts, startup logo",
-          "Draw the startup logo or convert an image, as BMP and inside the font",
-          "OSD layout as a grid with dragging, snapping and CLI output",
+          "Search more than 360 fonts, filter by group, load your own .mcm",
+          "Base font, areas from other fonts and startup logo as one pack",
+          "Startup and arming logo apart, outline or fill, with live CLI",
+          "Convert an image, Betaflight pages 1 to 4, INAV and WTFOS PNG",
           "German, English and Spanish, Ocean, Sand and Drakn",
           "One HTML file, no external resources"
         ],
         "es": [
-          "Busca entre más de 300 fuentes, filtra por grupo, carga tu propio .mcm",
-          "Arma un paquete: fuente base, zonas de otras fuentes, logo de arranque",
-          "Dibuja el logo o convierte una imagen, como BMP y dentro de la fuente",
-          "Diseño OSD como rejilla con arrastre, ajuste y salida CLI",
+          "Busca entre más de 360 fuentes, filtra por grupo, carga tu propio .mcm",
+          "Fuente base, zonas de otras fuentes y logo de arranque en un paquete",
+          "Logo de inicio y de arming por separado, contorno o relleno, con CLI en vivo",
+          "Convierte una imagen, páginas 1 a 4 de Betaflight, INAV y PNG de WTFOS",
           "Alemán, inglés y español, Ocean, Sand y Drakn",
           "Un solo archivo HTML, sin recursos externos"
         ]
       },
       "meta": {
         "de": [
-          "1 Datei · 4,3 MB",
-          "Fonts, Logo, OSD-Raster",
+          "1 Datei · 4,6 MB",
+          "Fonts, Start- und Arming-Logo, OSD-Raster",
           "jeder moderne Browser"
         ],
         "en": [
-          "1 file · 4,3 MB",
-          "fonts, logo, OSD grid",
+          "1 file · 4,6 MB",
+          "fonts, startup and arming logo, OSD grid",
           "any modern browser"
         ],
         "es": [
-          "1 archivo · 4,3 MB",
-          "fuentes, logo, rejilla OSD",
+          "1 archivo · 4,6 MB",
+          "fuentes, logo de arranque y arming, rejilla OSD",
           "cualquier navegador actual"
         ]
       },
@@ -465,26 +465,26 @@ window.FLOWSTATE_DATA = {
       ]
     },
     {
-      "id": "presets-0.2.0-beta.5",
+      "id": "presets-0.2.0-beta.7",
       "program": "presets",
-      "version": "v0.2.0-beta.5",
+      "version": "v0.2.0-beta.7",
       "channel": "beta",
       "released": "2026-11-20",
       "title": {
-        "de": "Schrift und Hinweise aufgeräumt",
-        "en": "Fonts and hints tidied up",
-        "es": "Fuentes y avisos ordenados"
+        "de": "Blöcke einzeln schalten, OSD-Alarme am Platz",
+        "en": "Blocks on switches, OSD alarms in place",
+        "es": "Bloques por separado, alarmas OSD en su sitio"
       },
       "summary": {
-        "de": "Der Preset-Bauer nutzt dieselben zwei Schriftstapel wie die übrigen Werkzeuge, die Hinweise bleiben im Ton sachlich. Am CLI-Ausgang und an den Daten ändert sich nichts.",
-        "en": "The preset builder uses the same two font stacks as the other tools, and the hints stay matter-of-fact. Nothing changes in the CLI output or the data.",
-        "es": "El generador de presets usa las mismas dos pilas de fuentes que las demás herramientas y los avisos mantienen un tono sobrio. La salida CLI y los datos no cambian."
+        "de": "Jeder Block lässt sich am Abschnittskopf an- und abschalten, ausgeschaltete Blöcke bleiben im Preset und fallen nur aus der CLI. Neu sind der Abschnitt Weitere Features mit den zusätzlichen Einstellungen und die OSD-Alarme mit Kapazitäts- und Höhenalarm. Spezielle Anzeigen stehen eingeklappt darunter, mit ihrem Standardformat. Der Copter-Bezug zum Hangar bleibt.",
+        "en": "Every block can be switched at its section header; a block that is off stays in the preset and only drops out of the CLI. New are the Other features section with the additional settings and the OSD alarms with capacity and altitude. Special displays sit collapsed below, with their default format. The hangar link stays.",
+        "es": "Cada bloque se puede activar en la cabecera de su sección; un bloque apagado sigue en el preset y solo sale de la CLI. Nuevas son la sección Otras funciones con los ajustes adicionales y las alarmas OSD con capacidad y altitud. Las indicaciones especiales van plegadas debajo, con su formato por defecto. El enlace con el hangar se mantiene."
       },
       "file": "presets/index.html",
-      "size_bytes": 223188,
-      "sha256": "ff3e0229f15f636e726a6bf596cd45482dd1df6021d7545bf36da8ce6d7c675e",
+      "size_bytes": 233778,
+      "sha256": "a9061a066d33f6c94794cd951d9dac513c2d4b67188411628b00b260f4e40035",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.5",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.7",
       "signals": [
         {
           "label": {
@@ -513,26 +513,26 @@ window.FLOWSTATE_DATA = {
       ]
     },
     {
-      "id": "osd-0.1.0-beta.6",
+      "id": "osd-0.1.0-beta.7",
       "program": "osd",
-      "version": "v0.1.0-beta.6",
+      "version": "v0.1.0-beta.7",
       "channel": "beta",
       "released": "2026-11-20",
       "title": {
-        "de": "Eine Schriftangabe für die Oberfläche",
-        "en": "One font definition for the interface",
-        "es": "Una definición de fuente para la interfaz"
+        "de": "Startup und Arming, Kontur statt Fläche",
+        "en": "Startup and arming, outline instead of fill",
+        "es": "Inicio y arming, contorno en vez de relleno"
       },
       "summary": {
-        "de": "Die Oberfläche des OSD-Editors holt ihre Schriften jetzt aus einer Variablen, die auf denselben Stapel zeigt wie die übrigen Werkzeuge. Fonts, Logo und Raster bleiben, wie sie waren.",
-        "en": "The OSD editor interface now takes its fonts from a single variable that points at the same stack as the other tools. Fonts, logo and grid stay as they were.",
-        "es": "La interfaz del editor OSD toma ahora sus fuentes de una variable que apunta a la misma pila que las otras herramientas. Las fuentes, el logo y la rejilla siguen igual."
+        "de": "Der Ablauf steht in vier Schritten: Font wählen, Startup und Arming, Font bearbeiten, Export und CLI. Startup- und Arming-Logo liegen nebeneinander, eigene Banner lassen sich über Schwellenwert, Dithering und einen Konturmodus anpassen. Dazu die Auswahl der Betaflight-Seiten 1 bis 4 mit passender CLI, INAV- und WTFOS-Ausgabe. Importierte Fonts liegen jetzt in IndexedDB statt im kleinen Speicher.",
+        "en": "The workflow has four steps: choose font, startup and arming, edit font, export and CLI. Startup and arming logos sit side by side, and your own banners can be adjusted by threshold, dithering and an outline mode. Plus the choice of Betaflight pages 1 to 4 with matching CLI, INAV and WTFOS output. Imported fonts now live in IndexedDB instead of the small store.",
+        "es": "El flujo tiene cuatro pasos: elegir fuente, inicio y arming, editar fuente, exportar y CLI. Los logos de inicio y arming van uno al lado del otro, y tus propios banners se ajustan con umbral, dithering y un modo de contorno. Además la elección de las páginas 1 a 4 de Betaflight con su CLI, salida INAV y WTFOS. Las fuentes importadas ahora viven en IndexedDB."
       },
       "file": "osd/index.html",
-      "size_bytes": 4273720,
-      "sha256": "2d435e2870a90819306c9820b7deed7bc65476c7a7ea2b774a87ef2bede05341",
+      "size_bytes": 4551744,
+      "sha256": "f5380a8fec95527820e818b2fac791573e0b52c7aad8b61a5c490cbbe27ee5f0",
       "available": true,
-      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.6",
+      "release_url": "https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.7",
       "signals": [
         {
           "label": {
@@ -564,7 +564,7 @@ window.FLOWSTATE_DATA = {
   "platform": {
     "id": "flowstate-fpv",
     "name": "FlowState FPV",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "released": "2026-11-20"
   }
 };

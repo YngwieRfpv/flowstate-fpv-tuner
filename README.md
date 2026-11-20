@@ -52,7 +52,7 @@ braucht es nicht. Quellen und Lizenzangaben bleiben im Dokument stehen.
 
 ## [Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)
 
-[`presets/index.html`](presets/index.html) · 223 KB · Schalter, Beeper, OSD, Raten und Anpassungen als CLI
+[`presets/index.html`](presets/index.html) · 234 KB · Schalter, Beeper, OSD, Raten und Anpassungen als CLI
 
 Sammelt die Bereiche, die man gefahrlos weitergeben kann: Schalterbelegung, Beeper,
 OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit `save`.
@@ -66,7 +66,7 @@ OSD-Profile, Anpassungen und Raten. Am Ende steht ein CLI-Block mit `save`.
 
 ## [OSD](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)
 
-[`osd/index.html`](osd/index.html) · 4,3 MB · Fonts, Startlogo und Layout für das Betaflight-OSD
+[`osd/index.html`](osd/index.html) · 4,6 MB · Fonts, Startlogo und Layout für das Betaflight-OSD
 
 Werkbank für die MAX7456-Zeichensätze des Flight Controllers. Die Arbeitsfläche bleibt
 absichtlich hart gepixelt: 12×18 mit zwei Bit, damit die Fonts so aussehen wie im OSD.
@@ -154,20 +154,20 @@ entscheidet die Browsersprache, sonst Deutsch. Fehlt ein einzelner Text in einer
 
 Getrennte Reihen je Programm, jede mit eigenem Release.
 
-| | [Hangar](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.4) | [Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.8) | [Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.22-es) | [Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.5) | [OSD](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.6) |
+| | [Hangar](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.0-beta.4) | [Tuner](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v4.8-alpha.8) | [Guide](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/v1.0.2-beta.22-es) | [Presets](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/presets-v0.2.0-beta.7) | [OSD](https://github.com/YngwieRfpv/flowstate-fpv-tuner/releases/tag/osd-v0.1.0-beta.7) |
 |---|---|---|---|---|---|
-| Version | `v1.0.0-beta.4` | `v4.8-alpha.8` | `v1.0.2-beta.22-es` | `v0.2.0-beta.5` | `v0.1.0-beta.6` |
+| Version | `v1.0.0-beta.4` | `v4.8-alpha.8` | `v1.0.2-beta.22-es` | `v0.2.0-beta.7` | `v0.1.0-beta.7` |
 | Kanal | Beta | Alpha | Beta | Beta | Beta |
 | Datum | 20.11.2026 | 20.11.2026 | 20.11.2026 | 20.11.2026 | 20.11.2026 |
-| Größe (Bytes) | 145.864 | 501.695 | 7.700.364 | 223.188 | 4.273.720 |
-| SHA-256 | `378b4c32901f9459c55000bc130174ec40a21e843378e76bc95821697295affb` | `898e8d39cd31ffcf615c761c769932ee076ee6ddd6b829f0c8b1fb929cd98fbc` | `a9052b9bd280b919cdc1d7abe64d698a69dc4ddbaad8705c6ee731a924b1278a` | `ff3e0229f15f636e726a6bf596cd45482dd1df6021d7545bf36da8ce6d7c675e` | `2d435e2870a90819306c9820b7deed7bc65476c7a7ea2b774a87ef2bede05341` |
+| Größe (Bytes) | 145.864 | 501.695 | 7.700.364 | 233.778 | 4.551.744 |
+| SHA-256 | `378b4c32901f9459c55000bc130174ec40a21e843378e76bc95821697295affb` | `898e8d39cd31ffcf615c761c769932ee076ee6ddd6b829f0c8b1fb929cd98fbc` | `a9052b9bd280b919cdc1d7abe64d698a69dc4ddbaad8705c6ee731a924b1278a` | `a9061a066d33f6c94794cd951d9dac513c2d4b67188411628b00b260f4e40035` | `f5380a8fec95527820e818b2fac791573e0b52c7aad8b61a5c490cbbe27ee5f0` |
 
 Nachrechnen: `sha256sum hangar/index.html`, `sha256sum tuner/index.html`,
 `sha256sum guide/index.html`, `sha256sum presets/index.html`, `sha256sum osd/index.html`,
 jeweils gefolgt vom erwarteten Wert aus der Tabelle.
 
-Presets und OSD führen den Programmnamen im Tag (`presets-v0.2.0-beta.5`,
-`osd-v0.1.0-beta.6`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
+Presets und OSD führen den Programmnamen im Tag (`presets-v0.2.0-beta.7`,
+`osd-v0.1.0-beta.7`), weil `v0.1.0-beta.1` schon von einem früheren Hangar-Stand belegt ist.
 Der Hangar trägt sein Release ohne Vorsatz: `v1.0.0-beta.4`. Die alten Tags bleiben,
 wie sie sind.
 
@@ -208,8 +208,8 @@ in the browser, without an install and without an account, and once loaded it wo
 | **[Hangar](https://yngwierfpv.github.io/flowstate-fpv-tuner/hangar/)** | [`hangar/index.html`](hangar/index.html) | 146 KB | Keep the quad list, read preset files, read the flight controller |
 | **[Tuner](https://yngwierfpv.github.io/flowstate-fpv-tuner/tuner/)** | [`tuner/index.html`](tuner/index.html) | 502 KB | Read logs, derive filter and PID values |
 | **[Guide](https://yngwierfpv.github.io/flowstate-fpv-tuner/guide/)** | [`guide/index.html`](guide/index.html) | 7.7 MB | Look up workflow, filters and terms |
-| **[Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 223 KB | Switches, beeper, OSD, rates and adjustments as CLI |
-| **[OSD](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)** | [`osd/index.html`](osd/index.html) | 4.3 MB | Fonts, startup logo and layout for the Betaflight OSD |
+| **[Presets](https://yngwierfpv.github.io/flowstate-fpv-tuner/presets/)** | [`presets/index.html`](presets/index.html) | 234 KB | Switches, beeper, OSD, rates and adjustments as CLI |
+| **[OSD](https://yngwierfpv.github.io/flowstate-fpv-tuner/osd/)** | [`osd/index.html`](osd/index.html) | 4.6 MB | Fonts, startup logo and layout for the Betaflight OSD |
 
 Hangar and Presets share their data. The preset builder lists the hangar's copters and takes
 name, size and flight controller from one; the id stays on the model so the link is kept. Back
