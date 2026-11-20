@@ -369,6 +369,24 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
 .linkbtn{border:0;background:none;padding:2px;color:var(--dim);font:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .linkbtn:hover{color:var(--bad)}
 .fcstate{font-size:12px;color:var(--muted);margin-top:8px;min-height:1px}
+/* UART-Belegung */
+.uartcard{border:1px solid var(--line);background:var(--panel2);padding:11px 13px;margin-top:10px;
+  border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);display:grid;gap:9px}
+.urow{display:grid;grid-template-columns:64px 1fr auto;gap:8px 12px;align-items:baseline;
+  padding:6px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.urow:last-child{border-bottom:0}
+.urow .un{font-weight:650;color:var(--strong);font-variant-numeric:tabular-nums}
+.urow .uf{min-width:0;color:var(--text);overflow-wrap:anywhere}
+.urow .uf em{font-style:normal;color:var(--muted)}
+.urow .ub{color:var(--dim);font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.urow .up{grid-column:2/-1;color:var(--dim);font-size:11.5px}
+.urow.off .un{color:var(--dim);font-weight:500}
+.urow .flag{display:inline-block;margin-left:6px;padding:0 6px;border-radius:var(--r-sm);
+  font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--line2)}
+.urow .flag.bad{background:transparent;color:var(--bad);border-color:var(--bad)}
+.uarthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
 /* Preset-Dateien aus dem Ordner: Ordner wählen oder Dateien ablegen */
 .pfcard{border:1px solid var(--line2);background:var(--panel2);padding:10px 12px;margin-top:10px;
   border-radius:var(--r-md) var(--r-edge) var(--r-md) var(--r-edge);display:grid;gap:9px;transition:.15s}
@@ -502,8 +520,7 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
   <footer class="foot">
     <span data-i18n="foot1">Alles bleibt in diesem Browser. Kein Server, kein Konto.</span><br>
     <span data-i18n="foot2">Für Backup oder Umzug HTML-Backup oder Export nutzen.</span><br>
-    <span class="ver">Hangar · v1.0.0-beta.4</span>
-  </footer>
+    <span class="ver">Hangar · v1.0.0-beta.5</span>  </footer>
 </div>
 
 <dialog id="trDlg">
@@ -620,6 +637,14 @@ dialog .chk input{width:auto;flex:none;accent-color:var(--accent)}
                 <button class="btn sm ghost danger" type="button" id="btnBfDrop" data-i18n="bfRemove">Entfernen</button>
               </div>
               <p class="hint" data-i18n="bfDropHint">Bleibt im Modell – kein Download nötig. Datei hierher ziehen oder über „Datei ablegen“ wählen.</p>
+            </div>
+            <div class="uartcard" id="uartCard">
+              <div class="uarthead">
+                <p class="pfline" id="uartHave" role="status" aria-live="polite"></p>
+                <button class="btn sm ghost" type="button" id="btnUartNote" data-i18n="uaNote">Belegung als Kommentar</button>
+              </div>
+              <div id="uartList"></div>
+              <p class="hint" data-i18n="uaHint" style="margin:0">Gelesen aus serial und resource. Keine resource-Zeile heißt: Standard-Pins des Targets.</p>
             </div>
             <div class="pfcard" id="pfCard">
               <p class="pfline" id="pfHave" role="status" aria-live="polite"></p>
@@ -873,6 +898,10 @@ var BF_I18N = {
     pfNoFs:"Dieser Browser darf keinen Ordner öffnen. Dateien einzeln wählen oder hierher ziehen.",
     pfHint:"Preset-Dateien aus dem Ordner lesen. Gleiche Endung, keine Verbindung nötig. Jede Zeile kommt so in den Diff, wie sie in der Datei steht, doppelte Zeilen fallen weg.",
     pfDrag:"Preset-Dateien hierher ziehen",
+    uaHead:"UART-Belegung", uaCount:function(n){ return n + (n === 1 ? " belegter Port" : " belegte Ports"); },
+    uaMovedN:function(n){ return n + " umgelegt"; }, uaMoved:"umgelegt", uaFree:"frei", uaNone:"belegt",
+    uaAuto:"auto", uaTele:"Tele", uaNote:"Belegung als Kommentar", uaNoteDone:"Kommentar in der Zwischenablage",
+    uaHint:"Gelesen aus serial und resource. Keine resource-Zeile heißt: Standard-Pins des Targets.",
     pfLines:function(n){ return n + " Zeilen"; }, pfAlreadyThere:"Steht schon im Diff",
     bfPick:"Datei ablegen (.txt)", bfRemove:"Entfernen",
     bfDropHint:"Bleibt im Modell – kein Download nötig. Datei hierher ziehen oder über „Datei ablegen“ wählen.",
@@ -898,6 +927,10 @@ var BF_I18N = {
     pfNoFs:"This browser cannot open a folder. Pick files one by one or drop them here.",
     pfHint:"Read preset files from a folder. Same file extension, no connection needed. Every line goes into the diff exactly as written; duplicate lines are skipped.",
     pfDrag:"Drop preset files here",
+    uaHead:"UART assignment", uaCount:function(n){ return n + (n === 1 ? " port in use" : " ports in use"); },
+    uaMovedN:function(n){ return n + " re-pinned"; }, uaMoved:"re-pinned", uaFree:"free", uaNone:"in use",
+    uaAuto:"auto", uaTele:"tele", uaNote:"Assignment as comment", uaNoteDone:"Comment copied",
+    uaHint:"Read from serial and resource. No resource line means: stock pins for this target.",
     pfLines:function(n){ return n + (n === 1 ? " line" : " lines"); }, pfAlreadyThere:"Already in the diff",
     bfPick:"Store file (.txt)", bfRemove:"Remove",
     bfDropHint:"Stays in the model – no download needed. Drag the file here or use “Store file”.",
@@ -923,6 +956,10 @@ var BF_I18N = {
     pfNoFs:"Este navegador no puede abrir una carpeta. Elige los archivos uno a uno o arrástralos aquí.",
     pfHint:"Leer presets desde una carpeta. Misma extensión, sin conexión. Cada línea entra en el diff tal como está escrita; las líneas repetidas se omiten.",
     pfDrag:"Arrastra los presets aquí",
+    uaHead:"Asignación UART", uaCount:function(n){ return n + (n === 1 ? " puerto en uso" : " puertos en uso"); },
+    uaMovedN:function(n){ return n + (n === 1 ? " reasignado" : " reasignados"); }, uaMoved:"reasignado", uaFree:"libre", uaNone:"en uso",
+    uaAuto:"auto", uaTele:"tele", uaNote:"Asignación como comentario", uaNoteDone:"Comentario copiado",
+    uaHint:"Leído de serial y resource. Sin línea resource significa: pines estándar del target.",
     pfLines:function(n){ return n + (n === 1 ? " línea" : " líneas"); }, pfAlreadyThere:"Ya está en el diff",
     bfPick:"Guardar archivo (.txt)", bfRemove:"Quitar",
     bfDropHint:"Se queda en el modelo – sin descarga. Arrastra el archivo aquí o usa “Guardar archivo”.",
@@ -1676,6 +1713,7 @@ function open(id){
   formBf = c && c.bf ? { target: c.bf.target || "", diff: c.bf.diff || "", savedAt: c.bf.savedAt || 0 } : null;
   $("f_bftarget").value = formBf ? formBf.target : "";
   $("f_bfdiff").value   = formBf ? formBf.diff : "";
+  uartRender();
   $("bfState").textContent = ""; $("bfState").className = "fcstate";
   bfPanel();
   $("fcPasteBox").hidden = true; $("f_cli").value = ""; $("fcState").textContent = "";
@@ -1841,6 +1879,150 @@ function bfDate(ts){
   if(!ts) return "";
   try{ return new Date(ts).toLocaleDateString(locTag()); }catch(e){ return ""; }
 }
+/* ---------- UART-Belegung ----------
+   Zwei Dinge muss man wissen, sonst liest man die Zahlen falsch:
+
+   1) Die erste Zahl in "serial 0 64 115200 57600 0 1" ist ein INDEX in die Liste der
+      Ports dieses Targets - NICHT die UART-Nummer aus "resource". Bei einem Target ohne
+      UART3 ist serial 3 also UART4. Deshalb wird hier nichts geraten: die Liste kommt aus
+      den resource-Zeilen, Index 0 ist VCP.
+   2) "resource" steht in diff all nur, wenn etwas vom Target-Standard abweicht. Genau das
+      ist die Umlegung: keine resource-Zeile = Standard-Pins, resource-Zeile = umgelegt.
+
+   Die zweite Zahl ist eine Bitmaske (io/serial.h): 1 MSP, 2 GPS, 64 Serial-RX,
+   128 Blackbox, 1024 ESC-Telemetrie, 4096 IBUS, 8192 Tramp, 2048 Smartaudio, 131072 VTX-MSP.
+   Baudraten sind Indizes in baudRates[]. */
+var UA_FUNC = [
+  { b:1,      n:["MSP","MSP","MSP"] },
+  { b:2,      n:["GPS","GPS","GPS"] },
+  { b:4,      n:["FrSky Hub","FrSky Hub","FrSky Hub"] },
+  { b:8,      n:["HoTT","HoTT","HoTT"] },
+  { b:16,     n:["LTM","LTM","LTM"] },
+  { b:32,     n:["SmartPort","SmartPort","SmartPort"] },
+  { b:64,     n:["Serial-RX","Serial RX","Serial RX"] },
+  { b:128,    n:["Blackbox","Blackbox","Blackbox"] },
+  { b:512,    n:["MAVLink","MAVLink","MAVLink"] },
+  { b:1024,   n:["ESC-Telemetrie","ESC telemetry","Telemetría ESC"] },
+  { b:2048,   n:["Smartaudio","SmartAudio","SmartAudio"] },
+  { b:4096,   n:["IBUS","IBUS","IBUS"] },
+  { b:8192,   n:["Tramp","Tramp","Tramp"] },
+  { b:16384,  n:["RC-Device","RC device","RC device"] },
+  { b:32768,  n:["Lidar","Lidar","Lidar"] },
+  { b:65536,  n:["FrSky OSD","FrSky OSD","FrSky OSD"] },
+  { b:131072, n:["VTX-MSP","VTX MSP","VTX MSP"] },
+  { b:262144, n:["Gimbal","Gimbal","Gimbal"] }
+];
+var UA_BAUD = [0,9600,19200,38400,57600,115200,230400,250000,400000,460800,500000,921600,
+               1000000,1500000,2000000,2470000];
+
+/* Spalte je Sprache - die App haelt ihre Texte sonst als Schluessel in I18N[lang]. */
+function uaL(arr){
+  var i = prefs.lang === "en" ? 1 : (prefs.lang === "es" ? 2 : 0);
+  return arr[i] || arr[0];
+}
+function uaFuncNames(mask){
+  var out = [];
+  UA_FUNC.forEach(function(f){ if(mask & f.b) out.push(uaL(f.n)); });
+  return out;
+}
+function uaBaud(i){
+  var n = UA_BAUD[Number(i)];
+  return n ? String(n) : T("uaAuto");
+}
+/* Welche UART gehört zu welchem serial-Index? Reihenfolge: VCP, dann aufsteigend
+   UART1..UARTn, dann SOFT1/SOFT2 - so wie serialPortIdentifiers[] im Quellcode. */
+function uartPorts(diffText){
+  var res = [], serials = [], i;
+  /* Bewusst nicht bfDiffLines: resource- und serial-Zeilen enthalten immer eine Zahl und
+     "=" nur bei set-Befehlen. Geprüft wird deshalb am Befehl, nicht an der Zeilenform. */
+  String(diffText || "").replace(/\r/g, "").split("\n").forEach(function(l){
+    var m;
+    l = String(l).replace(/\s+$/, "").trim();
+    if(!l || l.charAt(0) === "#") return;
+    m = l.match(/^resource\s+SERIAL_(TX|RX)\s+(\d+)\s+([A-Z]\d+)/i);
+    if(m){ res.push({ kind:m[1].toUpperCase(), uart:Number(m[2]), pin:m[3].toUpperCase() }); return; }
+    m = l.match(/^serial\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/i);
+    if(m){
+      serials.push({ idx:Number(m[1]), mask:Number(m[2]), baud:Number(m[3]),
+                     gps:Number(m[4]), tele:Number(m[5]), inv:Number(m[6]) });
+    }
+  });
+  /* Nummerierung: VCP ist Index 0, danach zaehlen die UARTs durch (1..n). Das ist die
+     Reihenfolge in serialPortIdentifiers[] und trifft die Targets zu, deren UARTs
+     lueckenlos vergeben sind - der Normalfall. Die resource-Zeilen sagen NICHT, welche
+     UART-Nummer existiert, sondern nur, welche Pins verschoben wurden; sie liefern hier
+     deshalb die Pin-Namen und die Marke "umgelegt", nicht die Reihenfolge. */
+  var highest = 0;
+  res.forEach(function(r){ if(r.uart > highest) highest = r.uart; });
+  var maxIdx = 0;
+  serials.forEach(function(x){ if(x.idx > maxIdx) maxIdx = x.idx; });
+  var count = Math.max(highest, maxIdx, 5);
+  var ports = [{ name:"VCP", vcp:true, idx:0, num:0 }];
+  for(i = 1; i <= count; i++){
+    ports.push({ name:"UART" + i, num:i, vcp:false, idx:i });
+  }
+  ports.forEach(function(p){
+    p.serial = null;
+    serials.forEach(function(x){ if(x.idx === p.idx) p.serial = x; });
+    p.tx = p.rx = null;
+    p.moved = false;
+    if(!p.vcp){
+      res.forEach(function(r){
+        if(r.uart !== p.num) return;
+        if(r.kind === "TX") p.tx = r.pin; else p.rx = r.pin;
+      });
+      p.moved = !!(p.tx || p.rx);
+    }
+  });
+  return ports;
+}
+function uartRender(){
+  var box = $("uartList"), have = $("uartHave");
+  var diff = $("f_bfdiff").value;
+  var ports = uartPorts(diff);
+  var used = 0, moved = 0;
+  var rows = ports.map(function(p){
+    var s = p.serial, on = s && s.mask > 0;
+    if(on) used++;
+    if(p.moved) moved++;
+    var funcs = on ? uaFuncNames(s.mask) : [];
+    var bits = [];
+    if(s && s.baud) bits.push(uaBaud(s.baud));
+    if(s && s.tele) bits.push(T("uaTele") + " " + uaBaud(s.tele));
+    var pins = [];
+    if(p.tx) pins.push("TX " + p.tx);
+    if(p.rx) pins.push("RX " + p.rx);
+    return '<div class="urow' + (on ? "" : " off") + '">' +
+      '<span class="un">' + esc(p.name) + '</span>' +
+      '<span class="uf">' + (on ? esc(funcs.length ? funcs.join(" · ") : T("uaNone")) :
+        '<em>' + esc(T("uaFree")) + '</em>') +
+        (p.moved ? ' <span class="flag">' + esc(T("uaMoved")) + '</span>' : "") + '</span>' +
+      '<span class="ub">' + esc(bits.join(" · ")) + '</span>' +
+      (pins.length ? '<span class="up">' + esc(pins.join(" · ")) + '</span>' :
+        (p.moved ? '' : '')) +
+    '</div>';
+  }).join("");
+  box.innerHTML = rows;
+  var msg = T("uaCount")(used) + (moved ? " · " + T("uaMovedN")(moved) : "");
+  have.textContent = msg;
+  have.className = "pfline" + (used ? " ok" : "");
+  $("btnUartNote").disabled = !used;
+}
+/* Die Belegung als Kommentarblock - für Notizen und zum Weitergeben. */
+function uartNote(){
+  var ports = uartPorts($("f_bfdiff").value), out = [];
+  ports.forEach(function(p){
+    var s = p.serial, on = s && s.mask > 0;
+    if(!on && !p.moved) return;
+    var bits = [];
+    bits.push(on && s.mask ? uaFuncNames(s.mask).join("+") : T("uaFree"));
+    if(s && s.baud) bits.push(uaBaud(s.baud));
+    if(p.tx || p.rx) bits.push((p.tx ? "TX " + p.tx : "") + (p.tx && p.rx ? " " : "") + (p.rx ? "RX " + p.rx : ""));
+    out.push("# " + p.name + ": " + bits.join(" · "));
+  });
+  return "# " + T("uaHead") + "\n" + out.join("\n");
+}
+
 /* ---------- Preset-Dateien aus dem Ordner ----------
    Eine Preset-Datei ist ein CLI-Text. Hier wird sie so gelesen, wie sie geschrieben
    wurde: jede Zeile bleibt, wie sie ist, nichts wird einsortiert, ergaenzt oder
@@ -2402,7 +2584,7 @@ function doImport(file){
   r.readAsText(file);
 }
 
-var VER = "1.0.0-beta.4";
+var VER = "1.0.0-beta.5";
 
 /* =====================================================================
    Bilder im Formular und auf den Kacheln
@@ -2679,6 +2861,8 @@ $("pfCard").addEventListener("drop", function(ev){
   if(ev.dataTransfer && ev.dataTransfer.files) pfTakeFiles(ev.dataTransfer.files);
 });
 pfRender();
+uartRender();
+$("btnUartNote").addEventListener("click", function(){ copyText(uartNote(), T("uaNoteDone")); });
 $("bfFile").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
   bfTakeFile(f);
@@ -2705,7 +2889,7 @@ $("btnBfDrop").addEventListener("click", function(){
   toast(T("bfRemoved"));
 });
 $("f_bftarget").addEventListener("input", function(){ bfPanel(); });
-$("f_bfdiff").addEventListener("input", function(){ bfPanel(); });
+$("f_bfdiff").addEventListener("input", function(){ bfPanel(); uartRender(); });
 
 $("btnNew").addEventListener("click", function(){ open(null); });
 $("btnSave").addEventListener("click", saveForm);
@@ -2718,8 +2902,6 @@ $("btnTrCopyLink").addEventListener("click", function(){
   copyText(url, T("trLinkCopied"));
 });
 $("btnTrMerge").addEventListener("click", trDoMerge);
-
-$("f_bfdiff").addEventListener("input", function(){ bfPanel(); });
 
 /* Exportmenü */
 function closeExpMenu(){
@@ -2827,6 +3009,7 @@ $("langs").addEventListener("click", function(e){
   prefs.lang = lg; savePrefs(true); applyLang(); render();
   if($("dlg").open) $("dlgTitle").textContent = editId ? T("editTitle") : T("newTitle");
   if($("dlg").open) renderFcInfo();
+  if($("dlg").open) uartRender();
 });
 
 /* Eine Schwesterseite (Guide, Tuner, weiteres FlowState-Projekt) hat
@@ -2841,6 +3024,7 @@ window.addEventListener("storage", function(e){
     if(!hit) return;
     prefs.updatedAt = Date.now();
     applyTheme(); applyLang(); render();
+    if($("dlg").open) uartRender();
     return;
   }
   if(e.key !== FS_KEY) return;
@@ -2853,6 +3037,7 @@ window.addEventListener("storage", function(e){
   prefs.updatedAt = sh.updatedAt;
   LS.set(PREFS_KEY, JSON.stringify(prefs));
   applyTheme(); applyLang(); render();
+  if($("dlg").open) uartRender();
 });
 
 /* Beim Start wird nichts in flowstate.prefs geschrieben: sonst ueberschreibt jede
